@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-class Woo_Gateway_Wallet_payment extends WC_Payment_Gateway {
+class dgc_Wallet_Payment_Gateway extends WC_Payment_Gateway {
 
     /**
      * Class constructor

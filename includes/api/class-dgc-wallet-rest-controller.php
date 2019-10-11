@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-class WOO_Wallet_REST_Controller extends WP_REST_Controller {
+class dgc_Wallet_REST_Controller extends WP_REST_Controller {
 
     /**
      * Endpoint namespace.

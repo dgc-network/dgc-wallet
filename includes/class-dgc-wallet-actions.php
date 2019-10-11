@@ -9,25 +9,25 @@ if (!defined('ABSPATH')) {
  *
  * @author subrata
  */
-class WOO_Wallet_Actions {
+class dgc_Wallet_Actions {
 
     /** @var array Array of action classes. */
     public $actions;
 
     /**
-     * @var WOO_Wallet_Actions The single instance of the class
+     * @var dgc_Wallet_Actions The single instance of the class
      * @since 1.0.0
      */
     protected static $_instance = null;
 
     /**
-     * Main WOO_Wallet_Actions Instance.
+     * Main dgc_Wallet_Actions Instance.
      *
-     * Ensures only one instance of WOO_Wallet_Actions is loaded or can be loaded.
+     * Ensures only one instance of dgc_Wallet_Actions is loaded or can be loaded.
      *
      * @since 1.0.0
      * @static
-     * @return WOO_Wallet_Actions Main instance
+     * @return dgc_Wallet_Actions Main instance
      */
     public static function instance() {
         if (is_null(self::$_instance)) {
@@ -89,4 +89,4 @@ class WOO_Wallet_Actions {
 
 }
 
-WOO_Wallet_Actions::instance();
+dgc_Wallet_Actions::instance();

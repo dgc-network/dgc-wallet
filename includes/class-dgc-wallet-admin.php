@@ -71,12 +71,12 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             add_filter( 'manage_users_custom_column', array( $this, 'manage_users_custom_column' ), 10, 3);
             add_filter( 'set-screen-option', array( $this, 'set_wallet_screen_options' ), 10, 3);
             add_filter( 'woocommerce_screen_ids', array( $this, 'woocommerce_screen_ids_callback' ) );
-            add_action('woocommerce_after_order_fee_item_name', array($this, 'woocommerce_after_order_fee_item_name_callback'), 10, 2);
-            add_action('woocommerce_new_order', array($this, 'woocommerce_new_order'));
+            add_action( 'woocommerce_after_order_fee_item_name', array($this, 'woocommerce_after_order_fee_item_name_callback'), 10, 2);
+            add_action( 'woocommerce_new_order', array($this, 'woocommerce_new_order'));
             add_filter( 'woocommerce_order_actions', array( $this, 'woocommerce_order_actions' ));
             add_action( 'woocommerce_order_action_recalculate_order_cashback', array( $this, 'recalculate_order_cashback'));
             
-            add_action( 'admin_notices', array( $this, 'show_promotions' ) );
+            //add_action( 'admin_notices', array( $this, 'show_promotions' ) );
         }
 
         /**
@@ -107,7 +107,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          */
         public function plugin_actions_page() {
             $screen = get_current_screen();
-            $wallet_actions = new WOO_Wallet_Actions();
+            $wallet_actions = new dgc_Wallet_Actions();
             if ( in_array($screen->id, array('dgcwallet_page_dgc-wallet-actions', 'terawallet_page_dgc-wallet-actions')) && isset( $_GET['action'] ) && isset( $wallet_actions->actions[$_GET['action']] ) ) {
                 $this->display_action_settings();
             } else {
@@ -118,7 +118,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * Plugin action setting init
          */
         public function display_action_settings() {
-            $wallet_actions = WOO_Wallet_Actions::instance();
+            $wallet_actions = dgc_Wallet_Actions::instance();
             ?>
             <div class="wrap woocommerce">
                 <form method="post">
@@ -135,7 +135,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * Plugin action setting table
          */
         public function display_actions_table() {
-            $wallet_actions = WOO_Wallet_Actions::instance();
+            $wallet_actions = dgc_Wallet_Actions::instance();
             echo '<div class="wrap">';
             echo '<h2>' . __( 'Wallet actions', 'dgc-wallet' ) . '</h2>';
             settings_errors();

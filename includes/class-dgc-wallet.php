@@ -211,7 +211,7 @@ final class dgc_Wallet {
      */
     public function rest_api_init() {
         include_once( DGC_WALLET_ABSPATH . 'includes/api/class-dgc-wallet-rest-controller.php' );
-        $rest_controller = new WOO_Wallet_REST_Controller();
+        $rest_controller = new dgc_Wallet_REST_Controller();
         $rest_controller->register_routes();
     }
     /**
@@ -245,7 +245,7 @@ final class dgc_Wallet {
      * @return array
      */
     public function load_gateway( $load_gateways) {
-        $load_gateways[] = 'Woo_Gateway_Wallet_payment';
+        $load_gateways[] = 'dgc_Wallet_Payment_Gateway';
         return $load_gateways;
     }
 
