@@ -10,21 +10,21 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @author 	Subrata Mal
+ * @author 	dgc.network
  * @version     1.0.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 $currency  = get_woocommerce_currency_symbol();
-$remaining = woo_wallet()->wallet->get_wallet_balance( $user->ID, 'edit' );
+$remaining = dgc_wallet()->wallet->get_wallet_balance( $user->ID, 'edit' );
 echo "= " . $email_heading . " =\n\n";
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 if ( $type == 'credit' ) { 
-    echo __( 'Thank you for using your wallet.', 'woo-wallet' )." {$currency} {$amount} ". __( 'has been credited to your wallet.', 'woo-wallet' ). " " . __( 'Current wallet balance is', 'woo-wallet' )." {$currency} {$remaining}";
+    echo __( 'Thank you for using your wallet.', 'dgc-wallet' )." {$currency} {$amount} ". __( 'has been credited to your wallet.', 'dgc-wallet' ). " " . __( 'Current wallet balance is', 'dgc-wallet' )." {$currency} {$remaining}";
 }
 if ( $type == 'debit' ) {
-    echo __( 'Thank you for using your wallet.', 'woo-wallet' )." {$currency} {$amount} ". __( 'has been debited from your wallet.', 'woo-wallet' ). " " . __( 'Current wallet balance is', 'woo-wallet' )." {$currency} {$remaining}";
+    echo __( 'Thank you for using your wallet.', 'dgc-wallet' )." {$currency} {$amount} ". __( 'has been debited from your wallet.', 'dgc-wallet' ). " " . __( 'Current wallet balance is', 'dgc-wallet' )." {$currency} {$remaining}";
 }
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );

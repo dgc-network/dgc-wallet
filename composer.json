@@ -1,24 +1,24 @@
 {
-    "name": "malsubrata/woo-wallet",
+    "name": "dgc-network/dgc-wallet",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
-    "description": "A powerful, extendable WooCommerce wallet system which support payment, partial payment, cashback reward program as well as refund for your WooCommerce store.",
-    "homepage": "https://woowallet.in/",
+    "description": "A powerful, extendable dgc Wallet for WooCommerce system which support payment, partial payment, cashback reward program as well as refund for your WooCommerce store.",
+    "homepage": "https://dgc.network/",
     "authors": [
         {
-            "name": "Subrata Mal",
-            "email": "m.subrata1991@gmail.com",
-            "homepage": "https://github.com/malsubrata"
+            "name": "dgc.network",
+            "email": "admin@dgc.network",
+            "homepage": "https://github.com/dgc-network"
         }
     ],
     "keywords": [
         "wordpress",
-        "woocommerce-wallet",
+        "dgc-wallet-for-woocommerce",
         "wallet",
         "wordpress-plugin"
     ],
     "support": {
-        "issues": "https://github.com/malsubrata/woo-wallet/issues"
+        "issues": "https://github.com/dgc-network/dgc-wallet/issues"
     },
     "require": {
         "php": ">=5.6",

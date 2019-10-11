@@ -135,14 +135,14 @@ module.exports = function (grunt) {
                 type: 'wp-plugin',
                 domainPath: 'languages',
                 potHeaders: {
-                    'report-msgid-bugs-to': 'https://github.com/malsubrata/woo-wallet/issues',
-                    'language-team': 'WooWallet <admin@woowallet.in>',
-                    'last-translator': 'Subrata Mal<m.subrata1991@gmail.com>'
+                    'report-msgid-bugs-to': 'https://github.com/dgc-network/dgc-wallet/issues',
+                    'language-team': 'dgc_Wallet <admin@dgc.network>',
+                    'last-translator': 'dgc.network<admin@dgc.network>'
                 }
             },
             dist: {
                 options: {
-                    potFilename: 'woo-wallet.pot',
+                    potFilename: 'dgc-wallet.pot',
                     exclude: [
                         'tmp/.*'
                     ]
@@ -153,7 +153,7 @@ module.exports = function (grunt) {
         // Check textdomain errors.
         checktextdomain: {
             options: {
-                text_domain: 'woo-wallet',
+                text_domain: 'dgc-wallet',
                 keywords: [
                     '__:1,2d',
                     '_e:1,2d',

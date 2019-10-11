@@ -1,4 +1,4 @@
-/* global woo_wallet_admin_settings_param */
+/* global dgc_wallet_admin_settings_param */
 
 jQuery(function ($) {
     var settings = {
@@ -116,12 +116,12 @@ jQuery(function ($) {
             $('#wcwp-_wallet_settings_credit-is_enable_gateway_charge').on('change', function () {
                 if ($(this).is(':checked')) {
                     $('.gateway_charge_type').show();
-                    $.each(woo_wallet_admin_settings_param.gateways, function (index, value) {
+                    $.each(dgc_wallet_admin_settings_param.gateways, function (index, value) {
                         $('#_wallet_settings_credit .' + value).show();
                     });
                 } else {
                     $('.gateway_charge_type').hide();
-                    $.each(woo_wallet_admin_settings_param.gateways, function (index, value) {
+                    $.each(dgc_wallet_admin_settings_param.gateways, function (index, value) {
                         $('#_wallet_settings_credit .' + value).hide();
                     });
                 }
@@ -157,7 +157,7 @@ jQuery(function ($) {
         }
     };
     settings.init();
-    if (woo_wallet_admin_settings_param.screen_id === 'woowallet_page_woo-wallet-settings' || woo_wallet_admin_settings_param.screen_id === 'terawallet_page_woo-wallet-settings') {
+    if (dgc_wallet_admin_settings_param.screen_id === 'dgcwallet_page_dgc-wallet-settings' || dgc_wallet_admin_settings_param.screen_id === 'terawallet_page_dgc-wallet-settings') {
         settings.settings_page_init();
     }
 });

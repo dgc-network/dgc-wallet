@@ -1,17 +1,17 @@
 @font-face {
-    font-family: 'woowallet';
-    src:  url('../fonts/woowallet.eot?tewfy0');
-    src:  url('../fonts/woowallet.eot?tewfy0#iefix') format('embedded-opentype'),
-        url('../fonts/woowallet.ttf?tewfy0') format('truetype'),
-        url('../fonts/woowallet.woff?tewfy0') format('woff'),
-        url('../fonts/woowallet.svg?tewfy0#woowallet') format('svg');
+    font-family: 'dgcwallet';
+    src:  url('../fonts/dgcwallet.eot?tewfy0');
+    src:  url('../fonts/dgcwallet.eot?tewfy0#iefix') format('embedded-opentype'),
+        url('../fonts/dgcwallet.ttf?tewfy0') format('truetype'),
+        url('../fonts/dgcwallet.woff?tewfy0') format('woff'),
+        url('../fonts/dgcwallet.svg?tewfy0#dgcwallet') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
-[class^="woo-wallet-icon-"], [class*=" woo-wallet-icon-"] {
+[class^="dgc-wallet-icon-"], [class*=" dgc-wallet-icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'woowallet' !important;
+    font-family: 'dgcwallet' !important;
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -24,11 +24,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.woo-wallet-icon-wallet:before {
+.dgc-wallet-icon-wallet:before {
     content: "\e900";
 }
-#adminmenu #toplevel_page_woo-wallet .menu-icon-generic div.wp-menu-image::before{
-    font-family: 'woowallet' !important;
+#adminmenu #toplevel_page_dgc-wallet .menu-icon-generic div.wp-menu-image::before{
+    font-family: 'dgcwallet' !important;
     content: "\e900";
 }
 

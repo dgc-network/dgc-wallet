@@ -15,7 +15,7 @@ jQuery(function ($) {
                 }
             }
     );
-    $('.woo-wallet-select2').selectWoo({
+    $('.dgc-wallet-select2').selectWoo({
         language: {
             inputTooShort: function () {
                 if (wallet_param.search_by_user_email) {
@@ -41,7 +41,7 @@ jQuery(function ($) {
             quietMillis: 50,
             data: function (term) {
                 return {
-                    action: 'woo-wallet-user-search',
+                    action: 'dgc-wallet-user-search',
                     autocomplete_field: 'ID',
                     term: term.term
                 };

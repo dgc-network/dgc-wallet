@@ -10,7 +10,7 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @author 	Subrata Mal
+ * @author 	dgc.network
  * @version     1.0.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,10 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
 <?php if ( $type == 'credit' ) { ?>
-<p><?php _e( "Thank you for using your wallet.", 'woo-wallet' ); ?> <?php echo wc_price( $amount, woo_wallet_wc_price_args($user->ID) ); ?> <?php _e( 'has been credited to your wallet.', 'woo-wallet' ); ?> <?php _e( 'Current wallet balance is', 'woo-wallet' ); ?> <?php echo woo_wallet()->wallet->get_wallet_balance( $user->ID ); ?></p>
+<p><?php _e( "Thank you for using your wallet.", 'dgc-wallet' ); ?> <?php echo wc_price( $amount, dgc_wallet_wc_price_args($user->ID) ); ?> <?php _e( 'has been credited to your wallet.', 'dgc-wallet' ); ?> <?php _e( 'Current wallet balance is', 'dgc-wallet' ); ?> <?php echo dgc_wallet()->wallet->get_wallet_balance( $user->ID ); ?></p>
 <?php } ?>
 <?php if ( $type == 'debit' ) { ?>
-    <p><?php _e( "Thank you for using your wallet.", 'woo-wallet' ); ?> <?php echo wc_price( $amount, woo_wallet_wc_price_args($user->ID) ); ?> <?php _e( 'has been debited from your wallet.', 'woo-wallet' ); ?> <?php _e( 'Current wallet balance is', 'woo-wallet' ); ?> <?php echo woo_wallet()->wallet->get_wallet_balance( $user->ID ); ?></p>
+    <p><?php _e( "Thank you for using your wallet.", 'dgc-wallet' ); ?> <?php echo wc_price( $amount, dgc_wallet_wc_price_args($user->ID) ); ?> <?php _e( 'has been debited from your wallet.', 'dgc-wallet' ); ?> <?php _e( 'Current wallet balance is', 'dgc-wallet' ); ?> <?php echo dgc_wallet()->wallet->get_wallet_balance( $user->ID ); ?></p>
 <?php } ?>
 <?php
 /**
