@@ -215,7 +215,7 @@ function dgc_API_call($dgc_API_endpoint, $dgc_API_method = 'GET', $dgc_API_args 
     } else {
 		$dgc_API_url = "https://api.scouting.tw/v1";
 	}
-
+return $dgc_API_url . $dgc_API_endpoint;
 	return wp_remote_request(($dgc_API_url . $dgc_API_endpoint),
         array(
             'method'    => $dgc_API_method,
