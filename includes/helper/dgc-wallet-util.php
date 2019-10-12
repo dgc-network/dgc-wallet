@@ -42,12 +42,12 @@ if ( ! function_exists( 'is_wallet_rechargeable_cart' ) ) {
 
 }
 
-if( !function_exists( 'get_dgcwallet_coupon_cashback_amount' ) ){
+if( !function_exists( 'get_dgc_wallet_coupon_cashback_amount' ) ){
     /**
      * Get coupon cash-back amount from cart.
      * @return Number
      */
-    function get_dgcwallet_coupon_cashback_amount(){
+    function get_dgc_wallet_coupon_cashback_amount(){
         $coupon_cashback_amount = 0;
         if ( is_user_logged_in() ) {
             foreach (WC()->cart->get_applied_coupons() as $code) {
@@ -82,17 +82,17 @@ if(!function_exists('get_dgc_wallet_cart_fee_total')){
     }
 }
 
-if ( ! function_exists( 'get_dgcwallet_cart_total' ) ) {
+if ( ! function_exists( 'get_dgc_wallet_cart_total' ) ) {
     /**
      * Get WooCommerce cart total.
      * @return number
      */
-    function get_dgcwallet_cart_total() {
+    function get_dgc_wallet_cart_total() {
         $cart_total = 0;
         if ( !is_admin() && is_array( wc()->cart->cart_contents) && sizeof( wc()->cart->cart_contents) > 0 ) {
-            $cart_total = wc()->cart->get_subtotal( 'edit' ) + wc()->cart->get_taxes_total() + wc()->cart->get_shipping_total( 'edit' ) - wc()->cart->get_discount_total() + get_dgcwallet_coupon_cashback_amount() + get_dgc_wallet_cart_fee_total();
+            $cart_total = wc()->cart->get_subtotal( 'edit' ) + wc()->cart->get_taxes_total() + wc()->cart->get_shipping_total( 'edit' ) - wc()->cart->get_discount_total() + get_dgc_wallet_coupon_cashback_amount() + get_dgc_wallet_cart_fee_total();
         }
-        return apply_filters( 'dgcwallet_cart_total', $cart_total );
+        return apply_filters( 'dgc_wallet_cart_total', $cart_total );
     }
 
 }
@@ -104,7 +104,7 @@ if ( ! function_exists( 'is_enable_wallet_partial_payment' ) ) {
      */
     function is_enable_wallet_partial_payment() {
         $is_enable = false;
-        $cart_total = get_dgcwallet_cart_total();
+        $cart_total = get_dgc_wallet_cart_total();
         if ( ! is_wallet_rechargeable_cart() && is_user_logged_in() && ( ( ! is_null( wc()->session) && wc()->session->get( 'is_wallet_partial_payment', false ) ) || 'on' === dgc_wallet()->settings_api->get_option( 'is_auto_deduct_for_partial_payment', '_wallet_settings_general' ) ) && $cart_total >= apply_filters( 'dgc_wallet_partial_payment_amount', dgc_wallet()->wallet->get_wallet_balance( get_current_user_id(), 'edit' ) ) ) {
             $is_enable = true;
         }
@@ -349,13 +349,13 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
         $query          = apply_filters( 'dgc_wallet_transactions_query', $query );
         $query          = implode( ' ', $query );
         $query_hash     = md5( $user_id . $query );
-        $cached_results = is_array( get_transient( 'dgc_wallet_transaction_resualts' ) ) ? get_transient( 'dgc_wallet_transaction_resualts' ) : array();
+        $cached_results = is_array( get_transient( 'dgc_wallet_transaction_results' ) ) ? get_transient( 'dgc_wallet_transaction_results' ) : array();
 
         if ( $nocache || ! isset( $cached_results[$user_id][$query_hash] ) ) {
             // Enable big selects for reports
             $wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
             $cached_results[$user_id][$query_hash] = $wpdb->get_results( $query );
-            set_transient( 'dgc_wallet_transaction_resualts', $cached_results, DAY_IN_SECONDS );
+            set_transient( 'dgc_wallet_transaction_results', $cached_results, DAY_IN_SECONDS );
         }
 
         $result = $cached_results[$user_id][$query_hash];
@@ -414,14 +414,14 @@ if ( ! function_exists( 'clear_dgc_wallet_cache' ) ) {
      * Clear dgc Wallet for WooCommerce user transient
      */
     function clear_dgc_wallet_cache( $user_id = '' ) {
-        $cached_results = is_array( get_transient( 'dgc_wallet_transaction_resualts' ) ) ? get_transient( 'dgc_wallet_transaction_resualts' ) : array();
+        $cached_results = is_array( get_transient( 'dgc_wallet_transaction_results' ) ) ? get_transient( 'dgc_wallet_transaction_results' ) : array();
         if ( ! $user_id ) {
             $user_id = get_current_user_id();
         }
         if ( isset( $cached_results[$user_id] ) ) {
             unset( $cached_results[$user_id] );
         }
-        set_transient( 'dgc_wallet_transaction_resualts', $cached_results, DAY_IN_SECONDS );
+        set_transient( 'dgc_wallet_transaction_results', $cached_results, DAY_IN_SECONDS );
     }
 
 }
@@ -434,7 +434,7 @@ if ( ! function_exists( 'get_wallet_cashback_amount' ) ) {
      * @return float
      */
     function get_wallet_cashback_amount( $order_id = 0 ) {
-        _deprecated_function('get_wallet_cashback_amount', '1.3.0', 'dgc_wallet()->cashback->calculate_cashback()');
+        _deprecated_function('get_wallet_cashback_amount', '1.0.0', 'dgc_wallet()->cashback->calculate_cashback()');
         if($order_id){
             return dgc_wallet()->cashback->calculate_cashback(false, $order_id);
         }
@@ -452,7 +452,7 @@ if ( ! function_exists( 'is_full_payment_through_wallet' ) ) {
     function is_full_payment_through_wallet() {
         $is_valid_payment_through_wallet = true;
         $current_wallet_balance          = dgc_wallet()->wallet->get_wallet_balance( get_current_user_id(), 'edit' );
-        if ( !is_admin() && ( is_array( wc()->cart->cart_contents) && sizeof( wc()->cart->cart_contents) > 0 ) && ( $current_wallet_balance < get_dgcwallet_cart_total() || is_wallet_rechargeable_cart() ) ) {
+        if ( !is_admin() && ( is_array( wc()->cart->cart_contents) && sizeof( wc()->cart->cart_contents) > 0 ) && ( $current_wallet_balance < get_dgc_wallet_cart_total() || is_wallet_rechargeable_cart() ) ) {
             $is_valid_payment_through_wallet = false;
         }
         return apply_filters( 'is_valid_payment_through_wallet', $is_valid_payment_through_wallet );

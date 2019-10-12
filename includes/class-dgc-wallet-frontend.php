@@ -626,7 +626,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          */
         public function woocommerce_cart_get_total($total) {
             if (is_user_logged_in()) {
-                $total += get_dgcwallet_coupon_cashback_amount();
+                $total += get_dgc_wallet_coupon_cashback_amount();
             }
             return $total;
         }

@@ -20,7 +20,7 @@ $current_wallet_amount = apply_filters( 'dgc_wallet_partial_payment_amount', dgc
 if ( $current_wallet_amount <= 0 ) {
     return;
 }
-$rest_amount = get_dgcwallet_cart_total() - $current_wallet_amount;
+$rest_amount = get_dgc_wallet_cart_total() - $current_wallet_amount;
 if ( 'on' === dgc_wallet()->settings_api->get_option( 'is_auto_deduct_for_partial_payment', '_wallet_settings_general' ) ) {
     ?>
     <tr class="wallet-pay-partial">

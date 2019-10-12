@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class dgc_Wallet_Install {
 
     private static $db_updates = array(
+        '1.0.0' => array(
+            'dgc_wallet_update_100_db_column'
+        ),
         '1.0.8' => array(
             'dgc_wallet_update_108_db_column'
         ),
@@ -49,6 +52,80 @@ class dgc_Wallet_Install {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
         dbDelta( self::get_schema() );
+
+        //dgc_API_create_table
+        
+        global $wpdb;
+		$wpdb->prefix = get_option('prefix_field_option');
+		if ( isset( $wpdb->prefix ) ) {
+			$wpdb->prefix = get_option('prefix_field_option');
+		} else {
+			dgc_API_global();
+		}
+	
+		$dgc_API_args = array(
+			'data'		=> array(),
+		);
+		$dgc_API_arg = array(
+			'name'			=> $wpdb->prefix . 'dgc_wallet_transactions',
+			'properties'	=> array(
+				array(
+					'name'			=> 'transaction_id',
+					'dataType'		=> 3,
+					'numberExponent'=> 0,
+					'required'		=> true,
+				),
+				array(
+					'name'			=> 'blog_id',
+					'dataType'		=> 3,
+					'numberExponent'=> 0,
+					'default'		=> 1,
+				),
+				array(
+					'name'			=> 'user_id',
+					'dataType'		=> 3,
+					'numberExponent'=> 0,
+					'default'		=> 0,
+				),
+				array(
+					'name'			=> 'type',
+					'dataType'		=> 4,
+				),
+				array(
+					'name'			=> 'amount',
+					'dataType'		=> 3,
+					'numberExponent'=> 6,
+				),
+				array(
+					'name'			=> 'balance',
+					'dataType'		=> 3,
+					'numberExponent'=> 6,
+				),
+				array(
+					'name'			=> 'currency',
+					'dataType'		=> 4,
+				),
+				array(
+					'name'			=> 'details',
+					'dataType'		=> 4,
+				),
+				array(
+					'name'			=> 'deleted',
+					'dataType'		=> 3,
+					'numberExponent'=> 0,
+					'default'		=> 0,
+				),
+				array(
+					'name'			=> 'date',
+					'dataType'		=> 3,
+					'numberExponent'=> 0,
+				)
+			)
+		);
+		$dgc_API_args['data'][] = $dgc_API_arg;
+		$dgc_API_res = dgc_API_call('/createTables', 'POST', $dgc_API_args);
+		return json_encode($dgc_API_res);
+
     }
 
     /**
