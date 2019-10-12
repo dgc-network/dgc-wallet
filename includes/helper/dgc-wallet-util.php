@@ -354,7 +354,21 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
         if ( $nocache || ! isset( $cached_results[$user_id][$query_hash] ) ) {
             // Enable big selects for reports
             $wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
-            $cached_results[$user_id][$query_hash] = $wpdb->get_results( $query );
+            //$cached_results[$user_id][$query_hash] = $wpdb->get_results( $query );
+            // dgc-API-call:begin: /retrieveRecords
+            $dgc_API_result = array();
+	    	$dgc_API_args = array(
+		    	'table'		=> $wpdb->prefix . 'dgc_transactions',
+			    'query'		=> array(
+				    'user_id'	=> $user_id,
+			    )
+		    );
+		    $dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
+		    foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
+                array_push($dgc_API_result, $dgc_API_row) ;
+		    }
+            $cached_results[$user_id][$query_hash] = $dgc_API_result;
+		    // dgc-API-call:end: /retrieveRecords
             set_transient( 'dgc_wallet_transaction_results', $cached_results, DAY_IN_SECONDS );
         }
 
@@ -369,7 +383,19 @@ if(!function_exists('get_wallet_transaction')){
     function get_wallet_transaction($transaction_id){
         global $wpdb;
         $sql = "SELECT * FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE transaction_id = {$transaction_id}";
-        $transaction = $wpdb->get_row($sql);
+        // $transaction = $wpdb->get_row($sql);
+		// dgc-API-call:begin: /retrieveRecords
+		$dgc_API_args = array(
+			'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
+			'query'		=> array(
+				'transaction_id'	=> $transaction_id,
+			)
+		);
+		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
+		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
+            $transaction = $dgc_API_row;
+		}
+		// dgc-API-call:end: /retrieveRecords
         return $transaction;
     }
 }
@@ -377,14 +403,26 @@ if(!function_exists('get_wallet_transaction')){
 if(!function_exists('get_wallet_transaction_type')){
     /**
      * Return transaction type by transaction id
-     * @since 1.2.7
+     * @since 1.0.0
      * @global object $wpdb
      * @param int $transaction_id
      * @return type(string) | false
      */
     function get_wallet_transaction_type($transaction_id){
         global $wpdb;
-        $transaction = $wpdb->get_row("SELECT type FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE transaction_id = {$transaction_id}");
+        // $transaction = $wpdb->get_row("SELECT type FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE transaction_id = {$transaction_id}");
+		// dgc-API-call:begin: /retrieveRecords
+		$dgc_API_args = array(
+			'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
+			'query'		=> array(
+				'transaction_id'	=> $transaction_id,
+			)
+		);
+		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
+		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
+            $transaction = $dgc_API_row;
+		}
+		// dgc-API-call:end: /retrieveRecords
         if( $transaction ){
             return $transaction->type;
         }
@@ -399,6 +437,19 @@ if ( ! function_exists( 'update_wallet_transaction' ) ) {
         $update = false;
         if ( ! empty( $data) ) {
             $update = $wpdb->update( "{$wpdb->base_prefix}dgc_wallet_transactions", $data, array( 'transaction_id' => $transaction_id ), $format, array( '%d' ) );
+			// dgc-API-call:begin: /updateRecords
+			$dgc_API_args = array(
+				'table'	=> $wpdb->prefix . 'dgc_wallet_transactions',
+                'query'	=> array(
+                    'transaction_id'	=> $transaction_id,
+                ),
+				'data'	=> $data,
+			);
+			$dgc_API_res = dgc_API_call('/updateRecords', 'POST', $dgc_API_args);
+			if (json_decode($dgc_API_res['response']['code']) == 200) {
+				$update = true; 
+			}
+			// dgc-API-call:end: /updateRecords
             if ( $update ) {
                 clear_dgc_wallet_cache( $user_id );
             }
@@ -510,8 +561,8 @@ if (!function_exists('dgc_wallet_persistent_cart_update')) {
     function dgc_wallet_persistent_cart_update() {
         if (get_current_user_id() && apply_filters('dgc_wallet_persistent_cart_enabled', true)) {
             update_user_meta(
-                    get_current_user_id(), '_dgc_wallet_persistent_cart_' . get_current_blog_id(), 
-                    get_user_meta(get_current_user_id(), '_woocommerce_persistent_cart_' . get_current_blog_id(), true)
+                get_current_user_id(), '_dgc_wallet_persistent_cart_' . get_current_blog_id(), 
+                get_user_meta(get_current_user_id(), '_woocommerce_persistent_cart_' . get_current_blog_id(), true)
             );
         }
     }
