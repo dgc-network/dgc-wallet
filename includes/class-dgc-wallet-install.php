@@ -58,7 +58,7 @@ class dgc_Wallet_Install {
         global $wpdb;
 		//$wpdb->prefix = get_option('prefix_field_option');
 		//if ( isset( $wpdb->prefix ) ) {
-        if  ( null !== ( get_option('prefix_field_option') ) ) {
+        if  ( null !== get_option('prefix_field_option') ) {
 			$wpdb->prefix = get_option('prefix_field_option');
 		} else {
 			dgc_API_prefix();

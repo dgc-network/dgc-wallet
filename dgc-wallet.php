@@ -208,9 +208,10 @@ function dgc_API_call($dgc_API_endpoint, $dgc_API_method = 'GET', $dgc_API_args 
 	$dgc_API_args['privateKey'] = get_user_meta(get_current_user_id(), "privateKey", true );
 	
 	//Populate the correct endpoint for the API request
-	$dgc_API_url = get_option('endpoint_field_option');
-	if ( isset( $dgc_API_url ) ) {
-		$dgc_API_url = get_option('endpoint_field_option');
+	//$dgc_API_url = get_option('endpoint_field_option');
+	//if ( isset( $dgc_API_url ) ) {
+    if ( null !== get_option('endpoint_field_option') ) {
+        $dgc_API_url = get_option('endpoint_field_option');
     } else {
 		$dgc_API_url = "https://api.scouting.tw/v1";
 	}
