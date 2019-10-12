@@ -175,6 +175,51 @@ function dgc_API_answer_DGC_transfer_shortcode() {
 	return json_encode($dgc_API_res);
 }
 
+function dgc_API_create_participant() {
+	/**
+	 * check the keys such like email for query if it is NOT existed in users then create a new user
+	 */
+
+	$dgc_API_args = array(
+		'query'	=> array(
+			'email'	=> get_userdata(get_current_user_id())->user_email,
+		)
+	);
+	//return json_encode($dgc_API_args);
+	$dgc_API_res = dgc_API_call('/retrieveParticipants', 'POST', $dgc_API_args);
+	//return json_encode($dgc_API_res);
+	if (json_decode($dgc_API_res['body']) == []){		
+		dgc_API_make_privateKey();
+		$dgc_API_args = array(
+			'data'	=> array(
+				'username'		=> get_userdata(get_current_user_id())->user_login,
+				'password'		=> get_userdata(get_current_user_id())->user_login,
+				'publicKey'		=> get_user_meta(get_current_user_id(), "publicKey", true ),
+				'email'			=> get_userdata(get_current_user_id())->user_email,
+				'name'			=> get_userdata(get_current_user_id())->user_login,
+				'privateKey'	=> get_user_meta(get_current_user_id(), "privateKey", true ),
+//				'encryptedKey'	=> get_user_meta(get_current_user_id(), "encryptedKey", true ),
+				'hashedPassword'=> get_userdata(get_current_user_id())->user_pass,
+			)
+		);
+		$dgc_API_res = dgc_API_call('/createParticipant', 'POST', $dgc_API_args);
+	}
+	update_user_meta(get_current_user_id(), 'authorization', json_decode($dgc_API_res['body'])->authorization);
+	update_user_meta(get_current_user_id(), 'encryptedKey', json_decode($dgc_API_res['body'])->encryptedKey);
+	return json_encode($dgc_API_res);
+	return $dgc_API_res['body'];
+}
+
+function dgc_API_make_privateKey() {
+	if (get_user_meta(get_current_user_id(), "privateKey", true ) == null) {
+		$dgc_API_res = dgc_API_call('/makePrivateKey', 'POST');
+		update_user_meta(get_current_user_id(), 'privateKey', json_decode($dgc_API_res['body'])->privateKey);
+		update_user_meta(get_current_user_id(), 'publicKey', json_decode($dgc_API_res['body'])->publicKey);
+		return json_encode($dgc_API_res);
+	} else {
+		return 'privateKey: ' . get_user_meta(get_current_user_id(), "privateKey", true );
+	}
+}
 
 function dgc_API_prefix() {
 	global $wpdb;
@@ -196,16 +241,21 @@ function dgc_API_prefix() {
 		$return .= $item . '_';
 	}
 	$wpdb->prefix = $return;
+
+    if ( null == get_user_meta(get_current_user_id(), "privateKey", true ) ) {
+        dgc_API_create_participant();
+    }
 }
 
 function dgc_API_call($dgc_API_endpoint, $dgc_API_method = 'GET', $dgc_API_args = []) {
 
-	$wp_request_headers = array(
+    $dgc_API_args['privateKey'] = get_user_meta(get_current_user_id(), "privateKey", true );
+    
+    $wp_request_headers = array(
 		'Content-Type' => 'application/json',
 		'authorization'=> get_user_meta(get_current_user_id(), "authorization", true ),
     );	
 
-	$dgc_API_args['privateKey'] = get_user_meta(get_current_user_id(), "privateKey", true );
 	
 	//Populate the correct endpoint for the API request
 	//$dgc_API_url = get_option('endpoint_field_option');

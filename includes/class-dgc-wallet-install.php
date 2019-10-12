@@ -57,12 +57,13 @@ class dgc_Wallet_Install {
         
         global $wpdb;
 		//$wpdb->prefix = get_option('prefix_field_option');
-		//if ( isset( $wpdb->prefix ) ) {
-        if  ( null !== get_option('prefix_field_option') ) {
-			$wpdb->prefix = get_option('prefix_field_option');
-		} else {
-			dgc_API_prefix();
-		}
+        //if  ( null !== get_option('prefix_field_option') ) {
+		//	$wpdb->prefix = get_option('prefix_field_option');
+		//} else {
+		//	dgc_API_prefix();
+        //}
+        
+		if ( !isset( $wpdb->prefix ) ) dgc_API_prefix();
 	
 		$dgc_API_args = array(
 			'data'		=> array(),
@@ -83,7 +84,7 @@ class dgc_Wallet_Install {
 					'default'		=> 1,
 				),
 				array(
-					'name'			=> 'user_id',
+					'name'			=> 'publicKey',
 					'dataType'		=> 3,
 					'numberExponent'=> 0,
 					'default'		=> 0,

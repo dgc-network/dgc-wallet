@@ -262,9 +262,9 @@ if ( ! function_exists( 'get_wallet_transaction_meta' ) ) {
      */
     function get_wallet_transaction_meta( $transaction_id, $meta_key, $single = true ) {
         global $wpdb;
-        $resualt = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->base_prefix}dgc_wallet_transaction_meta WHERE transaction_id = %s AND meta_key = %s", $transaction_id, $meta_key ) );
-        if ( ! is_null( $resualt ) ) {
-            return maybe_unserialize( $resualt );
+        $result = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->base_prefix}dgc_wallet_transaction_meta WHERE transaction_id = %s AND meta_key = %s", $transaction_id, $meta_key ) );
+        if ( ! is_null( $result ) ) {
+            return maybe_unserialize( $result );
         } else {
             return false;
         }
@@ -358,9 +358,10 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
             // dgc-API-call:begin: /retrieveRecords
             $dgc_API_result = array();
 	    	$dgc_API_args = array(
-		    	'table'		=> $wpdb->prefix . 'dgc_transactions',
+		    	'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
 			    'query'		=> array(
-				    'user_id'	=> $user_id,
+                    'publicKey'		=> get_user_meta(get_current_user_id(), "publicKey", true ),
+				    //'user_id'	=> $user_id,
 			    )
 		    );
 		    $dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
