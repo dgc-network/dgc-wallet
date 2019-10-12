@@ -57,7 +57,7 @@ $GLOBALS['dgc_wallet'] = dgc_wallet();
 /**
  * dgc API call
  */
-add_action( 'plugins_loaded', 'dgc_API_global' );
+add_action( 'plugins_loaded', 'dgc_API_prefix' );
 //add_action( 'user_register', 'dgc_API_create_user_shortcode', 10, 1 );
 //add_action( 'edit_user_profile_update', 'dgc_API_update_user_shortcode');
 add_shortcode( 'dgc-api-test', 'dgc_API_test_shortcode' );
@@ -176,29 +176,26 @@ function dgc_API_answer_DGC_transfer_shortcode() {
 }
 
 
-function dgc_API_global() {
+function dgc_API_prefix() {
 	global $wpdb;
-
-	$loopArray = str_split($_SERVER['HTTP_HOST']);
-	$returnArray = array();
-	$loopString = '';
-	$loopReturn = '';
-	foreach($loopArray as $character){
+	$array = array();
+	$string = '';
+	$return = '';
+	foreach(str_split($_SERVER['HTTP_HOST']) as $character){
 		if ($character == '.') {
-			array_push($returnArray, $loopString);
+			array_push($array, $string);
 			$loopString = '';
 		} else {
-	    	$loopString .= $character;
+	    	$string .= $character;
 		}
-		if ($character == end($loopArray)) {
+		if ($character == end(str_split($_SERVER['HTTP_HOST']))) {
 			array_push($returnArray, $loopString);
 		}
 	}
-	$returnArray = array_reverse($returnArray, true);
-	foreach($returnArray as $item){
-		$loopReturn .= $item . '_';
+	foreach(array_reverse($array, true) as $item){
+		$return .= $item . '_';
 	}
-	$wpdb->prefix = $loopReturn;
+	$wpdb->prefix = $return;
 }
 
 function dgc_API_call($dgc_API_endpoint, $dgc_API_method = 'GET', $dgc_API_args = []) {

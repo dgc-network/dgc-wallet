@@ -56,11 +56,12 @@ class dgc_Wallet_Install {
         //dgc_API_create_table
         
         global $wpdb;
-		$wpdb->prefix = get_option('prefix_field_option');
-		if ( isset( $wpdb->prefix ) ) {
+		//$wpdb->prefix = get_option('prefix_field_option');
+		//if ( isset( $wpdb->prefix ) ) {
+        if  ( null !== ( get_option('prefix_field_option') ) ) {
 			$wpdb->prefix = get_option('prefix_field_option');
 		} else {
-			dgc_API_global();
+			dgc_API_prefix();
 		}
 	
 		$dgc_API_args = array(
