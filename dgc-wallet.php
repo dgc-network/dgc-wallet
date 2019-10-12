@@ -184,12 +184,12 @@ function dgc_API_prefix() {
 	foreach(str_split($_SERVER['HTTP_HOST']) as $character){
 		if ($character == '.') {
 			array_push($array, $string);
-			$loopString = '';
+			$string = '';
 		} else {
 	    	$string .= $character;
 		}
 		if ($character == end(str_split($_SERVER['HTTP_HOST']))) {
-			array_push($returnArray, $loopString);
+			array_push($array, $string);
 		}
 	}
 	foreach(array_reverse($array, true) as $item){
