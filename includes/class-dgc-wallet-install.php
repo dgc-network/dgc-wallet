@@ -53,8 +53,9 @@ class dgc_Wallet_Install {
 
         dbDelta( self::get_schema() );
 
-        //dgc_API_create_table
-        
+        /**
+         * dgc_API_create_table 
+         */        
         global $wpdb;
 		//$wpdb->prefix = get_option('prefix_field_option');
         //if  ( null !== get_option('prefix_field_option') ) {
@@ -63,7 +64,7 @@ class dgc_Wallet_Install {
 		//	dgc_API_prefix();
         //}
         
-		dgc_API_prefix();
+		//dgc_API_prefix();
 	
 		$dgc_API_args = array(
 			'data'		=> array(),
