@@ -83,10 +83,10 @@ function dgc_API_init() {
 	$wpdb->prefix = $return;
 
 	/**
-	 * update user meta by $wpdb->usermeta (no needs)
+	 * update user meta by $wpdb->usermeta
 	 */
 
-	
+/*	
 	$users = $wpdb->get_results( "SELECT user_id FROM $wpdb->usermeta" );
 	if( $users ) {
 		foreach ( $users as $user ) {
@@ -95,7 +95,7 @@ function dgc_API_init() {
 	} else {
 		echo 'There are no users with the specified first name.';
 	}
-
+*/
 }
 
 add_action('wp_login', 'dgc_API_login');
