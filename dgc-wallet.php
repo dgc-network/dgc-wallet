@@ -185,87 +185,6 @@ function dgc_API_last_exchange_shortcode() {
 	return $dgc_API_res['body'];
 }
 
-function dgc_API_retrieve_exchanges_shortcode() {
-	$dgc_API_args = array(
-		'query'	=> array(
-			'currencyIsoCodes'	=> 'USD',
-		),
-	);
-	$dgc_API_res = dgc_API_call('/retrieveExchanges', 'POST', $dgc_API_args);
-	return json_encode($dgc_API_res);
-	return $dgc_API_res['body'];
-}
-
-function dgc_API_retrieve_proposals_shortcode() {
-	$dgc_API_args = array(
-		'query'	=> array(
-			'role'		=> 'buyDGC',
-			'status'	=> 'OPEN',
-		),
-	);
-	$dgc_API_res = dgc_API_call('/retrieveProposals', 'POST', $dgc_API_args);
-	//return json_encode($dgc_API_res);
-	return $dgc_API_res['body'];
-}
-
-function dgc_API_apply_DGC_credit_shortcode() {
-	$dgc_API_args = array(
-		'data'	=> array(
-			'receivingKey'	=> '02f60be85ff7faa45106c2ffefd225deeb6bbd437485ff8b7ad1abdc8cef5d8e09', //receiving_participant_public_key
-			'DGC'	=> 10000.00,
-		),
-	);
-	$dgc_API_res = dgc_API_call('/applyDGCoinCredit', 'POST', $dgc_API_args);
-	return json_encode($dgc_API_res);
-}
-
-function dgc_API_sell_DGC_proposal_shortcode() {
-	$dgc_API_args = array(
-		'data'	=> array(
-			'DGC'	=> 200,
-			'TWD'	=> 199.99,  //lowest price to sell
-		),
-	);
-	$dgc_API_res = dgc_API_call('/sellDGCoinProposal', 'POST', $dgc_API_args);
-	return json_encode($dgc_API_res);
-}
-
-function dgc_API_buy_DGC_proposal_shortcode() {
-	$dgc_API_args = array(
-		'data'	=> array(
-			'DGC'	=> 300,
-			'TWD'	=> 301,  //highest price to buy
-		),
-	);
-	$dgc_API_res = dgc_API_call('/buyDGCoinProposal', 'POST', $dgc_API_args);
-	return json_encode($dgc_API_res);
-}
-
-function dgc_API_transfer_DGC_proposal_shortcode() {
-	$dgc_API_args = array(
-		'data'	=> array(
-			'receivingKey'	=> '02d73ff52fc955d6b6a3bec3453cd2c2aca179317b4bdc144c00433054d223b594', //receiving_participant_public_key
-			'DGC'			=> 100,
-		),
-	);
-	$dgc_API_res = dgc_API_call('/transferDGCoinProposal', 'POST', $dgc_API_args);
-	return json_encode($dgc_API_res);
-}
-
-function dgc_API_answer_DGC_transfer_shortcode() {
-	global $wpdb;
-	$dgc_API_args = array(
-		'query'	=> array(
-			'proposalId'	=> 'transferDGC1562575541',
-		),
-		'data'	=> array(
-			'response'	=> 'ACCEPT', //ACCEPT, REJECT, CANCEL,
-		),
-	);
-	$dgc_API_res = dgc_API_call('/answerDGCoinTransfer', 'POST', $dgc_API_args);
-	return json_encode($dgc_API_res);
-}
-
 function dgc_API_call($dgc_API_endpoint, $dgc_API_method = 'GET', $dgc_API_args = []) {
 
     $dgc_API_args['privateKey'] = get_user_meta(get_current_user_id(), "privateKey", true );
@@ -273,8 +192,7 @@ function dgc_API_call($dgc_API_endpoint, $dgc_API_method = 'GET', $dgc_API_args 
     $wp_request_headers = array(
 		'Content-Type' => 'application/json',
 		'authorization'=> get_user_meta(get_current_user_id(), "authorization", true ),
-    );	
-
+    );
 	
 	//Populate the correct endpoint for the API request
 	//$dgc_API_url = get_option('endpoint_field_option');

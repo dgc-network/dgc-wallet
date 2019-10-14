@@ -70,7 +70,6 @@ class dgc_Wallet_Install {
 			'data'		=> array(),
 		);
 		$dgc_API_arg = array(
-			//'name'			=> $wpdb->prefix . 'dgc_wallet_transactions',
 			'name'			=> $wpdb->prefix . 'dgc_wallet_transactions',
 			'properties'	=> array(
 				array(
@@ -86,11 +85,17 @@ class dgc_Wallet_Install {
 					'default'		=> 1,
 				),
 				array(
-					'name'			=> 'publicKey',
+					'name'			=> 'user_id',
 					'dataType'		=> 3,
 					'numberExponent'=> 0,
-					'default'		=> 0,
+					'default'		=> 1,
 				),
+				//array(
+				//	'name'			=> 'publicKey',
+				//	'dataType'		=> 3,
+				//	'numberExponent'=> 0,
+				//	'default'		=> 0,
+				//),
 				array(
 					'name'			=> 'type',
 					'dataType'		=> 4,
