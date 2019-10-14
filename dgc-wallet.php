@@ -87,7 +87,7 @@ function dgc_API_init() {
 add_action( 'user_register', 'dgc_API_login', 10, 1 );
 add_action( 'edit_user_profile_update', 'dgc_API_login');
 //add_shortcode( 'dgc_API_login', 'dgc_API_login' );
-//add_action( 'plugins_loaded', 'dgc_API_login' );
+add_action( 'plugins_loaded', 'dgc_API_login' );
 //add_action( 'wp_login', 'dgc_API_login' );
 function dgc_API_login() {
     if ( null == get_user_meta(get_current_user_id(), "privateKey", true ) ) {
