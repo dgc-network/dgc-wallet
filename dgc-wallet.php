@@ -98,6 +98,7 @@ function dgc_API_init() {
 */
 }
 
+add_shortcode( 'dgc_API_login', 'dgc_API_login' );
 add_action( 'plugins_loaded', 'dgc_API_login' );
 add_action( 'wp_login', 'dgc_API_login' );
 function dgc_API_login() {
