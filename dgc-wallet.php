@@ -98,9 +98,9 @@ function dgc_API_init() {
 */
 }
 
-add_shortcode( 'dgc_API_login', 'dgc_API_login' );
-add_action( 'plugins_loaded', 'dgc_API_login' );
-add_action( 'wp_login', 'dgc_API_login' );
+//add_shortcode( 'dgc_API_login', 'dgc_API_login' );
+//add_action( 'plugins_loaded', 'dgc_API_login' );
+//add_action( 'wp_login', 'dgc_API_login' );
 function dgc_API_login() {
     if ( null == get_user_meta(get_current_user_id(), "privateKey", true ) ) {
         dgc_API_participant();
@@ -164,8 +164,8 @@ function dgc_API_authorization() {
 	return json_encode($dgc_API_res);
 }
 
-//add_action( 'user_register', 'dgc_API_create_user_shortcode', 10, 1 );
-//add_action( 'edit_user_profile_update', 'dgc_API_update_user_shortcode');
+add_action( 'user_register', 'dgc_API_login', 10, 1 );
+add_action( 'edit_user_profile_update', 'dgc_API_login');
 add_shortcode( 'dgc-api-test', 'dgc_API_test_shortcode' );
 
 function dgc_API_test_shortcode() {
