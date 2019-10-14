@@ -14,20 +14,6 @@
  * 
  * Text Domain: dgc-wallet
  * Domain Path: /languages/
- *
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -98,6 +84,8 @@ function dgc_API_init() {
 */
 }
 
+add_action( 'user_register', 'dgc_API_login', 10, 1 );
+add_action( 'edit_user_profile_update', 'dgc_API_login');
 //add_shortcode( 'dgc_API_login', 'dgc_API_login' );
 //add_action( 'plugins_loaded', 'dgc_API_login' );
 //add_action( 'wp_login', 'dgc_API_login' );
@@ -164,10 +152,7 @@ function dgc_API_authorization() {
 	return json_encode($dgc_API_res);
 }
 
-add_action( 'user_register', 'dgc_API_login', 10, 1 );
-add_action( 'edit_user_profile_update', 'dgc_API_login');
 add_shortcode( 'dgc-api-test', 'dgc_API_test_shortcode' );
-
 function dgc_API_test_shortcode() {
 	return dgc_API_last_exchange_shortcode();
 	return dgc_API_retrieve_exchanges_shortcode();

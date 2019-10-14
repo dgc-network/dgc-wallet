@@ -70,6 +70,7 @@ class dgc_Wallet_Install {
 			'data'		=> array(),
 		);
 		$dgc_API_arg = array(
+			//'name'			=> $wpdb->prefix . 'dgc_wallet_transactions',
 			'name'			=> $wpdb->prefix . 'dgc_wallet_transactions',
 			'properties'	=> array(
 				array(
