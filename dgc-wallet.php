@@ -136,8 +136,9 @@ function dgc_API_participant() {
 		);
 		$dgc_API_res = dgc_API_call('/createParticipant', 'POST', $dgc_API_args);
 	}
-	update_user_meta(get_current_user_id(), 'authorization', json_decode($dgc_API_res['body'])->authorization);
-	update_user_meta(get_current_user_id(), 'encryptedKey', json_decode($dgc_API_res['body'])->encryptedKey);
+	dgc_API_authorization();
+	//update_user_meta(get_current_user_id(), 'authorization', json_decode($dgc_API_res['body'])->authorization);
+	//update_user_meta(get_current_user_id(), 'encryptedKey', json_decode($dgc_API_res['body'])->encryptedKey);
 	return json_encode($dgc_API_res);
 	return $dgc_API_res['body'];
 }
@@ -151,6 +152,16 @@ function dgc_API_make_privateKey() {
 	} else {
 		return 'privateKey: ' . get_user_meta(get_current_user_id(), "privateKey", true );
 	}
+}
+
+function dgc_API_authorization() {
+	$dgc_API_args = array(
+		'username'	=> get_userdata(get_current_user_id())->user_login,
+		'password'	=> get_userdata(get_current_user_id())->user_pass,
+	);
+	$dgc_API_res = dgc_API_call('/authorization', 'POST', $dgc_API_args);
+	update_user_meta(get_current_user_id(), 'authorization', json_decode($dgc_API_res['body'])->authorization);
+	return json_encode($dgc_API_res);
 }
 
 //add_action( 'user_register', 'dgc_API_create_user_shortcode', 10, 1 );
