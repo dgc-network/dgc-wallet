@@ -96,7 +96,7 @@ class dgc_Wallet_Transaction_Details extends WP_List_Table {
         if ( $user_id == NULL ) {
             return $data;
         }
-        $transactions = get_wallet_transactions( array( 'user_id' => $user_id, 'limit' => $lower . ',' . $uper ) );
+        //$transactions = get_wallet_transactions( array( 'user_id' => $user_id, 'limit' => $lower . ',' . $uper ) );
         $transactions = get_wallet_transactions( array( 'user_id' => $user_id ) );
         //$this->total_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE user_id={$user_id}" );
         // dgc-API-call:begin: /retrieveRecords
