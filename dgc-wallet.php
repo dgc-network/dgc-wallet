@@ -45,13 +45,13 @@ $GLOBALS['dgc_wallet'] = dgc_wallet();
  */
 add_action( 'plugins_loaded', 'dgc_API_init' );
 function dgc_API_init() {
-	global $wpdb;
 	/**
 	 * update $wpdb->prefix for namespace 
 	 */
+	global $wpdb;
 	$array = array();
 	$string = '';
-	$return = '';
+	$wpdb->prefix = '';
 	foreach(str_split($_SERVER['HTTP_HOST']) as $character){
 		if ($character == '.') {
 			array_push($array, $string);
@@ -64,9 +64,8 @@ function dgc_API_init() {
 		}
 	}
 	foreach(array_reverse($array, true) as $item){
-		$return .= $item . '_';
+		$wpdb->prefix .= $item . '_';
 	}
-	$wpdb->prefix = $return;
 
 	/**
 	 * update user meta by $wpdb->usermeta

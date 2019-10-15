@@ -362,11 +362,12 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
 			    'query'		=> array(
                     //'publicKey'		=> get_user_meta(get_current_user_id(), "publicKey", true ),
 				    'user_id'	=> $user_id,
+				    'deleted'	=> 0,
 			    )
 		    );
 		    $dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		    foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-                array_push($dgc_API_result, $dgc_API_row) ;
+                array_push($dgc_API_result, $dgc_API_row->properties) ;
 		    }
             $cached_results[$user_id][$query_hash] = $dgc_API_result;
 		    // dgc-API-call:end: /retrieveRecords
@@ -394,7 +395,7 @@ if(!function_exists('get_wallet_transaction')){
 		);
 		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-            $transaction = $dgc_API_row;
+            $transaction = $dgc_API_row->properties;
 		}
 		// dgc-API-call:end: /retrieveRecords
         return $transaction;

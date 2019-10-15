@@ -99,7 +99,6 @@ class dgc_Wallet_Transaction_Details extends WP_List_Table {
         $transactions = get_wallet_transactions( array( 'user_id' => $user_id, 'limit' => $lower . ',' . $uper ) );
         //$this->total_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE user_id={$user_id}" );
         // dgc-API-call:begin: /retrieveRecords
-        $count = 0;
 		$dgc_API_args = array(
 			'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
 			'query'		=> array(
@@ -108,9 +107,8 @@ class dgc_Wallet_Transaction_Details extends WP_List_Table {
 		);
 		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-            $count += 1;
+            $this->total_count += 1;
         }
-        $this->total_count = $count;
 		// dgc-API-call:end: /retrieveRecords
         
         if ( ! empty( $transactions ) && is_array( $transactions ) ) {

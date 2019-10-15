@@ -301,7 +301,17 @@ final class dgc_Wallet {
     public function delete_user_transaction_records($id){
         global $wpdb;
         if( apply_filters('dgc_wallet_delete_transaction_records', true) ){
-            $wpdb->query($wpdb->prepare( "DELETE t.*, tm.* FROM {$wpdb->base_prefix}dgc_wallet_transactions t JOIN {$wpdb->base_prefix}dgc_wallet_transaction_meta tm ON t.transaction_id = tm.transaction_id WHERE t.user_id = %d", $id ));
+            //$wpdb->query($wpdb->prepare( "DELETE t.*, tm.* FROM {$wpdb->base_prefix}dgc_wallet_transactions t JOIN {$wpdb->base_prefix}dgc_wallet_transaction_meta tm ON t.transaction_id = tm.transaction_id WHERE t.user_id = %d", $id ));
+            $wpdb->query($wpdb->prepare( "DELETE * FROM {$wpdb->base_prefix}dgc_wallet_transaction_meta WHERE user_id = %d", $id ));
+			// dgc-API-call:begin: /deleteRecords
+			$dgc_API_args = array(
+				'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
+				'query'		=> array(
+					'user_id'  => $id,
+				),
+			);
+			return dgc_API_call('/deleteRecords', 'POST', $dgc_API_args);
+			// dgc-API-call:end: /deleteRecords
         }
     }
 

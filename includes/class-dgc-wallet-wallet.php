@@ -206,7 +206,7 @@ if ( ! class_exists( 'dgc_Wallet_Wallet' ) ) {
             } else if ( $type == 'debit' ) {
                 $balance -= $amount;
             }
-            if ( $wpdb->insert( "{$wpdb->base_prefix}dgc_wallet_transactions", apply_filters( 'dgc_wallet_transactions_args', array( 'blog_id' => $GLOBALS['blog_id'], 'user_id' => $this->user_id, 'type' => $type, 'amount' => $amount, 'balance' => $balance, 'currency' => get_woocommerce_currency(), 'details' => $details, 'date' => current_time('mysql') ), array( '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ) ) {
+            //if ( $wpdb->insert( "{$wpdb->base_prefix}dgc_wallet_transactions", apply_filters( 'dgc_wallet_transactions_args', array( 'blog_id' => $GLOBALS['blog_id'], 'user_id' => $this->user_id, 'type' => $type, 'amount' => $amount, 'balance' => $balance, 'currency' => get_woocommerce_currency(), 'details' => $details, 'date' => current_time('mysql') ), array( '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ) ) {
                 $transaction_id = $wpdb->insert_id;
 
                 // dgc-API-call:begin: /createRecord
@@ -225,7 +225,7 @@ if ( ! class_exists( 'dgc_Wallet_Wallet' ) ) {
                 $email_admin = WC()->mailer()->emails['dgc_Wallet_Email_New_Transaction'];
                 $email_admin->trigger( $transaction_id );
                 return $transaction_id;
-            }
+            //}
             return false;
         }
 
