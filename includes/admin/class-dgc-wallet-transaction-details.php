@@ -108,7 +108,9 @@ class dgc_Wallet_Transaction_Details extends WP_List_Table {
 		);
 		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-            $this->total_count += 1;
+            if (null !== $dgc_API_row->properties) {
+                $this->total_count += 1;
+            }
         }
 		// dgc-API-call:end: /retrieveRecords
         
