@@ -422,7 +422,7 @@ if(!function_exists('get_wallet_transaction_type')){
 		);
 		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-            $transaction = $dgc_API_row;
+            $transaction = $dgc_API_row->properties;
 		}
 		// dgc-API-call:end: /retrieveRecords
         if( $transaction ){
