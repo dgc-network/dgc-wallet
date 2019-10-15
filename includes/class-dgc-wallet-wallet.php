@@ -212,7 +212,6 @@ if ( ! class_exists( 'dgc_Wallet_Wallet' ) ) {
                 // dgc-API-call:begin: /createRecord
                 $transaction_id = time();
                 $data =  apply_filters( 'dgc_wallet_transactions_args', array( 
-                    'deleted' => 0, 
                     'transaction_id' => $transaction_id, 
                     'blog_id' => $GLOBALS['blog_id'], 
                     'user_id' => $this->user_id, 
@@ -221,6 +220,7 @@ if ( ! class_exists( 'dgc_Wallet_Wallet' ) ) {
                     'balance' => $balance, 
                     'currency' => get_woocommerce_currency(), 
                     'details' => $details, 
+                    'deleted' => 0, 
                     'date' => time() 
                 )) ;
                 $dgc_API_args = array(
