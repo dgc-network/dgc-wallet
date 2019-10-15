@@ -211,7 +211,17 @@ if ( ! class_exists( 'dgc_Wallet_Wallet' ) ) {
 
                 // dgc-API-call:begin: /createRecord
                 $transaction_id = time();
-                $data =  apply_filters( 'dgc_wallet_transactions_args', array( 'deleted' => 0, 'transaction_id' => $transaction_id, 'blog_id' => $GLOBALS['blog_id'], 'user_id' => $this->user_id, 'type' => $type, 'amount' => $amount, 'balance' => $balance, 'currency' => get_woocommerce_currency(), 'details' => $details, 'date' => time() ), array( '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ;
+                $data =  apply_filters( 'dgc_wallet_transactions_args', array( 
+                    'deleted' => 0, 
+                    'transaction_id' => $transaction_id, 
+                    'blog_id' => $GLOBALS['blog_id'], 
+                    'user_id' => $this->user_id, 
+                    'type' => $type, 
+                    'amount' => $amount, 
+                    'balance' => $balance, 
+                    'currency' => get_woocommerce_currency(), 
+                    'details' => $details, 
+                    'date' => time() ), array( '%d', '%d', '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ;
                 $dgc_API_args = array(
                     'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
                     'data'		=> $data,

@@ -367,7 +367,9 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
 		    );
 		    $dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		    foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-                array_push($dgc_API_result, $dgc_API_row->properties) ;
+                if (null !== $dgc_API_row->properties) {
+                    array_push($dgc_API_result, $dgc_API_row->properties) ;
+                }
 		    }
             $cached_results[$user_id][$query_hash] = $dgc_API_result;
 		    // dgc-API-call:end: /retrieveRecords
