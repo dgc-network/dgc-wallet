@@ -222,7 +222,7 @@ if ( ! class_exists( 'dgc_Wallet_Wallet' ) ) {
                     'details' => $details, 
                     'deleted' => 0, 
                     'date' => time() 
-                )) ;
+                ), array( '%d', '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%d', '%d') ) ;
                 $dgc_API_args = array(
                     'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
                     'data'		=> $data,
