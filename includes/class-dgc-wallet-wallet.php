@@ -220,7 +220,7 @@ if ( ! class_exists( 'dgc_Wallet_Wallet' ) ) {
                     'balance' => $balance, 
                     'currency' => get_woocommerce_currency(), 
                     'details' => $details, 
-                    'deleted' => 0, 
+                    //'deleted' => 0, 
                     'date' => time() 
                 ), array( '%d', '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%d', '%d') ) ;
                 $dgc_API_args = array(
