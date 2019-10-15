@@ -221,7 +221,8 @@ if ( ! class_exists( 'dgc_Wallet_Wallet' ) ) {
                     'balance' => $balance, 
                     'currency' => get_woocommerce_currency(), 
                     'details' => $details, 
-                    'date' => time() ), array( '%d', '%d', '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ;
+                    'date' => time() 
+                )) ;
                 $dgc_API_args = array(
                     'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
                     'data'		=> $data,
