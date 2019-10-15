@@ -97,6 +97,7 @@ class dgc_Wallet_Transaction_Details extends WP_List_Table {
             return $data;
         }
         $transactions = get_wallet_transactions( array( 'user_id' => $user_id, 'limit' => $lower . ',' . $uper ) );
+        $transactions = get_wallet_transactions( array( 'user_id' => $user_id ) );
         //$this->total_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE user_id={$user_id}" );
         // dgc-API-call:begin: /retrieveRecords
 		$dgc_API_args = array(
@@ -119,7 +120,8 @@ class dgc_Wallet_Transaction_Details extends WP_List_Table {
                     'type'           => ( 'credit' === $transaction->type) ? __( 'Credit', 'dgc-wallet' ) : __( 'Debit', 'dgc-wallet' ),
                     'amount'         => wc_price( apply_filters( 'dgc_wallet_amount', $transaction->amount, $transaction->currency, $transaction->user_id ), dgc_wallet_wc_price_args($transaction->user_id) ),
                     'details'        => $transaction->details,
-                    'date'           => wc_string_to_datetime( $transaction->date )->date_i18n( wc_date_format() )
+                    //'date'           => wc_string_to_datetime( $transaction->date )->date_i18n( wc_date_format() )
+                    'date'           => date_i18n( wc_date_format(), $transaction->date )
                 );
             }
         }
