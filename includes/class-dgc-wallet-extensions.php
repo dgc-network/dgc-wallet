@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Woo Wallet settings
+ * dgc Wallet settings
  *
  * @author dgc.network
  */
@@ -28,7 +28,7 @@ if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
          * wc wallet menu
          */
         public function admin_menu() {
-            add_submenu_page( 'dgc-wallet', __( 'Extensions', 'dgc-wallet' ), __( 'Extensions', 'dgc-wallet' ), 'manage_woocommerce', 'dgc-wallet-extensions', array( $this, 'plugin_page' ) );
+            //add_submenu_page( 'dgc-wallet', __( 'Extensions', 'dgc-wallet' ), __( 'Extensions', 'dgc-wallet' ), 'manage_woocommerce', 'dgc-wallet-extensions', array( $this, 'plugin_page' ) );
         }
 
         /**

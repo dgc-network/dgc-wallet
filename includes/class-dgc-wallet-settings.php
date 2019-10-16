@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Woo Wallet settings
+ * dgc Wallet settings
  *
  * @author dgc.network
  */

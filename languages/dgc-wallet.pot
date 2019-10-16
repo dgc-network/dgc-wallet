@@ -305,7 +305,7 @@ msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:99
 #: includes/class-dgc-wallet-admin.php:101
-msgid "Woo Wallet"
+msgid "dgc Wallet"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:140
