@@ -351,7 +351,7 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
         $query_hash     = md5( $user_id . $query );
         $cached_results = is_array( get_transient( 'dgc_wallet_transaction_results' ) ) ? get_transient( 'dgc_wallet_transaction_results' ) : array();
 
-        //if ( $nocache || ! isset( $cached_results[$user_id][$query_hash] ) ) {
+        if ( $nocache || ! isset( $cached_results[$user_id][$query_hash] ) ) {
             // Enable big selects for reports
             $wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
             //$cached_results[$user_id][$query_hash] = $wpdb->get_results( $query );
@@ -365,6 +365,18 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
 				    //'deleted'	=> 0,
 			    )
 		    );
+            if ($args['where'] == array(array('key'=>'type', 'value'=>'credit'))) {
+                $dgc_API_args['query'] = array(
+				    'user_id'	=> $user_id,
+				    'type'	    => 'credit',
+                );
+            }
+            if ($args['where'] == array(array('key'=>'type', 'value'=>'debit'))) {
+                $dgc_API_args['query'] = array(
+				    'user_id'	=> $user_id,
+				    'type'	    => 'debit',
+                );
+            }
 		    $dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		    foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
                 if (null !== $dgc_API_row->properties) {
@@ -374,7 +386,7 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
             $cached_results[$user_id][$query_hash] = $dgc_API_result;
 		    // dgc-API-call:end: /retrieveRecords
             set_transient( 'dgc_wallet_transaction_results', $cached_results, DAY_IN_SECONDS );
-        //}
+        }
 
         $result = $cached_results[$user_id][$query_hash];
 
