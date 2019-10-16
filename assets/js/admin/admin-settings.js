@@ -157,7 +157,7 @@ jQuery(function ($) {
         }
     };
     settings.init();
-    if (dgc_wallet_admin_settings_param.screen_id === 'dgcwallet_page_dgc-wallet-settings' || dgc_wallet_admin_settings_param.screen_id === 'terawallet_page_dgc-wallet-settings') {
+    if (dgc_wallet_admin_settings_param.screen_id === 'dgc_wallet_page_dgc-wallet-settings' || dgc_wallet_admin_settings_param.screen_id === 'dgc_wallet_page_dgc-wallet-settings') {
         settings.settings_page_init();
     }
 });

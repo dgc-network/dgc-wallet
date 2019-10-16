@@ -108,7 +108,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         public function plugin_actions_page() {
             $screen = get_current_screen();
             $wallet_actions = new dgc_Wallet_Actions();
-            if ( in_array($screen->id, array('dgcwallet_page_dgc-wallet-actions', 'terawallet_page_dgc-wallet-actions')) && isset( $_GET['action'] ) && isset( $wallet_actions->actions[$_GET['action']] ) ) {
+            if ( in_array($screen->id, array('dgc_wallet_page_dgc-wallet-actions', 'dgc_wallet_page_dgc-wallet-actions')) && isset( $_GET['action'] ) && isset( $wallet_actions->actions[$_GET['action']] ) ) {
                 $this->display_action_settings();
             } else {
                 $this->display_actions_table();
@@ -534,7 +534,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                 return $footer_text;
             }
             $current_screen = get_current_screen();
-            $dgc_wallet_pages = array( 'toplevel_page_dgc-wallet', 'admin_page_dgc-wallet-add', 'admin_page_dgc-wallet-transactions', 'dgcwallet_page_dgc-wallet-settings', 'dgcwallet_page_dgc-wallet-actions', 'dgcwallet_page_dgc-wallet-extensions', 'terawallet_page_dgc-wallet-settings' );
+            $dgc_wallet_pages = array( 'toplevel_page_dgc-wallet', 'admin_page_dgc-wallet-add', 'admin_page_dgc-wallet-transactions', 'dgc_wallet_page_dgc-wallet-settings', 'dgc_wallet_page_dgc-wallet-actions', 'dgc_wallet_page_dgc-wallet-extensions', 'dgc_wallet_page_dgc-wallet-settings' );
             if ( isset( $current_screen->id ) && in_array( $current_screen->id, $dgc_wallet_pages) ) {
                 if ( !get_option( 'woocommerce_wallet_admin_footer_text_rated' ) ) {
                     $footer_text = sprintf(
@@ -689,13 +689,13 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             return $value;
         }
         /**
-         * Add screen id dgcwallet_page_dgc-wallet-actions to WooCommerce
+         * Add screen id dgc_wallet_page_dgc-wallet-actions to WooCommerce
          * @param array $screen_ids
          * @return array
          */
         public function woocommerce_screen_ids_callback( $screen_ids ) {
-            $screen_ids[] = 'dgcwallet_page_dgc-wallet-actions';
-            $screen_ids[] = 'terawallet_page_dgc-wallet-actions';
+            $screen_ids[] = 'dgc_wallet_page_dgc-wallet-actions';
+            $screen_ids[] = 'dgc_wallet_page_dgc-wallet-actions';
             return $screen_ids;
         }
         /**
