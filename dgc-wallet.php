@@ -126,23 +126,6 @@ add_shortcode( 'dgc-api-test', 'dgc_API_test_shortcode' );
 function dgc_API_test_shortcode() {
 	return json_encode(get_wallet_transactions());
 	return dgc_API_last_exchange_shortcode();
-	return dgc_API_retrieve_exchanges_shortcode();
-	//return dgc_API_create_participant_shortcode();
-	//return dgc_API_apply_DGC_credit_shortcode();
-	return dgc_API_buy_DGC_proposal_shortcode();
-	//return dgc_API_sell_DGC_proposal_shortcode();
-	return dgc_API_transfer_DGC_proposal_shortcode();
-	//return dgc_API_transfer_custodianship_shortcode();
-	//return dgc_API_retrieve_proposals_shortcode();
-	//return wc_custom_product_tables_activate();
-	return dgc_migrate_data_shortcode();
-	return dgc_API_create_record_shortcode();
-	return dgc_API_retrieve_records_shortcode();
-	//return dgc_API_update_records_shortcode();
-	//return dgc_API_delete_records_shortcode();
-	return dgc_API_retrieve_participants_shortcode();
-	//return dgc_API_update_participants_shortcode();
-	//return dgc_API_mapsApiKey();
 }
 
 function dgc_API_last_exchange_shortcode() {
