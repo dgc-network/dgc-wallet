@@ -307,7 +307,8 @@ final class dgc_Wallet {
 			$dgc_API_args = array(
 				'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
 				'query'		=> array(
-					'user_id'  => $id,
+					//'user_id'  => $id,
+                    'publicKey'	=> get_user_meta($id, "publicKey", true ),
 				),
 			);
 			return dgc_API_call('/deleteRecords', 'POST', $dgc_API_args);

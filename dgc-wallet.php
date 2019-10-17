@@ -66,27 +66,12 @@ function dgc_API_init() {
 	foreach(array_reverse($array, true) as $item){
 		$wpdb->prefix .= $item . '_';
 	}
-
-	/**
-	 * update user meta by $wpdb->usermeta
-	 */
-
-/*	
-	$users = $wpdb->get_results( "SELECT user_id FROM $wpdb->usermeta" );
-	if( $users ) {
-		foreach ( $users as $user ) {
-			echo '<p>' . $user->user_id . '</p>';
-		}
-	} else {
-		echo 'There are no users with the specified first name.';
-	}
-*/
 }
 
 //add_action( 'plugins_loaded', 'dgc_API_login', 10, 1 );
-add_action( 'user_register', 'dgc_API_login', 10, 1 );
-add_action( 'edit_user_profile_update', 'dgc_API_login');
-add_shortcode( 'dgc-api-login', 'dgc_API_login' );
+//add_action( 'user_register', 'dgc_API_login', 10, 1 );
+//add_action( 'edit_user_profile_update', 'dgc_API_login');
+//add_shortcode( 'dgc-api-login', 'dgc_API_login' );
 //add_action( 'wp_login', 'dgc_API_login' );
 function dgc_API_login() {
     if ( null == get_user_meta(get_current_user_id(), "privateKey", true ) ) {
@@ -94,40 +79,42 @@ function dgc_API_login() {
     }
 }
 
+add_action( 'user_register', 'dgc_API_participant', 10, 1 );
+add_action( 'edit_user_profile_update', 'dgc_API_participant');
+add_shortcode( 'dgc-api-login', 'dgc_API_participant' );
 function dgc_API_participant() {
 	/**
-	 * check the keys such like email for query if it is NOT existed in users then create a new user
+	 * check the username for query 
+	 * if the username does NOT exist in users then create a new user
+	 * if the username existed in users then update the user
 	 */
 
 	$dgc_API_args = array(
 		'query'	=> array(
-			'email'	=> get_userdata(get_current_user_id())->user_email,
+			//'email'	=> get_userdata(get_current_user_id())->user_email,
+			'username'	=> get_userdata(get_current_user_id())->user_login,
+		),
+		'data'	=> array(
+			'username'		=> get_userdata(get_current_user_id())->user_login,
+			//'password'		=> get_userdata(get_current_user_id())->user_login,
+			'publicKey'		=> get_user_meta(get_current_user_id(), "publicKey", true ),
+			'email'			=> get_userdata(get_current_user_id())->user_email,
+			'name'			=> get_userdata(get_current_user_id())->display_name,
+			'privateKey'	=> get_user_meta(get_current_user_id(), "privateKey", true ),
+			//'encryptedKey'	=> get_user_meta(get_current_user_id(), "encryptedKey", true ),
+			'hashedPassword'=> get_userdata(get_current_user_id())->user_pass,
 		)
 	);
-	//return json_encode($dgc_API_args);
 	$dgc_API_res = dgc_API_call('/retrieveParticipants', 'POST', $dgc_API_args);
 	//return json_encode($dgc_API_res);
 	if (json_decode($dgc_API_res['body']) == []){		
 		dgc_API_make_privateKey();
-		$dgc_API_args = array(
-			'data'	=> array(
-				'username'		=> get_userdata(get_current_user_id())->user_login,
-				//'password'		=> get_userdata(get_current_user_id())->user_login,
-				'publicKey'		=> get_user_meta(get_current_user_id(), "publicKey", true ),
-				'email'			=> get_userdata(get_current_user_id())->user_email,
-				'name'			=> get_userdata(get_current_user_id())->display_name,
-				'privateKey'	=> get_user_meta(get_current_user_id(), "privateKey", true ),
-//				'encryptedKey'	=> get_user_meta(get_current_user_id(), "encryptedKey", true ),
-				'hashedPassword'=> get_userdata(get_current_user_id())->user_pass,
-			)
-		);
 		$dgc_API_res = dgc_API_call('/createParticipant', 'POST', $dgc_API_args);
+	} else {
+		$dgc_API_res = dgc_API_call('/updateParticipants', 'POST', $dgc_API_args);
+		dgc_API_authorization();
 	}
-	dgc_API_authorization();
-	//update_user_meta(get_current_user_id(), 'authorization', json_decode($dgc_API_res['body'])->authorization);
-	//update_user_meta(get_current_user_id(), 'encryptedKey', json_decode($dgc_API_res['body'])->encryptedKey);
-	return json_encode($dgc_API_res);
-	return $dgc_API_res['body'];
+	//return json_encode($dgc_API_res);
 }
 
 function dgc_API_make_privateKey() {

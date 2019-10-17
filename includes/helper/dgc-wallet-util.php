@@ -360,21 +360,23 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
 	    	$dgc_API_args = array(
 		    	'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
 			    'query'		=> array(
-                    //'publicKey'		=> get_user_meta(get_current_user_id(), "publicKey", true ),
-				    'user_id'	=> $user_id,
+				    //'user_id'	=> $user_id,
 				    //'deleted'	=> 0,
+                    'publicKey'	=> get_user_meta($user_id, "publicKey", true ),
 			    )
 		    );
             if ($args['where'] == array(array('key'=>'type', 'value'=>'credit'))) {
                 $dgc_API_args['query'] = array(
-				    'user_id'	=> $user_id,
+				    //'user_id'	=> $user_id,
 				    'type'	    => 'credit',
+                    'publicKey'	=> get_user_meta($user_id, "publicKey", true ),
                 );
             }
             if ($args['where'] == array(array('key'=>'type', 'value'=>'debit'))) {
                 $dgc_API_args['query'] = array(
-				    'user_id'	=> $user_id,
+				    //'user_id'	=> $user_id,
 				    'type'	    => 'debit',
+                    'publicKey'	=> get_user_meta($user_id, "publicKey", true ),
                 );
             }
 		    $dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);

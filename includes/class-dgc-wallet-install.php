@@ -90,12 +90,12 @@ class dgc_Wallet_Install {
 					'numberExponent'=> 0,
 					'default'		=> 1,
 				),
-				//array(
-				//	'name'			=> 'publicKey',
-				//	'dataType'		=> 3,
-				//	'numberExponent'=> 0,
-				//	'default'		=> 0,
-				//),
+				array(
+					'name'			=> 'publicKey',
+					'dataType'		=> 3,
+					'numberExponent'=> 0,
+					'default'		=> 0,
+				),
 				array(
 					'name'			=> 'type',
 					'dataType'		=> 4,

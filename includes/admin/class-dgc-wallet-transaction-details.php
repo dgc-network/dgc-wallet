@@ -103,8 +103,9 @@ class dgc_Wallet_Transaction_Details extends WP_List_Table {
 		$dgc_API_args = array(
 			'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
 			'query'		=> array(
-				'user_id'	=> $user_id,
-			)
+				//'user_id'	=> $user_id,
+                'publicKey'		=> get_user_meta($user_id, "publicKey", true ),
+            )
 		);
 		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
