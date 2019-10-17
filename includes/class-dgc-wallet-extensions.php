@@ -21,6 +21,7 @@ if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
             add_action( 'admin_init', array( $this, 'plugin_settings_page_init' ) );
             add_action( 'admin_menu', array( $this, 'admin_menu' ), 65);
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+            //add_action( 'dgc_wallet_form_bottom__wallet_settings_extensions_general', array( $this, 'display_extensions' ) );
             add_action( 'dgc_wallet_form_bottom__wallet_settings_extensions_general', array( $this, 'display_extensions' ) );
         }
 
@@ -28,7 +29,7 @@ if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
          * wc wallet menu
          */
         public function admin_menu() {
-            add_submenu_page( 'dgc-wallet', __( 'Extensions', 'dgc-wallet' ), __( 'Extensions', 'dgc-wallet' ), 'manage_woocommerce', 'dgc-wallet-extensions', array( $this, 'plugin_page' ) );
+            //add_submenu_page( 'dgc-wallet', __( 'Extensions', 'dgc-wallet' ), __( 'Extensions', 'dgc-wallet' ), 'manage_woocommerce', 'dgc-wallet-extensions', array( $this, 'plugin_page' ) );
         }
 
         /**
