@@ -100,7 +100,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             add_action( "load-$dgc_wallet_menu_page_hook_add", array( $this, 'add_dgc_wallet_add_balance_option' ) );
             $dgc_wallet_menu_page_hook_view = add_submenu_page( '', __( 'dgc Wallet', 'dgc-wallet' ), __( 'dgc Wallet', 'dgc-wallet' ), 'manage_woocommerce', 'dgc-wallet-transactions', array( $this, 'transaction_details_page' ) );
             add_action( "load-$dgc_wallet_menu_page_hook_view", array( $this, 'add_dgc_wallet_transaction_details_option' ) );
-            //add_submenu_page( 'dgc-wallet', __( 'Actions', 'dgc-wallet' ), __( 'Actions', 'dgc-wallet' ), 'manage_woocommerce', 'dgc-wallet-actions', array( $this, 'plugin_actions_page' ) );
+            add_submenu_page( 'dgc-wallet', __( 'Actions', 'dgc-wallet' ), __( 'Actions', 'dgc-wallet' ), 'manage_woocommerce', 'dgc-wallet-actions', array( $this, 'plugin_actions_page' ) );
         }
         /**
          * Plugin action settings page 
