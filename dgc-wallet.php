@@ -43,8 +43,8 @@ $GLOBALS['dgc_wallet'] = dgc_wallet();
 /**
  * dgc API call
  */
-add_action( 'plugins_loaded', 'dgc_API_init' );
-function dgc_API_init() {
+add_action( 'plugins_loaded', 'dgc_API_prefix' );
+function dgc_API_prefix() {
 	/**
 	 * update $wpdb->prefix for namespace 
 	 */
@@ -68,20 +68,9 @@ function dgc_API_init() {
 	}
 }
 
-//add_action( 'plugins_loaded', 'dgc_API_login', 10, 1 );
-//add_action( 'user_register', 'dgc_API_login', 10, 1 );
-//add_action( 'edit_user_profile_update', 'dgc_API_login');
-//add_shortcode( 'dgc-api-login', 'dgc_API_login' );
-//add_action( 'wp_login', 'dgc_API_login' );
-function dgc_API_login() {
-    if ( null == get_user_meta(get_current_user_id(), "privateKey", true ) ) {
-        dgc_API_participant();
-    }
-}
-
 add_action( 'user_register', 'dgc_API_participant', 10, 1 );
 add_action( 'edit_user_profile_update', 'dgc_API_participant');
-add_shortcode( 'dgc-api-login', 'dgc_API_participant' );
+add_shortcode( 'dgc-api-participant', 'dgc_API_participant' );
 function dgc_API_participant() {
 	/**
 	 * check the username for query 
@@ -91,7 +80,6 @@ function dgc_API_participant() {
 
 	$dgc_API_args = array(
 		'query'	=> array(
-			//'email'	=> get_userdata(get_current_user_id())->user_email,
 			'username'	=> get_userdata(get_current_user_id())->user_login,
 		),
 		'data'	=> array(
@@ -122,9 +110,6 @@ function dgc_API_make_privateKey() {
 		$dgc_API_res = dgc_API_call('/makePrivateKey', 'POST');
 		update_user_meta(get_current_user_id(), 'privateKey', json_decode($dgc_API_res['body'])->privateKey);
 		update_user_meta(get_current_user_id(), 'publicKey', json_decode($dgc_API_res['body'])->publicKey);
-		return json_encode($dgc_API_res);
-	} else {
-		return 'privateKey: ' . get_user_meta(get_current_user_id(), "privateKey", true );
 	}
 }
 
@@ -135,7 +120,6 @@ function dgc_API_authorization() {
 	);
 	$dgc_API_res = dgc_API_call('/authorization', 'POST', $dgc_API_args);
 	update_user_meta(get_current_user_id(), 'authorization', json_decode($dgc_API_res['body'])->authorization);
-	return json_encode($dgc_API_res);
 }
 
 add_shortcode( 'dgc-api-test', 'dgc_API_test_shortcode' );

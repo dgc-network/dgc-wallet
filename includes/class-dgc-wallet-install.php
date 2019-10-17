@@ -64,7 +64,7 @@ class dgc_Wallet_Install {
 		//	dgc_API_prefix();
         //}
         
-		dgc_API_init();
+		dgc_API_prefix();
 	
 		$dgc_API_args = array(
 			'data'		=> array(),
