@@ -105,15 +105,15 @@ function dgc_API_participant() {
 			'hashedPassword'=> get_userdata(get_current_user_id())->user_pass,
 		)
 	);
-	$dgc_API_res = dgc_API_call('/retrieveParticipants', 'POST', $dgc_API_args);
+	$dgc_API_res = dgc_API_call('/retrieveUsers', 'POST', $dgc_API_args);
 	//return json_encode($dgc_API_res);
 	if (json_decode($dgc_API_res['body']) == []){		
 		dgc_API_make_privateKey();
 		$dgc_API_res = dgc_API_call('/createParticipant', 'POST', $dgc_API_args);
 	} else {
-		$dgc_API_res = dgc_API_call('/updateParticipants', 'POST', $dgc_API_args);
-		dgc_API_authorization();
+		//$dgc_API_res = dgc_API_call('/updateParticipants', 'POST', $dgc_API_args);
 	}
+	dgc_API_authorization();
 	//return json_encode($dgc_API_res);
 }
 
