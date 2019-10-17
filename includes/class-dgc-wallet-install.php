@@ -92,9 +92,7 @@ class dgc_Wallet_Install {
 				),
 				array(
 					'name'			=> 'publicKey',
-					'dataType'		=> 3,
-					'numberExponent'=> 0,
-					'default'		=> 0,
+					'dataType'		=> 4,
 				),
 				array(
 					'name'			=> 'type',

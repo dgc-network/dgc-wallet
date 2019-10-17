@@ -140,6 +140,7 @@ function dgc_API_authorization() {
 
 add_shortcode( 'dgc-api-test', 'dgc_API_test_shortcode' );
 function dgc_API_test_shortcode() {
+	return json_encode(get_wallet_transactions());
 	return dgc_API_last_exchange_shortcode();
 	return dgc_API_retrieve_exchanges_shortcode();
 	//return dgc_API_create_participant_shortcode();
