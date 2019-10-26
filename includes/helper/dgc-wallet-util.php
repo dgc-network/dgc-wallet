@@ -356,7 +356,7 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
             $wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
             //$cached_results[$user_id][$query_hash] = $wpdb->get_results( $query );
             // dgc-API-call:begin: /retrieveRecords
-            $dgc_API_result = array();
+            //$dgc_API_result = array();
 	    	$dgc_API_args = array(
 		    	'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
 			    'query'		=> array(
@@ -382,10 +382,11 @@ if ( ! function_exists( 'get_wallet_transactions' ) ) {
 		    $dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		    foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
                 if (null !== $dgc_API_row->properties) {
-                    array_push($dgc_API_result, $dgc_API_row->properties) ;
+                    //array_push($dgc_API_result, $dgc_API_row->properties) ;
+                    array_push($cached_results[$user_id][$query_hash], $dgc_API_row->properties) ;
                 }
 		    }
-            $cached_results[$user_id][$query_hash] = $dgc_API_result;
+            //$cached_results[$user_id][$query_hash] = $dgc_API_result;
 		    // dgc-API-call:end: /retrieveRecords
             set_transient( 'dgc_wallet_transaction_results', $cached_results, DAY_IN_SECONDS );
         }
