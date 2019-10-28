@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the dgcWallet package.
 msgid ""
 msgstr ""
-"Project-Id-Version: dgcWallet 1.3.9\n"
+"Project-Id-Version: dgcWallet 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/dgc-network/dgc-wallet/issues\n"
 "POT-Creation-Date: 2019-06-18 07:17:17+00:00\n"
 "MIME-Version: 1.0\n"
@@ -476,11 +476,11 @@ msgstr ""
 #: includes/class-dgc-wallet-frontend.php:107
 #: includes/class-dgc-wallet-frontend.php:178
 #: templates/wc-endpoint-wallet.php:44
-msgid "My Wallet"
+msgid "dgc Wallet"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:565
-msgid "Endpoint for the \"My account &rarr; My Wallet\" page."
+msgid "Endpoint for the \"My account &rarr; dgc Wallet\" page."
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:572
@@ -1195,11 +1195,11 @@ msgid "Current balance :"
 msgstr ""
 
 #: templates/wc-endpoint-wallet.php:25
-msgid "Wallet topup"
+msgid "exchange dgc"
 msgstr ""
 
 #: templates/wc-endpoint-wallet.php:30
-msgid "Wallet transfer"
+msgid "dgc transfer"
 msgstr ""
 
 #: templates/wc-endpoint-wallet.php:35

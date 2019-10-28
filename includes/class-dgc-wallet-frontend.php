@@ -104,7 +104,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
         public function woocommerce_endpoint_title($title, $endpoint) {
             switch ($endpoint) {
                 case 'dgc-wallet' :
-                    $title = apply_filters('dgc_wallet_account_menu_title', __('My Wallet', 'dgc-wallet'));
+                    $title = apply_filters('dgc_wallet_account_menu_title', __('dgc Wallet', 'dgc-wallet'));
                     break;
                 case 'dgc-wallet-transactions' :
                     $title = apply_filters('dgc_wallet_account_transaction_menu_title', __('Wallet Transactions', 'dgc-wallet'));
@@ -175,7 +175,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
         public function dgc_wallet_menu_items($items) {
             unset($items['edit-account']);
             unset($items['customer-logout']);
-            $items['dgc-wallet'] = apply_filters('dgc_wallet_account_menu_title', __('My Wallet', 'dgc-wallet'));
+            $items['dgc-wallet'] = apply_filters('dgc_wallet_account_menu_title', __('dgc Wallet', 'dgc-wallet'));
             $items['edit-account'] = __('Account details', 'dgc-wallet');
             $items['customer-logout'] = __('Logout', 'dgc-wallet');
             return $items;

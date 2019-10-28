@@ -561,8 +561,8 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         public function add_woocommerce_account_endpoint_settings( $settings) {
             $settings_fields = apply_filters( 'dgc_wallet_endpoint_settings_fields', array(
                 array(
-                    'title' => __( 'My Wallet', 'dgc-wallet' ),
-                    'desc' => __( 'Endpoint for the "My account &rarr; My Wallet" page.', 'dgc-wallet' ),
+                    'title' => __( 'dgc Wallet', 'dgc-wallet' ),
+                    'desc' => __( 'Endpoint for the "My account &rarr; dgc Wallet" page.', 'dgc-wallet' ),
                     'id' => 'woocommerce_dgc_wallet_endpoint',
                     'type' => 'text',
                     'default' => 'dgc-wallet',
@@ -659,7 +659,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * @return array
          */
         public function woocommerce_custom_nav_menu_items( $endpoints) {
-            $endpoints[get_option( 'woocommerce_dgc_wallet_endpoint', 'dgc-wallet' )] = __( 'My Wallet', 'dgc-wallet' );
+            $endpoints[get_option( 'woocommerce_dgc_wallet_endpoint', 'dgc-wallet' )] = __( 'dgc Wallet', 'dgc-wallet' );
             return $endpoints;
         }
 

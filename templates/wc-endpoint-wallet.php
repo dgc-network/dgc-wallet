@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @author 	dgc.network
- * @version     1.1.8
+ * @version     1.0.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
@@ -22,12 +22,12 @@ do_action( 'dgc_wallet_before_my_wallet_content' );
 $is_rendred_from_myaccount = wc_post_content_has_shortcode( 'dgc-wallet' ) ? false : is_account_page();
 $menu_items = apply_filters('dgc_wallet_nav_menu_items', array(
     'top_up' => array(
-        'title' => apply_filters( 'dgc_wallet_account_topup_menu_title', __( 'Wallet topup', 'dgc-wallet' ) ),
+        'title' => apply_filters( 'dgc_wallet_account_topup_menu_title', __( 'exchange dgc', 'dgc-wallet' ) ),
         'url' => $is_rendred_from_myaccount ? esc_url(wc_get_endpoint_url(get_option('woocommerce_dgc_wallet_endpoint', 'dgc-wallet'), 'add', wc_get_page_permalink('myaccount'))) : add_query_arg('wallet_action', 'add', get_permalink()),
         'icon' => 'dashicons dashicons-plus-alt'
     ),
     'transfer' => array(
-        'title' => apply_filters('dgc_wallet_account_transfer_amount_menu_title', __('Wallet transfer', 'dgc-wallet')),
+        'title' => apply_filters('dgc_wallet_account_transfer_amount_menu_title', __('dgc transfer', 'dgc-wallet')),
         'url' => $is_rendred_from_myaccount ? esc_url(wc_get_endpoint_url(get_option('woocommerce_dgc_wallet_endpoint', 'dgc-wallet'), 'transfer', wc_get_page_permalink('myaccount'))) : add_query_arg('wallet_action', 'transfer', get_permalink()),
         'icon' => 'dashicons dashicons-randomize'
     ),
@@ -41,7 +41,7 @@ $menu_items = apply_filters('dgc_wallet_nav_menu_items', array(
 
 <div class="dgc-wallet-my-wallet-container">
     <div class="dgc-wallet-sidebar">
-        <h3 class="dgc-wallet-sidebar-heading"><a href="<?php echo $is_rendred_from_myaccount ? esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_wallet_endpoint', 'dgc-wallet' ) ) ) : get_permalink(); ?>"><?php echo apply_filters( 'dgc_wallet_account_menu_title', __( 'My Wallet', 'dgc-wallet' ) ); ?></a></h3>
+        <h3 class="dgc-wallet-sidebar-heading"><a href="<?php echo $is_rendred_from_myaccount ? esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_wallet_endpoint', 'dgc-wallet' ) ) ) : get_permalink(); ?>"><?php echo apply_filters( 'dgc_wallet_account_menu_title', __( 'dgc Wallet', 'dgc-wallet' ) ); ?></a></h3>
         <ul>
             <?php foreach ($menu_items as $item => $menu_item) : ?>
                 <?php if (apply_filters('dgc_wallet_is_enable_' . $item, true)) : ?>
