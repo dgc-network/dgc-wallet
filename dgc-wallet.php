@@ -41,6 +41,35 @@ function dgc_wallet(){
 $GLOBALS['dgc_wallet'] = dgc_wallet();
 
 /**
+ * dgc Payment
+ */
+$active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+if(dgc_payment_is_woocommerce_active()){
+	add_filter('woocommerce_payment_gateways', 'add_dgc_payment_gateway');
+	function add_dgc_payment_gateway( $gateways ){
+		$gateways[] = 'WC_dgc_Payment_Gateway';
+		return $gateways; 
+	}
+
+	add_action('plugins_loaded', 'init_dgc_payment_gateway');
+	function init_dgc_payment_gateway(){
+		require dirname( __FILE__ ) . '/includes/class-wc-dgc-payment-gateway.php';
+	}
+}
+
+/**
+ * @return bool
+ */
+function dgc_payment_is_woocommerce_active()
+{
+	$active_plugins = (array) get_option('active_plugins', array());
+	if (is_multisite()) {
+		$active_plugins = array_merge($active_plugins, get_site_option('active_sitewide_plugins', array()));
+	}
+	return in_array('woocommerce/woocommerce.php', $active_plugins) || array_key_exists('woocommerce/woocommerce.php', $active_plugins);
+}
+
+/**
  * dgc API call
  */
 add_action( 'plugins_loaded', 'dgc_API_prefix' );
