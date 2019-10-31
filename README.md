@@ -1,8 +1,8 @@
-# [dgcWallet](https://dgc.network/) [![WP compatibility](https://plugintests.com/plugins/dgc-wallet/wp-badge.svg)](https://plugintests.com/plugins/dgc-wallet/latest) [![PHP compatibility](https://plugintests.com/plugins/dgc-wallet/php-badge.svg)](https://plugintests.com/plugins/dgc-wallet/latest)
+# [dgcWallet](https://dgc.network/)
 
 Welcome to the dgc Wallet for WooCommerce repository on GitHub. Here you can browse the source, look at open issues and keep track of development.
 
-If you are not a developer, please use the [dgc Wallet for WooCommerce plugin page](https://wordpress.org/plugins/dgc-wallet/) on WordPress.org.
+If you are not a developer, please use the [dgcWallet for WooCommerce plugin page](https://wordpress.org/plugins/dgc-wallet/) on WordPress.org.
 
 ## Support
 This repository is not suitable for support. Please don't use our issue tracker for support requests, but for core issues only. Support can take place through the appropriate channels:
