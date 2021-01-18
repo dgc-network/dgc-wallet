@@ -106,14 +106,14 @@ jQuery(function ($) {
                     $('._tax_class').hide();
                 }
             }).change();
-            $('#wcwp-_wallet_settings_general-is_enable_wallet_transfer').on('change', function () {
+            $('#dgc-_wallet_settings_general-is_enable_wallet_transfer').on('change', function () {
                 if ($(this).is(':checked')) {
                     $('.min_transfer_amount, .transfer_charge_type, .transfer_charge_amount').show();
                 } else {
                     $('.min_transfer_amount, .transfer_charge_type, .transfer_charge_amount').hide();
                 }
             }).change();
-            $('#wcwp-_wallet_settings_credit-is_enable_gateway_charge').on('change', function () {
+            $('#dgc-_wallet_settings_credit-is_enable_gateway_charge').on('change', function () {
                 if ($(this).is(':checked')) {
                     $('.gateway_charge_type').show();
                     $.each(dgc_wallet_admin_settings_param.gateways, function (index, value) {
@@ -126,7 +126,7 @@ jQuery(function ($) {
                     });
                 }
             }).change();
-            $('#wcwp-_wallet_settings_credit-is_enable_cashback_reward_program').on('change', function () {
+            $('#dgc-_wallet_settings_credit-is_enable_cashback_reward_program').on('change', function () {
                 if ($(this).is(':checked')) {
                     $('.cashback_rule, .cashback_type, .cashback_amount, .process_cashback_status').show();
                     $('#_wallet_settings_credit-cashback_type, #_wallet_settings_credit-cashback_rule').trigger('change');
@@ -136,19 +136,19 @@ jQuery(function ($) {
                 }
             }).change();
             $('#_wallet_settings_credit-cashback_type').on('change', function () {
-                if ($(this).val() === 'percent' && $('#wcwp-_wallet_settings_credit-is_enable_cashback_reward_program').is(':checked')) {
+                if ($(this).val() === 'percent' && $('#dgc-_wallet_settings_credit-is_enable_cashback_reward_program').is(':checked')) {
                     $('.max_cashback_amount').show();
                 } else {
                     $('.max_cashback_amount').hide();
                 }
             }).change();
             $('#_wallet_settings_credit-cashback_rule').on('change', function () {
-                if ($(this).val() === 'product_cat' && $('#wcwp-_wallet_settings_credit-is_enable_cashback_reward_program').is(':checked')) {
+                if ($(this).val() === 'product_cat' && $('#dgc-_wallet_settings_credit-is_enable_cashback_reward_program').is(':checked')) {
                     $('.allow_min_cashback').show();
                 } else {
                     $('.allow_min_cashback').hide();
                 }
-                if ($(this).val() === 'cart' && $('#wcwp-_wallet_settings_credit-is_enable_cashback_reward_program').is(':checked')) {
+                if ($(this).val() === 'cart' && $('#dgc-_wallet_settings_credit-is_enable_cashback_reward_program').is(':checked')) {
                     $('.min_cart_amount').show();
                 } else {
                     $('.min_cart_amount').hide();
@@ -157,7 +157,7 @@ jQuery(function ($) {
         }
     };
     settings.init();
-    if (dgc_wallet_admin_settings_param.screen_id === 'dgc_wallet_page_dgc-wallet-settings' || dgc_wallet_admin_settings_param.screen_id === 'terawallet_page_dgc-wallet-settings') {
+    if (dgc_wallet_admin_settings_param.screen_id === 'dgc_wallet_page_dgc-wallet-settings') {
         settings.settings_page_init();
     }
 });

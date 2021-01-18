@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: dgcWallet
+ * Plugin Name: dgc-wallet
  * Plugin URI: https://wordpress.org/plugins/dgc-wallet/
  * Description: The leading wallet plugin for WooCommerce with partial payment, refunds, cashbacks and what not!
  * Author: dgc.network

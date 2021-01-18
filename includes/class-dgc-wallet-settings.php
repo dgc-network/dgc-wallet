@@ -451,6 +451,6 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
 
     }
 
-    endif;
+endif;
 
 new dgc_Wallet_Settings(dgc_wallet()->settings_api);
