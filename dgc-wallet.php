@@ -47,13 +47,13 @@ $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
 if(dgc_payment_is_woocommerce_active()){
 	add_filter('woocommerce_payment_gateways', 'add_dgc_payment_gateway');
 	function add_dgc_payment_gateway( $gateways ){
-		$gateways[] = 'WC_dgc_Payment_Gateway';
+		$gateways[] = 'dgc_Payment_Gateway';
 		return $gateways; 
 	}
 
 	add_action('plugins_loaded', 'init_dgc_payment_gateway');
 	function init_dgc_payment_gateway(){
-		require dirname( __FILE__ ) . '/includes/class-wc-dgc-payment-gateway.php';
+		require dirname( __FILE__ ) . '/includes/class-dgc-payment-gateway.php';
 	}
 }
 
@@ -72,7 +72,7 @@ function dgc_payment_is_woocommerce_active()
 /**
  * dgc API call
  */
-add_action( 'plugins_loaded', 'dgc_API_prefix' );
+//add_action( 'plugins_loaded', 'dgc_API_prefix' );
 function dgc_API_prefix() {
 	/**
 	 * update $wpdb->prefix for namespace 
@@ -100,12 +100,13 @@ function dgc_API_prefix() {
 add_action( 'user_register', 'dgc_API_participant', 10, 1 );
 add_action( 'edit_user_profile_update', 'dgc_API_participant');
 add_shortcode( 'dgc-api-participant', 'dgc_API_participant' );
+
+/**
+ * check the username for query 
+ * if the username does NOT exist in users then create a new user
+ * if the username existed in users then update the user
+ */
 function dgc_API_participant() {
-	/**
-	 * check the username for query 
-	 * if the username does NOT exist in users then create a new user
-	 * if the username existed in users then update the user
-	 */
 
 	$dgc_API_args = array(
 		'query'	=> array(

@@ -2,7 +2,7 @@
 // Copyright (c) The dgc.network
 // SPDX-License-Identifier: Apache-2.0
 
-class WC_dgc_Payment_Gateway extends WC_Payment_Gateway{
+class dgc_Payment_Gateway extends WC_Payment_Gateway{
 
     private $order_status;
 
