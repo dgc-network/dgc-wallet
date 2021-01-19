@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 final class dgc_Wallet {
-
     /**
      * The single instance of the class.
      *
@@ -67,7 +66,7 @@ final class dgc_Wallet {
     private function define_constants() {
         $this->define( 'DGC_WALLET_ABSPATH', dirname(DGC_WALLET_PLUGIN_FILE) . '/' );
         $this->define( 'DGC_WALLET_PLUGIN_FILE', plugin_basename(DGC_WALLET_PLUGIN_FILE) );
-        $this->define( 'DGC_WALLET_PLUGIN_VERSION', '1.0.1' );
+        $this->define( 'DGC_WALLET_PLUGIN_VERSION', '1.0.2' );
     }
 
     /**

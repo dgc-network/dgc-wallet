@@ -22,16 +22,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Define DGC_WALLET_PLUGIN_FILE.
 if ( ! defined( 'DGC_WALLET_PLUGIN_FILE' ) ) {
-    define( 'DGC_WALLET_PLUGIN_FILE', __FILE__);
+    define( 'DGC_WALLET_PLUGIN_FILE', __FILE__ );
 }
 // include dependencies file
 if ( ! class_exists( 'dgc_Wallet_Dependencies' ) ){
-    include_once dirname( __FILE__) . '/includes/class-dgc-wallet-dependencies.php';
+    include_once dirname( __FILE__ ) . '/includes/class-dgc-wallet-dependencies.php';
 }
 
 // Include the main class.
 if ( ! class_exists( 'dgc_Wallet' ) ) {
-    include_once dirname( __FILE__) . '/includes/class-dgc-wallet.php';
+    include_once dirname( __FILE__ ) . '/includes/class-dgc-wallet.php';
 }
 
 function dgc_wallet(){
