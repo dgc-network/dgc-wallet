@@ -50,7 +50,7 @@ final class dgc_Wallet {
      * Class constructor
      */
     public function __construct() {
-        if (dgc_Wallet_Dependencies::is_woocommerce_active() ) {
+        if ( dgc_Wallet_Dependencies::is_woocommerce_active() ) {
             $this->define_constants();
             $this->includes();
             $this->init_hooks();
@@ -66,7 +66,7 @@ final class dgc_Wallet {
     private function define_constants() {
         $this->define( 'DGC_WALLET_ABSPATH', dirname(DGC_WALLET_PLUGIN_FILE) . '/' );
         $this->define( 'DGC_WALLET_PLUGIN_FILE', plugin_basename(DGC_WALLET_PLUGIN_FILE) );
-        $this->define( 'DGC_WALLET_PLUGIN_VERSION', '1.0.2' );
+        $this->define( 'DGC_WALLET_PLUGIN_VERSION', '1.0.0' );
     }
 
     /**
@@ -85,8 +85,8 @@ final class dgc_Wallet {
      * @param string $type
      * @return bool
      */
-    private function is_request( $type) {
-        switch ( $type) {
+    private function is_request( $type ) {
+        switch ( $type ) {
             case 'admin' :
                 return is_admin();
             case 'ajax' :

@@ -50,7 +50,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
          *
          * @param array   $sections setting sections array
          */
-        function set_sections( $sections) {
+        function set_sections( $sections ) {
             $this->settings_sections = $sections;
 
             return $this;
@@ -61,7 +61,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
          *
          * @param array   $section
          */
-        function add_section( $section) {
+        function add_section( $section ) {
             $this->settings_sections[] = $section;
 
             return $this;
@@ -72,13 +72,13 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
          *
          * @param array   $fields settings fields array
          */
-        function set_fields( $fields) {
+        function set_fields( $fields ) {
             $this->settings_fields = $fields;
 
             return $this;
         }
 
-        function add_field( $section, $field) {
+        function add_field( $section, $field ) {
             $defaults = array(
                 'name' => '',
                 'label' => '',
@@ -86,7 +86,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
                 'type' => 'text'
             );
 
-            $arg = wp_parse_args( $field, $defaults);
+            $arg = wp_parse_args( $field, $defaults );
             $this->settings_fields[$section][] = $arg;
 
             return $this;
@@ -102,7 +102,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
          */
         function admin_init() {
             //register settings sections
-            foreach ( $this->settings_sections as $section) {
+            foreach ( $this->settings_sections as $section ) {
                 if (false == get_option( $section['id'] ) ) {
                     add_option( $section['id'] );
                 }
@@ -120,8 +120,8 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
             }
 
             //register settings fields
-            foreach ( $this->settings_fields as $section => $field) {
-                foreach ( $field as $option) {
+            foreach ( $this->settings_fields as $section => $field ) {
+                foreach ( $field as $option ) {
 
                     $name = $option['name'];
                     $type = isset( $option['type'] ) ? $option['type'] : 'text';
@@ -152,7 +152,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
             }
 
             // creates our settings in the options table
-            foreach ( $this->settings_sections as $section) {
+            foreach ( $this->settings_sections as $section ) {
                 register_setting( $section['id'], $section['id'], array( $this, 'sanitize_options' ) );
             }
         }
@@ -194,7 +194,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
          *
          * @param array   $args settings field args
          */
-        function callback_rand($args) {
+        function callback_rand( $args ) {
             $value = rand();
             $type = 'hidden';
 
@@ -307,17 +307,17 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
             $multiple = ! empty( $args['multiple'] ) ? ' multiple="true"' : '';
             if ( $multiple){
                 $value = $this->get_option( $args['id'], $args['section'], $args['std'] );
-                $html = sprintf( '<select class="%1$s" name="%2$s[%3$s][]" id="%2$s-%3$s" %4$s>', $size, $args['section'], $args['id'], $multiple);
+                $html = sprintf( '<select class="%1$s" name="%2$s[%3$s][]" id="%2$s-%3$s" %4$s>', $size, $args['section'], $args['id'], $multiple );
             } else{
                 $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
                 $html = sprintf( '<select class="%1$s" name="%2$s[%3$s]" id="%2$s-%3$s">', $size, $args['section'], $args['id'] );
             }
             
-            foreach ( $args['options'] as $key => $label) {
-                if ( $multiple){
-                    $html .= sprintf( '<option value="%s"%s>%s</option>', $key, selected(in_array( $key, $value ), true, false ), $label);
+            foreach ( $args['options'] as $key => $label ) {
+                if ( $multiple ){
+                    $html .= sprintf( '<option value="%s"%s>%s</option>', $key, selected(in_array( $key, $value ), true, false ), $label );
                 } else{
-                    $html .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $value, $key, false ), $label);
+                    $html .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $value, $key, false ), $label );
                 }
             }
 
@@ -465,18 +465,18 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
          *
          * @return mixed
          */
-        function sanitize_options( $options) {
+        function sanitize_options( $options ) {
 
-            if ( !$options) {
+            if ( !$options ) {
                 return $options;
             }
 
-            foreach ( $options as $option_slug => $option_value) {
-                $sanitize_callback = $this->get_sanitize_callback( $option_slug);
+            foreach ( $options as $option_slug => $option_value ) {
+                $sanitize_callback = $this->get_sanitize_callback( $option_slug );
 
                 // If callback is set, call it
-                if ( $sanitize_callback) {
-                    $options[$option_slug] = call_user_func( $sanitize_callback, $option_value);
+                if ( $sanitize_callback ) {
+                    $options[$option_slug] = call_user_func( $sanitize_callback, $option_value );
                     continue;
                 }
             }
@@ -521,7 +521,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
          */
         function get_option( $option, $section, $default = '' ) {
 
-            $options = get_option( $section);
+            $options = get_option( $section );
 
             if ( isset( $options[$option] ) && ! empty( $options[$option] ) ) {
                 return $options[$option];
@@ -545,7 +545,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
                 return;
             }
 
-            foreach ( $this->settings_sections as $tab) {
+            foreach ( $this->settings_sections as $tab ) {
                 if ( ! isset( $tab['icon'] ) || empty( $tab['icon'] ) ) {
                     $tab['icon'] = 'dashicons-admin-generic';
                 }
@@ -565,14 +565,14 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
         function show_forms() {
             ?>
             <div class="metabox-holder">
-                <?php foreach ( $this->settings_sections as $form) { ?>
+                <?php foreach ( $this->settings_sections as $form ) { ?>
                     <div id="<?php echo $form['id']; ?>" class="group" style="display: none;">
                         <form method="post" action="options.php">
                             <?php
-                            do_action( 'dgc_wallet_form_top_' . $form['id'], $form);
+                            do_action( 'dgc_wallet_form_top_' . $form['id'], $form );
                             settings_fields( $form['id'] );
                             do_settings_sections( $form['id'] );
-                            do_action( 'dgc_wallet_form_bottom_' . $form['id'], $form);
+                            do_action( 'dgc_wallet_form_bottom_' . $form['id'], $form );
                             if ( isset( $this->settings_fields[$form['id']] ) ):
                                 ?>
                                 <div style="padding-left: 10px">
