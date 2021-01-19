@@ -157,7 +157,6 @@ jQuery(function ($) {
             }).change();
         }
     };
-    alert('I am here');
     settings.init();
     if (dgc_wallet_admin_settings_param.screen_id === 'dgc_wallet_page_dgc-wallet-settings') {
         settings.settings_page_init();
