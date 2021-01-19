@@ -54,7 +54,8 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
             $screen_id = $screen ? $screen->id : '';
             $suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
             wp_register_script( 'dgc-wallet-admin-settings', dgc_wallet()->plugin_url() . '/assets/js/admin/admin-settings' . $suffix . '.js', array( 'jquery' ), DGC_WALLET_PLUGIN_VERSION);
-            if (in_array( $screen_id, array( 'dgc_wallet_page_dgc-wallet-settings', 'dgc_wallet_page_dgc-wallet-settings' ) ) ) {
+            //if (in_array( $screen_id, array( 'dgc_wallet_page_dgc-wallet-settings', 'dgc_wallet_page_dgc-wallet-settings' ) ) ) {
+            if (in_array( $screen_id, array( 'dgc_wallet_page_dgc-wallet-settings' ) ) ) {
                 wp_enqueue_style( 'dashicons' );
                 wp_enqueue_style( 'wp-color-picker' );
                 wp_enqueue_style( 'dgc_wallet_admin_styles' );
