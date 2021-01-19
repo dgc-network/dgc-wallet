@@ -45,12 +45,12 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 10 );
             add_action( 'admin_menu', array( $this, 'admin_menu' ), 50 );
             if ( 'on' === dgc_wallet()->settings_api->get_option( 'is_enable_cashback_reward_program', '_wallet_settings_credit', 'on' ) && 'product' === dgc_wallet()->settings_api->get_option( 'cashback_rule', '_wallet_settings_credit', 'cart' ) ) {
-                add_filter('woocommerce_product_data_tabs', array($this, 'woocommerce_product_data_tabs'));
+                add_filter( 'woocommerce_product_data_tabs', array($this, 'woocommerce_product_data_tabs' ) );
                 add_action( 'woocommerce_product_data_panels', array( $this, 'woocommerce_product_data_panels' ) );
                 add_action( 'save_post_product', array( $this, 'save_post_product' ) );
                 
-                add_action('woocommerce_variation_options_pricing', array($this, 'woocommerce_variation_options_pricing'), 10, 3);
-                add_action('woocommerce_save_product_variation', array($this, 'woocommerce_save_product_variation'), 10, 2);
+                add_action( 'woocommerce_variation_options_pricing', array($this, 'woocommerce_variation_options_pricing' ), 10, 3 );
+                add_action( 'woocommerce_save_product_variation', array($this, 'woocommerce_save_product_variation' ), 10, 2 );
             }
             add_action( 'woocommerce_admin_order_totals_after_tax', array( $this, 'add_wallet_payment_amount' ), 10, 1 );
 
@@ -71,10 +71,10 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             add_filter( 'manage_users_custom_column', array( $this, 'manage_users_custom_column' ), 10, 3);
             add_filter( 'set-screen-option', array( $this, 'set_wallet_screen_options' ), 10, 3);
             add_filter( 'woocommerce_screen_ids', array( $this, 'woocommerce_screen_ids_callback' ) );
-            add_action( 'woocommerce_after_order_fee_item_name', array($this, 'woocommerce_after_order_fee_item_name_callback'), 10, 2);
-            add_action( 'woocommerce_new_order', array($this, 'woocommerce_new_order'));
-            add_filter( 'woocommerce_order_actions', array( $this, 'woocommerce_order_actions' ));
-            add_action( 'woocommerce_order_action_recalculate_order_cashback', array( $this, 'recalculate_order_cashback'));
+            add_action( 'woocommerce_after_order_fee_item_name', array($this, 'woocommerce_after_order_fee_item_name_callback' ), 10, 2 );
+            add_action( 'woocommerce_new_order', array($this, 'woocommerce_new_order' ) );
+            add_filter( 'woocommerce_order_actions', array( $this, 'woocommerce_order_actions' ) );
+            add_action( 'woocommerce_order_action_recalculate_order_cashback', array( $this, 'recalculate_order_cashback' ) );
             
             //add_action( 'admin_notices', array( $this, 'show_promotions' ) );
         }
@@ -94,7 +94,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * init admin menu
          */
         public function admin_menu() {
-            $dgc_wallet_menu_page_hook = add_menu_page( 'dgcWallet', 'dgcWallet', 'manage_woocommerce', 'dgc-wallet', array( $this, 'wallet_page' ), '', 59);
+            $dgc_wallet_menu_page_hook = add_menu_page( 'dgcWallet', 'dgcWallet', 'manage_woocommerce', 'dgc-wallet', array( $this, 'wallet_page' ), '', 59 );
             add_action( "load-$dgc_wallet_menu_page_hook", array( $this, 'add_dgc_wallet_details' ) );
             $dgc_wallet_menu_page_hook_add = add_submenu_page( '', __( 'dgc Wallet', 'dgc-wallet' ), __( 'dgc Wallet', 'dgc-wallet' ), 'manage_woocommerce', 'dgc-wallet-add', array( $this, 'add_balance_to_user_wallet' ) );
             add_action( "load-$dgc_wallet_menu_page_hook_add", array( $this, 'add_dgc_wallet_add_balance_option' ) );

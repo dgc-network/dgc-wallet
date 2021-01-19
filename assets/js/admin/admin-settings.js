@@ -41,6 +41,7 @@ jQuery(function ($) {
                 $('.nav-tab-wrapper a:first').addClass('nav-tab-active');
             }
             $('.nav-tab-wrapper a').click(function (evt) {
+                alert('I am here');
                 $('.nav-tab-wrapper a').removeClass('nav-tab-active');
                 $(this).addClass('nav-tab-active').blur();
                 var clicked_group = $(this).attr('href');
