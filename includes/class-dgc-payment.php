@@ -109,7 +109,7 @@ final class dgc_Payment {
         include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-settings-api.php' );
         $this->settings_api = new dgc_Payment_Settings_API();
         
-        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-payment.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-wallet.php' );
         $this->payment = new dgc_Payment_Wallet();
         
         include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-cashback.php' );
