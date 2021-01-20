@@ -21,7 +21,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
             add_action( 'admin_init', array( $this, 'plugin_settings_page_init' ) );
             add_action( 'admin_menu', array( $this, 'admin_menu' ), 60 );
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-            add_action( 'admin_head', array( __CLASS__, 'dgc_custom_style' ) );
+            add_action( 'admin_head', array( $this, 'dgc_custom_style' ) );
         }
 
 	/**
