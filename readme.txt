@@ -1,6 +1,6 @@
-=== dgcWallet - For WooCommerce ===
+=== dgcPay - For WooCommerce ===
 Contributors: dgc.network
-Tags: dgc wallet, woocommerce wallet, wp wallet, user wallet, refund, cashback, partial payment, wallet, wc wallet, woocommerce credits
+Tags: dgc payment, woocommerce payment, wp payment, user payment, refund, cashback, partial payment, payment, wc payment, woocommerce credits
 Requires PHP: 5.6
 Requires at least: 4.4
 Tested up to: 5.2
@@ -8,31 +8,31 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-A powerful, extendable dgc Wallet for WooCommerce system which support payment, partial payment, cashback reward program as well as refund for your WooCommerce store.
+A powerful, extendable dgc Payment for WooCommerce system which support payment, partial payment, cashback reward program as well as refund for your WooCommerce store.
 
 == Description ==
-> We are pleased to inform you that we have changed the plugin name, dgc_Wallet is now dgcWallet.
+> We are pleased to inform you that we have changed the plugin name, dgc_Payment is now dgcPay.
 
-dgcWallet allows customers to store their money in a digital wallet. The customers can use the wallet money for purchasing products from the store. The customers can add money to their wallet using various payment methods set by the admin. The admin can set cashback rules according to cart price or product. The customers will receive their cashback amount in their wallet account. The admin can process refund to customer wallet.
+dgcPay allows customers to store their money in a digital payment. The customers can use the payment money for purchasing products from the store. The customers can add money to their payment using various payment methods set by the admin. The admin can set cashback rules according to cart price or product. The customers will receive their cashback amount in their payment account. The admin can process refund to customer payment.
 
 [youtube https://www.youtube.com/watch?v=Fnpp8qxAWBw]
 
-= Use case of dgcWallet =
-With this extension, the customers won't have to fill in the payment details every time. They can simply log in and pay for products using the wallet money. The customers will also get the advantage for earning cashback using the wallet money. The admin can process refund to the customer wallet. 
+= Use case of dgcPay =
+With this extension, the customers won't have to fill in the payment details every time. They can simply log in and pay for products using the payment money. The customers will also get the advantage for earning cashback using the payment money. The admin can process refund to the customer payment. 
 
-= Features of dgcWallet =
-- Wallet system works just like any other payment method.
-- Set wallet system payment method title for the front-end.
+= Features of dgcPay =
+- Payment system works just like any other payment method.
+- Set payment system payment method title for the front-end.
 - The customers can use various payment methods to add money.
-- The admin can process refund using the wallet money.
+- The admin can process refund using the payment money.
 - Customers will earn cashback according to cart price, product or product category wise.
 - Customers can made partial payment.
 - Set cashback amount calculation using fixed or percent method.
 - From the backend, the admin can view the transaction history.
-- Customers receive notification emails for every wallet transaction.
-- The admin can adjust the wallet amount of any customer from the backend.
-- Users can transfer wallet amount to other user.
-- Shortcode `dgc-wallet` which will display user wallet page.
+- Customers receive notification emails for every payment transaction.
+- The admin can adjust the payment amount of any customer from the backend.
+- Users can transfer payment amount to other user.
+- Shortcode `dgc-payment` which will display user payment page.
 - Built with a REST API
 - Convert WooCommerce coupon into cashback.
 - Support WordPress Multisite Network
@@ -44,21 +44,21 @@ With this extension, the customers won't have to fill in the payment details eve
 
 > Take a step forward and try our [demo](https://demo.dgc.network/my-account/).
 
-= Workflow of dgcWallet =
+= Workflow of dgcPay =
 After the plugin installation, the admin needs to do the payment method configuration. Set the title and select allowed payments for adding money.
-Now for enable cashback rules, navigate to dgc_Wallet > Settings >  Credit. Now setup cashback rule according to your requirement. If cashback rule set to product wise then admin will have an option to add cashback rule for each product.
-On the front-end, the customers can log in to the store and go to wallet page from My Account. Enter the amount to add and then complete the checkout process just like any other product purchase.
+Now for enable cashback rules, navigate to dgc_Payment > Settings >  Credit. Now setup cashback rule according to your requirement. If cashback rule set to product wise then admin will have an option to add cashback rule for each product.
+On the front-end, the customers can log in to the store and go to payment page from My Account. Enter the amount to add and then complete the checkout process just like any other product purchase.
 
 = Premium extensions =
 
-- [Wallet Coupons](https://dgc.network/product/dgc-wallet-coupons/)
-- [Wallet Withdrawal](https://dgc.network/product/dgc-wallet-withdrawal/)
-- [Wallet Importer](https://dgc.network/product/dgc-wallet-importer/)
-- [Wallet AffiliateWP](https://dgc.network/product/dgcwallet-affiliatewp/)
+- [Payment Coupons](https://dgc.network/product/dgc-payment-coupons/)
+- [Payment Withdrawal](https://dgc.network/product/dgc-payment-withdrawal/)
+- [Payment Importer](https://dgc.network/product/dgc-payment-importer/)
+- [Payment AffiliateWP](https://dgc.network/product/dgcpayment-affiliatewp/)
 
 = Translator Contributors =
-- [#fa_IR](https://translate.wordpress.org/locale/fa/default/wp-plugins/dgc-wallet) - [@rahimvaziri](https://wordpress.org/support/users/rahimvaziri/)
-- [#es_ES](https://translate.wordpress.org/locale/es/default/wp-plugins/dgc-wallet) - [@chipweb](https://wordpress.org/support/users/chipweb/)
+- [#fa_IR](https://translate.wordpress.org/locale/fa/default/wp-plugins/dgc-payment) - [@rahimvaziri](https://wordpress.org/support/users/rahimvaziri/)
+- [#es_ES](https://translate.wordpress.org/locale/es/default/wp-plugins/dgc-payment) - [@chipweb](https://wordpress.org/support/users/chipweb/)
 
 == Installation ==
 
@@ -71,9 +71,9 @@ On the front-end, the customers can log in to the store and go to wallet page fr
 
 = Automatic installation =
 
-Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of dgc Wallet for WooCommerce Payment, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
+Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of dgc Payment for WooCommerce Payment, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
 
-In the search field type “dgc Wallet for WooCommerce Payment” and click Search Plugins. Once you’ve found our dgc Wallet for WooCommerce Payment plugin you can view details about it such as the point release, rating and description. Most importantly of course, you can install it by simply clicking “Install Now”.
+In the search field type “dgc Payment for WooCommerce Payment” and click Search Plugins. Once you’ve found our dgc Payment for WooCommerce Payment plugin you can view details about it such as the point release, rating and description. Most importantly of course, you can install it by simply clicking “Install Now”.
 
 = Manual installation =
 
@@ -83,7 +83,7 @@ The manual installation method involves downloading our plugin and uploading it 
 
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
-If on the off-chance you do encounter issues with the wallet endpoints pages after an update you simply need to flush the permalinks by going to WordPress > Settings > Permalinks and hitting 'save'. That should return things to normal.
+If on the off-chance you do encounter issues with the payment endpoints pages after an update you simply need to flush the permalinks by going to WordPress > Settings > Permalinks and hitting 'save'. That should return things to normal.
 
 == Frequently Asked Questions ==
 
@@ -95,37 +95,37 @@ Yes, this plugin works fine with WordPress 4.9, It is also compatible for older 
 
 This plugin is compatible with the latest version of WooCommerce.
 
-= Will dgc Wallet for WooCommerce work with WordPress multisite network? =
+= Will dgc Payment for WooCommerce work with WordPress multisite network? =
 
-Yes, dgc Wallet for WooCommerce plugin is fully compatible with Wordpress multisite.
+Yes, dgc Payment for WooCommerce plugin is fully compatible with Wordpress multisite.
 
 = Where can I get support or talk to other users? =
 
-If you get stuck, you can ask for help in the [WordPress Plugin Forum](https://wordpress.org/support/plugin/dgc-wallet) or just email us at support@dgc.network.
+If you get stuck, you can ask for help in the [WordPress Plugin Forum](https://wordpress.org/support/plugin/dgc-payment) or just email us at support@dgc.network.
 
 = Where can I report bugs or contribute to the project? =
 
-Bugs can be reported either in our support forum or preferably on the [GitHub repository](https://github.com/dgc-network/dgc-wallet/issues).
+Bugs can be reported either in our support forum or preferably on the [GitHub repository](https://github.com/dgc-network/dgc-payment/issues).
 
 = Where can I find the REST API documentation? =
 
-You can find the documentation of our [Wallet REST API Docs](https://github.com/dgc-network/dgc-wallet/wiki/WooCommerce-Wallet-REST-API).
+You can find the documentation of our [Payment REST API Docs](https://github.com/dgc-network/dgc-payment/wiki/WooCommerce-Payment-REST-API).
 
 = This plugin is awesome! Can I contribute? =
 
-Yes you can! Join in on our [GitHub repository](https://github.com/dgc-network/dgc-wallet) :)
+Yes you can! Join in on our [GitHub repository](https://github.com/dgc-network/dgc-payment) :)
 
 == Screenshots ==
 
-1. User wallet page.
-2. Transfer wallet balance.
+1. User payment page.
+2. Transfer payment balance.
 3. View transaction details.
 4. All user balance details.
 5. Admin view transaction details.
-6. Admin adjust wallet balance.
-7. dgc Wallet for WooCommerce payment gateway.
+6. Admin adjust payment balance.
+7. dgc Payment for WooCommerce payment gateway.
 8. WooCommerce refund.
-9. Wallet actions.
+9. Payment actions.
 
 == Changelog ==
 

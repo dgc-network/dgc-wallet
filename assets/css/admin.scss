@@ -1,17 +1,17 @@
 @font-face {
-    font-family: 'dgcwallet';
-    src:  url('../fonts/dgcwallet.eot?tewfy0');
-    src:  url('../fonts/dgcwallet.eot?tewfy0#iefix') format('embedded-opentype'),
-        url('../fonts/dgcwallet.ttf?tewfy0') format('truetype'),
-        url('../fonts/dgcwallet.woff?tewfy0') format('woff'),
-        url('../fonts/dgcwallet.svg?tewfy0#dgcwallet') format('svg');
+    font-family: 'dgcpayment';
+    src:  url('../fonts/dgcpayment.eot?tewfy0');
+    src:  url('../fonts/dgcpayment.eot?tewfy0#iefix') format('embedded-opentype'),
+        url('../fonts/dgcpayment.ttf?tewfy0') format('truetype'),
+        url('../fonts/dgcpayment.woff?tewfy0') format('woff'),
+        url('../fonts/dgcpayment.svg?tewfy0#dgcpayment') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
-[class^="dgc-wallet-icon-"], [class*=" dgc-wallet-icon-"] {
+[class^="dgc-payment-icon-"], [class*=" dgc-payment-icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'dgcwallet' !important;
+    font-family: 'dgcpayment' !important;
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -24,15 +24,15 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.dgc-wallet-icon-wallet:before {
+.dgc-payment-icon-payment:before {
     content: "\e900";
 }
-#adminmenu #toplevel_page_dgc-wallet .menu-icon-generic div.wp-menu-image::before{
-    font-family: 'dgcwallet' !important;
+#adminmenu #toplevel_page_dgc-payment .menu-icon-generic div.wp-menu-image::before{
+    font-family: 'dgcpayment' !important;
     content: "\e900";
 }
 
-.wallet-settings-wrap {
+.payment-settings-wrap {
     display: flex;
     border: 1px solid #c8d7e1;
     h2.nav-tab-wrapper {
@@ -71,7 +71,7 @@
     }
 }
 .column-actions {
-    .wallet-manage {
+    .payment-manage {
         &::after {
             font-family: Dashicons;
             font-weight: 400;
@@ -87,7 +87,7 @@
             margin: 0px;
         }
     }
-    .wallet-view {
+    .payment-view {
         &::after {
             font-family: Dashicons;
             font-weight: 400;

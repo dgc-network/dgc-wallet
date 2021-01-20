@@ -89,7 +89,7 @@ module.exports = function (grunt) {
 
         // Generate RTL .css files
         rtlcss: {
-            wallet: {
+            payment: {
                 expand: true,
                 cwd: '<%= dirs.css %>',
                 src: [
@@ -135,14 +135,14 @@ module.exports = function (grunt) {
                 type: 'wp-plugin',
                 domainPath: 'languages',
                 potHeaders: {
-                    'report-msgid-bugs-to': 'https://github.com/dgc-network/dgc-wallet/issues',
-                    'language-team': 'dgc_Wallet <admin@dgc.network>',
+                    'report-msgid-bugs-to': 'https://github.com/dgc-network/dgc-payment/issues',
+                    'language-team': 'dgc_Payment <admin@dgc.network>',
                     'last-translator': 'dgc.network<admin@dgc.network>'
                 }
             },
             dist: {
                 options: {
-                    potFilename: 'dgc-wallet.pot',
+                    potFilename: 'dgc-payment.pot',
                     exclude: [
                         'tmp/.*'
                     ]
@@ -153,7 +153,7 @@ module.exports = function (grunt) {
         // Check textdomain errors.
         checktextdomain: {
             options: {
-                text_domain: 'dgc-wallet',
+                text_domain: 'dgc-payment',
                 keywords: [
                     '__:1,2d',
                     '_e:1,2d',

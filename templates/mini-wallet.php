@@ -1,9 +1,9 @@
 <?php
 
 /**
- * The Template for mini wallet
+ * The Template for mini payment
  *
- * This template can be overridden by copying it to yourtheme/dgc-wallet/mini-wallet.php.
+ * This template can be overridden by copying it to yourtheme/dgc-payment/mini-payment.php.
  *
  * HOWEVER, on occasion we will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -18,10 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-$title      = __( 'Current wallet balance', 'dgc-wallet' );
-$menu_item  = '<li class="right"><a class="dgc-wallet-menu-contents" href="' . esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_wallet_endpoint', 'dgc-wallet' ) ) ) . '" title="' . $title . '">';
-$menu_item .= '<span class="dgc-wallet-icon-wallet"></span>&nbsp;';
-$menu_item .= dgc_wallet()->wallet->get_wallet_balance( get_current_user_id() );
+$title      = __( 'Current payment balance', 'dgc-payment' );
+$menu_item  = '<li class="right"><a class="dgc-payment-menu-contents" href="' . esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'dgc-payment' ) ) ) . '" title="' . $title . '">';
+$menu_item .= '<span class="dgc-payment-icon-payment"></span>&nbsp;';
+$menu_item .= dgc_payment()->payment->get_payment_balance( get_current_user_id() );
 $menu_item .= '</a></li>';
 
 echo $menu_item;
