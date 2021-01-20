@@ -36,25 +36,6 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
 	 * Add a bit of script.
 	 */
 	function dgc_custom_script() {
-		?>
-		<script>
-			jQuery(document).ready(function($) {
-                
-                $('.nav-tab-wrapper a').click(function (evt) {
-                    alert('I am here');
-                    $('.nav-tab-wrapper a').removeClass('nav-tab-active');
-                    $(this).addClass('nav-tab-active').blur();
-                    var clicked_group = $(this).attr('href');
-                    if (typeof (localStorage) !== undefined) {
-                        localStorage.setItem('activewwtab', $(this).attr('href'));
-                    }
-                    $('.group').hide();
-                    $(clicked_group).fadeIn();
-                    evt.preventDefault();
-                });
-			});
-		</script>
-		<?php
 	}
 
 
@@ -583,6 +564,27 @@ if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
             $html .= '</h2>';
 
             echo $html;
+
+            ?>
+            <script>
+                jQuery(document).ready(function($) {
+                    
+                    $('.nav-tab-wrapper a').click(function (evt) {
+                        alert('I am here');
+                        $('.nav-tab-wrapper a').removeClass('nav-tab-active');
+                        $(this).addClass('nav-tab-active').blur();
+                        var clicked_group = $(this).attr('href');
+                        if (typeof (localStorage) !== undefined) {
+                            localStorage.setItem('activewwtab', $(this).attr('href'));
+                        }
+                        $('.group').hide();
+                        $(clicked_group).fadeIn();
+                        evt.preventDefault();
+                    });
+                });
+            </script>
+            <?php
+    
         }
 
         /**
