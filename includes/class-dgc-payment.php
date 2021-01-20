@@ -201,7 +201,6 @@ final class dgc_Payment {
     public function woocommerce_loaded_callback() {
         include_once DGC_PAYMENT_ABSPATH . 'includes/abstracts/abstract-dgc-payment-actions.php';
         require_once DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-actions.php';
-        //include_once DGC_PAYMENT_ABSPATH . '/includes/class-dgc-payment-api.php';
         include_once DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-api.php';
         $this->rest_api = new dgc_Payment_API();
     }
