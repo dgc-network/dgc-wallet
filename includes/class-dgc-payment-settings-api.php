@@ -602,7 +602,7 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             } else {
                 $('.nav-tab-wrapper a:first').addClass('nav-tab-active');
             }
-
+/*
                     $('.nav-tab-wrapper a').click(function (evt) {
                         //alert('I am here');
                         $('.nav-tab-wrapper a').removeClass('nav-tab-active');
@@ -615,6 +615,7 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
                         $(clicked_group).fadeIn();
                         evt.preventDefault();
                     });
+*/
                 });
             </script>
             <?php
