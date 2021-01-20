@@ -569,6 +569,40 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             <script>
                 jQuery(document).ready(function($) {
                     
+            // Switches option sections
+            $('.group').hide();
+            var activewwtab = '';
+            var url = new URL(location.href);
+            var tab = url.searchParams.get('activewwtab');
+            if (tab) {
+                if (typeof (localStorage) !== undefined) {
+                    localStorage.setItem('activewwtab', '#' + tab);
+                }
+            }
+            if (typeof (localStorage) !== undefined) {
+                activewwtab = localStorage.getItem('activewwtab');
+            }
+            if (activewwtab !== '' && $(activewwtab).length) {
+                $(activewwtab).fadeIn();
+            } else {
+                $('.group:first').fadeIn();
+            }
+            $('.group .collapsed').each(function () {
+                $(this).find('input:checked').parent().parent().parent().nextAll().each(
+                        function () {
+                            if ($(this).hasClass('last')) {
+                                $(this).removeClass('hidden');
+                                return false;
+                            }
+                            $(this).filter('.hidden').removeClass('hidden');
+                        });
+            });
+            if (activewwtab !== '' && $(activewwtab + '-tab').length) {
+                $(activewwtab + '-tab').addClass('nav-tab-active');
+            } else {
+                $('.nav-tab-wrapper a:first').addClass('nav-tab-active');
+            }
+
                     $('.nav-tab-wrapper a').click(function (evt) {
                         //alert('I am here');
                         $('.nav-tab-wrapper a').removeClass('nav-tab-active');

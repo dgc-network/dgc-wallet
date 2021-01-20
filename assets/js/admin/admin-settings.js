@@ -34,7 +34,6 @@ jQuery(function ($) {
                             $(this).filter('.hidden').removeClass('hidden');
                         });
             });
-
             if (activewwtab !== '' && $(activewwtab + '-tab').length) {
                 $(activewwtab + '-tab').addClass('nav-tab-active');
             } else {
