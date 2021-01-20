@@ -21,7 +21,34 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
             add_action( 'admin_init', array( $this, 'plugin_settings_page_init' ) );
             add_action( 'admin_menu', array( $this, 'admin_menu' ), 60 );
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+            add_action( 'admin_head', array( __CLASS__, 'dgc_custom_style' ) );
         }
+
+	/**
+	 * Add a bit of script.
+	 */
+	function dgc_custom_script() {
+		?>
+		<script>
+			jQuery(document).ready(function($) {
+                
+                $('.nav-tab-wrapper a').click(function (evt) {
+                    alert('I am here');
+                    $('.nav-tab-wrapper a').removeClass('nav-tab-active');
+                    $(this).addClass('nav-tab-active').blur();
+                    var clicked_group = $(this).attr('href');
+                    if (typeof (localStorage) !== undefined) {
+                        localStorage.setItem('activewwtab', $(this).attr('href'));
+                    }
+                    $('.group').hide();
+                    $(clicked_group).fadeIn();
+                    evt.preventDefault();
+                });
+			});
+		</script>
+		<?php
+	}
+
 
         /**
          * wc wallet menu
