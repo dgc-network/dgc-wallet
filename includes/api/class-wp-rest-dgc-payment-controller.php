@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-class dgc_Payment_REST_Controller extends WP_REST_Controller {
+class WP_REST_dgc_Payment_Controller extends WP_REST_Controller {
 
     /**
      * Endpoint namespace.

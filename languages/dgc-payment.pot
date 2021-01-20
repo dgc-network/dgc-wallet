@@ -278,8 +278,8 @@ msgstr ""
 
 #: includes/api/class-wc-rest-dgc-payment-controller.php:44
 #: includes/api/class-wc-rest-dgc-payment-controller.php:84
-#: includes/api/class-dgc-payment-rest-controller.php:32
-#: includes/api/class-dgc-payment-rest-controller.php:56
+#: includes/api/class-wp-rest-dgc-payment-controller.php:32
+#: includes/api/class-wp-rest-dgc-payment-controller.php:56
 msgid "Unique identifier for the resource."
 msgstr ""
 

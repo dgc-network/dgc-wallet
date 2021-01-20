@@ -40,7 +40,7 @@ if (!class_exists('dgc_Payment_WCFMMP')) {
         public function init() {
             add_filter('wcfm_marketplace_withdrwal_payment_methods', array($this, 'wcfm_marketplace_withdrwal_payment_methods'));
             add_filter('wcfm_marketplace_settings_fields_withdrawal_charges', array($this, 'wcfm_marketplace_settings_fields_withdrawal_charges'), 50, 3);
-            require_once DGC_WALLET_ABSPATH . 'includes/marketplace/wcfmmp/class-dgc-payment-wcfmmp-gateway.php';
+            require_once DGC_PAYMENT_ABSPATH . 'includes/marketplace/wcfmmp/class-dgc-payment-wcfmmp-gateway.php';
         }
 
         public function wcfm_marketplace_withdrwal_payment_methods($payment_methods) {

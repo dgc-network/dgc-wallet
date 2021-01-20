@@ -59,10 +59,10 @@ class dgc_Payment_Actions {
     }
 
     public function load_actions() {
-        require_once(DGC_WALLET_ABSPATH . 'includes/actions/class-dgc-payment-action-new-registration.php' );
-        require_once(DGC_WALLET_ABSPATH . 'includes/actions/class-dgc-payment-action-product-review.php' );
-        require_once(DGC_WALLET_ABSPATH . 'includes/actions/class-dgc-payment-action-daily-visits.php' );
-        require_once(DGC_WALLET_ABSPATH . 'includes/actions/class-dgc-payment-action-referrals.php' );
+        require_once(DGC_PAYMENT_ABSPATH . 'includes/actions/class-dgc-payment-action-new-registration.php' );
+        require_once(DGC_PAYMENT_ABSPATH . 'includes/actions/class-dgc-payment-action-product-review.php' );
+        require_once(DGC_PAYMENT_ABSPATH . 'includes/actions/class-dgc-payment-action-daily-visits.php' );
+        require_once(DGC_PAYMENT_ABSPATH . 'includes/actions/class-dgc-payment-action-referrals.php' );
         do_action('dgc_payment_load_actions');
     }
 
@@ -81,7 +81,7 @@ class dgc_Payment_Actions {
         $screen_id = $screen ? $screen->id : '';
         $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
         // Register scripts
-        wp_register_script('dgc_payment_admin_actions', dgc_payment()->plugin_url() . '/assets/js/admin/admin-actions' . $suffix . '.js', array('jquery'), DGC_WALLET_PLUGIN_VERSION);
+        wp_register_script('dgc_payment_admin_actions', dgc_payment()->plugin_url() . '/assets/js/admin/admin-actions' . $suffix . '.js', array('jquery'), DGC_PAYMENT_PLUGIN_VERSION);
         if (in_array( $screen_id, array( 'dgc_payment_page_dgc-payment-actions', 'dgc_payment_page_dgc-payment-actions' ) ) ) {
             wp_enqueue_script('dgc_payment_admin_actions');
         }

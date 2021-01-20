@@ -64,9 +64,9 @@ final class dgc_Payment {
      * Constants define
      */
     private function define_constants() {
-        $this->define( 'DGC_WALLET_ABSPATH', dirname(DGC_WALLET_PLUGIN_FILE) . '/' );
-        $this->define( 'DGC_WALLET_PLUGIN_FILE', plugin_basename(DGC_WALLET_PLUGIN_FILE) );
-        $this->define( 'DGC_WALLET_PLUGIN_VERSION', '1.0.0' );
+        $this->define( 'DGC_PAYMENT_ABSPATH', dirname(DGC_PAYMENT_PLUGIN_FILE) . '/' );
+        $this->define( 'DGC_PAYMENT_PLUGIN_FILE', plugin_basename(DGC_PAYMENT_PLUGIN_FILE) );
+        $this->define( 'DGC_PAYMENT_PLUGIN_VERSION', '1.0.0' );
     }
 
     /**
@@ -102,31 +102,31 @@ final class dgc_Payment {
      * load plugin files
      */
     public function includes() {
-        include_once( DGC_WALLET_ABSPATH . 'includes/helper/dgc-payment-util.php' );
-        include_once( DGC_WALLET_ABSPATH . 'includes/helper/dgc-payment-update-functions.php' );
-        include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-install.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/helper/dgc-payment-util.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/helper/dgc-payment-update-functions.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-install.php' );
         
-        include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-settings-api.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-settings-api.php' );
         $this->settings_api = new dgc_Payment_Settings_API();
         
-        include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-payment.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-payment.php' );
         $this->payment = new dgc_Payment_Wallet();
         
-        include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-cashback.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-cashback.php' );
         $this->cashback = new dgc_Payment_Cashback();
         
-        include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-widgets.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-widgets.php' );
         
         if ( $this->is_request( 'admin' ) ) {
-            include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-settings.php' );
-            include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-extensions.php' );
-            include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-admin.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-settings.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-extensions.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-admin.php' );
         }
         if ( $this->is_request( 'frontend' ) ) {
-            include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-frontend.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-frontend.php' );
         }
         if ( $this->is_request( 'ajax' ) ) {
-            include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-ajax.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-ajax.php' );
         }
     }
 
@@ -135,15 +135,15 @@ final class dgc_Payment {
      * @return string path
      */
     public function plugin_url() {
-        return untrailingslashit(plugins_url( '/', DGC_WALLET_PLUGIN_FILE) );
+        return untrailingslashit(plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE) );
     }
 
     /**
      * Plugin init
      */
     private function init_hooks() {
-        register_activation_hook(DGC_WALLET_PLUGIN_FILE, array( 'dgc_Payment_Install', 'install' ) );
-        add_filter( 'plugin_action_links_' . plugin_basename(DGC_WALLET_PLUGIN_FILE), array( $this, 'plugin_action_links' ) );
+        register_activation_hook(DGC_PAYMENT_PLUGIN_FILE, array( 'dgc_Payment_Install', 'install' ) );
+        add_filter( 'plugin_action_links_' . plugin_basename(DGC_PAYMENT_PLUGIN_FILE), array( $this, 'plugin_action_links' ) );
         add_action( 'init', array( $this, 'init' ), 5);
         add_action( 'widgets_init', array($this, 'dgc_payment_widget_init') );
         add_action( 'woocommerce_loaded', array( $this, 'woocommerce_loaded_callback' ) );
@@ -156,7 +156,7 @@ final class dgc_Payment {
      */
     public function init() {
         $this->load_plugin_textdomain();
-        include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-method.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-method.php' );
         $this->add_marketplace_support();
         add_filter( 'woocommerce_email_classes', array( $this, 'woocommerce_email_classes' ) );
         add_filter( 'woocommerce_payment_gateways', array( $this, 'load_gateway' ) );
@@ -199,9 +199,10 @@ final class dgc_Payment {
      * Load WooCommerce dependent class file.
      */
     public function woocommerce_loaded_callback() {
-        include_once DGC_WALLET_ABSPATH . 'includes/abstracts/abstract-dgc-payment-actions.php';
-        require_once DGC_WALLET_ABSPATH . 'includes/class-dgc-payment-actions.php';
-        include_once DGC_WALLET_ABSPATH . '/includes/class-dgc-payment-api.php';
+        include_once DGC_PAYMENT_ABSPATH . 'includes/abstracts/abstract-dgc-payment-actions.php';
+        require_once DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-actions.php';
+        //include_once DGC_PAYMENT_ABSPATH . '/includes/class-dgc-payment-api.php';
+        include_once DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-api.php';
         $this->rest_api = new dgc_Payment_API();
     }
 
@@ -209,8 +210,8 @@ final class dgc_Payment {
      * WP REST API init.
      */
     public function rest_api_init() {
-        include_once( DGC_WALLET_ABSPATH . 'includes/api/class-dgc-payment-rest-controller.php' );
-        $rest_controller = new dgc_Payment_REST_Controller();
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/api/class-wp-rest-dgc-payment-controller.php' );
+        $rest_controller = new WP_REST_dgc_Payment_Controller();
         $rest_controller->register_routes();
     }
     /**
@@ -218,12 +219,12 @@ final class dgc_Payment {
      * @param array $links
      * @return array
      */
-    public function plugin_action_links( $links) {
+    public function plugin_action_links( $links ) {
         $action_links = array(
             'settings' => '<a href="' . admin_url( 'admin.php?page=dgc-payment-settings' ) . '" aria-label="' . esc_attr__( 'View Payment settings', 'dgc-payment' ) . '">' . esc_html__( 'Settings', 'dgc-payment' ) . '</a>',
         );
 
-        return array_merge( $action_links, $links);
+        return array_merge( $action_links, $links );
     }
 
     /**
@@ -235,7 +236,7 @@ final class dgc_Payment {
 
         unload_textdomain( 'dgc-payment' );
         load_textdomain( 'dgc-payment', WP_LANG_DIR . '/dgc-payment/dgc-payment-' . $locale . '.mo' );
-        load_plugin_textdomain( 'dgc-payment', false, plugin_basename(dirname(DGC_WALLET_PLUGIN_FILE) ) . '/languages' );
+        load_plugin_textdomain( 'dgc-payment', false, plugin_basename(dirname(DGC_PAYMENT_PLUGIN_FILE) ) . '/languages' );
     }
 
     /**
@@ -253,8 +254,8 @@ final class dgc_Payment {
      * @param array $emails
      * @return array
      */
-    public function woocommerce_email_classes( $emails) {
-        $emails['dgc_Payment_Email_New_Transaction'] = include DGC_WALLET_ABSPATH . 'includes/emails/class-dgc-payment-email-new-transaction.php';
+    public function woocommerce_email_classes( $emails ) {
+        $emails['dgc_Payment_Email_New_Transaction'] = include DGC_PAYMENT_ABSPATH . 'includes/emails/class-dgc-payment-email-new-transaction.php';
         return $emails;
     }
 
@@ -276,14 +277,14 @@ final class dgc_Payment {
      */
     public function add_marketplace_support() {
         if (class_exists( 'WCMp' ) ) {
-            include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/wc-merketplace/class-dgc-payment-wcmp-gateway.php' );
-            include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/wc-merketplace/class-dgc-payment-wcmp.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/marketplace/wc-merketplace/class-dgc-payment-wcmp-gateway.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/marketplace/wc-merketplace/class-dgc-payment-wcmp.php' );
         }
         if (class_exists( 'WeDevs_Dokan' ) ) {
-            include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/dokan/class-dgc-payment-dokan.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/marketplace/dokan/class-dgc-payment-dokan.php' );
         }
         if(class_exists('WCFMmp')){
-            include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/wcfmmp/class-dgc-payment-wcfmmp.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/marketplace/wcfmmp/class-dgc-payment-wcfmmp.php' );
         }
     }
     /**
@@ -343,7 +344,7 @@ final class dgc_Payment {
             $template_path = 'dgc-payment';
         }
         if ( !$default_path) {
-            $default_path = DGC_WALLET_ABSPATH . 'templates/';
+            $default_path = DGC_PAYMENT_ABSPATH . 'templates/';
         }
         // Look within passed path within the theme - this is priority
         $template = locate_template( array(trailingslashit( $template_path) . $template_name, $template_name) );

@@ -17,7 +17,7 @@ if ( ! class_exists( 'dgc_Payment_Email_New_Transaction' ) ) {
             $this->description    = __( 'New payment transaction emails are sent to user when a payment transaction received.', 'dgc-payment' );
             $this->template_html  = 'emails/user-new-transaction.php';
             $this->template_plain = 'emails/plain/user-new-transaction.php';
-            $this->template_base  = DGC_WALLET_ABSPATH . 'templates/';
+            $this->template_base  = DGC_PAYMENT_ABSPATH . 'templates/';
             $this->placeholders   = array(
                 '{site_title}'       => $this->get_blogname(),
                 '{transaction_date}' => '',

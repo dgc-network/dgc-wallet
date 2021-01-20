@@ -243,7 +243,7 @@ class dgc_Payment_Install {
      */
     private static function update() {
         $current_db_version = get_option( 'dgc_payment_db_version' );
-        if (version_compare(DGC_WALLET_PLUGIN_VERSION, $current_db_version, '=' ) ){
+        if (version_compare(DGC_PAYMENT_PLUGIN_VERSION, $current_db_version, '=' ) ){
             return;
         }
         foreach ( self::get_db_update_callbacks() as $version => $update_callbacks) {
@@ -263,7 +263,7 @@ class dgc_Payment_Install {
      */
     public static function update_db_version( $version = null) {
         delete_option( 'dgc_payment_db_version' );
-        add_option( 'dgc_payment_db_version', is_null( $version) ? DGC_WALLET_PLUGIN_VERSION : $version );
+        add_option( 'dgc_payment_db_version', is_null( $version) ? DGC_PAYMENT_PLUGIN_VERSION : $version );
     }
 
 }

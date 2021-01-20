@@ -189,11 +189,11 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             $screen_id = $screen ? $screen->id : '';
             $suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
             // register styles
-            wp_register_style( 'dgc_payment_admin_styles', dgc_payment()->plugin_url() . '/assets/css/admin.css', array(), DGC_WALLET_PLUGIN_VERSION);
+            wp_register_style( 'dgc_payment_admin_styles', dgc_payment()->plugin_url() . '/assets/css/admin.css', array(), DGC_PAYMENT_PLUGIN_VERSION);
 
             // Register scripts
-            wp_register_script( 'dgc_payment_admin_product', dgc_payment()->plugin_url() . '/assets/js/admin/admin-product' . $suffix . '.js', array( 'jquery' ), DGC_WALLET_PLUGIN_VERSION);
-            wp_register_script( 'dgc_payment_admin_order', dgc_payment()->plugin_url() . '/assets/js/admin/admin-order' . $suffix . '.js', array( 'jquery', 'wc-admin-order-meta-boxes' ), DGC_WALLET_PLUGIN_VERSION);
+            wp_register_script( 'dgc_payment_admin_product', dgc_payment()->plugin_url() . '/assets/js/admin/admin-product' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
+            wp_register_script( 'dgc_payment_admin_order', dgc_payment()->plugin_url() . '/assets/js/admin/admin-order' . $suffix . '.js', array( 'jquery', 'wc-admin-order-meta-boxes' ), DGC_PAYMENT_PLUGIN_VERSION);
 
             if (in_array( $screen_id, array( 'product', 'edit-product' ) ) ) {
                 wp_enqueue_script( 'dgc_payment_admin_product' );
@@ -324,7 +324,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                 'option' => 'users_per_page'
             );
             add_screen_option( $option, $args );
-            include_once( DGC_WALLET_ABSPATH . 'includes/admin/class-dgc-payment-balance-details.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/admin/class-dgc-payment-balance-details.php' );
             $this->balance_details_table = new dgc_Payment_Balance_Details();
             $this->balance_details_table->prepare_items();
         }
@@ -374,7 +374,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                 'option' => 'transactions_per_page'
             );
             add_screen_option( $option, $args );
-            include_once( DGC_WALLET_ABSPATH . 'includes/admin/class-dgc-payment-transaction-details.php' );
+            include_once( DGC_PAYMENT_ABSPATH . 'includes/admin/class-dgc-payment-transaction-details.php' );
             $this->transaction_details_table = new dgc_Payment_Transaction_Details();
             $this->transaction_details_table->prepare_items();
         }

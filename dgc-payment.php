@@ -20,9 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Define DGC_WALLET_PLUGIN_FILE.
-if ( ! defined( 'DGC_WALLET_PLUGIN_FILE' ) ) {
-    define( 'DGC_WALLET_PLUGIN_FILE', __FILE__ );
+// Define DGC_PAYMENT_PLUGIN_FILE.
+if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
+    define( 'DGC_PAYMENT_PLUGIN_FILE', __FILE__ );
 }
 // include dependencies file
 if ( ! class_exists( 'dgc_Payment_Dependencies' ) ){
