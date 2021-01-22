@@ -41,7 +41,7 @@ function dgc_payment(){
 $GLOBALS['dgc_payment'] = dgc_payment();
 
 /**
- * dgc Payment
+ * dgc Payment Gateway
  */
 $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
 if(dgc_payment_is_woocommerce_active()){
