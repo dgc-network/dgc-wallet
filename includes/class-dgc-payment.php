@@ -135,7 +135,8 @@ final class dgc_Payment {
      * @return string path
      */
     public function plugin_url() {
-        return untrailingslashit(plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE) );
+        //return untrailingslashit( plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE ) );
+        return plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE );
     }
 
     /**
@@ -243,7 +244,7 @@ final class dgc_Payment {
      * @param array $load_gateways
      * @return array
      */
-    public function load_gateway( $load_gateways) {
+    public function load_gateway( $load_gateways ) {
         //$load_gateways[] = 'dgc_Payment_Method';
         return $load_gateways;
     }
