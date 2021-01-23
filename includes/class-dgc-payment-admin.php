@@ -195,11 +195,11 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             wp_register_script( 'dgc_payment_admin_product', dgc_payment()->plugin_url() . '/assets/js/admin/admin-product' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
             wp_register_script( 'dgc_payment_admin_order', dgc_payment()->plugin_url() . '/assets/js/admin/admin-order' . $suffix . '.js', array( 'jquery', 'wc-admin-order-meta-boxes' ), DGC_PAYMENT_PLUGIN_VERSION);
 
-            if (in_array( $screen_id, array( 'product', 'edit-product' ) ) ) {
+            //if (in_array( $screen_id, array( 'product', 'edit-product' ) ) ) {
                 wp_enqueue_script( 'dgc_payment_admin_product' );
                 wp_localize_script( 'dgc_payment_admin_product', 'dgc_payment_admin_product_param', array( 'product_id' => get_payment_rechargeable_product()->get_id(), 'is_hidden' => apply_filters( 'dgc_payment_hide_rechargeable_product', true ) ) );
-            }
-            if (in_array( $screen_id, array( 'shop_order' ) ) ) {
+            //}
+            //if (in_array( $screen_id, array( 'shop_order' ) ) ) {
                 $order = wc_get_order( $post->ID );
                 wp_enqueue_script( 'dgc_payment_admin_order' );
                 $order_localizer = array(
@@ -213,7 +213,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                     )
                 );
                 wp_localize_script( 'dgc_payment_admin_order', 'dgc_payment_admin_order_param', $order_localizer);
-            }
+            //}
             wp_enqueue_style( 'dgc_payment_admin_styles' );
         }
 
