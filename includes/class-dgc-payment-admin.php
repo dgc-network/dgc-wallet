@@ -190,7 +190,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             $suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
             // register styles
             wp_register_style( 'dgc_payment_admin_styles', dgc_payment()->plugin_url() . '/assets/css/admin.css', array(), DGC_PAYMENT_PLUGIN_VERSION);
-            //wp_register_style( 'dgc_payment_admin_styles', plugin_dir_url( __FILE__ ) . '/assets/css/admin.css', array(), DGC_PAYMENT_PLUGIN_VERSION);
+            //wp_register_style( 'dgc_payment_admin_styles', plugin_dir_url( __FILE__ ) . 'assets/css/admin.css', array(), DGC_PAYMENT_PLUGIN_VERSION);
 
             // Register scripts
             //wp_register_script( 'dgc_payment_admin_product', dgc_payment()->plugin_url() . '/assets/js/admin/admin-product' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);

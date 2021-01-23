@@ -126,7 +126,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             wp_register_style('jquery-datatables-style', '//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css');
             wp_register_style('jquery-datatables-responsive-style', '//cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css');
             wp_register_style('dgc-payment-style', dgc_payment()->plugin_url() . '/assets/css/frontend.css', array(), DGC_PAYMENT_PLUGIN_VERSION);
-            //wp_register_style('dgc-payment-style', plugin_dir_url( __FILE__ ) . '/assets/css/frontend.css', array(), DGC_PAYMENT_PLUGIN_VERSION);
+            //wp_register_style('dgc-payment-style', plugin_dir_url( __FILE__ ) . 'assets/css/frontend.css', array(), DGC_PAYMENT_PLUGIN_VERSION);
             // Add RTL support 
             wp_style_add_data('dgc-payment-style', 'rtl', 'replace');
             wp_register_script('jquery-datatables-script', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array('jquery'));
