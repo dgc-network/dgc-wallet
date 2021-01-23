@@ -67,7 +67,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 	 * @since 1.0.0
 	 * @return void
 	 */
-	public function admin_options() {
+	public function admin_options_backup() {
 		?>
 		<h3><?php _e( 'dgc Payment Settings', 'woocommerce-dgc-payment-gateway' ); ?></h3>
 			<div id="poststuff">
