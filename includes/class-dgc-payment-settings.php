@@ -53,8 +53,8 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
             $screen = get_current_screen();
             $screen_id = $screen ? $screen->id : '';
             $suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-            wp_register_script( 'dgc-payment-admin-settings', dgc_payment()->plugin_url() . '/assets/js/admin/admin-settings' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
-            //wp_register_script( 'dgc-payment-admin-settings', plugin_dir_url( __FILE__ ) . '/assets/js/admin/admin-settings' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
+            //wp_register_script( 'dgc-payment-admin-settings', dgc_payment()->plugin_url() . '/assets/js/admin/admin-settings' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
+            wp_register_script( 'dgc-payment-admin-settings', plugin_dir_url( __FILE__ ) . 'assets/js/admin/admin-settings' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
             //if (in_array( $screen_id, array( 'dgc_payment_page_dgc-payment-settings', 'dgc_payment_page_dgc-payment-settings' ) ) ) {
             if (in_array( $screen_id, array( 'dgc_payment_page_dgc-payment-settings' ) ) ) {
                 wp_enqueue_style( 'dashicons' );

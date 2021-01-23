@@ -25,14 +25,13 @@ jQuery(function ($) {
                 $('.group:first').fadeIn();
             }
             $('.group .collapsed').each(function () {
-                $(this).find('input:checked').parent().parent().parent().nextAll().each(
-                        function () {
-                            if ($(this).hasClass('last')) {
-                                $(this).removeClass('hidden');
-                                return false;
-                            }
-                            $(this).filter('.hidden').removeClass('hidden');
-                        });
+                $(this).find('input:checked').parent().parent().parent().nextAll().each(function () {
+                    if ($(this).hasClass('last')) {
+                        $(this).removeClass('hidden');
+                        return false;
+                    }
+                    $(this).filter('.hidden').removeClass('hidden');
+                });
             });
             if (activewwtab !== '' && $(activewwtab + '-tab').length) {
                 $(activewwtab + '-tab').addClass('nav-tab-active');
