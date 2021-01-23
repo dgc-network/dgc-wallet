@@ -72,7 +72,7 @@ abstract class dgc_PaymentAction extends WC_Settings_API {
         settings_errors();
         echo '</h2>';
         echo wp_kses_post( wpautop( $this->get_action_description() ) );
-        parent::admin_options();
+        //parent::admin_options();
     }
 
     /**

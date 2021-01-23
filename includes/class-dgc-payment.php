@@ -24,11 +24,13 @@ final class dgc_Payment {
      * @var dgc_Payment_Wallet 
      */
     public $payment = null;
+
     /**
      * Cashback instance.
      * @var dgc_Payment_Cashback 
      */
     public $cashback = null;
+
     /**
      * Payment REST API
      * @var dgc_Payment_API 
@@ -65,7 +67,7 @@ final class dgc_Payment {
      */
     private function define_constants() {
         $this->define( 'DGC_PAYMENT_ABSPATH', dirname(DGC_PAYMENT_PLUGIN_FILE) . '/' );
-        $this->define( 'DGC_PAYMENT_PLUGIN_FILE', plugin_basename(DGC_PAYMENT_PLUGIN_FILE) );
+        //$this->define( 'DGC_PAYMENT_PLUGIN_FILE', plugin_basename(DGC_PAYMENT_PLUGIN_FILE) );
         $this->define( 'DGC_PAYMENT_PLUGIN_VERSION', '1.0.0' );
     }
 
@@ -189,6 +191,7 @@ final class dgc_Payment {
         
         add_action('deleted_user', array($this, 'delete_user_transaction_records'));
     }
+    
     /**
      * dgc_Payment init widget
      */

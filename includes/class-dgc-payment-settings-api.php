@@ -677,6 +677,4 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
 
     }
 
-    
-
 endif;

@@ -20,16 +20,23 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Define DGC_PAYMENT_PLUGIN_FILE.
+/*
+ * Define DGC_PAYMENT_PLUGIN_FILE.
+ */
 if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
     define( 'DGC_PAYMENT_PLUGIN_FILE', __FILE__ );
 }
-// include dependencies file
+
+/*
+ * Include dependencies file.
+ */
 if ( ! class_exists( 'dgc_Payment_Dependencies' ) ){
     include_once dirname( __FILE__ ) . '/includes/class-dgc-payment-dependencies.php';
 }
 
-// Include the main class.
+/*
+ * Include the main class.
+ */
 if ( ! class_exists( 'dgc_Payment' ) ) {
     include_once dirname( __FILE__ ) . '/includes/class-dgc-payment.php';
 }

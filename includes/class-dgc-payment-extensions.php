@@ -186,6 +186,6 @@ if ( ! class_exists( 'dgc_Payment_Extensions_Settings' ) ):
 
     }
 
-    endif;
+endif;
 
 new dgc_Payment_Extensions_Settings(dgc_payment()->settings_api);

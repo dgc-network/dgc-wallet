@@ -124,7 +124,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                 <form method="post">
                     <?php
                     $payment_actions->actions[$_GET['action']]->init_settings();
-                    //$payment_actions->actions[$_GET['action']]->admin_options();
+                    $payment_actions->actions[$_GET['action']]->admin_options();
                     submit_button();
                     ?>
                 </form>
