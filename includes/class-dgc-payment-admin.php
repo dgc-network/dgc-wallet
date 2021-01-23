@@ -193,10 +193,10 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             //wp_register_style( 'dgc_payment_admin_styles', plugin_dir_url( __FILE__ ) . '/assets/css/admin.css', array(), DGC_PAYMENT_PLUGIN_VERSION);
 
             // Register scripts
-            wp_register_script( 'dgc_payment_admin_product', dgc_payment()->plugin_url() . '/assets/js/admin/admin-product' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
-            //wp_register_script( 'dgc_payment_admin_product', plugin_dir_url( __FILE__ ) . '/assets/js/admin/admin-product' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
-            wp_register_script( 'dgc_payment_admin_order', dgc_payment()->plugin_url() . '/assets/js/admin/admin-order' . $suffix . '.js', array( 'jquery', 'wc-admin-order-meta-boxes' ), DGC_PAYMENT_PLUGIN_VERSION);
-            //wp_register_script( 'dgc_payment_admin_order', plugin_dir_url( __FILE__ ) . '/assets/js/admin/admin-order' . $suffix . '.js', array( 'jquery', 'wc-admin-order-meta-boxes' ), DGC_PAYMENT_PLUGIN_VERSION);
+            //wp_register_script( 'dgc_payment_admin_product', dgc_payment()->plugin_url() . '/assets/js/admin/admin-product' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
+            wp_register_script( 'dgc_payment_admin_product', plugin_dir_url( __FILE__ ) . 'assets/js/admin/admin-product' . $suffix . '.js', array( 'jquery' ), DGC_PAYMENT_PLUGIN_VERSION);
+            //wp_register_script( 'dgc_payment_admin_order', dgc_payment()->plugin_url() . '/assets/js/admin/admin-order' . $suffix . '.js', array( 'jquery', 'wc-admin-order-meta-boxes' ), DGC_PAYMENT_PLUGIN_VERSION);
+            wp_register_script( 'dgc_payment_admin_order', plugin_dir_url( __FILE__ ) . 'assets/js/admin/admin-order' . $suffix . '.js', array( 'jquery', 'wc-admin-order-meta-boxes' ), DGC_PAYMENT_PLUGIN_VERSION);
 
             if (in_array( $screen_id, array( 'product', 'edit-product' ) ) ) {
                 wp_enqueue_script( 'dgc_payment_admin_product' );
