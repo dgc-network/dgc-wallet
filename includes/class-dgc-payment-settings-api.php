@@ -424,8 +424,8 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             $label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : __( 'Choose File', 'dgc-payment' );
             $uploader_title = isset( $args['options']['uploader_title'] ) ? $args['options']['uploader_title'] : __( 'Select', 'dgc-payment' );
             $uploader_button_text = isset( $args['options']['uploader_button_text'] ) ? $args['options']['uploader_button_text'] : __( 'Select', 'dgc-payment' );
-            //$attachment_src = WC()->plugin_url() . '/assets/images/placeholder.png';
-            $attachment_src = plugin_dir_url( __FILE__ ) . 'assets/images/placeholder.png';
+            $attachment_src = WC()->plugin_url() . '/assets/images/placeholder.png';
+            //$attachment_src = plugin_dir_url( __FILE__ ) . 'assets/images/placeholder.png';
             if ( $value ){
                 $attachment_src = wp_get_attachment_url( $value );
             }
