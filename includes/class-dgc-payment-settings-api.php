@@ -569,7 +569,7 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             ?>
             <script>
                 jQuery(document).ready(function($) {
-                    
+/*                    
             // Switches option sections
             $('.group').hide();
             var activewwtab = '';
@@ -603,6 +603,7 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             } else {
                 $('.nav-tab-wrapper a:first').addClass('nav-tab-active');
             }
+*/            
 /*
                     $('.nav-tab-wrapper a').click(function (evt) {
                         //alert('I am here');
