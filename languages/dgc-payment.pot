@@ -705,7 +705,7 @@ msgid "Have your customers pay with payment."
 msgstr ""
 
 #: includes/class-dgc-payment-method.php:56
-msgid "Enable payment payments"
+msgid "Enable payments"
 msgstr ""
 
 #: includes/class-dgc-payment-method.php:62

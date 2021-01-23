@@ -53,7 +53,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
         $this->form_fields = array(
             'enabled' => array(
                 'title' => __( 'Enable/Disable', 'dgc-payment' ),
-                'label' => __( 'Enable payment payments', 'dgc-payment' ),
+                'label' => __( 'Enable payments', 'dgc-payment' ),
                 'type' => 'checkbox',
                 'description' => '',
                 'default' => 'no',
@@ -105,7 +105,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
     }
 
     /**
-     * Process payment payment
+     * Process payment
      * @param int $order_id
      * @return array
      */

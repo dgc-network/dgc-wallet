@@ -82,7 +82,6 @@ class dgc_Payment_Actions {
         $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
         // Register scripts
         wp_register_script('dgc_payment_admin_actions', dgc_payment()->plugin_url() . '/assets/js/admin/admin-actions' . $suffix . '.js', array('jquery'), DGC_PAYMENT_PLUGIN_VERSION);
-        //wp_register_script('dgc_payment_admin_actions', plugin_dir_url( __FILE__ ) . 'assets/js/admin/admin-actions' . $suffix . '.js', array('jquery'), DGC_PAYMENT_PLUGIN_VERSION);        
         if (in_array( $screen_id, array( 'dgc_payment_page_dgc-payment-actions', 'dgc_payment_page_dgc-payment-actions' ) ) ) {
             wp_enqueue_script('dgc_payment_admin_actions');
         }

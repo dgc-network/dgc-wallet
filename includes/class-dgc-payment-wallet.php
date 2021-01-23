@@ -12,11 +12,13 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
          * @var INT 
          */
         public $user_id = 0;
+
         /**
          * Payment balance.
          * @var float 
          */
         public $payment_balance = 0;
+
         /**
          * Current payment balance meta key.
          * @var string 
@@ -26,7 +28,6 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
         /*
          * Class constructor
          */
-
         public function __construct() {
             $this->user_id = get_current_user_id();
         }
@@ -63,7 +64,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
         }
 
         /**
-         * Create payment payment credit transaction
+         * Create payment credit transaction
          * @param int $user_id
          * @param float $amount
          * @param string $details
@@ -75,7 +76,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
         }
 
         /**
-         * Create payment payment debit transaction
+         * Create payment debit transaction
          * @param int $user_id
          * @param float $amount
          * @param string $details

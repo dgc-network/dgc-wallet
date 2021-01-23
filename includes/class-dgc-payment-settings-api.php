@@ -425,7 +425,6 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             $uploader_title = isset( $args['options']['uploader_title'] ) ? $args['options']['uploader_title'] : __( 'Select', 'dgc-payment' );
             $uploader_button_text = isset( $args['options']['uploader_button_text'] ) ? $args['options']['uploader_button_text'] : __( 'Select', 'dgc-payment' );
             $attachment_src = WC()->plugin_url() . '/assets/images/placeholder.png';
-            //$attachment_src = plugin_dir_url( __FILE__ ) . 'assets/images/placeholder.png';
             if ( $value ){
                 $attachment_src = wp_get_attachment_url( $value );
             }
@@ -565,63 +564,6 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             $html .= '</h2>';
 
             echo $html;
-
-            ?>
-            <script>
-                jQuery(document).ready(function($) {
-/*                    
-            // Switches option sections
-            $('.group').hide();
-            var activewwtab = '';
-            var url = new URL(location.href);
-            var tab = url.searchParams.get('activewwtab');
-            if (tab) {
-                if (typeof (localStorage) !== undefined) {
-                    localStorage.setItem('activewwtab', '#' + tab);
-                }
-            }
-            if (typeof (localStorage) !== undefined) {
-                activewwtab = localStorage.getItem('activewwtab');
-            }
-            if (activewwtab !== '' && $(activewwtab).length) {
-                $(activewwtab).fadeIn();
-            } else {
-                $('.group:first').fadeIn();
-            }
-            $('.group .collapsed').each(function () {
-                $(this).find('input:checked').parent().parent().parent().nextAll().each(
-                        function () {
-                            if ($(this).hasClass('last')) {
-                                $(this).removeClass('hidden');
-                                return false;
-                            }
-                            $(this).filter('.hidden').removeClass('hidden');
-                        });
-            });
-            if (activewwtab !== '' && $(activewwtab + '-tab').length) {
-                $(activewwtab + '-tab').addClass('nav-tab-active');
-            } else {
-                $('.nav-tab-wrapper a:first').addClass('nav-tab-active');
-            }
-*/            
-/*
-                    $('.nav-tab-wrapper a').click(function (evt) {
-                        //alert('I am here');
-                        $('.nav-tab-wrapper a').removeClass('nav-tab-active');
-                        $(this).addClass('nav-tab-active').blur();
-                        var clicked_group = $(this).attr('href');
-                        if (typeof (localStorage) !== undefined) {
-                            localStorage.setItem('activewwtab', $(this).attr('href'));
-                        }
-                        $('.group').hide();
-                        $(clicked_group).fadeIn();
-                        evt.preventDefault();
-                    });
-*/
-                });
-            </script>
-            <?php
-    
         }
 
         /**
