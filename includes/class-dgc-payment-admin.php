@@ -206,7 +206,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                     'order_id' => $post->ID,
                     //'payment_method' => $order->get_payment_method( 'edit' ),
                     'default_price' => wc_price( 0 ),
-                    'is_refundable' => apply_filters( 'dgc_payment_is_order_refundable', ( ! is_payment_rechargeable_order( $order ) && $order->get_payment_method( 'edit' ) != 'payment' ) && $order->get_customer_id( 'edit' ), $order ),
+                    //'is_refundable' => apply_filters( 'dgc_payment_is_order_refundable', ( ! is_payment_rechargeable_order( $order ) && $order->get_payment_method( 'edit' ) != 'payment' ) && $order->get_customer_id( 'edit' ), $order ),
                     'i18n' => array(
                         'refund' => __( 'Refund', 'dgc-payment' ),
                         'via_payment' => __( 'to customer payment', 'dgc-payment' )
