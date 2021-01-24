@@ -153,7 +153,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             );
             wp_localize_script('wc-endpoint-payment', 'payment_param', $payment_localize_param);
             wp_enqueue_style('dgc-payment-style');
-            if (is_account_page()) {
+            //if (is_account_page()) {
                 wp_enqueue_style('dashicons');
                 wp_enqueue_style('select2');
                 wp_enqueue_style('jquery-datatables-style');
@@ -162,7 +162,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
                 wp_enqueue_script('jquery-datatables-script');
                 wp_enqueue_script('jquery-datatables-responsive-script');
                 wp_enqueue_script('wc-endpoint-payment');
-            }
+            //}
             $add_to_cart_variation = "jQuery(function ($) { $(document).on('show_variation', function (event, variation, purchasable) { if(variation.cashback_amount) { $('.on-dgc-payment-cashback').show(); $('.on-dgc-payment-cashback').html(variation.cashback_html); } else { $('.on-dgc-payment-cashback').hide(); } }) });";
             wp_add_inline_script('wc-add-to-cart-variation', $add_to_cart_variation);
         }
