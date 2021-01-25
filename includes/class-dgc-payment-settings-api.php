@@ -567,6 +567,19 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
 
             ?>
             <script>
+        jQuery(function ($) {
+            $('.nav-tab-wrapper a').click(function (evt) {
+                $('.nav-tab-wrapper a').removeClass('nav-tab-active');
+                $(this).addClass('nav-tab-active').blur();
+                var clicked_group = $(this).attr('href');
+                if (typeof (localStorage) !== undefined) {
+                    localStorage.setItem('activewwtab', $(this).attr('href'));
+                }
+                $('.group').hide();
+                $(clicked_group).fadeIn();
+                evt.preventDefault();
+            });
+        });
             </script>
             <?php
         }
