@@ -564,6 +564,11 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             $html .= '</h2>';
 
             echo $html;
+
+            ?>
+            <script>
+            </script>
+            <?php
         }
 
         /**
