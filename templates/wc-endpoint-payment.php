@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $wp;
 do_action( 'dgc_payment_before_my_payment_content' );
-$is_rendred_from_myaccount = wc_post_content_has_shortcode( 'text-domain' ) ? false : is_account_page();
+$is_rendred_from_myaccount = wc_post_content_has_shortcode( 'dgc_payment' ) ? false : is_account_page();
 $menu_items = apply_filters('dgc_payment_nav_menu_items', array(
     'top_up' => array(
         'title' => apply_filters( 'dgc_payment_account_topup_menu_title', __( 'exchange dgc', 'text-domain' ) ),
@@ -41,7 +41,7 @@ $menu_items = apply_filters('dgc_payment_nav_menu_items', array(
 
 <div class="dgc-payment-my-payment-container">
     <div class="dgc-payment-sidebar">
-        <h3 class="dgc-payment-sidebar-heading"><a href="<?php echo $is_rendred_from_myaccount ? esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'text-domain' ) ) ) : get_permalink(); ?>"><?php echo apply_filters( 'dgc_payment_account_menu_title', __( 'dgc Payment', 'text-domain' ) ); ?></a></h3>
+        <h3 class="dgc-payment-sidebar-heading"><a href="<?php echo $is_rendred_from_myaccount ? esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'text-domain' ) ) ) : get_permalink(); ?>"><?php echo apply_filters( 'dgc_payment_account_menu_title', __( 'dgcPay', 'text-domain' ) ); ?></a></h3>
         <ul>
             <?php foreach ($menu_items as $item => $menu_item) : ?>
                 <?php if (apply_filters('dgc_payment_is_enable_' . $item, true)) : ?>
