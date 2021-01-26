@@ -37,7 +37,6 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 				'default'		=> __( 'dgc Payment', 'text-domain' ),
 				'desc_tip'		=> true,
 			),
-/*
 			'description' => array(
 				'title' 		=> __( 'Customer Message', 'text-domain' ),
 				'type' 			=> 'textarea',
@@ -45,7 +44,6 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 				'default' 		=> 'None of the dgc payment options are suitable for you? please drop us a note about your favourable payment option and we will contact you as soon as possible.',
 				'description' 	=> __( 'The message which you want it to appear to the customer in the checkout page.', 'text-domain' ),
 			),
-*/
 			'hide_text_box' => array(
 				'title' 		=> __( 'Hide The Payment Field', 'text-domain' ),
 				'type' 			=> 'checkbox',

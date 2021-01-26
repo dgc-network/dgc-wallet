@@ -29,7 +29,7 @@ class WP_REST_dgc_Payment_Controller extends WP_REST_Controller {
         register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
             'args' => array(
                 'id' => array(
-                    'description' => __( 'Unique identifier for the resource.', 'dgc-payment' ),
+                    'description' => __( 'Unique identifier for the resource.', 'text-domain' ),
                     'type'        => 'integer',
                 ),
             ),
@@ -53,7 +53,7 @@ class WP_REST_dgc_Payment_Controller extends WP_REST_Controller {
         register_rest_route( $this->namespace, '/current_balance/(?P<id>[\d]+)', array(
             'args' => array(
                 'id' => array(
-                    'description' => __( 'Unique identifier for the resource.', 'dgc-payment' ),
+                    'description' => __( 'Unique identifier for the resource.', 'text-domain' ),
                     'type'        => 'integer',
                 ),
             ),

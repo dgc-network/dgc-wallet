@@ -52,7 +52,7 @@ if ( ! class_exists( 'dgc_Payment_Dokan' ) ) {
          */
         public function load_withdraw_method( $methods ) {
             $methods[self::$method_id] = array(
-                'title'    => __( 'Payment', 'dgc-payment' ),
+                'title'    => __( 'Payment', 'text-domain' ),
                 'callback' => '__return_false'
             );
 
@@ -163,12 +163,12 @@ if ( ! class_exists( 'dgc_Payment_Dokan' ) ) {
                         'date'   => current_time( 'mysql' ),
                         'status' => 1,
                         'method' => self::$method_id,
-                        'notes'  => sprintf( __( 'Order %d payment Auto paid via Payment', 'dgc-payment' ), $withdraw_data['order_id'] ),
+                        'notes'  => sprintf( __( 'Order %d payment Auto paid via Payment', 'text-domain' ), $withdraw_data['order_id'] ),
                         'ip'     => $IP
                     );
 
                     $data           = array_merge( $data, $withdraw_data);
-                    $transaction_id = dgc_payment()->payment->credit( $data['user_id'], $data['amount'], __( 'Commission received for order id ', 'dgc-payment' ) . $data['order_id'] );
+                    $transaction_id = dgc_payment()->payment->credit( $data['user_id'], $data['amount'], __( 'Commission received for order id ', 'text-domain' ) . $data['order_id'] );
                     if ( $transaction_id ) {
                         $withdraw->insert_withdraw( $data);
                         update_payment_transaction_meta( $transaction_id, '_dokan_withdrawal_id', $wpdb->insert_id );
@@ -199,7 +199,7 @@ if ( ! class_exists( 'dgc_Payment_Dokan' ) ) {
             ?>
             <div class="dokan-cashback-options dokan-edit-row dokan-clearfix" style="margin-bottom: 20px;">
                 <div class="dokan-section-heading" data-togglehandler="dokan_cashback_options">
-                    <h2><i class="fa fa-cog" aria-hidden="true"></i> <?php _e( 'Cashback Options', 'dgc-payment' ); ?></h2>
+                    <h2><i class="fa fa-cog" aria-hidden="true"></i> <?php _e( 'Cashback Options', 'text-domain' ); ?></h2>
                     <p><?php _e( 'Set product cashback options', 'dokan-lite' ); ?></p>
                     <a href="#" class="dokan-section-toggle">
                         <i class="fa fa-sort-desc fa-flip-vertical" aria-hidden="true"></i>
@@ -210,20 +210,20 @@ if ( ! class_exists( 'dgc_Payment_Dokan' ) ) {
                 <div class="dokan-section-content">
 
                     <div class="dokan-form-group content-half-part">
-                        <label for="_cashback_type" class="form-label"><?php _e( 'Cashback type', 'dgc-payment' ); ?></label>
+                        <label for="_cashback_type" class="form-label"><?php _e( 'Cashback type', 'text-domain' ); ?></label>
                         <?php
                         dokan_post_input_box( $post_id, '_cashback_type', array( 'options' => array(
-                            'percent' => __( 'Percentage', 'dgc-payment' ),
-                            'fixed'   => __( 'Fixed', 'dgc-payment' )
+                            'percent' => __( 'Percentage', 'text-domain' ),
+                            'fixed'   => __( 'Fixed', 'text-domain' )
                         ) ), 'select' );
                         ?>
                     </div>
 
                     <div class="dokan-form-group content-half-part">
-                        <label for="_cashback_amount" class="form-label"><?php _e( 'Cashback Amount', 'dgc-payment' ); ?></label>
+                        <label for="_cashback_amount" class="form-label"><?php _e( 'Cashback Amount', 'text-domain' ); ?></label>
                         <div class="dokan-input-group">
                             <span class="dokan-input-group-addon"><?php echo get_woocommerce_currency_symbol(); ?></span>
-                            <?php dokan_post_input_box( $post_id, '_cashback_amount', array( 'class' => 'dokan-product-sales-price', 'placeholder' => __( '0.00', 'dgc-payment' ) ), 'number' ); ?>
+                            <?php dokan_post_input_box( $post_id, '_cashback_amount', array( 'class' => 'dokan-product-sales-price', 'placeholder' => __( '0.00', 'text-domain' ) ), 'number' ); ?>
                         </div>
                     </div>
                 </div>

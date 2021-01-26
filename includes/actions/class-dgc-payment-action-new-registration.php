@@ -8,8 +8,8 @@ class Action_New_Registration extends dgc_PaymentAction {
 
     public function __construct() {
         $this->id = 'new_registration';
-        $this->action_title = __( 'New user registration', 'dgc-payment' );
-        $this->description = __( 'Set credit upon new user registration', 'dgc-payment' );
+        $this->action_title = __( 'New user registration', 'text-domain' );
+        $this->description = __( 'Set credit upon new user registration', 'text-domain' );
         $this->init_form_fields();
         $this->init_settings();
         // Actions.
@@ -23,23 +23,23 @@ class Action_New_Registration extends dgc_PaymentAction {
 
         $this->form_fields = apply_filters('dgc_payment_action_new_registration_form_fields', array(
             'enabled' => array(
-                'title'   => __( 'Enable/Disable', 'dgc-payment' ),
+                'title'   => __( 'Enable/Disable', 'text-domain' ),
                 'type'    => 'checkbox',
-                'label'   => __( 'Enable auto credit upon user registration', 'dgc-payment' ),
+                'label'   => __( 'Enable auto credit upon user registration', 'text-domain' ),
                 'default' => 'no',
             ),
             'amount' => array(
-                'title'       => __( 'Amount', 'dgc-payment' ),
+                'title'       => __( 'Amount', 'text-domain' ),
                 'type'        => 'price',
-                'description' => __( 'Enter amount which will be credited to the user payment after registration.', 'dgc-payment' ),
+                'description' => __( 'Enter amount which will be credited to the user payment after registration.', 'text-domain' ),
                 'default'     => '10',
                 'desc_tip'    => true
             ),
             'description' => array(
-                'title'       => __( 'Description', 'dgc-payment' ),
+                'title'       => __( 'Description', 'text-domain' ),
                 'type'        => 'textarea',
-                'description' => __( 'Payment transaction description that will display as transaction note.', 'dgc-payment' ),
-                'default'     => __( 'Balance credited for becoming a member.', 'dgc-payment' ),
+                'description' => __( 'Payment transaction description that will display as transaction note.', 'text-domain' ),
+                'default'     => __( 'Balance credited for becoming a member.', 'text-domain' ),
                 'desc_tip'    => true,
             )
         ));

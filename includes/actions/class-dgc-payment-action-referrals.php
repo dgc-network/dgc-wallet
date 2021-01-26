@@ -14,8 +14,8 @@ class Action_Referrals extends dgc_PaymentAction {
 
     public function __construct() {
         $this->id = 'referrals';
-        $this->action_title = __('Referrals', 'dgc-payment');
-        $this->description = __('Set credit ruls for referrals', 'dgc-payment');
+        $this->action_title = __('Referrals', 'text-domain');
+        $this->description = __('Set credit ruls for referrals', 'text-domain');
         $this->init_form_fields();
         $this->init_settings();
         // Actions.
@@ -29,85 +29,85 @@ class Action_Referrals extends dgc_PaymentAction {
 
         $this->form_fields = apply_filters('dgc_payment_action_referrals_form_fields', array(
             'enabled' => array(
-                'title' => __('Enable/Disable', 'dgc-payment'),
+                'title' => __('Enable/Disable', 'text-domain'),
                 'type' => 'checkbox',
-                'label' => __('Enable credit for referrals.', 'dgc-payment'),
+                'label' => __('Enable credit for referrals.', 'text-domain'),
                 'default' => 'no',
             ),
             array(
-                'title' => __('Referring Visitors', 'dgc-payment'),
+                'title' => __('Referring Visitors', 'text-domain'),
                 'type' => 'title',
                 'desc' => '',
                 'id' => 'referring_visitors',
             ),
             'referring_visitors_amount' => array(
-                'title' => __('Amount', 'dgc-payment'),
+                'title' => __('Amount', 'text-domain'),
                 'type' => 'price',
-                'description' => __('Enter amount which will be credited to the user payment for daily visits.', 'dgc-payment'),
+                'description' => __('Enter amount which will be credited to the user payment for daily visits.', 'text-domain'),
                 'default' => '10',
                 'desc_tip' => true
             ),
             'referring_visitors_limit_duration' => array(
-                'title' => __('Limit', 'dgc-payment'),
+                'title' => __('Limit', 'text-domain'),
                 'type' => 'select',
                 'class' => 'wc-enhanced-select',
                 'css' => 'min-width: 350px;',
-                'options' => array('0' => __('No Limit', 'dgc-payment'), 'day' => __('Per Day', 'dgc-payment'), 'week' => __('Per Week', 'dgc-payment'), 'month' => __('Per Month', 'dgc-payment'))
+                'options' => array('0' => __('No Limit', 'text-domain'), 'day' => __('Per Day', 'text-domain'), 'week' => __('Per Week', 'text-domain'), 'month' => __('Per Month', 'text-domain'))
             ),
             'referring_visitors_limit' => array(
                 'type' => 'number',
                 'default' => 0,
             ),
             'referring_visitors_description' => array(
-                'title' => __('Description', 'dgc-payment'),
+                'title' => __('Description', 'text-domain'),
                 'type' => 'textarea',
-                'description' => __('Payment transaction description that will display as transaction note.', 'dgc-payment'),
-                'default' => __('Balance credited for referring a visitor', 'dgc-payment'),
+                'description' => __('Payment transaction description that will display as transaction note.', 'text-domain'),
+                'default' => __('Balance credited for referring a visitor', 'text-domain'),
                 'desc_tip' => true,
             ),
             array(
-                'title' => __('Referring Signups', 'dgc-payment'),
+                'title' => __('Referring Signups', 'text-domain'),
                 'type' => 'title',
                 'desc' => '',
                 'id' => 'referring_signups',
             ),
             'referring_signups_amount' => array(
-                'title' => __('Amount', 'dgc-payment'),
+                'title' => __('Amount', 'text-domain'),
                 'type' => 'price',
-                'description' => __('Enter amount which will be credited to the user payment for daily visits.', 'dgc-payment'),
+                'description' => __('Enter amount which will be credited to the user payment for daily visits.', 'text-domain'),
                 'default' => '10',
                 'desc_tip' => true
             ),
             'referring_signups_limit_duration' => array(
-                'title' => __('Limit', 'dgc-payment'),
+                'title' => __('Limit', 'text-domain'),
                 'type' => 'select',
                 'class' => 'wc-enhanced-select',
                 'css' => 'min-width: 350px;',
-                'options' => array('0' => __('No Limit', 'dgc-payment'), 'day' => __('Per Day', 'dgc-payment'), 'week' => __('Per Week', 'dgc-payment'), 'month' => __('Per Month', 'dgc-payment'))
+                'options' => array('0' => __('No Limit', 'text-domain'), 'day' => __('Per Day', 'text-domain'), 'week' => __('Per Week', 'text-domain'), 'month' => __('Per Month', 'text-domain'))
             ),
             'referring_signups_limit' => array(
                 'type' => 'number',
                 'default' => 0,
             ),
             'referring_signups_description' => array(
-                'title' => __('Description', 'dgc-payment'),
+                'title' => __('Description', 'text-domain'),
                 'type' => 'textarea',
-                'description' => __('Payment transaction description that will display as transaction note.', 'dgc-payment'),
-                'default' => __('Balance credited for referring a new member', 'dgc-payment'),
+                'description' => __('Payment transaction description that will display as transaction note.', 'text-domain'),
+                'default' => __('Balance credited for referring a new member', 'text-domain'),
                 'desc_tip' => true,
             ),
             array(
-                'title' => __('Referral Links', 'dgc-payment'),
+                'title' => __('Referral Links', 'text-domain'),
                 'type' => 'title',
                 'desc' => '',
                 'id' => 'referring_links',
             ),
             'referal_link' => array(
-                'title' => __('Referral Format', 'dgc-payment'),
+                'title' => __('Referral Format', 'text-domain'),
                 'type' => 'select',
                 'class' => 'wc-enhanced-select',
                 'css' => 'min-width: 350px;',
-                'options' => array('id' => __('Numeric referral ID', 'dgc-payment'), 'username' => __('Usernames as referral ID', 'dgc-payment'))
+                'options' => array('id' => __('Numeric referral ID', 'text-domain'), 'username' => __('Usernames as referral ID', 'text-domain'))
             )
         ));
     }
@@ -126,8 +126,8 @@ class Action_Referrals extends dgc_PaymentAction {
 
     public function add_referral_nav_menu($nav_menu, $is_rendred_from_myaccount) {
         $nav_menu['referrals'] = array(
-            'title' => apply_filters('dgc_payment_account_referrals_menu_title', __('Referrals', 'dgc-payment')),
-            'url' => $is_rendred_from_myaccount ? esc_url(wc_get_endpoint_url(get_option('woocommerce_dgc_payment_endpoint', 'dgc-payment'), 'referrals', wc_get_page_permalink('myaccount'))) : add_query_arg('payment_action', 'referrals', get_permalink()),
+            'title' => apply_filters('dgc_payment_account_referrals_menu_title', __('Referrals', 'text-domain')),
+            'url' => $is_rendred_from_myaccount ? esc_url(wc_get_endpoint_url(get_option('woocommerce_dgc_payment_endpoint', 'text-domain'), 'referrals', wc_get_page_permalink('myaccount'))) : add_query_arg('payment_action', 'referrals', get_permalink()),
             'icon' => 'dashicons dashicons-groups'
         );
         return $nav_menu;
@@ -140,7 +140,7 @@ class Action_Referrals extends dgc_PaymentAction {
 
     public function referral_content() {
         global $wp;
-        if (apply_filters('dgc_payment_is_enable_referrals', true) && ( ( isset($wp->query_vars['dgc-payment']) && 'referrals' === $wp->query_vars['dgc-payment'] ) || ( isset($_GET['payment_action']) && 'referrals' === $_GET['payment_action'] ) )) {
+        if (apply_filters('dgc_payment_is_enable_referrals', true) && ( ( isset($wp->query_vars['dgc_payment']) && 'referrals' === $wp->query_vars['dgc_payment'] ) || ( isset($_GET['payment_action']) && 'referrals' === $_GET['payment_action'] ) )) {
             dgc_payment()->get_template('dgc-payment-referrals.php', array('settings' => $this->settings, 'referral' => $this));
         }
     }

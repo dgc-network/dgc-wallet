@@ -21,7 +21,7 @@ if (!class_exists('WCFMmp_Gateway_Woo_payment') && class_exists('WCFMmp_Abstract
 
         public function __construct() {
             $this->id = dgc_Payment_WCFMMP::$gateway_slug;
-            $this->gateway_title = __('Payment', 'dgc-payment');
+            $this->gateway_title = __('Payment', 'text-domain');
             $this->payment_gateway = $this->id;
         }
 
@@ -39,13 +39,13 @@ if (!class_exists('WCFMmp_Gateway_Woo_payment') && class_exists('WCFMmp_Abstract
             $this->transaction_mode = $transaction_mode;
             $this->reciver_email = $WCFMmp->wcfmmp_vendor->get_vendor_payment_account($this->vendor_id, $this->id);
             if ($this->validate_request()) {
-                $transaction_id = dgc_payment()->payment->credit($this->vendor_id, $this->withdraw_amount, __('Commission received for commission id #', 'dgc-payment') . $this->withdrawal_id);
+                $transaction_id = dgc_payment()->payment->credit($this->vendor_id, $this->withdraw_amount, __('Commission received for commission id #', 'text-domain') . $this->withdrawal_id);
                 // Updating withdrawal meta
                 $WCFMmp->wcfmmp_withdraw->wcfmmp_update_withdrawal_meta($this->withdrawal_id, 'withdraw_amount', $this->withdraw_amount);
                 $WCFMmp->wcfmmp_withdraw->wcfmmp_update_withdrawal_meta($this->withdrawal_id, 'currency', $this->currency);
                 $WCFMmp->wcfmmp_withdraw->wcfmmp_update_withdrawal_meta($this->withdrawal_id, 'reciver_email', $this->reciver_email);
                 $WCFMmp->wcfmmp_withdraw->wcfmmp_update_withdrawal_meta($this->withdrawal_id, 'payment_transaction_id', $transaction_id);
-                return array('status' => true, 'message' => __('New transaction has been initiated', 'dgc-payment'));
+                return array('status' => true, 'message' => __('New transaction has been initiated', 'text-domain'));
             } else {
                 return $this->message;
             }

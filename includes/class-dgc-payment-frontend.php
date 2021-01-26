@@ -58,7 +58,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             add_filter('woocommerce_coupon_message', array($this, 'update_woocommerce_coupon_message_as_cashback'), 10, 3);
             add_filter('woocommerce_cart_totals_coupon_label', array($this, 'change_coupon_label'), 10, 2);
             add_filter('woocommerce_cart_get_total', array($this, 'woocommerce_cart_get_total'));
-            add_shortcode('dgc-payment', __CLASS__ . '::dgc_payment_shortcode_callback');
+            add_shortcode('dgc_payment', __CLASS__ . '::dgc_payment_shortcode_callback');
             add_action('woocommerce_cart_calculate_fees', array($this, 'dgc_payment_add_partial_payment_fee'));
             add_filter('woocommerce_cart_totals_get_fees_from_cart_taxes', array($this, 'woocommerce_cart_totals_get_fees_from_cart_taxes'), 10, 2);
             add_action('woocommerce_thankyou', array($this, 'restore_woocommerce_cart_items'));
@@ -93,7 +93,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
          * @return type
          */
         public function add_woocommerce_query_vars($query_vars) {
-            $query_vars['dgc-payment'] = get_option('woocommerce_dgc_payment_endpoint', 'dgc-payment');
+            $query_vars['dgc_payment'] = get_option('woocommerce_dgc_payment_endpoint', 'text-domain');
             $query_vars['dgc-payment-transactions'] = get_option('woocommerce_dgc_payment_transactions_endpoint', 'dgc-payment-transactions');
             return $query_vars;
         }
@@ -103,11 +103,11 @@ if (!class_exists('dgc_Payment_Frontend')) {
          */
         public function woocommerce_endpoint_title($title, $endpoint) {
             switch ($endpoint) {
-                case 'dgc-payment' :
-                    $title = apply_filters('dgc_payment_account_menu_title', __('dgc Payment', 'dgc-payment'));
+                case 'dgc_payment' :
+                    $title = apply_filters('dgc_payment_account_menu_title', __('dgc Payment', 'text-domain'));
                     break;
                 case 'dgc-payment-transactions' :
-                    $title = apply_filters('dgc_payment_account_transaction_menu_title', __('Payment Transactions', 'dgc-payment'));
+                    $title = apply_filters('dgc_payment_account_transaction_menu_title', __('Payment Transactions', 'text-domain'));
                     break;
                 default :
                     $title = '';
@@ -135,20 +135,20 @@ if (!class_exists('dgc_Payment_Frontend')) {
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'search_by_user_email' => apply_filters('dgc_payment_user_search_exact_match', true),
                 'i18n' => array(
-                    'emptyTable' => __('No transactions available', 'dgc-payment'),
-                    'lengthMenu' => sprintf(__('Show %s entries', 'dgc-payment'), '_MENU_'),
-                    'info' => sprintf(__('Showing %1s to %2s of %3s entries', 'dgc-payment'), '_START_', '_END_', '_TOTAL_'),
-                    'infoEmpty' => __('Showing 0 to 0 of 0 entries', 'dgc-payment'),
+                    'emptyTable' => __('No transactions available', 'text-domain'),
+                    'lengthMenu' => sprintf(__('Show %s entries', 'text-domain'), '_MENU_'),
+                    'info' => sprintf(__('Showing %1s to %2s of %3s entries', 'text-domain'), '_START_', '_END_', '_TOTAL_'),
+                    'infoEmpty' => __('Showing 0 to 0 of 0 entries', 'text-domain'),
                     'paginate' => array(
-                        'first' => __('First', 'dgc-payment'),
-                        'last' => __('Last', 'dgc-payment'),
-                        'next' => __('Next', 'dgc-payment'),
-                        'previous' => __('Previous', 'dgc-payment')
+                        'first' => __('First', 'text-domain'),
+                        'last' => __('Last', 'text-domain'),
+                        'next' => __('Next', 'text-domain'),
+                        'previous' => __('Previous', 'text-domain')
                     ),
-                    'non_valid_email_text' => __('Please enter a valid email address', 'dgc-payment'),
-                    'no_resualt' => __('No results found', 'dgc-payment'),
-                    'inputTooShort' => __('Please enter 3 or more characters', 'dgc-payment'),
-                    'searching' => __('Searching…', 'dgc-payment')
+                    'non_valid_email_text' => __('Please enter a valid email address', 'text-domain'),
+                    'no_resualt' => __('No results found', 'text-domain'),
+                    'inputTooShort' => __('Please enter 3 or more characters', 'text-domain'),
+                    'searching' => __('Searching…', 'text-domain')
                 )
             );
             wp_localize_script('wc-endpoint-payment', 'payment_param', $payment_localize_param);
@@ -175,9 +175,9 @@ if (!class_exists('dgc_Payment_Frontend')) {
         public function dgc_payment_menu_items($items) {
             unset($items['edit-account']);
             unset($items['customer-logout']);
-            $items['dgc-payment'] = apply_filters('dgc_payment_account_menu_title', __('dgc Payment', 'dgc-payment'));
-            $items['edit-account'] = __('Account details', 'dgc-payment');
-            $items['customer-logout'] = __('Logout', 'dgc-payment');
+            $items['dgc_payment'] = apply_filters('dgc_payment_account_menu_title', __('dgc Payment', 'text-domain'));
+            $items['edit-account'] = __('Account details', 'text-domain');
+            $items['customer-logout'] = __('Logout', 'text-domain');
             return $items;
         }
 
@@ -232,7 +232,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
                     wc_add_notice($response['message'], 'error');
                 } else {
                     wc_add_notice($response['message']);
-                    $location = esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'dgc-payment' ) ) );
+                    $location = esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'text-domain' ) ) );
                     wp_safe_redirect($location);
                     exit();
                 }
@@ -252,25 +252,25 @@ if (!class_exists('dgc_Payment_Frontend')) {
                 if ($min_topup_amount && $amount < $min_topup_amount) {
                     $response = array(
                         'is_valid' => false,
-                        'message' => sprintf(__('The minimum amount needed for payment top up is %s', 'dgc-payment'), wc_price($min_topup_amount, dgc_payment_wc_price_args()))
+                        'message' => sprintf(__('The minimum amount needed for payment top up is %s', 'text-domain'), wc_price($min_topup_amount, dgc_payment_wc_price_args()))
                     );
                 }
                 if ($max_topup_amount && $amount > $max_topup_amount) {
                     $response = array(
                         'is_valid' => false,
-                        'message' => sprintf(__('Payment top up amount should be less than %s', 'dgc-payment'), wc_price($max_topup_amount, dgc_payment_wc_price_args()))
+                        'message' => sprintf(__('Payment top up amount should be less than %s', 'text-domain'), wc_price($max_topup_amount, dgc_payment_wc_price_args()))
                     );
                 }
                 if ($min_topup_amount && $max_topup_amount && ( $amount < $min_topup_amount || $amount > $max_topup_amount )) {
                     $response = array(
                         'is_valid' => false,
-                        'message' => sprintf(__('Payment top up amount should be between %s and %s', 'dgc-payment'), wc_price($min_topup_amount, dgc_payment_wc_price_args()), wc_price($max_topup_amount, dgc_payment_wc_price_args()))
+                        'message' => sprintf(__('Payment top up amount should be between %s and %s', 'text-domain'), wc_price($min_topup_amount, dgc_payment_wc_price_args()), wc_price($max_topup_amount, dgc_payment_wc_price_args()))
                     );
                 }
             } else {
                 $response = array(
                     'is_valid' => false,
-                    'message' => __('Cheatin&#8217; huh?', 'dgc-payment')
+                    'message' => __('Cheatin&#8217; huh?', 'text-domain')
                 );
             }
             return apply_filters('dgc_payment_is_valid_payment_recharge_amount', $response, $amount);
@@ -292,8 +292,8 @@ if (!class_exists('dgc_Payment_Frontend')) {
                 $whom = apply_filters('dgc_payment_transfer_user_id', $whom);
                 $whom = get_userdata($whom);
                 $current_user_obj = get_userdata(get_current_user_id());
-                $credit_note = isset($_POST['dgc_payment_transfer_note']) && !empty($_POST['dgc_payment_transfer_note']) ? $_POST['dgc_payment_transfer_note'] : sprintf(__('Payment funds received from %s', 'dgc-payment'), $current_user_obj->user_email);
-                $debit_note = sprintf(__('Payment funds transfer to %s', 'dgc-payment'), $whom->user_email);
+                $credit_note = isset($_POST['dgc_payment_transfer_note']) && !empty($_POST['dgc_payment_transfer_note']) ? $_POST['dgc_payment_transfer_note'] : sprintf(__('Payment funds received from %s', 'text-domain'), $current_user_obj->user_email);
+                $debit_note = sprintf(__('Payment funds transfer to %s', 'text-domain'), $whom->user_email);
                 $credit_note = apply_filters('dgc_payment_transfer_credit_transaction_note', $credit_note, $whom, $amount);
                 $debit_note = apply_filters('dgc_payment_transfer_debit_transaction_note', $debit_note, $whom, $amount);
                 
@@ -312,20 +312,20 @@ if (!class_exists('dgc_Payment_Frontend')) {
                     if ( dgc_payment()->settings_api->get_option( 'min_transfer_amount', '_payment_settings_general', 0 ) > $amount) {
                         return array(
                             'is_valid' => false,
-                            'message' => sprintf( __('Minimum transfer amount is %s', 'dgc-payment'), wc_price( dgc_payment()->settings_api->get_option( 'min_transfer_amount', '_payment_settings_general', 0 ) ) )
+                            'message' => sprintf( __('Minimum transfer amount is %s', 'text-domain'), wc_price( dgc_payment()->settings_api->get_option( 'min_transfer_amount', '_payment_settings_general', 0 ) ) )
                         );
                     }
                 }
                 if (!$whom) {
                     return array(
                         'is_valid' => false,
-                        'message' => __('Invalid user', 'dgc-payment')
+                        'message' => __('Invalid user', 'text-domain')
                     );
                 }
                 if (floatval($debit_amount) > dgc_payment()->payment->get_payment_balance(get_current_user_id(), 'edit')) {
                     return array(
                         'is_valid' => false,
-                        'message' => __('Entered amount is greater than current payment amount.', 'dgc-payment')
+                        'message' => __('Entered amount is greater than current payment amount.', 'text-domain')
                     );
                 }
 
@@ -336,13 +336,13 @@ if (!class_exists('dgc_Payment_Frontend')) {
                     update_payment_transaction_meta($debit_transaction_id, '_payment_transfer_charge', $transfer_charge, get_current_user_id());
                     $response = array(
                         'is_valid' => true,
-                        'message' => __('Amount transferred successfully!', 'dgc-payment')
+                        'message' => __('Amount transferred successfully!', 'text-domain')
                     );
                 }
             } else {
                 $response = array(
                     'is_valid' => false,
-                    'message' => __('Cheatin&#8217; huh?', 'dgc-payment')
+                    'message' => __('Cheatin&#8217; huh?', 'text-domain')
                 );
             }
             return $response;
@@ -404,7 +404,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
         public function restrict_other_from_add_to_cart($valid) {
             $product = get_payment_rechargeable_product();
             if (is_payment_rechargeable_cart()) {
-                wc_add_notice(apply_filters('dgc_payment_restrict_other_from_add_to_cart', __('You can not add another product while your cart contains with payment rechargeable product.', 'dgc-payment')), 'error');
+                wc_add_notice(apply_filters('dgc_payment_restrict_other_from_add_to_cart', __('You can not add another product while your cart contains with payment rechargeable product.', 'text-domain')), 'error');
                 $valid = false;
             }
             return $valid;
@@ -437,9 +437,9 @@ if (!class_exists('dgc_Payment_Frontend')) {
                     <?php
                     $cashback_amount = dgc_payment()->cashback->calculate_cashback();
                     if (is_user_logged_in()) {
-                        echo apply_filters('dgc_payment_cashback_notice_text', sprintf(__('Upon placing this order a cashback of %s will be credited to your payment.', 'dgc-payment'), wc_price($cashback_amount, dgc_payment_wc_price_args())), $cashback_amount);
+                        echo apply_filters('dgc_payment_cashback_notice_text', sprintf(__('Upon placing this order a cashback of %s will be credited to your payment.', 'text-domain'), wc_price($cashback_amount, dgc_payment_wc_price_args())), $cashback_amount);
                     } else {
-                        echo apply_filters('dgc_payment_cashback_notice_text', sprintf(__('Please <a href="%s">log in</a> to avail %s cashback from this order.', 'dgc-payment'), esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))), wc_price($cashback_amount, dgc_payment_wc_price_args())), $cashback_amount);
+                        echo apply_filters('dgc_payment_cashback_notice_text', sprintf(__('Please <a href="%s">log in</a> to avail %s cashback from this order.', 'text-domain'), esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))), wc_price($cashback_amount, dgc_payment_wc_price_args())), $cashback_amount);
                     }
                     ?>
                 </div>
@@ -469,7 +469,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             if ($parial_payment_amount > 0) {
                 $fee = array(
                     'id' => '_via_payment_partial_payment',
-                    'name' => __('Via payment', 'dgc-payment'),
+                    'name' => __('Via payment', 'text-domain'),
                     'amount' => (float) -1 * $parial_payment_amount,
                     'taxable' => false,
                     'tax_class' => '',
@@ -544,7 +544,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             }
             $cashback_amount = apply_filters('dgc_payment_variation_cashback_amount', $cashback_amount, $variation);
             $args['cashback_amount'] = $cashback_amount;
-            $args['cashback_html'] = wc_price($cashback_amount, dgc_payment_wc_price_args()). __(' Cashback', 'dgc-payment');
+            $args['cashback_html'] = wc_price($cashback_amount, dgc_payment_wc_price_args()). __(' Cashback', 'text-domain');
             return $args;
         }
 
@@ -566,7 +566,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             }
             $cashback_amount = apply_filters('dgc_payment_product_cashback_amount', $cashback_amount, get_the_ID());
             if($cashback_amount){
-                echo '<span class="on-dgc-payment-cashback">' . wc_price($cashback_amount, dgc_payment_wc_price_args()) . __(' Cashback', 'dgc-payment') . '</span>';
+                echo '<span class="on-dgc-payment-cashback">' . wc_price($cashback_amount, dgc_payment_wc_price_args()) . __(' Cashback', 'text-domain') . '</span>';
             } else{
                 echo '<span class="on-dgc-payment-cashback" style="display:none;"></span>';
             }
@@ -599,7 +599,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             $coupon_id = $coupon->get_id();
             $_is_coupon_cashback = get_post_meta($coupon_id, '_is_coupon_cashback', true);
             if (is_user_logged_in() && 'yes' === $_is_coupon_cashback && 200 === $msg_code) {
-                $msg = __('Coupon code applied successfully as cashback.', 'dgc-payment');
+                $msg = __('Coupon code applied successfully as cashback.', 'text-domain');
             }
             return $msg;
         }
@@ -614,7 +614,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             $coupon_id = $coupon->get_id();
             $_is_coupon_cashback = get_post_meta($coupon_id, '_is_coupon_cashback', true);
             if (is_user_logged_in() && 'yes' === $_is_coupon_cashback) {
-                $label = sprintf(esc_html__('Cashback: %s', 'dgc-payment'), $coupon->get_code());
+                $label = sprintf(esc_html__('Cashback: %s', 'text-domain'), $coupon->get_code());
             }
             return $label;
         }

@@ -34,6 +34,7 @@ function dgc_payment_update_117_db_column() {
         $wpdb->query( "ALTER TABLE {$table_name} ADD `deleted` tinyint(1 ) NOT NULL DEFAULT 0;" );
     }
 }
+
 function dgc_payment_update_140_db_column() {
     global $wpdb;
     $table_name = $wpdb->base_prefix.'dgc_payment_transactions';

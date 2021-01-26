@@ -95,7 +95,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
         public function payment_credit_purchase( $order_id ) {
             $payment_product = get_payment_rechargeable_product();
             $charge_amount = 0;
-            if ( get_post_meta( $order_id, '_wc_payment_purchase_credited', true ) || !$payment_product) {
+            if ( get_post_meta( $order_id, '_dgc_payment_purchase_credited', true ) || !$payment_product) {
                 return;
             }
             $order = wc_get_order( $order_id );
@@ -112,9 +112,9 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
                 }
                 update_post_meta( $order_id, '_wc_payment_purchase_gateway_charge', $charge_amount );
             }
-            $transaction_id = $this->credit( $order->get_customer_id(), $recharge_amount, __( 'Payment credit through purchase #', 'dgc-payment' ) . $order->get_order_number() );
+            $transaction_id = $this->credit( $order->get_customer_id(), $recharge_amount, __( 'Payment credit through purchase #', 'text-domain' ) . $order->get_order_number() );
             if ( $transaction_id ) {
-                update_post_meta( $order_id, '_wc_payment_purchase_credited', true );
+                update_post_meta( $order_id, '_dgc_payment_purchase_credited', true );
                 update_post_meta( $order_id, '_payment_payment_transaction_id', $transaction_id );
                 update_payment_transaction_meta( $transaction_id, '_wc_payment_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
                 do_action( 'dgc_payment_credit_purchase_completed', $transaction_id, $order );
@@ -125,7 +125,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
             $order = wc_get_order( $order_id );
             /* General Cashback */
             if ( apply_filters( 'process_dgc_payment_general_cashback', !get_post_meta( $order->get_id(), '_general_cashback_transaction_id', true ), $order ) && dgc_payment()->cashback->calculate_cashback(false, $order->get_id()) ) {
-                $transaction_id = $this->credit( $order->get_customer_id(), dgc_payment()->cashback->calculate_cashback(false, $order->get_id()), __( 'Payment credit through cashback #', 'dgc-payment' ) . $order->get_order_number() );
+                $transaction_id = $this->credit( $order->get_customer_id(), dgc_payment()->cashback->calculate_cashback(false, $order->get_id()), __( 'Payment credit through cashback #', 'text-domain' ) . $order->get_order_number() );
                 if ( $transaction_id ) {
                     update_payment_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
                     update_post_meta( $order->get_id(), '_general_cashback_transaction_id', $transaction_id );
@@ -136,7 +136,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
             if ( apply_filters( 'process_dgc_payment_coupon_cashback', !get_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', true ), $order ) && get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ) ) {
                 $coupon_cashback_amount = apply_filters( 'dgc_payment_coupon_cashback_amount', get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ), $order );
                 if ( $coupon_cashback_amount ) {
-                    $transaction_id = $this->credit( $order->get_customer_id(), $coupon_cashback_amount, __( 'Payment credit through cashback by applying coupon', 'dgc-payment' ) );
+                    $transaction_id = $this->credit( $order->get_customer_id(), $coupon_cashback_amount, __( 'Payment credit through cashback by applying coupon', 'text-domain' ) );
                     if ( $transaction_id ) {
                         update_payment_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
                         update_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', $transaction_id );
@@ -150,9 +150,9 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
             $order = wc_get_order( $order_id );
             $partial_payment_amount = get_order_partial_payment_amount( $order_id );
             if ( $partial_payment_amount && !get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
-                $transaction_id = $this->debit( $order->get_customer_id(), $partial_payment_amount, __( 'For order payment #', 'dgc-payment' ) . $order->get_order_number() );
+                $transaction_id = $this->debit( $order->get_customer_id(), $partial_payment_amount, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
                 if ( $transaction_id ) {
-                    $order->add_order_note(sprintf( __( '%s paid through payment', 'dgc-payment' ), wc_price( $partial_payment_amount, dgc_payment_wc_price_args($order->get_customer_id()) ) ) );
+                    $order->add_order_note(sprintf( __( '%s paid through payment', 'text-domain' ), wc_price( $partial_payment_amount, dgc_payment_wc_price_args($order->get_customer_id()) ) ) );
                     update_payment_transaction_meta( $transaction_id, '_partial_payment', true, $order->get_customer_id() );
                     update_post_meta( $order_id, '_partial_pay_through_payment_compleate', $transaction_id );
                     do_action( 'dgc_payment_partial_payment_completed', $transaction_id, $order );
@@ -165,8 +165,8 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
             /** credit partial payment amount * */
             $partial_payment_amount = get_order_partial_payment_amount( $order_id );
             if ( $partial_payment_amount && get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
-                $this->credit( $order->get_customer_id(), $partial_payment_amount, sprintf( __( 'Your order with ID #%s has been cancelled and hence your payment amount has been refunded!', 'dgc-payment' ), $order->get_order_number() ) );
-                $order->add_order_note(sprintf( __( 'Payment amount %s has been credited to customer upon cancellation', 'dgc-payment' ), $partial_payment_amount ) );
+                $this->credit( $order->get_customer_id(), $partial_payment_amount, sprintf( __( 'Your order with ID #%s has been cancelled and hence your payment amount has been refunded!', 'text-domain' ), $order->get_order_number() ) );
+                $order->add_order_note(sprintf( __( 'Payment amount %s has been credited to customer upon cancellation', 'text-domain' ), $partial_payment_amount ) );
                 delete_post_meta( $order_id, '_partial_pay_through_payment_compleate' );
             }
 
@@ -174,7 +174,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
             if ( apply_filters( 'dgc_payment_debit_cashback_upon_cancellation', get_total_order_cashback_amount( $order_id ) ) ) {
                 $total_cashback_amount = get_total_order_cashback_amount( $order_id );
                 if ( $total_cashback_amount ) {
-                    if ( $this->debit( $order->get_customer_id(), $total_cashback_amount, sprintf( __( 'Cashback for #%s has been debited upon cancellation', 'dgc-payment' ), $order->get_order_number() ) ) ) {
+                    if ( $this->debit( $order->get_customer_id(), $total_cashback_amount, sprintf( __( 'Cashback for #%s has been debited upon cancellation', 'text-domain' ), $order->get_order_number() ) ) ) {
                         delete_post_meta( $order_id, '_general_cashback_transaction_id' );
                         delete_post_meta( $order_id, '_coupon_cashback_transaction_id' );
                     }
@@ -207,9 +207,9 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
             } else if ( $type == 'debit' ) {
                 $balance -= $amount;
             }
-            //if ( $wpdb->insert( "{$wpdb->base_prefix}dgc_payment_transactions", apply_filters( 'dgc_payment_transactions_args', array( 'blog_id' => $GLOBALS['blog_id'], 'user_id' => $this->user_id, 'type' => $type, 'amount' => $amount, 'balance' => $balance, 'currency' => get_woocommerce_currency(), 'details' => $details, 'date' => current_time('mysql') ), array( '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ) ) {
+            if ( $wpdb->insert( "{$wpdb->base_prefix}dgc_payment_transactions", apply_filters( 'dgc_payment_transactions_args', array( 'blog_id' => $GLOBALS['blog_id'], 'user_id' => $this->user_id, 'type' => $type, 'amount' => $amount, 'balance' => $balance, 'currency' => get_woocommerce_currency(), 'details' => $details, 'date' => current_time('mysql') ), array( '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ) ) {
                 $transaction_id = $wpdb->insert_id;
-
+/*
                 // dgc-API-call:begin: /createRecord
                 $transaction_id = time();
                 $data =  apply_filters( 'dgc_payment_transactions_args', array( 
@@ -231,14 +231,14 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
                 );
                 $dgc_API_res = dgc_API_call('/createRecord', 'POST', $dgc_API_args);
                 // dgc-API-call:end: /createRecord
-    
+*/    
                 update_user_meta($this->user_id, $this->meta_key, $balance);
                 clear_dgc_payment_cache( $this->user_id );
                 do_action( 'dgc_payment_transaction_recorded', $transaction_id, $this->user_id, $amount, $type);
                 $email_admin = WC()->mailer()->emails['dgc_Payment_Email_New_Transaction'];
                 $email_admin->trigger( $transaction_id );
                 return $transaction_id;
-            //}
+            }
             return false;
         }
 

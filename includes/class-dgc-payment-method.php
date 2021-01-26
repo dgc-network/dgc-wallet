@@ -41,8 +41,8 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
      */
     protected function setup_properties() {
         $this->id = 'payment';
-        $this->method_title = __( 'Payment', 'dgc-payment' );
-        $this->method_description = __( 'Have your customers pay with payment.', 'dgc-payment' );
+        $this->method_title = __( 'Payment', 'text-domain' );
+        $this->method_description = __( 'Have your customers pay with payment.', 'text-domain' );
         $this->has_fields = false;
     }
 
@@ -52,31 +52,31 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
     public function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title' => __( 'Enable/Disable', 'dgc-payment' ),
-                'label' => __( 'Enable payments', 'dgc-payment' ),
+                'title' => __( 'Enable/Disable', 'text-domain' ),
+                'label' => __( 'Enable payments', 'text-domain' ),
                 'type' => 'checkbox',
                 'description' => '',
                 'default' => 'no',
             ),
             'title' => array(
-                'title' => __( 'Title', 'dgc-payment' ),
+                'title' => __( 'Title', 'text-domain' ),
                 'type' => 'text',
-                'description' => __( 'This controls the title which the user sees during checkout.', 'dgc-payment' ),
-                'default' => __( 'Payment payment', 'dgc-payment' ),
+                'description' => __( 'This controls the title which the user sees during checkout.', 'text-domain' ),
+                'default' => __( 'Payment payment', 'text-domain' ),
                 'desc_tip' => true,
             ),
             'description' => array(
-                'title' => __( 'Description', 'dgc-payment' ),
+                'title' => __( 'Description', 'text-domain' ),
                 'type' => 'textarea',
-                'description' => __( 'Payment method description that the customer will see on your checkout.', 'dgc-payment' ),
-                'default' => __( 'Pay with payment.', 'dgc-payment' ),
+                'description' => __( 'Payment method description that the customer will see on your checkout.', 'text-domain' ),
+                'default' => __( 'Pay with payment.', 'text-domain' ),
                 'desc_tip' => true,
             ),
             'instructions' => array(
-                'title' => __( 'Instructions', 'dgc-payment' ),
+                'title' => __( 'Instructions', 'text-domain' ),
                 'type' => 'textarea',
-                'description' => __( 'Instructions that will be added to the thank you page.', 'dgc-payment' ),
-                'default' => __( 'Pay with payment.', 'dgc-payment' ),
+                'description' => __( 'Instructions that will be added to the thank you page.', 'text-domain' ),
+                'default' => __( 'Pay with payment.', 'text-domain' ),
                 'desc_tip' => true,
             )
         );
@@ -92,7 +92,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
 
     public function get_icon() {
         $current_balance = dgc_payment()->payment->get_payment_balance( get_current_user_id() );
-        return apply_filters( 'dgc_payment_gateway_icon', sprintf( __( ' | Current Balance: <strong>%s</strong>', 'dgc-payment' ), $current_balance), $this->id );
+        return apply_filters( 'dgc_payment_gateway_icon', sprintf( __( ' | Current Balance: <strong>%s</strong>', 'text-domain' ), $current_balance), $this->id );
     }
 
     /**
@@ -112,10 +112,10 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
     public function process_payment( $order_id ) {
         $order = wc_get_order( $order_id );
         if ( ( $order->get_total( 'edit' ) > dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ) ) && apply_filters( 'dgc_payment_disallow_negative_transaction', (dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ) <= 0 || $order->get_total( 'edit' ) > dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ) ), $order->get_total( 'edit' ), dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ) ) ) {
-            wc_add_notice( __( 'Payment error: ', 'dgc-payment' ) . sprintf( __( 'Your payment balance is low. Please add %s to proceed with this transaction.', 'dgc-payment' ), wc_price( $order->get_total( 'edit' ) - dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ), dgc_payment_wc_price_args($order->get_customer_id()) ) ), 'error' );
+            wc_add_notice( __( 'Payment error: ', 'text-domain' ) . sprintf( __( 'Your payment balance is low. Please add %s to proceed with this transaction.', 'text-domain' ), wc_price( $order->get_total( 'edit' ) - dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ), dgc_payment_wc_price_args($order->get_customer_id()) ) ), 'error' );
             return;
         }
-        $payment_response = dgc_payment()->payment->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_payment_order_payment_description', __( 'For order payment #', 'dgc-payment' ) . $order->get_order_number(), $order) );
+        $payment_response = dgc_payment()->payment->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_payment_order_payment_description', __( 'For order payment #', 'text-domain' ) . $order->get_order_number(), $order) );
 
         // Reduce stock levels
         wc_reduce_stock_levels( $order_id );
@@ -145,9 +145,9 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
      */
     public function process_refund( $order_id, $amount = null, $reason = '' ) {
         $order = wc_get_order( $order_id );
-        $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $amount, __( 'Payment refund #', 'dgc-payment' ) . $order->get_order_number() );
+        $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
         if ( !$transaction_id ) {
-            throw new Exception( __( 'Refund not credited to customer', 'dgc-payment' ) );
+            throw new Exception( __( 'Refund not credited to customer', 'text-domain' ) );
         }
         do_action( 'dgc_payment_order_refunded', $order, $amount, $transaction_id );
         return true;
@@ -163,11 +163,11 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
         if ( get_post_meta( $order->get_id(), '_payment_scheduled_subscription_payment_processed', true ) ) {
             return;
         }
-        $payment_response = dgc_payment()->payment->debit( $order->get_customer_id(), $amount_to_charge, __( 'For order payment #', 'dgc-payment' ) . $order->get_order_number() );
+        $payment_response = dgc_payment()->payment->debit( $order->get_customer_id(), $amount_to_charge, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
         if ( $payment_response) {
             $order->payment_complete();
         } else {
-            $order->add_order_note( __( 'Insufficient funds in customer payment', 'dgc-payment' ) );
+            $order->add_order_note( __( 'Insufficient funds in customer payment', 'text-domain' ) );
         }
         update_post_meta( $order->get_id(), '_payment_scheduled_subscription_payment_processed', true );
     }

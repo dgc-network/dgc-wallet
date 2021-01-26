@@ -402,7 +402,7 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
             $size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
             $id = $args['section'] . '[' . $args['id'] . ']';
-            $label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : __( 'Choose File', 'dgc-payment' );
+            $label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : __( 'Choose File', 'text-domain' );
 
             $html = sprintf( '<input type="text" class="%1$s-text wpsa-url" id="%2$s[%3$s]" name="%2$s[%3$s]" value="%4$s"/>', $size, $args['section'], $args['id'], $value );
             $html .= '<input type="button" class="button wpsa-browse" value="' . $label . '" />';
@@ -421,9 +421,9 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
             $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
             $size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
             $id = $args['section'] . '[' . $args['id'] . ']';
-            $label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : __( 'Choose File', 'dgc-payment' );
-            $uploader_title = isset( $args['options']['uploader_title'] ) ? $args['options']['uploader_title'] : __( 'Select', 'dgc-payment' );
-            $uploader_button_text = isset( $args['options']['uploader_button_text'] ) ? $args['options']['uploader_button_text'] : __( 'Select', 'dgc-payment' );
+            $label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : __( 'Choose File', 'text-domain' );
+            $uploader_title = isset( $args['options']['uploader_title'] ) ? $args['options']['uploader_title'] : __( 'Select', 'text-domain' );
+            $uploader_button_text = isset( $args['options']['uploader_button_text'] ) ? $args['options']['uploader_button_text'] : __( 'Select', 'text-domain' );
             $attachment_src = WC()->plugin_url() . '/assets/images/placeholder.png';
             if ( $value ){
                 $attachment_src = wp_get_attachment_url( $value );

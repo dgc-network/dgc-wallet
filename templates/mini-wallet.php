@@ -18,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-$title      = __( 'Current payment balance', 'dgc-payment' );
-$menu_item  = '<li class="right"><a class="dgc-payment-menu-contents" href="' . esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'dgc-payment' ) ) ) . '" title="' . $title . '">';
+$title      = __( 'Current payment balance', 'text-domain' );
+$menu_item  = '<li class="right"><a class="dgc-payment-menu-contents" href="' . esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'text-domain' ) ) ) . '" title="' . $title . '">';
 $menu_item .= '<span class="dgc-payment-icon-payment"></span>&nbsp;';
 $menu_item .= dgc_payment()->payment->get_payment_balance( get_current_user_id() );
 $menu_item .= '</a></li>';

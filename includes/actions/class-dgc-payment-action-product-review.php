@@ -8,8 +8,8 @@ class Action_Product_Review extends dgc_PaymentAction {
 
     public function __construct() {
         $this->id = 'product_review';
-        $this->action_title = __( 'WooCommerce product review', 'dgc-payment' );
-        $this->description = __( 'Set credit for WooCommerce product review', 'dgc-payment' );
+        $this->action_title = __( 'WooCommerce product review', 'text-domain' );
+        $this->description = __( 'Set credit for WooCommerce product review', 'text-domain' );
         $this->init_form_fields();
         $this->init_settings();
         // Actions.
@@ -24,23 +24,23 @@ class Action_Product_Review extends dgc_PaymentAction {
 
         $this->form_fields = array(
             'enabled' => array(
-                'title'   => __( 'Enable/Disable', 'dgc-payment' ),
+                'title'   => __( 'Enable/Disable', 'text-domain' ),
                 'type'    => 'checkbox',
-                'label'   => __( 'Enable credit for WooCommerce product review', 'dgc-payment' ),
+                'label'   => __( 'Enable credit for WooCommerce product review', 'text-domain' ),
                 'default' => 'no',
             ),
             'amount' => array(
-                'title'       => __( 'Amount', 'dgc-payment' ),
+                'title'       => __( 'Amount', 'text-domain' ),
                 'type'        => 'price',
-                'description' => __( 'Enter amount which will be credited to the user payment for reviewing a WooCommerce product.', 'dgc-payment' ),
+                'description' => __( 'Enter amount which will be credited to the user payment for reviewing a WooCommerce product.', 'text-domain' ),
                 'default'     => '10',
                 'desc_tip'    => true
             ),
             'description' => array(
-                'title'       => __( 'Description', 'dgc-payment' ),
+                'title'       => __( 'Description', 'text-domain' ),
                 'type'        => 'textarea',
-                'description' => __( 'Payment transaction description that will display as transaction note.', 'dgc-payment' ),
-                'default'     => __( 'Balance credited for reviewing a WooCommerce product.', 'dgc-payment' ),
+                'description' => __( 'Payment transaction description that will display as transaction note.', 'text-domain' ),
+                'default'     => __( 'Balance credited for reviewing a WooCommerce product.', 'text-domain' ),
                 'desc_tip'    => true,
             )
         );

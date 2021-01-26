@@ -14,10 +14,10 @@ class dgc_Payment_Topup extends WP_Widget {
     public function __construct() {
         $widget_ops = array(
             'classname' => 'widget_payment_topup',
-            'description' => __('dgcPay top-up form for your site.', 'dgc-payment'),
+            'description' => __('dgcPay top-up form for your site.', 'text-domain'),
             'customize_selective_refresh' => true,
         );
-        parent::__construct('dgc-payment-topup', _x('Payment Top-up', 'Payment Top-up widget', 'dgc-payment'), $widget_ops);
+        parent::__construct('dgc-payment-topup', _x('Payment Top-up', 'Payment Top-up widget', 'text-domain'), $widget_ops);
     }
 
     /**
@@ -46,7 +46,7 @@ class dgc_Payment_Topup extends WP_Widget {
                 $min_amount = dgc_payment()->settings_api->get_option('min_topup_amount', '_payment_settings_general', 0);
                 $max_amount = dgc_payment()->settings_api->get_option('max_topup_amount', '_payment_settings_general', '');
                 ?>
-                <input type="number" step="0.01" min="<?php echo $min_amount; ?>" max="<?php echo $max_amount; ?>" name="dgc_payment_balance_to_add" id="dgc_payment_balance_to_add" class="dgc-payment-balance-to-add input-text" placeholder="<?php _e('Enter amount', 'dgc-payment'); ?>" required="" />
+                <input type="number" step="0.01" min="<?php echo $min_amount; ?>" max="<?php echo $max_amount; ?>" name="dgc_payment_balance_to_add" id="dgc_payment_balance_to_add" class="dgc-payment-balance-to-add input-text" placeholder="<?php _e('Enter amount', 'text-domain'); ?>" required="" />
                 <?php wp_nonce_field('dgc_payment_topup', 'dgc_payment_topup'); ?>
             </div>
         </form>

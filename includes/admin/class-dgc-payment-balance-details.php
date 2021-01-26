@@ -11,18 +11,18 @@ class dgc_Payment_Balance_Details extends WP_List_Table {
             'singular' => 'transaction',
             'plural'   => 'transactions',
             'ajax'     => false,
-            'screen'   => 'dgc-payment',
+            'screen'   => 'dgc_payment',
         ) );
     }
 
     public function get_columns() {
         return apply_filters( 'dgc_payment_balance_details_columns', array(
-            'id'       => __( 'ID', 'dgc-payment' ),
-            'username' => __( 'Username', 'dgc-payment' ),
-            'name'     => __( 'Name', 'dgc-payment' ),
-            'email'    => __( 'Email', 'dgc-payment' ),
-            'balance'  => __( 'Remaining balance', 'dgc-payment' ),
-            'actions'  => __( 'Actions', 'dgc-payment' ),
+            'id'       => __( 'ID', 'text-domain' ),
+            'username' => __( 'Username', 'text-domain' ),
+            'name'     => __( 'Name', 'text-domain' ),
+            'email'    => __( 'Email', 'text-domain' ),
+            'balance'  => __( 'Remaining balance', 'text-domain' ),
+            'actions'  => __( 'Actions', 'text-domain' ),
         ) );
     }
 

@@ -61,16 +61,16 @@ class WC_REST_dgc_Payment_Controller extends WC_REST_Controller {
                     'type' => array(
                         'required'    => true,
                         'type'        => 'string',
-                        'description' => __( 'Payment transaction type.', 'dgc-payment' ),
+                        'description' => __( 'Payment transaction type.', 'text-domain' ),
                     ),
                     'amount' => array(
                         'required'    => true,
-                        'description' => __( 'Payment transaction amount.', 'dgc-payment' ),
+                        'description' => __( 'Payment transaction amount.', 'text-domain' ),
                         'type'        => 'number',
                     ),
                     'details' => array(
                         'required'    => false,
-                        'description' => __( 'Payment transaction details.', 'dgc-payment' ),
+                        'description' => __( 'Payment transaction details.', 'text-domain' ),
                         'type'        => 'string',
                     ),
                 ) ),
@@ -81,7 +81,7 @@ class WC_REST_dgc_Payment_Controller extends WC_REST_Controller {
         register_rest_route( $this->namespace, '/' . $this->rest_base . '/balance/(?P<id>[\d]+)', array(
             'args' => array(
                 'id' => array(
-                    'description' => __( 'Unique identifier for the resource.', 'dgc-payment' ),
+                    'description' => __( 'Unique identifier for the resource.', 'text-domain' ),
                     'type'        => 'integer',
                 ),
             ),
@@ -161,7 +161,7 @@ class WC_REST_dgc_Payment_Controller extends WC_REST_Controller {
      */
     public function create_item_permissions_check( $request ) {
         if ( ! apply_filters( 'dgc_payment_rest_check_permissions', current_user_can( 'manage_woocommerce' ), 'create', $request ) ) {
-            return new WP_Error( 'woocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'dgc-payment' ), array( 'status' => rest_authorization_required_code() ) );
+            return new WP_Error( 'woocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'text-domain' ), array( 'status' => rest_authorization_required_code() ) );
         }
         return true;
     }

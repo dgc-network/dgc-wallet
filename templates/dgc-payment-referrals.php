@@ -27,15 +27,15 @@ $referring_visitor = get_user_meta($user_id, '_dgc_payment_referring_visitor', t
 $referring_signup = get_user_meta($user_id, '_dgc_payment_referring_signup', true) ? get_user_meta($user_id, '_dgc_payment_referring_signup', true) : 0;
 $referring_earning = get_user_meta($user_id, '_dgc_payment_referring_earning', true) ? get_user_meta($user_id, '_dgc_payment_referring_earning', true) : 0;
 ?>
-<span><?php _e('Your referral URL is:', 'dgc-payment'); ?> <b><?php echo $referral_url; ?></b></span>
-<h3><?php _e('Statistics', 'dgc-payment'); ?></h3>
+<span><?php _e('Your referral URL is:', 'text-domain'); ?> <b><?php echo $referral_url; ?></b></span>
+<h3><?php _e('Statistics', 'text-domain'); ?></h3>
 <div class="dgc_payment_referral_statistics_container">
     <table class="dgc_payment_referral_statistics_table">
         <thead>
             <tr>
-                <th><?php _e('Referring Visitors', 'dgc-payment'); ?></th>
-                <th><?php _e('Referring Signups', 'dgc-payment'); ?></th>
-                <th><?php _e('Total Earnings', 'dgc-payment'); ?></th>
+                <th><?php _e('Referring Visitors', 'text-domain'); ?></th>
+                <th><?php _e('Referring Signups', 'text-domain'); ?></th>
+                <th><?php _e('Total Earnings', 'text-domain'); ?></th>
             </tr>
         </thead>
         <tbody>

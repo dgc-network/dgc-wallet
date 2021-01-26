@@ -20,16 +20,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 $transactions = get_payment_transactions();
 do_action( 'dgc_payment_before_transaction_details_content' );
 ?>
-<p><?php _e( 'Current balance :', 'dgc-payment' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( get_current_user_id() ); ?> <a href="<?php echo is_account_page() ? esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'dgc-payment' ) ) ) : get_permalink(); ?>"><span class="dashicons dashicons-editor-break"></span></a></p>
+<p><?php _e( 'Current balance :', 'text-domain' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( get_current_user_id() ); ?> <a href="<?php echo is_account_page() ? esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'text-domain' ) ) ) : get_permalink(); ?>"><span class="dashicons dashicons-editor-break"></span></a></p>
 <table id="wc-payment-transaction-details" class="table">
     <thead>
         <tr>
             <?php do_action('dgc_payment_before_transaction_table_th'); ?>
-            <th><?php _e( 'ID', 'dgc-payment' ); ?></th>
-            <th><?php _e( 'Credit', 'dgc-payment' ); ?></th>
-            <th><?php _e( 'Debit', 'dgc-payment' ); ?></th>
-            <th><?php _e( 'Details', 'dgc-payment' ); ?></th>
-            <th><?php _e( 'Date', 'dgc-payment' ); ?></th>
+            <th><?php _e( 'ID', 'text-domain' ); ?></th>
+            <th><?php _e( 'Credit', 'text-domain' ); ?></th>
+            <th><?php _e( 'Debit', 'text-domain' ); ?></th>
+            <th><?php _e( 'Details', 'text-domain' ); ?></th>
+            <th><?php _e( 'Date', 'text-domain' ); ?></th>
             <?php do_action('dgc_payment_after_transaction_table_th'); ?>
         </tr>
     </thead>

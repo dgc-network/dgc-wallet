@@ -8,8 +8,8 @@ class Action_Daily_Visits extends dgc_PaymentAction {
 
     public function __construct() {
         $this->id = 'daily_visits';
-        $this->action_title = __( 'Daily visits', 'dgc-payment' );
-        $this->description  = __( 'Set credit for daily visits', 'dgc-payment' );
+        $this->action_title = __( 'Daily visits', 'text-domain' );
+        $this->description  = __( 'Set credit for daily visits', 'text-domain' );
         $this->init_form_fields();
         $this->init_settings();
         // Actions.
@@ -24,21 +24,21 @@ class Action_Daily_Visits extends dgc_PaymentAction {
 
         $this->form_fields = array(
             'enabled' => array(
-                'title'   => __( 'Enable/Disable', 'dgc-payment' ),
+                'title'   => __( 'Enable/Disable', 'text-domain' ),
                 'type'    => 'checkbox',
-                'label'   => __( 'Enable credit for daily visits.', 'dgc-payment' ),
+                'label'   => __( 'Enable credit for daily visits.', 'text-domain' ),
                 'default' => 'no',
             ),
             'amount' => array(
-                'title'       => __( 'Amount', 'dgc-payment' ),
+                'title'       => __( 'Amount', 'text-domain' ),
                 'type'        => 'price',
-                'description' => __( 'Enter amount which will be credited to the user payment for daily visits.', 'dgc-payment' ),
+                'description' => __( 'Enter amount which will be credited to the user payment for daily visits.', 'text-domain' ),
                 'default'     => '10',
                 'desc_tip'    => true
             ),
             'exclude_role' => array(
-                'title'       => __( 'Exclude user role', 'dgc-payment' ),
-                'description' => __( 'This option lets you limit which user role you want to exclude.', 'dgc-payment' ),
+                'title'       => __( 'Exclude user role', 'text-domain' ),
+                'description' => __( 'This option lets you limit which user role you want to exclude.', 'text-domain' ),
                 'type'        => 'multiselect',
                 'class'       => 'wc-enhanced-select',
                 'css'         => 'min-width: 350px;',
@@ -46,10 +46,10 @@ class Action_Daily_Visits extends dgc_PaymentAction {
                 'options'     => $this->get_editable_role_options()
             ),
             'description' => array(
-                'title'       => __( 'Description', 'dgc-payment' ),
+                'title'       => __( 'Description', 'text-domain' ),
                 'type'        => 'textarea',
-                'description' => __( 'Payment transaction description that will display as transaction note.', 'dgc-payment' ),
-                'default'     => __( 'Balance credited visiting site.', 'dgc-payment' ),
+                'description' => __( 'Payment transaction description that will display as transaction note.', 'text-domain' ),
+                'default'     => __( 'Balance credited visiting site.', 'text-domain' ),
                 'desc_tip'    => true,
             )
         );

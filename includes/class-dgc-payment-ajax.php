@@ -48,10 +48,10 @@ if ( ! class_exists( 'dgc_Payment_Ajax' ) ) {
             $order_id = absint( filter_input(INPUT_POST, 'order_id') );
             $order = wc_get_order($order_id);
             $partial_payment_amount = get_order_partial_payment_amount($order_id);
-            $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $partial_payment_amount, __( 'Payment refund #', 'dgc-payment' ) . $order->get_order_number() );
+            $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $partial_payment_amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
             if($transaction_id){
                 $response['success'] = true;
-                $order->add_order_note(sprintf( __( '%s refunded to customer payment', 'dgc-payment' ), wc_price( $partial_payment_amount, dgc_payment_wc_price_args($order->get_customer_id()) ) ));
+                $order->add_order_note(sprintf( __( '%s refunded to customer payment', 'text-domain' ), wc_price( $partial_payment_amount, dgc_payment_wc_price_args($order->get_customer_id()) ) ));
                 update_post_meta($order_id, '_dgc_payment_partial_payment_refunded', true);
                 update_post_meta($order_id, '_partial_payment_refund_id', $transaction_id);
                 add_action('dgc_payment_partial_order_refunded', $order_id, $transaction_id);
@@ -86,7 +86,7 @@ if ( ! class_exists( 'dgc_Payment_Ajax' ) ) {
                 $max_refund = wc_format_decimal( $order->get_total() - $order->get_total_refunded(), wc_get_price_decimals() );
 
                 if ( !$refund_amount || $max_refund < $refund_amount || 0 > $refund_amount ) {
-                    throw new exception( __( 'Invalid refund amount', 'dgc-payment' ) );
+                    throw new exception( __( 'Invalid refund amount', 'text-domain' ) );
                 }
                 // Prepare line items which we are refunding
                 $line_items = array();
@@ -114,9 +114,9 @@ if ( ! class_exists( 'dgc_Payment_Ajax' ) ) {
                     'restock_items' => $restock_refunded_items,
                 ) );
                 if ( ! is_wp_error( $refund ) ) {
-                    $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $refund_amount, __( 'Payment refund #', 'dgc-payment' ) . $order->get_order_number() );
+                    $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $refund_amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
                     if ( !$transaction_id ) {
-                        throw new Exception( __( 'Refund not credited to customer', 'dgc-payment' ) );
+                        throw new Exception( __( 'Refund not credited to customer', 'text-domain' ) );
                     } else {
                         do_action( 'dgc_payment_order_refunded', $order, $refund, $transaction_id );
                     }
@@ -157,7 +157,7 @@ if ( ! class_exists( 'dgc_Payment_Ajax' ) ) {
                 if ( $user && wp_get_current_user()->user_email != $user->user_email) {
                     $return[] = array(
                         /* translators: 1: user_login, 2: user_email */
-                        'label' => sprintf(_x( '%1$s (%2$s)', 'user autocomplete result', 'dgc-payment' ), $user->user_login, $user->user_email),
+                        'label' => sprintf(_x( '%1$s (%2$s)', 'user autocomplete result', 'text-domain' ), $user->user_login, $user->user_email),
                         'value' => $user->ID,
                     );
                 }
@@ -178,7 +178,7 @@ if ( ! class_exists( 'dgc_Payment_Ajax' ) ) {
                 foreach ( $users as $user) {
                     $return[] = array(
                         /* translators: 1: user_login, 2: user_email */
-                        'label' => sprintf(_x( '%1$s (%2$s)', 'user autocomplete result', 'dgc-payment' ), $user->user_login, $user->user_email),
+                        'label' => sprintf(_x( '%1$s (%2$s)', 'user autocomplete result', 'text-domain' ), $user->user_login, $user->user_email),
                         'value' => $user->ID,
                     );
                 }
@@ -198,11 +198,11 @@ if ( ! class_exists( 'dgc_Payment_Ajax' ) ) {
         public function dgc_payment_dismiss_promotional_notice(){
             $post_data = wp_unslash( $_POST );
             if ( ! current_user_can( 'manage_options' ) ) {
-                wp_send_json_error( __( 'You have no permission to do that', 'dgc-payment' ) );
+                wp_send_json_error( __( 'You have no permission to do that', 'text-domain' ) );
             }
 
             if ( ! wp_verify_nonce( $post_data['nonce'], 'dgc_payment_admin' ) ) {
-                wp_send_json_error( __( 'Invalid nonce', 'dgc-payment' ) );
+                wp_send_json_error( __( 'Invalid nonce', 'text-domain' ) );
             }
             update_option('_dgc_payment_promotion_dismissed', true);
             wp_send_json_success();

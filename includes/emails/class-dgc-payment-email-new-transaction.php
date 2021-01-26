@@ -13,8 +13,8 @@ if ( ! class_exists( 'dgc_Payment_Email_New_Transaction' ) ) {
         public $details;
         public function __construct() {
             $this->id             = 'new_payment_transaction';
-            $this->title          = __( 'New payment transaction', 'dgc-payment' );
-            $this->description    = __( 'New payment transaction emails are sent to user when a payment transaction received.', 'dgc-payment' );
+            $this->title          = __( 'New payment transaction', 'text-domain' );
+            $this->description    = __( 'New payment transaction emails are sent to user when a payment transaction received.', 'text-domain' );
             $this->template_html  = 'emails/user-new-transaction.php';
             $this->template_plain = 'emails/plain/user-new-transaction.php';
             $this->template_base  = DGC_PAYMENT_ABSPATH . 'templates/';
@@ -34,7 +34,7 @@ if ( ! class_exists( 'dgc_Payment_Email_New_Transaction' ) ) {
          * @return string
          */
         public function get_default_subject() {
-            return __( 'Your {site_title} payment transaction from {transaction_date}', 'dgc-payment' );
+            return __( 'Your {site_title} payment transaction from {transaction_date}', 'text-domain' );
         }
 
         /**
@@ -44,7 +44,7 @@ if ( ! class_exists( 'dgc_Payment_Email_New_Transaction' ) ) {
          * @return string
          */
         public function get_default_heading() {
-            return __( 'Thank you for using payment', 'dgc-payment' );
+            return __( 'Thank you for using payment', 'text-domain' );
         }
 
         /**
@@ -94,7 +94,7 @@ if ( ! class_exists( 'dgc_Payment_Email_New_Transaction' ) ) {
                 'email_heading' => $this->get_heading(),
                 'sent_to_admin' => false,
                 'plain_text'    => false,
-                'email'         => $this ), 'dgc-payment', $this->template_base );
+                'email'         => $this ), 'text-domain', $this->template_base );
         }
 
         /**
@@ -113,7 +113,7 @@ if ( ! class_exists( 'dgc_Payment_Email_New_Transaction' ) ) {
                 'email_heading' => $this->get_heading(),
                 'sent_to_admin' => false,
                 'plain_text'    => true,
-                'email' => $this ), 'dgc-payment', $this->template_base );
+                'email' => $this ), 'text-domain', $this->template_base );
         }
 
         /**
@@ -122,33 +122,33 @@ if ( ! class_exists( 'dgc_Payment_Email_New_Transaction' ) ) {
         public function init_form_fields() {
             $this->form_fields = array(
                 'enabled' => array(
-                    'title'   => __( 'Enable/Disable', 'dgc-payment' ),
+                    'title'   => __( 'Enable/Disable', 'text-domain' ),
                     'type'    => 'checkbox',
-                    'label'   => __( 'Enable this email notification', 'dgc-payment' ),
+                    'label'   => __( 'Enable this email notification', 'text-domain' ),
                     'default' => 'yes',
                 ),
                 'subject' => array(
-                    'title'       => __( 'Subject', 'dgc-payment' ),
+                    'title'       => __( 'Subject', 'text-domain' ),
                     'type'        => 'text',
                     'desc_tip'    => true,
                     /* translators: %s: list of placeholders */
-                    'description' => sprintf( __( 'Available placeholders: %s', 'dgc-payment' ), '<code>{site_title}, {transaction_date}</code>' ),
+                    'description' => sprintf( __( 'Available placeholders: %s', 'text-domain' ), '<code>{site_title}, {transaction_date}</code>' ),
                     'placeholder' => $this->get_default_subject(),
                     'default'     => '',
                 ),
                 'heading' => array(
-                    'title'       => __( 'Email heading', 'dgc-payment' ),
+                    'title'       => __( 'Email heading', 'text-domain' ),
                     'type'        => 'text',
                     'desc_tip'    => true,
                     /* translators: %s: list of placeholders */
-                    'description' => sprintf( __( 'Available placeholders: %s', 'dgc-payment' ), '<code>{site_title}, {transaction_date}</code>' ),
+                    'description' => sprintf( __( 'Available placeholders: %s', 'text-domain' ), '<code>{site_title}, {transaction_date}</code>' ),
                     'placeholder' => $this->get_default_heading(),
                     'default'     => '',
                 ),
                 'email_type' => array(
-                    'title'       => __( 'Email type', 'dgc-payment' ),
+                    'title'       => __( 'Email type', 'text-domain' ),
                     'type'        => 'select',
-                    'description' => __( 'Choose which format of email to send.', 'dgc-payment' ),
+                    'description' => __( 'Choose which format of email to send.', 'text-domain' ),
                     'default'     => 'html',
                     'class'       => 'email_type wc-enhanced-select',
                     'options'     => $this->get_email_type_options(),

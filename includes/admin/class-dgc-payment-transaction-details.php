@@ -25,12 +25,12 @@ class dgc_Payment_Transaction_Details extends WP_List_Table {
 
     public function get_columns() {
         return array(
-            'transaction_id' => __( 'ID', 'dgc-payment' ),
-            'name'           => __( 'Name', 'dgc-payment' ),
-            'type'           => __( 'Type', 'dgc-payment' ),
-            'amount'         => __( 'Amount', 'dgc-payment' ),
-            'details'        => __( 'Details', 'dgc-payment' ),
-            'date'           => __( 'Date', 'dgc-payment' )
+            'transaction_id' => __( 'ID', 'text-domain' ),
+            'name'           => __( 'Name', 'text-domain' ),
+            'type'           => __( 'Type', 'text-domain' ),
+            'amount'         => __( 'Amount', 'text-domain' ),
+            'details'        => __( 'Details', 'text-domain' ),
+            'date'           => __( 'Date', 'text-domain' )
         );
     }
 
@@ -63,7 +63,7 @@ class dgc_Payment_Transaction_Details extends WP_List_Table {
     * @since 3.1.0
     */
     public function no_items() {
-        _e( 'No transactions found.', 'dgc-payment' );
+        _e( 'No transactions found.', 'text-domain' );
     }
 
     /**
@@ -97,8 +97,8 @@ class dgc_Payment_Transaction_Details extends WP_List_Table {
             return $data;
         }
         $transactions = get_payment_transactions( array( 'user_id' => $user_id, 'limit' => $lower . ',' . $uper ) );
-        //$transactions = get_payment_transactions( array( 'user_id' => $user_id ) );
-        //$this->total_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}dgc_payment_transactions WHERE user_id={$user_id}" );
+        $this->total_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}dgc_payment_transactions WHERE user_id={$user_id}" );
+/*        
         // dgc-API-call:begin: /retrieveRecords
 		$dgc_API_args = array(
 			'table'		=> $wpdb->prefix . 'dgc_payment_transactions',
@@ -106,7 +106,7 @@ class dgc_Payment_Transaction_Details extends WP_List_Table {
 				//'user_id'	=> $user_id,
                 'publicKey'		=> get_user_meta($user_id, "publicKey", true ),
             )
-		);
+        );        
 		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
 		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
             if (null !== $dgc_API_row->properties) {
@@ -114,13 +114,13 @@ class dgc_Payment_Transaction_Details extends WP_List_Table {
             }
         }
 		// dgc-API-call:end: /retrieveRecords
-        
+*/        
         if ( ! empty( $transactions ) && is_array( $transactions ) ) {
             foreach ( $transactions as $key => $transaction ) {
                 $data[] = array(
                     'transaction_id' => $transaction->transaction_id,
                     'name'           => get_user_by( 'ID', $transaction->user_id )->display_name,
-                    'type'           => ( 'credit' === $transaction->type) ? __( 'Credit', 'dgc-payment' ) : __( 'Debit', 'dgc-payment' ),
+                    'type'           => ( 'credit' === $transaction->type) ? __( 'Credit', 'text-domain' ) : __( 'Debit', 'text-domain' ),
                     'amount'         => wc_price( apply_filters( 'dgc_payment_amount', $transaction->amount, $transaction->currency, $transaction->user_id ), dgc_payment_wc_price_args($transaction->user_id) ),
                     'details'        => $transaction->details,
                     //'date'           => wc_string_to_datetime( $transaction->date )->date_i18n( wc_date_format() )

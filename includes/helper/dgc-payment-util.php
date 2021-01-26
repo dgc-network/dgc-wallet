@@ -176,7 +176,7 @@ if ( ! function_exists( 'get_payment_rechargeable_orders' ) ) {
     function get_payment_rechargeable_orders() {
         $args = array(
             'posts_per_page'   => -1,
-            'meta_key'         => '_wc_payment_purchase_credited',
+            'meta_key'         => '_dgc_payment_purchase_credited',
             'meta_value'       => true,
             'post_type'        => 'shop_order',
             'post_status'      => array( 'completed', 'processing', 'on-hold' ),
@@ -354,7 +354,8 @@ if ( ! function_exists( 'get_payment_transactions' ) ) {
         if ( $nocache || ! isset( $cached_results[$user_id][$query_hash] ) ) {
             // Enable big selects for reports
             $wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
-            //$cached_results[$user_id][$query_hash] = $wpdb->get_results( $query );
+            $cached_results[$user_id][$query_hash] = $wpdb->get_results( $query );
+/*
             // dgc-API-call:begin: /retrieveRecords
             //$dgc_API_result = array();
 	    	$dgc_API_args = array(
@@ -387,7 +388,8 @@ if ( ! function_exists( 'get_payment_transactions' ) ) {
                 }
 		    }
             //$cached_results[$user_id][$query_hash] = $dgc_API_result;
-		    // dgc-API-call:end: /retrieveRecords
+            // dgc-API-call:end: /retrieveRecords
+*/            
             set_transient( 'dgc_payment_transaction_results', $cached_results, DAY_IN_SECONDS );
         }
 
@@ -402,7 +404,8 @@ if(!function_exists('get_payment_transaction')){
     function get_payment_transaction($transaction_id){
         global $wpdb;
         $sql = "SELECT * FROM {$wpdb->base_prefix}dgc_payment_transactions WHERE transaction_id = {$transaction_id}";
-        // $transaction = $wpdb->get_row($sql);
+        $transaction = $wpdb->get_row($sql);
+/*
 		// dgc-API-call:begin: /retrieveRecords
 		$dgc_API_args = array(
 			'table'		=> $wpdb->prefix . 'dgc_payment_transactions',
@@ -416,7 +419,8 @@ if(!function_exists('get_payment_transaction')){
                 $transaction = $dgc_API_row->properties;
             }
 		}
-		// dgc-API-call:end: /retrieveRecords
+        // dgc-API-call:end: /retrieveRecords
+*/        
         return $transaction;
     }
 }
@@ -431,7 +435,8 @@ if(!function_exists('get_payment_transaction_type')){
      */
     function get_payment_transaction_type($transaction_id){
         global $wpdb;
-        // $transaction = $wpdb->get_row("SELECT type FROM {$wpdb->base_prefix}dgc_payment_transactions WHERE transaction_id = {$transaction_id}");
+        $transaction = $wpdb->get_row("SELECT type FROM {$wpdb->base_prefix}dgc_payment_transactions WHERE transaction_id = {$transaction_id}");
+/*        
 		// dgc-API-call:begin: /retrieveRecords
 		$dgc_API_args = array(
 			'table'		=> $wpdb->prefix . 'dgc_payment_transactions',
@@ -445,7 +450,8 @@ if(!function_exists('get_payment_transaction_type')){
                 $transaction = $dgc_API_row->properties;
             }
 		}
-		// dgc-API-call:end: /retrieveRecords
+        // dgc-API-call:end: /retrieveRecords
+*/        
         if( $transaction ){
             return $transaction->type;
         }
@@ -460,6 +466,7 @@ if ( ! function_exists( 'update_payment_transaction' ) ) {
         $update = false;
         if ( ! empty( $data) ) {
             $update = $wpdb->update( "{$wpdb->base_prefix}dgc_payment_transactions", $data, array( 'transaction_id' => $transaction_id ), $format, array( '%d' ) );
+/*            
 			// dgc-API-call:begin: /updateRecords
 			$dgc_API_args = array(
 				'table'	=> $wpdb->prefix . 'dgc_payment_transactions',
@@ -472,7 +479,8 @@ if ( ! function_exists( 'update_payment_transaction' ) ) {
 			if (json_decode($dgc_API_res['response']['code']) == 200) {
 				$update = true; 
 			}
-			// dgc-API-call:end: /updateRecords
+            // dgc-API-call:end: /updateRecords
+*/            
             if ( $update ) {
                 clear_dgc_payment_cache( $user_id );
             }

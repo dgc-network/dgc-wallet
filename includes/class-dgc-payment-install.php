@@ -3,6 +3,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+
 /**
  * dgc_Payment_Install Class
  */
@@ -63,7 +64,7 @@ class dgc_Payment_Install {
 		//} else {
 		//	dgc_API_prefix();
         //}
-        
+/*        
 		dgc_API_prefix();
 	
 		$dgc_API_args = array(
@@ -132,7 +133,7 @@ class dgc_Payment_Install {
 		$dgc_API_args['data'][] = $dgc_API_arg;
 		$dgc_API_res = dgc_API_call('/createTables', 'POST', $dgc_API_args);
 		return json_encode($dgc_API_res);
-
+*/
     }
 
     /**
@@ -219,7 +220,7 @@ class dgc_Payment_Install {
             update_post_meta( $product_id, '_backorders', 'no' );
             update_post_meta( $product_id, '_stock', '' );
             if (version_compare(WC_VERSION, '3.0', '>=' ) ) {
-                $product->set_reviews_allowed(false );
+                $product->set_reviews_allowed( false );
                 $product->set_catalog_visibility( 'hidden' );
                 $product->save();
             }
@@ -246,10 +247,10 @@ class dgc_Payment_Install {
         if (version_compare(DGC_PAYMENT_PLUGIN_VERSION, $current_db_version, '=' ) ){
             return;
         }
-        foreach ( self::get_db_update_callbacks() as $version => $update_callbacks) {
+        foreach ( self::get_db_update_callbacks() as $version => $update_callbacks ) {
             if (version_compare( $current_db_version, $version, '<' ) ) {
-                foreach ( $update_callbacks as $update_callback) {
-                    call_user_func( $update_callback);
+                foreach ( $update_callbacks as $update_callback ) {
+                    call_user_func( $update_callback );
                 }
             }
         }
@@ -261,7 +262,7 @@ class dgc_Payment_Install {
      *
      * @param string|null $version New WooCommerce DB version or null.
      */
-    public static function update_db_version( $version = null) {
+    public static function update_db_version( $version = null ) {
         delete_option( 'dgc_payment_db_version' );
         add_option( 'dgc_payment_db_version', is_null( $version) ? DGC_PAYMENT_PLUGIN_VERSION : $version );
     }

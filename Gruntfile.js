@@ -153,7 +153,7 @@ module.exports = function (grunt) {
         // Check textdomain errors.
         checktextdomain: {
             options: {
-                text_domain: 'dgc-payment',
+                text_domain: 'text-domain',
                 keywords: [
                     '__:1,2d',
                     '_e:1,2d',

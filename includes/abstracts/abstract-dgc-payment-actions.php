@@ -65,10 +65,10 @@ abstract class dgc_PaymentAction extends WC_Settings_API {
     public function admin_options() {
         if ( $this->get_post_data() ) {
             parent::process_admin_options();
-            add_settings_error( $this->id, '200', __( 'Your settings have been saved.', 'dgc-payment' ), 'updated' );
+            add_settings_error( $this->id, '200', __( 'Your settings have been saved.', 'text-domain' ), 'updated' );
         }
         echo '<h2>' . esc_html( $this->get_action_title() );
-        wc_back_link( __( 'Return to actions', 'dgc-payment' ), admin_url( 'admin.php?page=dgc-payment-actions' ) );
+        wc_back_link( __( 'Return to actions', 'text-domain' ), admin_url( 'admin.php?page=dgc-payment-actions' ) );
         settings_errors();
         echo '</h2>';
         echo wp_kses_post( wpautop( $this->get_action_description() ) );

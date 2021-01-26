@@ -26,7 +26,7 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
                 if ( $this->process_payment_payment() ) {
                     $this->record_transaction();
                     if ( $this->transaction_id ) {
-                        return array( 'message' => __( 'New transaction has been initiated', 'dgc-payment' ), 'type' => 'success', 'transaction_id' => $this->transaction_id );
+                        return array( 'message' => __( 'New transaction has been initiated', 'text-domain' ), 'type' => 'success', 'transaction_id' => $this->transaction_id );
                     }
                 } else {
                     return $this->message;
@@ -39,7 +39,7 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
         public function validate_request() {
             global $WCMp;
             if ( $this->enabled != 'Enable' ) {
-                $this->message[] = array( 'message' => __( 'Invalid payment method', 'dgc-payment' ), 'type' => 'error' );
+                $this->message[] = array( 'message' => __( 'Invalid payment method', 'text-domain' ), 'type' => 'error' );
                 return false;
             }
             if ( $this->transaction_mode != 'admin' ) {
@@ -57,7 +57,7 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
                 if ( $this->get_transaction_total() > $thesold_amount ) {
                     return true;
                 } else {
-                    $this->message[] = array( 'message' => __( 'Minimum thesold amount to withdrawal commission is ' . $thesold_amount, 'dgc-payment' ), 'type' => 'error' );
+                    $this->message[] = array( 'message' => __( 'Minimum thesold amount to withdrawal commission is ' . $thesold_amount, 'text-domain' ), 'type' => 'error' );
                     return false;
                 }
             }
@@ -67,7 +67,7 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
         private function process_payment_payment() {
             $amount_to_pay   = round( $this->get_transaction_total() - $this->transfer_charge( $this->transaction_mode) - $this->gateway_charge(), 2 );
             $for_commissions = implode( ',', $this->commissions );
-            $transaction_id  = dgc_payment()->payment->credit( $this->vendor->id, $amount_to_pay, __( 'Commission received for commission id ', 'dgc-payment' ). $for_commissions );
+            $transaction_id  = dgc_payment()->payment->credit( $this->vendor->id, $amount_to_pay, __( 'Commission received for commission id ', 'text-domain' ). $for_commissions );
             if ( $transaction_id ) {
                 update_payment_transaction_meta( $transaction_id, '_type', 'vendor_commission', $this->vendor->id );
                 return true;

@@ -23,10 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
 <?php if ( $type == 'credit' ) { ?>
-<p><?php _e( "Thank you for using your payment.", 'dgc-payment' ); ?> <?php echo wc_price( $amount, dgc_payment_wc_price_args($user->ID) ); ?> <?php _e( 'has been credited to your payment.', 'dgc-payment' ); ?> <?php _e( 'Current payment balance is', 'dgc-payment' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( $user->ID ); ?></p>
+<p><?php _e( "Thank you for using your payment.", 'text-domain' ); ?> <?php echo wc_price( $amount, dgc_payment_wc_price_args($user->ID) ); ?> <?php _e( 'has been credited to your payment.', 'text-domain' ); ?> <?php _e( 'Current payment balance is', 'text-domain' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( $user->ID ); ?></p>
 <?php } ?>
 <?php if ( $type == 'debit' ) { ?>
-    <p><?php _e( "Thank you for using your payment.", 'dgc-payment' ); ?> <?php echo wc_price( $amount, dgc_payment_wc_price_args($user->ID) ); ?> <?php _e( 'has been debited from your payment.', 'dgc-payment' ); ?> <?php _e( 'Current payment balance is', 'dgc-payment' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( $user->ID ); ?></p>
+    <p><?php _e( "Thank you for using your payment.", 'text-domain' ); ?> <?php echo wc_price( $amount, dgc_payment_wc_price_args($user->ID) ); ?> <?php _e( 'has been debited from your payment.', 'text-domain' ); ?> <?php _e( 'Current payment balance is', 'text-domain' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( $user->ID ); ?></p>
 <?php } ?>
 <?php
 /**

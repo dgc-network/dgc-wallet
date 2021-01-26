@@ -182,7 +182,7 @@ final class dgc_Payment {
         
         add_action( 'woocommerce_new_order_item', array( $this, 'woocommerce_new_order_item' ), 10, 2 );
 
-        add_rewrite_endpoint( get_option( 'woocommerce_dgc_payment_endpoint', 'dgc-payment' ), EP_PAGES);
+        add_rewrite_endpoint( get_option( 'woocommerce_dgc_payment_endpoint', 'text-domain' ), EP_PAGES);
         add_rewrite_endpoint( get_option( 'woocommerce_dgc_payment_transactions_endpoint', 'dgc-payment-transactions' ), EP_PAGES);
         if ( !get_option( '_payment_enpoint_added' ) ) {
             flush_rewrite_rules();
@@ -224,7 +224,7 @@ final class dgc_Payment {
      */
     public function plugin_action_links( $links ) {
         $action_links = array(
-            'settings' => '<a href="' . admin_url( 'admin.php?page=dgc-payment-settings' ) . '" aria-label="' . esc_attr__( 'View Payment settings', 'dgc-payment' ) . '">' . esc_html__( 'Settings', 'dgc-payment' ) . '</a>',
+            'settings' => '<a href="' . admin_url( 'admin.php?page=dgc-payment-settings' ) . '" aria-label="' . esc_attr__( 'View Payment settings', 'text-domain' ) . '">' . esc_html__( 'Settings', 'text-domain' ) . '</a>',
         );
 
         return array_merge( $action_links, $links );
@@ -235,11 +235,11 @@ final class dgc_Payment {
      */
     public function load_plugin_textdomain() {
         $locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
-        $locale = apply_filters( 'plugin_locale', $locale, 'dgc-payment' );
+        $locale = apply_filters( 'plugin_locale', $locale, 'text-domain' );
 
-        unload_textdomain( 'dgc-payment' );
-        load_textdomain( 'dgc-payment', WP_LANG_DIR . '/dgc-payment/dgc-payment-' . $locale . '.mo' );
-        load_plugin_textdomain( 'dgc-payment', false, plugin_basename(dirname(DGC_PAYMENT_PLUGIN_FILE) ) . '/languages' );
+        unload_textdomain( 'text-domain' );
+        load_textdomain( 'text-domain', WP_LANG_DIR . '/dgc-payment/dgc-payment-' . $locale . '.mo' );
+        load_plugin_textdomain( 'text-domain', false, plugin_basename(dirname(DGC_PAYMENT_PLUGIN_FILE) ) . '/languages' );
     }
 
     /**
@@ -304,7 +304,8 @@ final class dgc_Payment {
     public function delete_user_transaction_records($id){
         global $wpdb;
         if( apply_filters('dgc_payment_delete_transaction_records', true) ){
-            //$wpdb->query($wpdb->prepare( "DELETE t.*, tm.* FROM {$wpdb->base_prefix}dgc_payment_transactions t JOIN {$wpdb->base_prefix}dgc_payment_transaction_meta tm ON t.transaction_id = tm.transaction_id WHERE t.user_id = %d", $id ));
+            $wpdb->query($wpdb->prepare( "DELETE t.*, tm.* FROM {$wpdb->base_prefix}dgc_payment_transactions t JOIN {$wpdb->base_prefix}dgc_payment_transaction_meta tm ON t.transaction_id = tm.transaction_id WHERE t.user_id = %d", $id ));
+/*            
             $wpdb->query($wpdb->prepare( "DELETE * FROM {$wpdb->base_prefix}dgc_payment_transaction_meta WHERE user_id = %d", $id ));
 			// dgc-API-call:begin: /deleteRecords
 			$dgc_API_args = array(
@@ -315,7 +316,8 @@ final class dgc_Payment {
 				),
 			);
 			return dgc_API_call('/deleteRecords', 'POST', $dgc_API_args);
-			// dgc-API-call:end: /deleteRecords
+            // dgc-API-call:end: /deleteRecords
+*/            
         }
     }
 
@@ -344,7 +346,7 @@ final class dgc_Payment {
     public function locate_template( $template_name, $template_path = '', $default_path = '' ) {
         $default_path = apply_filters( 'dgc_payment_template_path', $default_path);
         if ( !$template_path) {
-            $template_path = 'dgc-payment';
+            $template_path = 'text-domain';
         }
         if ( !$default_path) {
             $default_path = DGC_PAYMENT_ABSPATH . 'templates/';
@@ -365,7 +367,7 @@ final class dgc_Payment {
      */
     public function admin_notices() {
         echo '<div class="error"><p>';
-        _e( 'dgc Payment for WooCommerce plugin requires <a href="https://wordpress.org/plugins/woocommerce/">WooCommerce</a> plugins to be active!', 'dgc-payment' );
+        _e( 'dgc Payment for WooCommerce plugin requires <a href="https://wordpress.org/plugins/woocommerce/">WooCommerce</a> plugins to be active!', 'text-domain' );
         echo '</p></div>';
     }
 
