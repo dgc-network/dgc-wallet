@@ -155,6 +155,7 @@ jQuery(function ($) {
             }).change();
         }
     };
+    
     settings.init();
     if (dgc_payment_admin_settings_param.screen_id === 'dgc_payment_page_dgc-payment-settings') {
         settings.settings_page_init();
