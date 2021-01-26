@@ -104,7 +104,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
         public function woocommerce_endpoint_title($title, $endpoint) {
             switch ($endpoint) {
                 case 'dgc_payment' :
-                    $title = apply_filters('dgc_payment_account_menu_title', __('dgc Payment', 'text-domain'));
+                    $title = apply_filters('dgc_payment_account_menu_title', __('dgcPay', 'text-domain'));
                     break;
                 case 'dgc-payment-transactions' :
                     $title = apply_filters('dgc_payment_account_transaction_menu_title', __('Payment Transactions', 'text-domain'));
@@ -175,7 +175,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
         public function dgc_payment_menu_items($items) {
             unset($items['edit-account']);
             unset($items['customer-logout']);
-            $items['dgc_payment'] = apply_filters('dgc_payment_account_menu_title', __('dgc Payment', 'text-domain'));
+            $items['dgc_payment'] = apply_filters('dgc_payment_account_menu_title', __('dgcPay', 'text-domain'));
             $items['edit-account'] = __('Account details', 'text-domain');
             $items['customer-logout'] = __('Logout', 'text-domain');
             return $items;
