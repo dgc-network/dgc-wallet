@@ -12,7 +12,7 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
         public $message = array();
 
         public function __construct() {
-            $this->id              = 'dgc_payment';
+            $this->id              = 'dgc-payment';
             $this->payment_gateway = $this->id;
             $this->enabled         = get_wcmp_vendor_settings( 'payment_method_dgc_payment', 'payment' );
         }

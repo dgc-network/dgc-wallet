@@ -19,7 +19,7 @@ if ( ! class_exists( 'dgc_Payment_Dokan' ) ) {
          * @var string
          * @since 1.2.3 
          */
-        private static $method_id = 'dgc_payment';
+        private static $method_id = 'dgc-payment';
 
         /**
          * Main instance

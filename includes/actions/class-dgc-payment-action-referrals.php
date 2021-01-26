@@ -140,7 +140,7 @@ class Action_Referrals extends dgc_PaymentAction {
 
     public function referral_content() {
         global $wp;
-        if (apply_filters('dgc_payment_is_enable_referrals', true) && ( ( isset($wp->query_vars['dgc_payment']) && 'referrals' === $wp->query_vars['dgc_payment'] ) || ( isset($_GET['payment_action']) && 'referrals' === $_GET['payment_action'] ) )) {
+        if (apply_filters('dgc_payment_is_enable_referrals', true) && ( ( isset($wp->query_vars['dgc-payment']) && 'referrals' === $wp->query_vars['dgc-payment'] ) || ( isset($_GET['payment_action']) && 'referrals' === $_GET['payment_action'] ) )) {
             dgc_payment()->get_template('dgc-payment-referrals.php', array('settings' => $this->settings, 'referral' => $this));
         }
     }

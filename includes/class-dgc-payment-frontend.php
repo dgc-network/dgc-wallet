@@ -58,7 +58,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             add_filter('woocommerce_coupon_message', array($this, 'update_woocommerce_coupon_message_as_cashback'), 10, 3);
             add_filter('woocommerce_cart_totals_coupon_label', array($this, 'change_coupon_label'), 10, 2);
             add_filter('woocommerce_cart_get_total', array($this, 'woocommerce_cart_get_total'));
-            add_shortcode('dgc_payment', __CLASS__ . '::dgc_payment_shortcode_callback');
+            add_shortcode('dgc-payment', __CLASS__ . '::dgc_payment_shortcode_callback');
             add_action('woocommerce_cart_calculate_fees', array($this, 'dgc_payment_add_partial_payment_fee'));
             add_filter('woocommerce_cart_totals_get_fees_from_cart_taxes', array($this, 'woocommerce_cart_totals_get_fees_from_cart_taxes'), 10, 2);
             add_action('woocommerce_thankyou', array($this, 'restore_woocommerce_cart_items'));
@@ -93,7 +93,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
          * @return type
          */
         public function add_woocommerce_query_vars($query_vars) {
-            $query_vars['dgc_payment'] = get_option('woocommerce_dgc_payment_endpoint', 'text-domain');
+            $query_vars['dgc-payment'] = get_option('woocommerce_dgc_payment_endpoint', 'text-domain');
             $query_vars['dgc-payment-transactions'] = get_option('woocommerce_dgc_payment_transactions_endpoint', 'dgc-payment-transactions');
             return $query_vars;
         }
@@ -103,7 +103,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
          */
         public function woocommerce_endpoint_title($title, $endpoint) {
             switch ($endpoint) {
-                case 'dgc_payment' :
+                case 'dgc-payment' :
                     $title = apply_filters('dgc_payment_account_menu_title', __('dgcPay', 'text-domain'));
                     break;
                 case 'dgc-payment-transactions' :
@@ -175,7 +175,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
         public function dgc_payment_menu_items($items) {
             unset($items['edit-account']);
             unset($items['customer-logout']);
-            $items['dgc_payment'] = apply_filters('dgc_payment_account_menu_title', __('dgcPay', 'text-domain'));
+            $items['dgc-payment'] = apply_filters('dgc_payment_account_menu_title', __('dgcPay', 'text-domain'));
             $items['edit-account'] = __('Account details', 'text-domain');
             $items['customer-logout'] = __('Logout', 'text-domain');
             return $items;

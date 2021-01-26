@@ -20,7 +20,7 @@ if (!class_exists('dgc_Payment_WCFMMP')) {
          * Gateway slug.
          * @var string 
          */
-        public static $gateway_slug = 'dgc_payment';
+        public static $gateway_slug = 'dgc-payment';
 
         /**
          * Main instance

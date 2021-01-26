@@ -11,7 +11,7 @@ class dgc_Payment_Balance_Details extends WP_List_Table {
             'singular' => 'transaction',
             'plural'   => 'transactions',
             'ajax'     => false,
-            'screen'   => 'dgc_payment',
+            'screen'   => 'dgc-payment',
         ) );
     }
 

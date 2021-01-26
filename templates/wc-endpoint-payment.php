@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $wp;
 do_action( 'dgc_payment_before_my_payment_content' );
-$is_rendred_from_myaccount = wc_post_content_has_shortcode( 'dgc_payment' ) ? false : is_account_page();
+$is_rendred_from_myaccount = wc_post_content_has_shortcode( 'dgc-payment' ) ? false : is_account_page();
 $menu_items = apply_filters('dgc_payment_nav_menu_items', array(
     'top_up' => array(
         'title' => apply_filters( 'dgc_payment_account_topup_menu_title', __( 'exchange dgc', 'text-domain' ) ),
@@ -58,8 +58,8 @@ $menu_items = apply_filters('dgc_payment_nav_menu_items', array(
         </div>
         <div style="clear: both"></div>
         <hr/>
-        <?php if ( ( isset( $wp->query_vars['dgc_payment'] ) && ! empty( $wp->query_vars['dgc_payment'] ) ) || isset( $_GET['payment_action'] ) ) { ?>
-            <?php if ( apply_filters( 'dgc_payment_is_enable_top_up', true ) && ( ( isset( $wp->query_vars['dgc_payment'] ) && 'add' === $wp->query_vars['dgc_payment'] ) || ( isset( $_GET['payment_action'] ) && 'add' === $_GET['payment_action'] ) ) ) { ?>
+        <?php if ( ( isset( $wp->query_vars['dgc-payment'] ) && ! empty( $wp->query_vars['dgc-payment'] ) ) || isset( $_GET['payment_action'] ) ) { ?>
+            <?php if ( apply_filters( 'dgc_payment_is_enable_top_up', true ) && ( ( isset( $wp->query_vars['dgc-payment'] ) && 'add' === $wp->query_vars['dgc-payment'] ) || ( isset( $_GET['payment_action'] ) && 'add' === $_GET['payment_action'] ) ) ) { ?>
                 <form method="post" action="">
                     <div class="dgc-payment-add-amount">
                         <label for="dgc_payment_balance_to_add"><?php _e( 'Enter amount', 'text-domain' ); ?></label>
@@ -72,7 +72,7 @@ $menu_items = apply_filters('dgc_payment_nav_menu_items', array(
                         <input type="submit" name="woo_add_to_payment" class="woo-add-to-payment" value="<?php _e( 'Add', 'text-domain' ); ?>" />
                     </div>
                 </form>
-            <?php } else if ( apply_filters( 'dgc_payment_is_enable_transfer', 'on' === dgc_payment()->settings_api->get_option( 'is_enable_payment_transfer', '_payment_settings_general', 'on' ) ) && ( ( isset( $wp->query_vars['dgc_payment'] ) && 'transfer' === $wp->query_vars['dgc_payment'] ) || ( isset( $_GET['payment_action'] ) && 'transfer' === $_GET['payment_action'] ) ) ) { ?> 
+            <?php } else if ( apply_filters( 'dgc_payment_is_enable_transfer', 'on' === dgc_payment()->settings_api->get_option( 'is_enable_payment_transfer', '_payment_settings_general', 'on' ) ) && ( ( isset( $wp->query_vars['dgc-payment'] ) && 'transfer' === $wp->query_vars['dgc-payment'] ) || ( isset( $_GET['payment_action'] ) && 'transfer' === $_GET['payment_action'] ) ) ) { ?> 
                 <form method="post" action="">
                     <p class="dgc-payment-field-container form-row form-row-wide">
                         <label for="dgc_payment_transfer_user_id"><?php _e( 'Select whom to transfer', 'text-domain' ); ?> <?php

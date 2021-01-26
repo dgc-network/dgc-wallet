@@ -28,7 +28,7 @@ if ( ! class_exists( 'dgc_Payment_Extensions_Settings' ) ):
          * wc payment menu
          */
         public function admin_menu() {
-            //add_submenu_page( 'dgc_payment', __( 'Extensions', 'text-domain' ), __( 'Extensions', 'text-domain' ), 'manage_woocommerce', 'dgc-payment-extensions', array( $this, 'plugin_page' ) );
+            //add_submenu_page( 'dgc-payment', __( 'Extensions', 'text-domain' ), __( 'Extensions', 'text-domain' ), 'manage_woocommerce', 'dgc-payment-extensions', array( $this, 'plugin_page' ) );
         }
 
         /**

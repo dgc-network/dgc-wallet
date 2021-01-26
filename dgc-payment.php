@@ -45,7 +45,7 @@ function dgc_payment(){
     return dgc_Payment::instance();
 }
 
-$GLOBALS['dgc_payment'] = dgc_payment();
+$GLOBALS['dgc-payment'] = dgc_payment();
 
 /**
  * dgc Payment Gateway

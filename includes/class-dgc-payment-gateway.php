@@ -7,7 +7,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
     private $order_status;
 
 	public function __construct(){
-		$this->id = 'dgc_payment';
+		$this->id = 'dgc-payment';
 		$this->method_title = __('dgc Payment','text-domain');
 		$this->title = __('dgc Payment','text-domain');
 		$this->has_fields = true;

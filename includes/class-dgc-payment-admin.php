@@ -94,13 +94,13 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
          * init admin menu
          */
         public function admin_menu() {
-            $dgc_payment_menu_page_hook = add_menu_page( 'dgcPay', 'dgcPay', 'manage_woocommerce', 'dgc_payment', array( $this, 'payment_page' ), '', 59 );
+            $dgc_payment_menu_page_hook = add_menu_page( 'dgcPay', 'dgcPay', 'manage_woocommerce', 'dgc-payment', array( $this, 'payment_page' ), '', 59 );
             add_action( "load-$dgc_payment_menu_page_hook", array( $this, 'add_dgc_payment_details' ) );
             $dgc_payment_menu_page_hook_add = add_submenu_page( '', __( 'dgc Payment', 'text-domain' ), __( 'dgc Payment', 'text-domain' ), 'manage_woocommerce', 'dgc-payment-add', array( $this, 'add_balance_to_user_payment' ) );
             add_action( "load-$dgc_payment_menu_page_hook_add", array( $this, 'add_dgc_payment_add_balance_option' ) );
             $dgc_payment_menu_page_hook_view = add_submenu_page( '', __( 'dgc Payment', 'text-domain' ), __( 'dgc Payment', 'text-domain' ), 'manage_woocommerce', 'dgc-payment-transactions', array( $this, 'transaction_details_page' ) );
             add_action( "load-$dgc_payment_menu_page_hook_view", array( $this, 'add_dgc_payment_transaction_details_option' ) );
-            //add_submenu_page( 'dgc_payment', __( 'Actions', 'text-domain' ), __( 'Actions', 'text-domain' ), 'manage_woocommerce', 'dgc-payment-actions', array( $this, 'plugin_actions_page' ) );
+            //add_submenu_page( 'dgc-payment', __( 'Actions', 'text-domain' ), __( 'Actions', 'text-domain' ), 'manage_woocommerce', 'dgc-payment-actions', array( $this, 'plugin_actions_page' ) );
         }
 
         /**
@@ -248,7 +248,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             ?>
             <div class="wrap">
                 <?php settings_errors(); ?>
-                <h2><?php _e( 'Adjust Balance', 'text-domain' ); ?> <a style="text-decoration: none;" href="<?php echo add_query_arg( array( 'page' => 'dgc_payment' ), admin_url( 'admin.php' ) ); ?>"><span class="dashicons dashicons-editor-break" style="vertical-align: middle;"></span></a></h2>
+                <h2><?php _e( 'Adjust Balance', 'text-domain' ); ?> <a style="text-decoration: none;" href="<?php echo add_query_arg( array( 'page' => 'dgc-payment' ), admin_url( 'admin.php' ) ); ?>"><span class="dashicons dashicons-editor-break" style="vertical-align: middle;"></span></a></h2>
                 <p>
                     <?php
                     _e( 'Current payment balance: ', 'text-domain' );
@@ -304,7 +304,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             $user_id = filter_input(INPUT_GET, 'user_id' );
             ?>
             <div class="wrap">
-                <h2><?php _e( 'Transaction details', 'text-domain' ); ?> <a style="text-decoration: none;" href="<?php echo add_query_arg( array( 'page' => 'dgc_payment' ), admin_url( 'admin.php' ) ); ?>"><span class="dashicons dashicons-editor-break" style="vertical-align: middle;"></span></a></h2>
+                <h2><?php _e( 'Transaction details', 'text-domain' ); ?> <a style="text-decoration: none;" href="<?php echo add_query_arg( array( 'page' => 'dgc-payment' ), admin_url( 'admin.php' ) ); ?>"><span class="dashicons dashicons-editor-break" style="vertical-align: middle;"></span></a></h2>
                 <p><?php _e( 'Current payment balance: ', 'text-domain' ); echo dgc_payment()->payment->get_payment_balance( $user_id ); ?></p>
                 <?php do_action('before_dgc_payment_transaction_details_page', $user_id); ?>
                 <form id="posts-filter" method="get">
@@ -360,7 +360,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                     add_settings_error( '', '102', $message);
                 } else {
                     do_action( 'dgc_payment_admin_adjust_balance', $transaction_id );
-                    wp_safe_redirect(add_query_arg( array( 'page' => 'dgc_payment' ), admin_url( 'admin.php' ) ) );
+                    wp_safe_redirect(add_query_arg( array( 'page' => 'dgc-payment' ), admin_url( 'admin.php' ) ) );
                     exit();
                 }
             }
@@ -569,7 +569,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                     'desc' => __( 'Endpoint for the "My account &rarr; dgc Payment" page.', 'text-domain' ),
                     'id' => 'woocommerce_dgc_payment_endpoint',
                     'type' => 'text',
-                    'default' => 'dgc_payment',
+                    'default' => 'dgc-payment',
                     'desc_tip' => true,
                 ),
                 array(

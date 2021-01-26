@@ -33,12 +33,12 @@ if ( ! class_exists( 'dgc_Payment_WCMp' ) ) {
         }
 
         public function add_payment_payment_method( $payment_methods ) {
-            return array_merge( $payment_methods, array( 'dgc_payment' => __( 'Payment', 'text-domain' ) ) );
+            return array_merge( $payment_methods, array( 'dgc-payment' => __( 'Payment', 'text-domain' ) ) );
         }
 
         public function add_payment_vendor_payment_method( $payment_method ) {
             if ( 'Enable' === get_wcmp_vendor_settings( 'payment_method_dgc_payment', 'payment' ) ) {
-                return array_merge( $payment_method, array( 'dgc_payment' => __( 'Payment', 'text-domain' ) ) );
+                return array_merge( $payment_method, array( 'dgc-payment' => __( 'Payment', 'text-domain' ) ) );
             }
             return $payment_method;
         }
