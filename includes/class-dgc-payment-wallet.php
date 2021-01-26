@@ -110,13 +110,13 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
                 } else {
                     $recharge_amount -= $charge_amount;
                 }
-                update_post_meta( $order_id, '_wc_payment_purchase_gateway_charge', $charge_amount );
+                update_post_meta( $order_id, '_dgc_payment_purchase_gateway_charge', $charge_amount );
             }
             $transaction_id = $this->credit( $order->get_customer_id(), $recharge_amount, __( 'Payment credit through purchase #', 'text-domain' ) . $order->get_order_number() );
             if ( $transaction_id ) {
                 update_post_meta( $order_id, '_dgc_payment_purchase_credited', true );
                 update_post_meta( $order_id, '_payment_payment_transaction_id', $transaction_id );
-                update_payment_transaction_meta( $transaction_id, '_wc_payment_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
+                update_payment_transaction_meta( $transaction_id, '_dgc_payment_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
                 do_action( 'dgc_payment_credit_purchase_completed', $transaction_id, $order );
             }
         }
