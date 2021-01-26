@@ -8,8 +8,8 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 
 	public function __construct(){
 		$this->id = 'dgc_payment';
-		$this->method_title = __('dgc Payment','woocommerce-dgc-payment-gateway');
-		$this->title = __('dgc Payment','woocommerce-dgc-payment-gateway');
+		$this->method_title = __('dgc Payment','text-domain');
+		$this->title = __('dgc Payment','text-domain');
 		$this->has_fields = true;
 		$this->init_form_fields();
 		$this->init_settings();
@@ -25,38 +25,40 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 	public function init_form_fields(){
 		$this->form_fields = array(
 			'enabled' => array(
-			'title' 		=> __( 'Enable/Disable', 'woocommerce-dgc-payment-gateway' ),
-			'type' 			=> 'checkbox',
-			'label' 		=> __( 'Enable dgc Payment', 'woocommerce-dgc-payment-gateway' ),
-			'default' 		=> 'yes'
+				'title' 		=> __( 'Enable/Disable', 'text-domain' ),
+				'type' 			=> 'checkbox',
+				'label' 		=> __( 'Enable dgc Payment', 'text-domain' ),
+				'default' 		=> 'yes'
 			),
 			'title' => array(
-				'title' 		=> __( 'Method Title', 'woocommerce-dgc-payment-gateway' ),
+				'title' 		=> __( 'Method Title', 'text-domain' ),
 				'type' 			=> 'text',
-				'description' 	=> __( 'This controls the title', 'woocommerce-dgc-payment-gateway' ),
-				'default'		=> __( 'dgc Payment', 'woocommerce-dgc-payment-gateway' ),
+				'description' 	=> __( 'This controls the title', 'text-domain' ),
+				'default'		=> __( 'dgc Payment', 'text-domain' ),
 				'desc_tip'		=> true,
 			),
+/*
 			'description' => array(
-				'title' 		=> __( 'Customer Message', 'woocommerce-dgc-payment-gateway' ),
+				'title' 		=> __( 'Customer Message', 'text-domain' ),
 				'type' 			=> 'textarea',
 				'css' 			=> 'width:500px;',
 				'default' 		=> 'None of the dgc payment options are suitable for you? please drop us a note about your favourable payment option and we will contact you as soon as possible.',
-				'description' 	=> __( 'The message which you want it to appear to the customer in the checkout page.', 'woocommerce-dgc-payment-gateway' ),
+				'description' 	=> __( 'The message which you want it to appear to the customer in the checkout page.', 'text-domain' ),
 			),
+*/
 			'hide_text_box' => array(
-				'title' 		=> __( 'Hide The Payment Field', 'woocommerce-dgc-payment-gateway' ),
+				'title' 		=> __( 'Hide The Payment Field', 'text-domain' ),
 				'type' 			=> 'checkbox',
-				'label' 		=> __( 'Hide', 'woocommerce-dgc-payment-gateway' ),
+				'label' 		=> __( 'Hide', 'text-domain' ),
 				'default' 		=> 'no',
-				'description' 	=> __( 'If you do not need to show the text box for customers at all, enable this option.', 'woocommerce-dgc-payment-gateway' ),
+				'description' 	=> __( 'If you do not need to show the text box for customers at all, enable this option.', 'text-domain' ),
 			),
 			'order_status' => array(
-				'title' 		=> __( 'Order Status After The Checkout', 'woocommerce-dgc-payment-gateway' ),
+				'title' 		=> __( 'Order Status After The Checkout', 'text-domain' ),
 				'type' 			=> 'select',
 				'options' 		=> wc_get_order_statuses(),
 				'default' 		=> 'wc-on-hold',
-				'description' 	=> __( 'The default order status if this gateway used in payment.', 'woocommerce-dgc-payment-gateway' ),
+				'description' 	=> __( 'The default order status if this gateway used in payment.', 'text-domain' ),
 			),
 		);
 	}
@@ -69,7 +71,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 	 */
 	public function admin_options_backup() {
 		?>
-		<h3><?php _e( 'dgc Payment Settings', 'woocommerce-dgc-payment-gateway' ); ?></h3>
+		<h3><?php _e( 'dgc Payment Settings', 'text-domain' ); ?></h3>
 			<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="post-body-content">
@@ -94,7 +96,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 	                                            <li>» Auto Hassle-Free Updates</li>
 	                                            <li>» High Priority Customer Support</li>
 	                                        </ul>
-											<a href="https://dgc.network/plugin/woocommerce-dgc-payment-gateway-pro/" class="button dgc_button" target="_blank"><span class="dashicons dashicons-star-filled"></span> Upgrade Now</a> 
+											<a href="https://dgc.network/plugin/text-domain-pro/" class="button dgc_button" target="_blank"><span class="dashicons dashicons-star-filled"></span> Upgrade Now</a> 
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -108,9 +110,9 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 	                                        <br/>
 	                                        Got a Question, Idea, Problem or Praise?</p>
 	                                        <ul>
-												<li>» Please leave us a <a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/woocommerce-dgc-payment-gateway?filter=5#postform">★★★★★</a> rating.</li>
+												<li>» Please leave us a <a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/text-domain?filter=5#postform">★★★★★</a> rating.</li>
 	                                            <li>» <a href="https://dgc.network/submit-ticket/" target="_blank">Support Request</a></li>
-	                                            <li>» <a href="https://dgc.network/knowledgebase_category/woocommerce-dgc-payment-gateway-pro/" target="_blank">Documentation and Common issues.</a></li>
+	                                            <li>» <a href="https://dgc.network/knowledgebase_category/text-domain-pro/" target="_blank">Documentation and Common issues.</a></li>
 	                                            <li>» <a href="https://dgc.network/plugins/" target="_blank">Our Plugins Shop</a></li>
 	                                        </ul>
 
@@ -160,7 +162,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 		global $woocommerce;
 		$order = new WC_Order( $order_id );
 		// Mark as on-hold (we're awaiting the cheque)
-		$order->update_status($this->order_status, __( 'Awaiting payment', 'woocommerce-dgc-payment-gateway' ));
+		$order->update_status($this->order_status, __( 'Awaiting payment', 'text-domain' ));
 		// Reduce stock levels
 		wc_reduce_stock_levels( $order_id );
 		if(isset($_POST[ $this->id.'-admin-note']) && trim($_POST[ $this->id.'-admin-note'])!=''){
