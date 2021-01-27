@@ -1,7 +1,7 @@
 /* global payment_param */
 
 jQuery(function ($) {
-    $('#wc-payment-transaction-details').DataTable(
+    $('#dgc-payment-transaction-details').DataTable(
             {
                 responsive: true,
                 searching: false,

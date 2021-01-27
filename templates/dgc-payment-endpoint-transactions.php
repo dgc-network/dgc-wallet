@@ -21,7 +21,7 @@ $transactions = get_payment_transactions();
 do_action( 'dgc_payment_before_transaction_details_content' );
 ?>
 <p><?php _e( 'Current balance :', 'text-domain' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( get_current_user_id() ); ?> <a href="<?php echo is_account_page() ? esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_payment_endpoint', 'text-domain' ) ) ) : get_permalink(); ?>"><span class="dashicons dashicons-editor-break"></span></a></p>
-<table id="wc-payment-transaction-details" class="table">
+<table id="dgc-payment-transaction-details" class="table">
     <thead>
         <tr>
             <?php do_action('dgc_payment_before_transaction_table_th'); ?>
