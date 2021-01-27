@@ -1195,11 +1195,11 @@ msgid "Current balance :"
 msgstr ""
 
 #: templates/dgc-payment-endpoint.php:25
-msgid "exchange dgc"
+msgid "Exchange"
 msgstr ""
 
 #: templates/dgc-payment-endpoint.php:30
-msgid "dgc transfer"
+msgid "Transfer"
 msgstr ""
 
 #: templates/dgc-payment-endpoint.php:35

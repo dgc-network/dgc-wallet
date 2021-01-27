@@ -22,12 +22,12 @@ do_action( 'dgc_payment_before_my_payment_content' );
 $is_rendred_from_myaccount = wc_post_content_has_shortcode( 'dgc-payment' ) ? false : is_account_page();
 $menu_items = apply_filters('dgc_payment_nav_menu_items', array(
     'top_up' => array(
-        'title' => apply_filters( 'dgc_payment_account_topup_menu_title', __( 'exchange dgc', 'text-domain' ) ),
+        'title' => apply_filters( 'dgc_payment_account_topup_menu_title', __( 'Exchange', 'text-domain' ) ),
         'url' => $is_rendred_from_myaccount ? esc_url(wc_get_endpoint_url(get_option('woocommerce_dgc_payment_endpoint', 'text-domain'), 'add', wc_get_page_permalink('myaccount'))) : add_query_arg('payment_action', 'add', get_permalink()),
         'icon' => 'dashicons dashicons-plus-alt'
     ),
     'transfer' => array(
-        'title' => apply_filters('dgc_payment_account_transfer_amount_menu_title', __('dgc transfer', 'text-domain')),
+        'title' => apply_filters('dgc_payment_account_transfer_amount_menu_title', __('Transfer', 'text-domain')),
         'url' => $is_rendred_from_myaccount ? esc_url(wc_get_endpoint_url(get_option('woocommerce_dgc_payment_endpoint', 'text-domain'), 'transfer', wc_get_page_permalink('myaccount'))) : add_query_arg('payment_action', 'transfer', get_permalink()),
         'icon' => 'dashicons dashicons-randomize'
     ),
