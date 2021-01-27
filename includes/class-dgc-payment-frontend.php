@@ -82,7 +82,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             }
 
             ob_start();
-            dgc_payment()->get_template('mini-payment.php');
+            dgc_payment()->get_template('dgc-payment-mini.php');
             $mini_payment = ob_get_clean();
             return $menu . $mini_payment;
         }
@@ -130,7 +130,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             wp_style_add_data('dgc-payment-style', 'rtl', 'replace');
             wp_register_script('jquery-datatables-script', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array('jquery'));
             wp_register_script('jquery-datatables-responsive-script', '//cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js', array('jquery'));
-            wp_register_script('wc-endpoint-payment', dgc_payment()->plugin_url() . '/assets/js/frontend/wc-endpoint-payment' . $suffix . '.js', array('jquery', 'jquery-datatables-script'), DGC_PAYMENT_PLUGIN_VERSION);
+            wp_register_script('dgc-payment-endpoint', dgc_payment()->plugin_url() . '/assets/js/frontend/dgc-payment-endpoint' . $suffix . '.js', array('jquery', 'jquery-datatables-script'), DGC_PAYMENT_PLUGIN_VERSION);
             $payment_localize_param = array(
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'search_by_user_email' => apply_filters('dgc_payment_user_search_exact_match', true),
@@ -151,7 +151,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
                     'searching' => __('Searching…', 'text-domain')
                 )
             );
-            wp_localize_script('wc-endpoint-payment', 'payment_param', $payment_localize_param);
+            wp_localize_script('dgc-payment-endpoint', 'payment_param', $payment_localize_param);
             wp_enqueue_style('dgc-payment-style');
             //if (is_account_page()) {
                 wp_enqueue_style('dashicons');
@@ -161,7 +161,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
                 wp_enqueue_script('selectWoo');
                 wp_enqueue_script('jquery-datatables-script');
                 wp_enqueue_script('jquery-datatables-responsive-script');
-                wp_enqueue_script('wc-endpoint-payment');
+                wp_enqueue_script('dgc-payment-endpoint');
             //}
             $add_to_cart_variation = "jQuery(function ($) { $(document).on('show_variation', function (event, variation, purchasable) { if(variation.cashback_amount) { $('.on-dgc-payment-cashback').show(); $('.on-dgc-payment-cashback').html(variation.cashback_html); } else { $('.on-dgc-payment-cashback').hide(); } }) });";
             wp_add_inline_script('wc-add-to-cart-variation', $add_to_cart_variation);
@@ -185,14 +185,14 @@ if (!class_exists('dgc_Payment_Frontend')) {
          * WooCommerce endpoint contents for payment 
          */
         public function dgc_payment_endpoint_content() {
-            dgc_payment()->get_template('wc-endpoint-payment.php');
+            dgc_payment()->get_template('dgc-payment-endpoint.php');
         }
 
         /**
          * WooCommerce endpoint contents for transaction details
          */
         public function dgc_payment_transactions_endpoint_content() {
-            dgc_payment()->get_template('wc-endpoint-payment-transactions.php');
+            dgc_payment()->get_template('dgc-payment-endpoint-transactions.php');
         }
 
         /**
@@ -510,7 +510,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
             wp_enqueue_style('dashicons');
             wp_enqueue_style('dgc-payment-jquery-ui');
             wp_enqueue_script('jquery-ui-tooltip');
-            dgc_payment()->get_template('dgc-payment-partial-payment.php');
+            dgc_payment()->get_template('dgc-payment-partial.php');
         }
 
         /**
@@ -671,16 +671,16 @@ if (!class_exists('dgc_Payment_Frontend')) {
                 wp_enqueue_script('jquery-datatables-script');
                 wp_enqueue_script('jquery-datatables-responsive-script');
                 wp_enqueue_script('selectWoo');
-                wp_enqueue_script('wc-endpoint-payment');
+                wp_enqueue_script('dgc-payment-endpoint');
                 if (isset($_GET['payment_action']) && !empty($_GET['payment_action'])) {
                     if ('view_transactions' === $_GET['payment_action']) {
-                        dgc_payment()->get_template('wc-endpoint-payment-transactions.php');
+                        dgc_payment()->get_template('dgc-payment-endpoint-transactions.php');
                     } else if (in_array($_GET['payment_action'], apply_filters('dgc_payment_endpoint_actions', array('add', 'transfer')))) {
-                        dgc_payment()->get_template('wc-endpoint-payment.php');
+                        dgc_payment()->get_template('dgc-payment-endpoint.php');
                     }
                     do_action('dgc_payment_shortcode_action', $_GET['payment_action']);
                 } else {
-                    dgc_payment()->get_template('wc-endpoint-payment.php');
+                    dgc_payment()->get_template('dgc-payment-endpoint.php');
                 }
             }
         }

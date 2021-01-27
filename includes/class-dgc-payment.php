@@ -67,7 +67,7 @@ final class dgc_Payment {
      */
     private function define_constants() {
         $this->define( 'DGC_PAYMENT_ABSPATH', dirname(DGC_PAYMENT_PLUGIN_FILE) . '/' );
-        //$this->define( 'DGC_PAYMENT_PLUGIN_FILE', plugin_basename(DGC_PAYMENT_PLUGIN_FILE) );
+        $this->define( 'DGC_PAYMENT_PLUGIN_FILE', plugin_basename(DGC_PAYMENT_PLUGIN_FILE) );
         $this->define( 'DGC_PAYMENT_PLUGIN_VERSION', '1.0.0' );
     }
 
@@ -137,8 +137,8 @@ final class dgc_Payment {
      * @return string path
      */
     public function plugin_url() {
-        //return untrailingslashit( plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE ) );
-        return plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE );
+        return untrailingslashit( plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE ) );
+        //return plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE );
     }
 
     /**
@@ -160,6 +160,7 @@ final class dgc_Payment {
     public function init() {
         $this->load_plugin_textdomain();
         include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-method.php' );
+        include_once( DGC_PAYMENT_ABSPATH . 'includes/class-dgc-payment-gateway.php' );
         $this->add_marketplace_support();
         add_filter( 'woocommerce_email_classes', array( $this, 'woocommerce_email_classes' ) );
         add_filter( 'woocommerce_payment_gateways', array( $this, 'load_gateway' ) );
@@ -249,6 +250,7 @@ final class dgc_Payment {
      */
     public function load_gateway( $load_gateways ) {
         //$load_gateways[] = 'dgc_Payment_Method';
+        $load_gateways[] = 'dgc_Payment_Gateway';
         return $load_gateways;
     }
 

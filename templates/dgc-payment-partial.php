@@ -2,7 +2,7 @@
 /**
  * The Template for displaying partial payment html at checkout page
  *
- * This template can be overridden by copying it to yourtheme/dgc-payment/dgc-payment-partial-payment.php.
+ * This template can be overridden by copying it to yourtheme/dgc-payment/dgc-payment-partial.php.
  *
  * HOWEVER, on occasion we will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to

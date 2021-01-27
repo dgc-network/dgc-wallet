@@ -50,6 +50,7 @@ $GLOBALS['dgc-payment'] = dgc_payment();
 /**
  * dgc Payment Gateway
  */
+/*
 $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
 if(dgc_payment_is_woocommerce_active()){
 	add_filter('woocommerce_payment_gateways', 'add_dgc_payment_gateway');
@@ -63,10 +64,11 @@ if(dgc_payment_is_woocommerce_active()){
 		require dirname( __FILE__ ) . '/includes/class-dgc-payment-gateway.php';
 	}
 }
-
+*/
 /**
  * @return bool
  */
+/*
 function dgc_payment_is_woocommerce_active()
 {
 	$active_plugins = (array) get_option('active_plugins', array());
@@ -75,15 +77,17 @@ function dgc_payment_is_woocommerce_active()
 	}
 	return in_array('woocommerce/woocommerce.php', $active_plugins) || array_key_exists('woocommerce/woocommerce.php', $active_plugins);
 }
-
+*/
 /**
  * dgc API call
  */
+
+/**
+ * update $wpdb->prefix for namespace 
+ */
+/*
 //add_action( 'plugins_loaded', 'dgc_API_prefix' );
 function dgc_API_prefix() {
-	/**
-	 * update $wpdb->prefix for namespace 
-	 */
 	global $wpdb;
 	$array = array();
 	$string = '';
@@ -107,12 +111,13 @@ function dgc_API_prefix() {
 add_action( 'user_register', 'dgc_API_participant', 10, 1 );
 add_action( 'edit_user_profile_update', 'dgc_API_participant');
 add_shortcode( 'dgc-api-participant', 'dgc_API_participant' );
-
+*/
 /**
  * check the username for query 
  * if the username does NOT exist in users then create a new user
  * if the username existed in users then update the user
  */
+/*
 function dgc_API_participant() {
 
 	$dgc_API_args = array(
@@ -201,4 +206,4 @@ function dgc_API_call($dgc_API_endpoint, $dgc_API_method = 'GET', $dgc_API_args 
             'body'   	=> json_encode($dgc_API_args),
 		));
 }
-
+*/

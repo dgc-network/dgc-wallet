@@ -48,7 +48,7 @@ msgstr ""
 #: includes/actions/class-dgc-payment-action-referrals.php:44
 #: includes/actions/class-dgc-payment-action-referrals.php:75
 #: includes/admin/class-dgc-payment-transaction-details.php:31
-#: includes/class-dgc-payment-admin.php:259 templates/wc-endpoint-payment.php:86
+#: includes/class-dgc-payment-admin.php:259 templates/dgc-payment-endpoint.php:86
 msgid "Amount"
 msgstr ""
 
@@ -205,7 +205,7 @@ msgstr ""
 
 #: includes/admin/class-dgc-payment-balance-details.php:20
 #: includes/admin/class-dgc-payment-transaction-details.php:28
-#: templates/wc-endpoint-payment-transactions.php:28
+#: templates/dgc-payment-endpoint-transactions.php:28
 msgid "ID"
 msgstr ""
 
@@ -251,12 +251,12 @@ msgid "Type"
 msgstr ""
 
 #: includes/admin/class-dgc-payment-transaction-details.php:32
-#: templates/wc-endpoint-payment-transactions.php:31
+#: templates/dgc-payment-endpoint-transactions.php:31
 msgid "Details"
 msgstr ""
 
 #: includes/admin/class-dgc-payment-transaction-details.php:33
-#: templates/wc-endpoint-payment-transactions.php:32
+#: templates/dgc-payment-endpoint-transactions.php:32
 msgid "Date"
 msgstr ""
 
@@ -266,13 +266,13 @@ msgstr ""
 
 #: includes/admin/class-dgc-payment-transaction-details.php:106
 #: includes/class-dgc-payment-admin.php:268
-#: templates/wc-endpoint-payment-transactions.php:29
+#: templates/dgc-payment-endpoint-transactions.php:29
 msgid "Credit"
 msgstr ""
 
 #: includes/admin/class-dgc-payment-transaction-details.php:106
 #: includes/class-dgc-payment-admin.php:268
-#: templates/wc-endpoint-payment-transactions.php:30
+#: templates/dgc-payment-endpoint-transactions.php:30
 msgid "Debit"
 msgstr ""
 
@@ -475,7 +475,7 @@ msgstr ""
 #: includes/class-dgc-payment-admin.php:662
 #: includes/class-dgc-payment-frontend.php:107
 #: includes/class-dgc-payment-frontend.php:178
-#: templates/wc-endpoint-payment.php:44
+#: templates/dgc-payment-endpoint.php:44
 msgid "dgc Payment"
 msgstr ""
 
@@ -1034,7 +1034,7 @@ msgstr ""
 msgid "dgcPay top-up form for your site."
 msgstr ""
 
-#: includes/class-dgc-payment-widgets.php:49 templates/wc-endpoint-payment.php:65
+#: includes/class-dgc-payment-widgets.php:49 templates/dgc-payment-endpoint.php:65
 msgid "Enter amount"
 msgstr ""
 
@@ -1186,66 +1186,66 @@ msgstr ""
 msgid "has been debited from your payment."
 msgstr ""
 
-#: templates/mini-payment.php:21
+#: templates/dgc-payment-mini.php:21
 msgid "Current payment balance"
 msgstr ""
 
-#: templates/wc-endpoint-payment-transactions.php:23
+#: templates/dgc-payment-endpoint-transactions.php:23
 msgid "Current balance :"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:25
+#: templates/dgc-payment-endpoint.php:25
 msgid "exchange dgc"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:30
+#: templates/dgc-payment-endpoint.php:30
 msgid "dgc transfer"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:35
+#: templates/dgc-payment-endpoint.php:35
 msgid "Transactions"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:56
+#: templates/dgc-payment-endpoint.php:56
 msgid "Balance"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:72
+#: templates/dgc-payment-endpoint.php:72
 msgid "Add"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:78
+#: templates/dgc-payment-endpoint.php:78
 msgid "Select whom to transfer"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:80
+#: templates/dgc-payment-endpoint.php:80
 msgid "(Email)"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:90
+#: templates/dgc-payment-endpoint.php:90
 msgid "What's this for"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:95
+#: templates/dgc-payment-endpoint.php:95
 msgid "Proceed to transfer"
 msgstr ""
 
-#: templates/wc-endpoint-payment.php:119
+#: templates/dgc-payment-endpoint.php:119
 msgid "No transactions found"
 msgstr ""
 
-#: templates/dgc-payment-partial-payment.php:27
+#: templates/dgc-payment-partial.php:27
 msgid ""
 "%s will be debited from your payment and %s will be paid through other "
 "payment method"
 msgstr ""
 
-#: templates/dgc-payment-partial-payment.php:32
-#: templates/dgc-payment-partial-payment.php:33
+#: templates/dgc-payment-partial.php:32
+#: templates/dgc-payment-partial.php:33
 msgid "Pay by payment"
 msgstr ""
 
-#: templates/dgc-payment-partial-payment.php:32
+#: templates/dgc-payment-partial.php:32
 msgid ""
 "If checked %s will be debited from your payment and %s will be paid through "
 "other payment method"
