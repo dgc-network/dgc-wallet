@@ -37,6 +37,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 				'default'		=> __( 'dgc Payment', 'text-domain' ),
 				'desc_tip'		=> true,
 			),
+/*			
 			'description' => array(
 				'title' 		=> __( 'Customer Message', 'text-domain' ),
 				'type' 			=> 'textarea',
@@ -51,6 +52,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 				'default' 		=> 'no',
 				'description' 	=> __( 'If you do not need to show the text box for customers at all, enable this option.', 'text-domain' ),
 			),
+*/			
 			'order_status' => array(
 				'title' 		=> __( 'Order Status After The Checkout', 'text-domain' ),
 				'type' 			=> 'select',
