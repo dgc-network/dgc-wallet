@@ -62,6 +62,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 			),
 		);
 	}
+	
 	/**
 	 * Admin Panel Options
 	 * - Options for bits like 'title' and availability on a country-by-country basis
@@ -158,6 +159,7 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 				</style>
 				<?php
 	}
+
 	public function process_payment( $order_id ) {
 		global $woocommerce;
 		$order = new WC_Order( $order_id );
