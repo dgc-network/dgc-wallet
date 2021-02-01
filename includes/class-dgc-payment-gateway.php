@@ -20,7 +20,21 @@ class dgc_Payment_Gateway extends WC_Payment_Gateway{
 		$this->order_status = $this->get_option('order_status');
 
 		add_action('woocommerce_update_options_payment_gateways_'.$this->id, array($this, 'process_admin_options'));
+		add_filter('woocommerce_order_button_text', array( $this, 'custom_order_button_text' ), 1);
 	}
+
+/*
+Change Place Order button text on checkout page in woocommerce
+*/
+
+//add_filter('woocommerce_order_button_text','custom_order_button_text',1);
+
+function custom_order_button_text($order_button_text) {
+	
+	$order_button_text = 'Proceed to dgcPay';
+	
+	return $order_button_text;
+}
 
 	public function init_form_fields(){
 		$this->form_fields = array(
