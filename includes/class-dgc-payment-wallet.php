@@ -49,7 +49,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
          */
         public function get_payment_balance( $user_id = '', $context = 'view' ) {
             global $wpdb;
-            if (empty( $user_id ) ) {
+            if ( empty( $user_id ) ) {
                 $user_id = get_current_user_id();
             }
             $this->set_user_id( $user_id );

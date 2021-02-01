@@ -138,7 +138,6 @@ final class dgc_Payment {
      */
     public function plugin_url() {
         return untrailingslashit( plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE ) );
-        //return plugins_url( '/', DGC_PAYMENT_PLUGIN_FILE );
     }
 
     /**

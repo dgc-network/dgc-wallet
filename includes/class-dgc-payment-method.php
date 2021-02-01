@@ -119,6 +119,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
      * @return array
      */
     public function process_payment( $order_id ) {
+        
         $order = wc_get_order( $order_id );
         if ( ( $order->get_total( 'edit' ) > dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ) ) && apply_filters( 'dgc_payment_disallow_negative_transaction', (dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ) <= 0 || $order->get_total( 'edit' ) > dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ) ), $order->get_total( 'edit' ), dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ) ) ) {
             wc_add_notice( __( 'Payment error: ', 'text-domain' ) . sprintf( __( 'Your payment balance is low. Please add %s to proceed with this transaction.', 'text-domain' ), wc_price( $order->get_total( 'edit' ) - dgc_payment()->payment->get_payment_balance( get_current_user_id(), 'edit' ), dgc_payment_wc_price_args($order->get_customer_id()) ) ), 'error' );
@@ -133,8 +134,8 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
         WC()->cart->empty_cart();
 
         if ( $payment_response) {
-            $order->payment_complete( $payment_response);
-            do_action( 'dgc_payment_payment_processed', $order_id, $payment_response);
+            $order->payment_complete( $payment_response );
+            do_action( 'dgc_payment_payment_processed', $order_id, $payment_response );
         }
 
         // Return thankyou redirect
