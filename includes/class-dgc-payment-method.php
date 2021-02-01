@@ -41,7 +41,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
      */
     protected function setup_properties() {
         $this->id = 'payment';
-        $this->method_title = __( 'Payment', 'text-domain' );
+        $this->method_title = __( 'dgcPay', 'text-domain' );
         $this->method_description = __( 'Have your customers pay with payment.', 'text-domain' );
         $this->has_fields = false;
     }

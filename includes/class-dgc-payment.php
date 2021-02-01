@@ -249,8 +249,8 @@ final class dgc_Payment {
      * @return array
      */
     public function load_gateway( $load_gateways ) {
-        //$load_gateways[] = 'dgc_Payment_Method';
-        $load_gateways[] = 'dgc_Payment_Gateway';
+        $load_gateways[] = 'dgc_Payment_Method';
+        //$load_gateways[] = 'dgc_Payment_Gateway';
         return $load_gateways;
     }
 
