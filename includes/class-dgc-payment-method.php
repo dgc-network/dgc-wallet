@@ -34,7 +34,16 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
         add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
         /* support for woocommerce subscription plugin */
         add_action( 'woocommerce_scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 2 );
+		add_filter( 'woocommerce_order_button_text', array( $this, 'custom_order_button_text' ), 1);
     }
+
+	/*
+	 * Change Place Order button text on checkout page in woocommerce
+	 */
+	function custom_order_button_text($order_button_text) {	
+		$order_button_text = 'Proceed to dgcPay';	
+		return $order_button_text;
+	}
 
     /**
      * Setup general properties for the gateway.
