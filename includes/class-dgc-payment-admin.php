@@ -444,6 +444,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                 update_post_meta( $post_ID, '_cashback_amount', sanitize_text_field( $_POST['wcwp_cashback_amount'] ) );
             }
         }
+
         /**
          * Add cashback option for variable product.
          * @param int $loop
@@ -692,6 +693,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             }
             return $value;
         }
+        
         /**
          * Add screen id dgc_payment_page_dgc-payment-actions to WooCommerce
          * @param array $screen_ids
@@ -702,6 +704,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             //$screen_ids[] = 'dgc_payment_page_dgc-payment-actions';
             return $screen_ids;
         }
+
         /**
          * Add refund button to WooCommerce order page.
          * @param int $item_id
@@ -724,6 +727,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                 echo '<button type="button" class="button refund-partial-payment">'.__( 'Refund', 'text-domain').'</button>';
             }
         }
+
         /**
          * Admin new order add cashback.
          * @param int $order_id
@@ -741,6 +745,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             $order_actions['recalculate_order_cashback'] = __( 'Recalculate order cashback', 'text-domain');
             return $order_actions;
         }
+
         /**
          * Recalculate and send order cashback.
          * @param WC_Order $order
