@@ -40,7 +40,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
      * Setup general properties for the gateway.
      */
     protected function setup_properties() {
-        $this->id = 'payment';
+        $this->id = 'dgc-payment';
         $this->method_title = __( 'dgcPay', 'text-domain' );
         $this->method_description = __( 'Have your customers pay with payment.', 'text-domain' );
         $this->has_fields = false;
@@ -62,21 +62,21 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
                 'title' => __( 'Title', 'text-domain' ),
                 'type' => 'text',
                 'description' => __( 'This controls the title which the user sees during checkout.', 'text-domain' ),
-                'default' => __( 'Payment payment', 'text-domain' ),
+                'default' => __( 'dgc Payment', 'text-domain' ),
                 'desc_tip' => true,
             ),
             'description' => array(
                 'title' => __( 'Description', 'text-domain' ),
                 'type' => 'textarea',
                 'description' => __( 'Payment method description that the customer will see on your checkout.', 'text-domain' ),
-                'default' => __( 'Pay with payment.', 'text-domain' ),
+                'default' => __( 'Pay with dgcPay.', 'text-domain' ),
                 'desc_tip' => true,
             ),
             'instructions' => array(
                 'title' => __( 'Instructions', 'text-domain' ),
                 'type' => 'textarea',
                 'description' => __( 'Instructions that will be added to the thank you page.', 'text-domain' ),
-                'default' => __( 'Pay with payment.', 'text-domain' ),
+                'default' => __( 'Pay with dgcPay.', 'text-domain' ),
                 'desc_tip' => true,
             )
         );
