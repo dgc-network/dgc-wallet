@@ -126,12 +126,12 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
             return;
         }
         //$payment_response = dgc_payment()->payment->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_payment_order_payment_description', __( 'For order payment #', 'text-domain' ) . $order->get_order_number(), $order) );
-        if ( $payment_response = dgc_payment()->payment->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_payment_order_payment_description', __( 'For order payment #', 'text-domain' ) . $order->get_order_number(), $order) ) ) {
+        if ( $payment_response = dgc_payment()->payment->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_payment_order_payment_description', __( 'Paid for order #', 'text-domain' ) . $order->get_order_number(), $order) ) ) {
             foreach ( $order->get_items() as $item_id => $item ) {
                 $product_id = $item->get_product_id();
                 $total = $item->get_total();
                 $vendor_id = get_post_field( 'post_author', $product_id );
-                dgc_payment()->payment->credit( $vendor_id, $total, apply_filters('dgc_payment_order_payment_description', __( 'For order payment #', 'text-domain' ) . $order->get_order_number(), $order) );
+                dgc_payment()->payment->credit( $vendor_id, $total, apply_filters('dgc_payment_order_payment_description', __( 'Received from order #', 'text-domain' ) . $order->get_order_number(), $order) );
             }
         };
         
