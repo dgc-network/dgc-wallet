@@ -96,7 +96,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
      * @return boolean
      */
     public function is_available() {
-        return apply_filters( 'dgc_payment_payment_is_available', (parent::is_available() && is_full_payment_through_payment() && is_user_logged_in() && ! is_enable_payment_partial_payment() ) );
+        return apply_filters( 'dgc_payment_payment_is_available', ( parent::is_available() && is_full_payment_through_payment() && is_user_logged_in() && ! is_enable_payment_partial_payment() ) );
     }
 
     public function get_icon() {
@@ -174,7 +174,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
             return;
         }
         $payment_response = dgc_payment()->payment->debit( $order->get_customer_id(), $amount_to_charge, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
-        if ( $payment_response) {
+        if ( $payment_response ) {
             $order->payment_complete();
         } else {
             $order->add_order_note( __( 'Insufficient funds in customer payment', 'text-domain' ) );
