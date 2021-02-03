@@ -175,6 +175,7 @@ if (!class_exists('dgc_Payment_Frontend')) {
         public function dgc_payment_menu_items($items) {
             unset($items['edit-account']);
             unset($items['customer-logout']);
+            unset($items['downloads'] ); // Disable Downloads
             $items['dgc-payment'] = apply_filters('dgc_payment_account_menu_title', __('dgcPay', 'text-domain'));
             $items['edit-account'] = __('Account details', 'text-domain');
             $items['customer-logout'] = __('Logout', 'text-domain');

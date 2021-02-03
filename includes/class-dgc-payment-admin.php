@@ -344,7 +344,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                 $payment_type = filter_input(INPUT_POST, 'payment_type' );
                 $description = filter_input(INPUT_POST, 'payment_description' );
                 if ( $user_id != NULL && ! empty( $user_id ) && $amount != NULL && ! empty( $amount ) ) {
-                    $amount = apply_filters( 'dgc_payment_addjust_balance_amount', number_format( $amount, wc_get_price_decimals(), '.', '' ), $user_id );
+                    $amount = apply_filters( 'dgc_payment_adjust_balance_amount', number_format( $amount, wc_get_price_decimals(), '.', '' ), $user_id );
                     if ( 'credit' === $payment_type) {
                         $transaction_id = dgc_payment()->payment->credit( $user_id, $amount, $description);
                     } else if ( 'debit' === $payment_type) {
@@ -693,7 +693,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
             }
             return $value;
         }
-        
+
         /**
          * Add screen id dgc_payment_page_dgc-payment-actions to WooCommerce
          * @param array $screen_ids

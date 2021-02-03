@@ -10,6 +10,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
      * Class constructor
      */
     public function __construct() {
+
         $this->setup_properties();
         $this->supports = array(
             'products',
@@ -23,6 +24,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
             'subscription_date_changes',
             'subscription_payment_method_change'
         );
+        
         // Load the settings
         $this->init_form_fields();
         $this->init_settings();
@@ -35,6 +37,22 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
         /* support for woocommerce subscription plugin */
         add_action( 'woocommerce_scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 2 );
 		add_filter( 'woocommerce_order_button_text', array( $this, 'custom_order_button_text' ), 1);
+
+        /* Move the below stuffs from class-dgc-payment.php */
+        foreach ( apply_filters( 'payment_credit_purchase_order_status', array( 'processing', 'completed' ) ) as $status) {
+            add_action( 'woocommerce_order_status_' . $status, array( $this, 'payment_credit_purchase' ) );
+        }
+
+        foreach ( apply_filters( 'payment_partial_payment_order_status', array( 'on-hold', 'processing', 'completed' ) ) as $status) {
+            add_action( 'woocommerce_order_status_' . $status, array( $this, 'payment_partial_payment' ) );
+        }
+
+        foreach ( apply_filters( 'payment_cashback_order_status', dgc_payment()->settings_api->get_option( 'process_cashback_status', '_payment_settings_credit', array( 'processing', 'completed' ) ) ) as $status) {
+            add_action( 'woocommerce_order_status_' . $status, array( $this, 'payment_cashback' ), 12 );
+        }
+
+        add_action( 'woocommerce_order_status_cancelled', array( $this, 'process_cancelled_order' ) );
+
     }
 
 	/*
@@ -189,5 +207,101 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
         }
         update_post_meta( $order->get_id(), '_payment_scheduled_subscription_payment_processed', true );
     }
+
+        /**
+         * Credit payment balance through order payment
+         * @param int $order_id
+         * @return void
+         */
+        public function payment_credit_purchase( $order_id ) {
+            $payment_product = get_payment_rechargeable_product();
+            $charge_amount = 0;
+            if ( get_post_meta( $order_id, '_dgc_payment_purchase_credited', true ) || !$payment_product) {
+                return;
+            }
+            $order = wc_get_order( $order_id );
+            if ( ! is_payment_rechargeable_order( $order ) ) {
+                return;
+            }
+            $recharge_amount = apply_filters( 'dgc_payment_credit_purchase_amount', $order->get_subtotal( 'edit' ), $order_id );
+            if ( 'on' === dgc_payment()->settings_api->get_option( 'is_enable_gateway_charge', '_payment_settings_credit', 'off' ) ) {
+                $charge_amount = dgc_payment()->settings_api->get_option( $order->get_payment_method(), '_payment_settings_credit', 0 );
+                if ( 'percent' === dgc_payment()->settings_api->get_option( 'gateway_charge_type', '_payment_settings_credit', 'percent' ) ) {
+                    $recharge_amount -= $recharge_amount * ( $charge_amount / 100 );
+                } else {
+                    $recharge_amount -= $charge_amount;
+                }
+                update_post_meta( $order_id, '_dgc_payment_purchase_gateway_charge', $charge_amount );
+            }
+            $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $recharge_amount, __( 'Payment credit through purchase #', 'text-domain' ) . $order->get_order_number() );
+            if ( $transaction_id ) {
+                update_post_meta( $order_id, '_dgc_payment_purchase_credited', true );
+                update_post_meta( $order_id, '_payment_payment_transaction_id', $transaction_id );
+                update_payment_transaction_meta( $transaction_id, '_dgc_payment_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
+                do_action( 'dgc_payment_credit_purchase_completed', $transaction_id, $order );
+            }
+        }
+
+        public function payment_cashback( $order_id ) {
+            $order = wc_get_order( $order_id );
+            /* General Cashback */
+            if ( apply_filters( 'process_dgc_payment_general_cashback', !get_post_meta( $order->get_id(), '_general_cashback_transaction_id', true ), $order ) && dgc_payment()->cashback->calculate_cashback(false, $order->get_id()) ) {
+                $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), dgc_payment()->cashback->calculate_cashback(false, $order->get_id()), __( 'Payment credit through cashback #', 'text-domain' ) . $order->get_order_number() );
+                if ( $transaction_id ) {
+                    update_payment_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
+                    update_post_meta( $order->get_id(), '_general_cashback_transaction_id', $transaction_id );
+                    do_action( 'dgc_payment_general_cashback_credited', $transaction_id );
+                }
+            }
+            /* Coupon Cashback */
+            if ( apply_filters( 'process_dgc_payment_coupon_cashback', !get_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', true ), $order ) && get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ) ) {
+                $coupon_cashback_amount = apply_filters( 'dgc_payment_coupon_cashback_amount', get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ), $order );
+                if ( $coupon_cashback_amount ) {
+                    $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $coupon_cashback_amount, __( 'Payment credit through cashback by applying coupon', 'text-domain' ) );
+                    if ( $transaction_id ) {
+                        update_payment_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
+                        update_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', $transaction_id );
+                        do_action( 'dgc_payment_coupon_cashback_credited', $transaction_id );
+                    }
+                }
+            }
+        }
+
+        public function payment_partial_payment( $order_id ) {
+            $order = wc_get_order( $order_id );
+            $partial_payment_amount = get_order_partial_payment_amount( $order_id );
+            if ( $partial_payment_amount && !get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
+                $transaction_id = dgc_payment()->payment->debit( $order->get_customer_id(), $partial_payment_amount, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
+                if ( $transaction_id ) {
+                    $order->add_order_note(sprintf( __( '%s paid through payment', 'text-domain' ), wc_price( $partial_payment_amount, dgc_payment_wc_price_args($order->get_customer_id()) ) ) );
+                    update_payment_transaction_meta( $transaction_id, '_partial_payment', true, $order->get_customer_id() );
+                    update_post_meta( $order_id, '_partial_pay_through_payment_compleate', $transaction_id );
+                    do_action( 'dgc_payment_partial_payment_completed', $transaction_id, $order );
+                }
+            }
+        }
+
+        public function process_cancelled_order( $order_id ) {
+            $order = wc_get_order( $order_id );
+            /** credit partial payment amount * */
+            $partial_payment_amount = get_order_partial_payment_amount( $order_id );
+            if ( $partial_payment_amount && get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
+                dgc_payment()->payment->credit( $order->get_customer_id(), $partial_payment_amount, sprintf( __( 'Your order with ID #%s has been cancelled and hence your payment amount has been refunded!', 'text-domain' ), $order->get_order_number() ) );
+                $order->add_order_note(sprintf( __( 'Payment amount %s has been credited to customer upon cancellation', 'text-domain' ), $partial_payment_amount ) );
+                delete_post_meta( $order_id, '_partial_pay_through_payment_compleate' );
+            }
+
+            /** debit cashback amount * */
+            if ( apply_filters( 'dgc_payment_debit_cashback_upon_cancellation', get_total_order_cashback_amount( $order_id ) ) ) {
+                $total_cashback_amount = get_total_order_cashback_amount( $order_id );
+                if ( $total_cashback_amount ) {
+                    if ( dgc_payment()->payment->debit( $order->get_customer_id(), $total_cashback_amount, sprintf( __( 'Cashback for #%s has been debited upon cancellation', 'text-domain' ), $order->get_order_number() ) ) ) {
+                        delete_post_meta( $order_id, '_general_cashback_transaction_id' );
+                        delete_post_meta( $order_id, '_coupon_cashback_transaction_id' );
+                    }
+                }
+            }
+        }
+
 
 }

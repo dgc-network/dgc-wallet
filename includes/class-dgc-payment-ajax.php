@@ -34,8 +34,8 @@ if ( ! class_exists( 'dgc_Payment_Ajax' ) ) {
             add_action( 'wp_ajax_woocommerce_payment_rated', array( $this, 'woocommerce_payment_rated' ) );
             add_action( 'wp_ajax_dgc-payment-user-search', array( $this, 'dgc_payment_user_search' ) );
             add_action( 'wp_ajax_dgc_payment_partial_payment_update_session', array( $this, 'dgc_payment_partial_payment_update_session' ) );
-            add_action('wp_ajax_dgc_payment_refund_partial_payment', array($this, 'dgc_payment_refund_partial_payment'));
-            add_action('wp_ajax_dgc-payment-dismiss-promotional-notice', array($this, 'dgc_payment_dismiss_promotional_notice'));
+            add_action( 'wp_ajax_dgc_payment_refund_partial_payment', array($this, 'dgc_payment_refund_partial_payment' ) );
+            add_action( 'wp_ajax_dgc-payment-dismiss-promotional-notice', array($this, 'dgc_payment_dismiss_promotional_notice' ) );
         }
         /**
          * Payment partial payment refund.

@@ -164,6 +164,8 @@ final class dgc_Payment {
         add_filter( 'woocommerce_email_classes', array( $this, 'woocommerce_email_classes' ) );
         add_filter( 'woocommerce_payment_gateways', array( $this, 'load_gateway' ) );
 
+        /** Move the below to class-dgc-payment-method */
+/*
         foreach ( apply_filters( 'payment_credit_purchase_order_status', array( 'processing', 'completed' ) ) as $status) {
             add_action( 'woocommerce_order_status_' . $status, array( $this->payment, 'payment_credit_purchase' ) );
         }
@@ -177,9 +179,9 @@ final class dgc_Payment {
         }
 
         add_action( 'woocommerce_order_status_cancelled', array( $this->payment, 'process_cancelled_order' ) );
-
+*/
         add_filter( 'woocommerce_reports_get_order_report_query', array( $this, 'woocommerce_reports_get_order_report_query' ) );
-        
+
         add_action( 'woocommerce_new_order_item', array( $this, 'woocommerce_new_order_item' ), 10, 2 );
 
         add_rewrite_endpoint( get_option( 'woocommerce_dgc_payment_endpoint', 'text-domain' ), EP_PAGES);

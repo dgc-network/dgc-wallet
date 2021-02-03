@@ -29,16 +29,7 @@ if ( ! class_exists( 'dgc_Payment_Settings_API' ) ):
          */
         public function __construct() {
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 15);
-            add_action( 'admin_head', array( $this, 'dgc_custom_style' ) );
         }
-
-	/**
-	 * Add a bit of script.
-	 */
-	function dgc_custom_script() {
-	}
-
-
 
         /**
          * Enqueue scripts and styles
