@@ -47,10 +47,6 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
             add_action( 'woocommerce_order_status_' . $status, array( $this, 'payment_partial_payment' ) );
         }
 
-        foreach ( apply_filters( 'payment_cashback_order_status', dgc_payment()->settings_api->get_option( 'process_cashback_status', '_payment_settings_credit', array( 'processing', 'completed' ) ) ) as $status) {
-            add_action( 'woocommerce_order_status_' . $status, array( $this, 'payment_cashback' ), 12 );
-        }
-
         add_action( 'woocommerce_order_status_cancelled', array( $this, 'process_cancelled_order' ) );
 
     }
@@ -239,31 +235,6 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
                 update_post_meta( $order_id, '_payment_payment_transaction_id', $transaction_id );
                 update_payment_transaction_meta( $transaction_id, '_dgc_payment_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
                 do_action( 'dgc_payment_credit_purchase_completed', $transaction_id, $order );
-            }
-        }
-
-        public function payment_cashback( $order_id ) {
-            $order = wc_get_order( $order_id );
-            /* General Cashback */
-            if ( apply_filters( 'process_dgc_payment_general_cashback', !get_post_meta( $order->get_id(), '_general_cashback_transaction_id', true ), $order ) && dgc_payment()->cashback->calculate_cashback(false, $order->get_id()) ) {
-                $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), dgc_payment()->cashback->calculate_cashback(false, $order->get_id()), __( 'Payment credit through cashback #', 'text-domain' ) . $order->get_order_number() );
-                if ( $transaction_id ) {
-                    update_payment_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
-                    update_post_meta( $order->get_id(), '_general_cashback_transaction_id', $transaction_id );
-                    do_action( 'dgc_payment_general_cashback_credited', $transaction_id );
-                }
-            }
-            /* Coupon Cashback */
-            if ( apply_filters( 'process_dgc_payment_coupon_cashback', !get_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', true ), $order ) && get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ) ) {
-                $coupon_cashback_amount = apply_filters( 'dgc_payment_coupon_cashback_amount', get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ), $order );
-                if ( $coupon_cashback_amount ) {
-                    $transaction_id = dgc_payment()->payment->credit( $order->get_customer_id(), $coupon_cashback_amount, __( 'Payment credit through cashback by applying coupon', 'text-domain' ) );
-                    if ( $transaction_id ) {
-                        update_payment_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
-                        update_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', $transaction_id );
-                        do_action( 'dgc_payment_coupon_cashback_credited', $transaction_id );
-                    }
-                }
             }
         }
 

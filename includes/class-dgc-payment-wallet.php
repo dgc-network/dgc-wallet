@@ -148,13 +148,15 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
         }
 
 
+        /** Move the below to class-dgc-payment-method */
+        /** Move the below to class-dgc-payment-admin */
         
         /**
          * Credit payment balance through order payment
          * @param int $order_id
          * @return void
          */
-        
+/*        
         public function payment_credit_purchase( $order_id ) {
             $payment_product = get_payment_rechargeable_product();
             $charge_amount = 0;
@@ -186,7 +188,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
 
         public function payment_cashback( $order_id ) {
             $order = wc_get_order( $order_id );
-            /* General Cashback */
+            // General Cashback
             if ( apply_filters( 'process_dgc_payment_general_cashback', !get_post_meta( $order->get_id(), '_general_cashback_transaction_id', true ), $order ) && dgc_payment()->cashback->calculate_cashback(false, $order->get_id()) ) {
                 $transaction_id = $this->credit( $order->get_customer_id(), dgc_payment()->cashback->calculate_cashback(false, $order->get_id()), __( 'Payment credit through cashback #', 'text-domain' ) . $order->get_order_number() );
                 if ( $transaction_id ) {
@@ -195,7 +197,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
                     do_action( 'dgc_payment_general_cashback_credited', $transaction_id );
                 }
             }
-            /* Coupon Cashback */
+            // Coupon Cashback
             if ( apply_filters( 'process_dgc_payment_coupon_cashback', !get_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', true ), $order ) && get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ) ) {
                 $coupon_cashback_amount = apply_filters( 'dgc_payment_coupon_cashback_amount', get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ), $order );
                 if ( $coupon_cashback_amount ) {
@@ -225,7 +227,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
 
         public function process_cancelled_order( $order_id ) {
             $order = wc_get_order( $order_id );
-            /** credit partial payment amount * */
+            // credit partial payment amount
             $partial_payment_amount = get_order_partial_payment_amount( $order_id );
             if ( $partial_payment_amount && get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
                 $this->credit( $order->get_customer_id(), $partial_payment_amount, sprintf( __( 'Your order with ID #%s has been cancelled and hence your payment amount has been refunded!', 'text-domain' ), $order->get_order_number() ) );
@@ -233,7 +235,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
                 delete_post_meta( $order_id, '_partial_pay_through_payment_compleate' );
             }
 
-            /** debit cashback amount * */
+            // debit cashback amount
             if ( apply_filters( 'dgc_payment_debit_cashback_upon_cancellation', get_total_order_cashback_amount( $order_id ) ) ) {
                 $total_cashback_amount = get_total_order_cashback_amount( $order_id );
                 if ( $total_cashback_amount ) {
@@ -244,7 +246,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
                 }
             }
         }
-
+*/
     }
 
 }
