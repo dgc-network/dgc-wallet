@@ -191,9 +191,31 @@ final class dgc_Payment {
             update_option( '_payment_enpoint_added', true );
         }
         
-        add_action('deleted_user', array($this, 'delete_user_transaction_records'));
+        add_action( 'deleted_user', array($this, 'delete_user_transaction_records' ) );
+
+        add_filter( 'woocommerce_currencies', array($this, 'add_dgc_currency' ) );
+        add_filter( 'woocommerce_currency_symbol', array($this, 'add_dgc_currency_symbol' ), 10, 2);
     }
     
+    /**
+     * Custom currency and currency symbol
+     */
+    //add_filter( 'woocommerce_currencies', 'add_my_currency' );
+
+    function add_dgc_currency( $currencies ) {
+        $currencies['DGC'] = __( 'Currency name', 'text-domain' );
+        return $currencies;
+    }
+
+    //add_filter('woocommerce_currency_symbol', 'add_my_currency_symbol', 10, 2);
+
+    function add_dgc_currency_symbol( $currency_symbol, $currency ) {
+        switch( $currency ) {
+            case 'DGC': $currency_symbol = '$'; break;
+        }
+        return $currency_symbol;
+    }
+
     /**
      * dgc_Payment init widget
      */
