@@ -203,7 +203,7 @@ final class dgc_Payment {
     //add_filter( 'woocommerce_currencies', 'add_my_currency' );
 
     function add_dgc_currency( $currencies ) {
-        $currencies['DGC'] = __( 'dg Cedit', 'text-domain' );
+        $currencies['DGC'] = __( 'dg Cedit/Coin', 'text-domain' );
         return $currencies;
     }
 
