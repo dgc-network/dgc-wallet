@@ -36,7 +36,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
         add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
         /* support for woocommerce subscription plugin */
         add_action( 'woocommerce_scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 2 );
-		add_filter( 'woocommerce_order_button_text', array( $this, 'custom_order_button_text' ), 1);
+		//add_filter( 'woocommerce_order_button_text', array( $this, 'custom_order_button_text' ), 1);
 
         /* Move the below stuffs from class-dgc-payment.php */
         foreach ( apply_filters( 'payment_credit_purchase_order_status', array( 'processing', 'completed' ) ) as $status) {
@@ -85,7 +85,7 @@ class dgc_Payment_Method extends WC_Payment_Gateway {
                 'title' => __( 'Title', 'text-domain' ),
                 'type' => 'text',
                 'description' => __( 'This controls the title which the user sees during checkout.', 'text-domain' ),
-                'default' => __( 'dgc Payment', 'text-domain' ),
+                'default' => __( 'dgcPay', 'text-domain' ),
                 'desc_tip' => true,
             ),
             'description' => array(
