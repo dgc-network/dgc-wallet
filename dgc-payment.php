@@ -31,7 +31,7 @@ if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
  * Include JsonRpcClient file.
  */
 //if ( ! class_exists( 'dgc_Payment_Dependencies' ) ){
-    include_once dirname( __FILE__ ) . '/SimpleJsonRpcClient/bootstrap.php';
+    //include_once dirname( __FILE__ ) . '/SimpleJsonRpcClient/bootstrap.php';
 //}
 
 /*
