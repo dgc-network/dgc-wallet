@@ -33,7 +33,7 @@ if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
 if ( ! class_exists( 'JsonRpc' ) ){
     include_once dirname( __FILE__ ) . '/SimpleJsonRpcClient/json-rpc.php';
 	//$client = new JsonRpc( 'http://[SERVER]/json_rpc_server.php' );
-	$client = new JsonRpc( 'http://165.232.130.97/json_rpc_server.php' );
+	$client = new JsonRpc( 'http://165.232.130.97:7998/json_rpc_server.php' );
 	$result = $client->add( 2, 2 ); // returns 4
 }
 
