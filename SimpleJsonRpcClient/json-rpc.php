@@ -55,7 +55,7 @@ class JsonRpc
 		}
 	}
 
-	public function rpc_call( $pMethod, array $pParams )
+	public function rpc_call( $pMethod, array $pParams=array() )
 	{
 		if ( is_null( $this->_server_url ) )
 		{
