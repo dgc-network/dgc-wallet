@@ -35,7 +35,7 @@ if ( ! class_exists( 'JsonRpc' ) ){
 	//$client = new JsonRpc( 'http://[SERVER]/json_rpc_server.php' );
 	//$result = $client->add( 2, 2 ); // returns 4
 	$client = new JsonRpc( 'http://DiGiCoin:dIgIcOIN@165.232.130.97:7998' );
-	$result = $client->__call( 'getinfo' );
+	$result = $client->rpc_call( 'getinfo' );
 }
 
 
