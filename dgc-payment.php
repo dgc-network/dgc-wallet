@@ -31,6 +31,9 @@ if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
  * Include JsonRpc file.
  */
 include_once dirname( __FILE__ ) . '/SimpleJsonRpcClient/simple-json-rpc-client.php';
+// require 'vendor/autoload.php';
+include_once dirname( __FILE__ ) . '/vendor/autoload.php';
+
 if ( ! class_exists( 'JsonRpc' ) ){
     //include_once dirname( __FILE__ ) . '/SimpleJsonRpcClient/json-rpc.php';
 	//$client = new JsonRpc( 'http://[SERVER]/json_rpc_server.php' );
