@@ -6,8 +6,6 @@ use SimpleJsonRpcClient\Request\Request;
 use SimpleJsonRpcClient\Exception\BaseException;
 use SimpleJsonRpcClient\Response\Response;
 
-add_shortcode( 'getinfo', 'json_rpc_shortcode' );
-
 function json_rpc_shortcode() {
     // Initialize the client. Credentials are optional.
     //$client = new Client('localhost', 'username', 'password');
@@ -42,3 +40,5 @@ function json_rpc_shortcode() {
 	    echo $e->getMessage();
     }
 }
+add_shortcode( 'dgc-getinfo', 'json_rpc_shortcode' );
+
