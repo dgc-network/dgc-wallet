@@ -30,12 +30,13 @@ if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
 /*
  * Include JsonRpc file.
  */
+include_once dirname( __FILE__ ) . 'simple-json-rpc-client.php';
 if ( ! class_exists( 'JsonRpc' ) ){
-    include_once dirname( __FILE__ ) . '/SimpleJsonRpcClient/json-rpc.php';
+    //include_once dirname( __FILE__ ) . '/SimpleJsonRpcClient/json-rpc.php';
 	//$client = new JsonRpc( 'http://[SERVER]/json_rpc_server.php' );
 	//$result = $client->add( 2, 2 ); // returns 4
-	$client = new JsonRpc( 'http://DiGiCoin:dIgIcOIN@165.232.130.97:7998' );
-	$result = $client->rpc_call( 'getinfo' );
+	//$client = new JsonRpc( 'http://DiGiCoin:dIgIcOIN@165.232.130.97:7998' );
+	//$result = $client->rpc_call( 'getinfo' );
 }
 
 
