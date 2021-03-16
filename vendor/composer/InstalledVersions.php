@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'bef2e13959a1cef4a5dc10edb277857680d4ec7d',
+    'reference' => '0f3d060894e2a6b16041a500491c8077a0b48453',
     'name' => 'dgc-network/dgc-payment',
   ),
   'versions' => 
@@ -44,6 +44,15 @@ private static $installed = array (
       ),
       'reference' => '1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d',
     ),
+    'denpa/php-bitcoinrpc' => 
+    array (
+      'pretty_version' => 'v2.1.3',
+      'version' => '2.1.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '578dab84e713225b91105c54ee3485a078285788',
+    ),
     'dgc-network/dgc-payment' => 
     array (
       'pretty_version' => 'dev-master',
@@ -51,16 +60,75 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'bef2e13959a1cef4a5dc10edb277857680d4ec7d',
+      'reference' => '0f3d060894e2a6b16041a500491c8077a0b48453',
     ),
-    'jalle19/simple-json-rpc-client' => 
+    'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '1.0.9',
-      'version' => '1.0.9.0',
+      'pretty_version' => '7.2.0',
+      'version' => '7.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'eecfbfd02168c761d1221d9857f8dcc09db345b1',
+      'reference' => '0aa74dfb41ae110835923ef10a9d803a22d50e79',
+    ),
+    'guzzlehttp/promises' => 
+    array (
+      'pretty_version' => '1.4.1',
+      'version' => '1.4.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8e7d04f1f6450fef59366c399cfad4b9383aa30d',
+    ),
+    'guzzlehttp/psr7' => 
+    array (
+      'pretty_version' => '1.7.0',
+      'version' => '1.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '53330f47520498c0ae1f61f7e2c90f55690c06a3',
+    ),
+    'psr/http-client' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2dfb5f6c5eff0e91e20e913f8c5452ed95b86621',
+    ),
+    'psr/http-client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'psr/http-message' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f6561bf28d520154e4b0ec72be95418abe6d9363',
+    ),
+    'psr/http-message-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'ralouphie/getallheaders' => 
+    array (
+      'pretty_version' => '3.0.3',
+      'version' => '3.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '120b605dfeb996808c31b6477290a714d356e822',
     ),
     'roundcube/plugin-installer' => 
     array (
@@ -75,60 +143,6 @@ private static $installed = array (
       array (
         0 => '*',
       ),
-    ),
-    'zendframework/zend-escaper' => 
-    array (
-      'pretty_version' => '2.2.10',
-      'version' => '2.2.10.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '232249785a19b982d86e502d161c90ce13202eed',
-    ),
-    'zendframework/zend-http' => 
-    array (
-      'pretty_version' => '2.2.10',
-      'version' => '2.2.10.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'feb1c409f856ace2c0326fa86ac98136859b7e93',
-    ),
-    'zendframework/zend-loader' => 
-    array (
-      'pretty_version' => '2.2.10',
-      'version' => '2.2.10.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8d7131b6c063251f99772eab2eba44573497dc25',
-    ),
-    'zendframework/zend-stdlib' => 
-    array (
-      'pretty_version' => '2.2.10',
-      'version' => '2.2.10.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b42d784bd142e916058a9d68eeafcc10ff63c12e',
-    ),
-    'zendframework/zend-uri' => 
-    array (
-      'pretty_version' => '2.2.10',
-      'version' => '2.2.10.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'ee7412a16ddd59d3f0935dfb6f09a889b7d1b561',
-    ),
-    'zendframework/zend-validator' => 
-    array (
-      'pretty_version' => '2.2.10',
-      'version' => '2.2.10.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '6c5637d535bc2cdaa5c85467490bfb17744c13e6',
     ),
   ),
 );

@@ -6,11 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Zend\\Validator\\' => array($vendorDir . '/zendframework/zend-validator/src'),
-    'Zend\\Uri\\' => array($vendorDir . '/zendframework/zend-uri/src'),
-    'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib/src'),
-    'Zend\\Loader\\' => array($vendorDir . '/zendframework/zend-loader/src'),
-    'Zend\\Http\\' => array($vendorDir . '/zendframework/zend-http/src'),
-    'Zend\\Escaper\\' => array($vendorDir . '/zendframework/zend-escaper/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
+    'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
+    'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
+    'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
+    'Denpa\\Bitcoin\\' => array($vendorDir . '/denpa/php-bitcoinrpc/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );

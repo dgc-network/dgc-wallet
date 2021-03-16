@@ -6,15 +6,29 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
 {
+    public static $files = array (
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        'ef3d9dab4f9e36ea1b6959f291959656' => __DIR__ . '/..' . '/denpa/php-bitcoinrpc/src/functions.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
-        'Z' => 
+        'P' => 
         array (
-            'Zend\\Validator\\' => 15,
-            'Zend\\Uri\\' => 9,
-            'Zend\\Stdlib\\' => 12,
-            'Zend\\Loader\\' => 12,
-            'Zend\\Http\\' => 10,
-            'Zend\\Escaper\\' => 13,
+            'Psr\\Http\\Message\\' => 17,
+            'Psr\\Http\\Client\\' => 16,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\' => 11,
+        ),
+        'D' => 
+        array (
+            'Denpa\\Bitcoin\\' => 14,
         ),
         'C' => 
         array (
@@ -23,43 +37,33 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
     );
 
     public static $prefixDirsPsr4 = array (
-        'Zend\\Validator\\' => 
+        'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-validator/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Zend\\Uri\\' => 
+        'Psr\\Http\\Client\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-uri/src',
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Zend\\Stdlib\\' => 
+        'GuzzleHttp\\Psr7\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'Zend\\Loader\\' => 
+        'GuzzleHttp\\Promise\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-loader/src',
+            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'Zend\\Http\\' => 
+        'GuzzleHttp\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-http/src',
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Zend\\Escaper\\' => 
+        'Denpa\\Bitcoin\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-escaper/src',
+            0 => __DIR__ . '/..' . '/denpa/php-bitcoinrpc/src',
         ),
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'S' => 
-        array (
-            'SimpleJsonRpcClient\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/jalle19/simple-json-rpc-client/src',
-            ),
         ),
     );
 
@@ -72,7 +76,6 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c::$classMap;
 
         }, null, ClassLoader::class);
