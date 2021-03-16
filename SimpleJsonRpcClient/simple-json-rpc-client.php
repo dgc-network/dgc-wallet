@@ -14,8 +14,8 @@ function json_rpc_shortcode() {
     try {
 	    $request = new Request('getinfo');
 	    //$response = $client->sendRequest($request);
-		$response = 'I am here!';
-        return $response;
+		echo 'I am here!';
+        //return $response;
 /*
 	// Send a request without parameters. The "id" will be added automatically unless supplied.
 	// Request objects return their JSON representation when treated as strings.
