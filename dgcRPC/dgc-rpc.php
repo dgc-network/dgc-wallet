@@ -11,6 +11,9 @@ function bitcoin_client_shortcode() {
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	$info = $bitcoind->request( 'getinfo' );
 	echo $info["version"];
+	foreach ($info as $key=>$value) {
+		echo $key . ' : ' . $value;
+	}
 }
 add_shortcode( 'dgc-getinfo', 'bitcoin_client_shortcode' );
 
@@ -24,7 +27,7 @@ add_shortcode( 'dgc-getinfo', 'bitcoin_client_shortcode' );
  * @param string $tag     Shortcode tag (name). Default empty.
  * @return string Shortcode output.
  */
-function wporg_shortcode( $atts = [], $content = null, $tag = '' ) {
+function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
     // normalize attribute keys, lowercase
     $atts = array_change_key_case( (array) $atts, CASE_LOWER );
  
@@ -32,9 +35,15 @@ function wporg_shortcode( $atts = [], $content = null, $tag = '' ) {
     $wporg_atts = shortcode_atts(
         array(
             'title' => 'WordPress.org',
+            'params' => array(),
         ), $atts, $tag
     );
- 
+/*
+	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
+	$info = $bitcoind->request( $tag );
+	echo $info["version"];
+*/
+
     // start box
     $o = '<div class="wporg-box">';
  
@@ -61,8 +70,30 @@ function wporg_shortcode( $atts = [], $content = null, $tag = '' ) {
  * Central location to create all shortcodes.
  */
 function wporg_shortcodes_init() {
-    add_shortcode( 'wporg', 'wporg_shortcode' );
-    add_shortcode( 'getinfo', 'wporg_shortcode' );
+    add_shortcode( 'wporg', 'dgc_shortcode' );
+    add_shortcode( 'getinfo', 'dgc_shortcode' );
 }
  
 add_action( 'init', 'wporg_shortcodes_init' );
+
+/**
+ * Another Example.
+ */
+
+function recent_posts_function($atts){
+	extract(shortcode_atts(array(
+	   'posts' => 1,
+	), $atts));
+ 
+	$return_string = '<ul>';
+	query_posts(array('orderby' => 'date', 'order' => 'DESC' , 'showposts' => $posts));
+	if (have_posts()) :
+	   while (have_posts()) : the_post();
+		  $return_string .= '<li><a href="'.get_permalink().'">'.get_the_title().'</a></li>';
+	   endwhile;
+	endif;
+	$return_string .= '</ul>';
+ 
+	wp_reset_query();
+	return $return_string;
+ }
