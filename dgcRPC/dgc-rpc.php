@@ -10,7 +10,7 @@ use Denpa\Bitcoin\Client as BitcoinClient;
 function bitcoin_client_shortcode() {
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	$info = $bitcoind->request( 'getinfo' );
-	echo $info["version"];
+	//echo $info["version"];
 }
 add_shortcode( 'dgc-getinfo', 'bitcoin_client_shortcode' );
 
@@ -37,8 +37,8 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
     );
 
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
-	$info = $bitcoind->request( $tag );
-	echo $info["version"];
+	$info = $bitcoind->request( $tag, $wporg_atts['params'] );
+	//echo $info["version"];
 	$info = json_decode($info);
 	foreach ($info as $key=>$value) {
 		echo $key . ' : ' . $value . '<br>';
