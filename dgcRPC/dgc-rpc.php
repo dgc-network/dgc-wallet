@@ -84,6 +84,7 @@ function wporg_shortcodes_init() {
     add_shortcode( 'getpeerinfo', 'dgc_shortcode' );
     add_shortcode( 'getblockchaininfo', 'dgc_shortcode' );
     add_shortcode( 'getdifficulty', 'dgc_shortcode' );
+    add_shortcode( 'getwalletinfo', 'dgc_shortcode' );
 	
 }
  
