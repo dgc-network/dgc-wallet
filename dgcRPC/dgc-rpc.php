@@ -33,6 +33,7 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
 	}
 	$info = json_decode($info);
 	foreach ($info as $key=>$value) {
+/*        
         if ( is_array($value) ) {
             foreach ($value as $sub_value) {
                 foreach ($sub_value as $sub_key=>$sub_value) {
@@ -42,7 +43,9 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
         } else {
             echo $key . ' : ' . $value . '<br>';
         }
-	}
+*/        
+        echo $key . ' : ' . $value . '<br>';
+    }
 	echo '<br>';
 
 /*
