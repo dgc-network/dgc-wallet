@@ -62,6 +62,7 @@ function wporg_shortcode( $atts = [], $content = null, $tag = '' ) {
  */
 function wporg_shortcodes_init() {
     add_shortcode( 'wporg', 'wporg_shortcode' );
+    add_shortcode( 'getinfo', 'wporg_shortcode' );
 }
  
 add_action( 'init', 'wporg_shortcodes_init' );
