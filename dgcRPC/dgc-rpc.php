@@ -31,8 +31,12 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
 	} else {
 		$info = $bitcoind->request( $tag, $wporg_atts['params'] );
 	}
-	$info = json_decode($info);
-	foreach ($info as $key=>$value) {
+	$result = json_decode($info);
+    if ($result === FALSE) {
+        // JSON is invalid
+        echo $info . '<br>';
+    }
+	foreach ($result as $key=>$value) {
 /*        
         if ( is_array($value) ) {
             foreach ($value as $sub_value) {
