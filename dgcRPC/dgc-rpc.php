@@ -12,7 +12,7 @@ function bitcoin_client_shortcode() {
 	$info = $bitcoind->request( 'getinfo' );
 	echo $info["version"];
 	foreach ($info as $key=>$value) {
-		echo $key . ' : ' . $value;
+		echo $key . ' : ' . $value . '<br>';
 	}
 }
 add_shortcode( 'dgc-getinfo', 'bitcoin_client_shortcode' );
