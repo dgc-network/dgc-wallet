@@ -35,8 +35,8 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
 	foreach ($info as $key=>$value) {
         if ( is_array($value) ) {
             foreach ($value as $sub_value) {
-                foreach ($sub_value as $key=>$value) {
-                    echo $key . ' : ' . $value . '<br>';
+                foreach ($sub_value as $sub_key=>$sub_value) {
+                    echo $sub_key . ' : ' . $sub_value . '<br>';
                 }
             }
         } else {
