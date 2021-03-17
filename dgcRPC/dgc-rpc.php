@@ -23,6 +23,7 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
             'params' => '',
         ), $atts, $tag
     );
+	echo '<h2>' . $tag . '</h2><br>';
 
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	if ( $wporg_atts['params'] == '' ) {
