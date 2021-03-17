@@ -77,8 +77,8 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
  * Central location to create all shortcodes.
  */
 function wporg_shortcodes_init() {
-    add_shortcode( 'wporg', 'dgc_shortcode' );
     add_shortcode( 'getinfo', 'dgc_shortcode' );
+    add_shortcode( 'getpeerinfo', 'dgc_shortcode' );
 }
  
 add_action( 'init', 'wporg_shortcodes_init' );
