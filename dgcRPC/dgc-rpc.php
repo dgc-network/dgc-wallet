@@ -32,7 +32,7 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
     $wporg_atts = shortcode_atts(
         array(
             'title' => 'WordPress.org',
-            'params' => array(),
+            'params' => '',
         ), $atts, $tag
     );
 
