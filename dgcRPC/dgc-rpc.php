@@ -37,7 +37,12 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
     );
 
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
-	$info = $bitcoind->request( $tag, $wporg_atts['params'] );
+	if ( $wporg_atts['params'] == '' ) {
+		$info = $bitcoind->request( $tag );
+	} else {
+		$info = $bitcoind->request( $tag, $wporg_atts['params'] );
+	}
+	//echo $info["version"];)
 	//echo $info["version"];
 	$info = json_decode($info);
 	foreach ($info as $key=>$value) {
