@@ -11,10 +11,6 @@ function bitcoin_client_shortcode() {
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	$info = $bitcoind->request( 'getinfo' );
 	echo $info["version"];
-	$info = json_decode($info);
-	foreach ($info as $key=>$value) {
-		echo $key . ' : ' . $value . '<br>';
-	}
 }
 add_shortcode( 'dgc-getinfo', 'bitcoin_client_shortcode' );
 
@@ -39,12 +35,16 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
             'params' => array(),
         ), $atts, $tag
     );
-/*
+
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	$info = $bitcoind->request( $tag );
 	echo $info["version"];
-*/
+	$info = json_decode($info);
+	foreach ($info as $key=>$value) {
+		echo $key . ' : ' . $value . '<br>';
+	}
 
+/*
     // start box
     $o = '<div class="wporg-box">';
  
@@ -65,6 +65,7 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
  
     // return output
     return $o;
+*/	
 }
  
 /**
