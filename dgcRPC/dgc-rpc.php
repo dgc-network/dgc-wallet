@@ -7,9 +7,9 @@
 
 use Denpa\Bitcoin\Client as BitcoinClient;
 
-function bitcoin_client_shortcode() {
+function bitcoin_client_shortcode( $method='getinfo', $params=array() ) {
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
-	$info = $bitcoind->request('getinfo');
+	$info = $bitcoind->request( $method );
 	echo $info["version"];
 }
 add_shortcode( 'dgc-getinfo', 'bitcoin_client_shortcode' );
