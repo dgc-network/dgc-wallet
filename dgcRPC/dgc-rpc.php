@@ -11,7 +11,7 @@ function bitcoin_client_shortcode() {
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	$info = $bitcoind->request( 'getinfo' );
 	echo $info["version"];
-	foreach ($info as $key=>$value) {
+	foreach ((array)$info as $key=>$value) {
 		echo $key . ' : ' . $value . '<br>';
 	}
 }
