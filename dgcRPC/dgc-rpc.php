@@ -23,7 +23,6 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
             'params' => '',
         ), $atts, $tag
     );
-	echo '<h2>' . $tag . '</h2>';
 
 	$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	if ( $wporg_atts['params'] == '' ) {
@@ -32,12 +31,14 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
 		$info = $bitcoind->request( $tag, $wporg_atts['params'] );
 	}
 	$result = json_decode($info);
+/*
+	echo '<h2>' . $tag . '</h2>';
     if ($result === FALSE) {
         // JSON is invalid
         echo $info . '<br>';
     }
 	foreach ($result as $key=>$value) {
-/*        
+      
         if ( is_array($value) ) {
             foreach ($value as $sub_value) {
                 foreach ($sub_value as $sub_key=>$sub_value) {
@@ -47,18 +48,27 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
         } else {
             echo $key . ' : ' . $value . '<br>';
         }
-*/        
+ 
         echo $key . ' : ' . $value . '<br>';
     }
 	echo '<br>';
+*/
 
-/*
     // start box
     $o = '<div class="wporg-box">';
  
     // title
-    $o .= '<h2>' . esc_html__( $wporg_atts['title'], 'wporg' ) . '</h2>';
+    $o .= '<h2>' . $tag . '</h2>';
  
+    if ( is_object($info === FALSE) ) {
+        // JSON is invalid
+        $o .= $info . '<br>';
+    }
+	foreach ($result as $key=>$value) {
+        $o .= $key . ' : ' . $value . '<br>';
+    }
+	$o .= '<br>';
+
     // enclosing tags
     if ( ! is_null( $content ) ) {
         // secure output by executing the_content filter hook on $content
@@ -73,7 +83,7 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
  
     // return output
     return $o;
-*/	
+
 }
  
 /**
