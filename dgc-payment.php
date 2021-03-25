@@ -32,17 +32,17 @@ if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
  */
 include_once dirname( __FILE__ ) . '/opentradeengine/examples.php';
 
-/*
- * Include dgcRPC file.
- */
-include_once dirname( __FILE__ ) . '/dgcRPC/dgc-rpc.php';
-include_once dirname( __FILE__ ) . '/dgcRPC/electurm.php';
-
 /**
  * Don't forget to include composer autoloader by uncommenting line below
  * if you're not already done it anywhere else in your project.
  **/
 include_once dirname( __FILE__ ) . '/vendor/autoload.php';
+
+/*
+ * Include dgcRPC file.
+ */
+include_once dirname( __FILE__ ) . '/dgcRPC/dgc-rpc.php';
+include_once dirname( __FILE__ ) . '/dgcRPC/electurm.php';
 
 /*
  * Include dependencies file.
