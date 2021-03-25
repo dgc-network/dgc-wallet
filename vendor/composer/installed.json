@@ -451,6 +451,60 @@
             "install-path": "../guzzlehttp/psr7"
         },
         {
+            "name": "padrio/php-electrum-api",
+            "version": "v1.7.0",
+            "version_normalized": "1.7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Padrio/php-electrum-api.git",
+                "reference": "21a877b8fcce63a5be99ff11c275b12814b99f21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Padrio/php-electrum-api/zipball/21a877b8fcce63a5be99ff11c275b12814b99f21",
+                "reference": "21a877b8fcce63a5be99ff11c275b12814b99f21",
+                "shasum": ""
+            },
+            "require": {
+                "zendframework/zend-hydrator": "^2.2"
+            },
+            "time": "2020-10-15T15:33:55+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Electrum\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Krason",
+                    "email": "p.krason@padr.io"
+                },
+                {
+                    "name": "epoxa",
+                    "email": "epoxa@vvproject.ru"
+                }
+            ],
+            "description": "PHP wrapper for Electrum JSONRPC-API",
+            "keywords": [
+                "api",
+                "bitcoin",
+                "electrum",
+                "jsonrpc",
+                "payment"
+            ],
+            "support": {
+                "issues": "https://github.com/Padrio/php-electrum-api/issues",
+                "source": "https://github.com/Padrio/php-electrum-api/tree/v1.7.0"
+            },
+            "install-path": "../padrio/php-electrum-api"
+        },
+        {
             "name": "psr/http-client",
             "version": "1.0.1",
             "version_normalized": "1.0.1.0",
@@ -607,6 +661,136 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "install-path": "../ralouphie/getallheaders"
+        },
+        {
+            "name": "zendframework/zend-hydrator",
+            "version": "2.4.2",
+            "version_normalized": "2.4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-hydrator.git",
+                "reference": "2bfc6845019e7b6d38b0ab5e55190244dc510285"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-hydrator/zipball/2bfc6845019e7b6d38b0ab5e55190244dc510285",
+                "reference": "2bfc6845019e7b6d38b0ab5e55190244dc510285",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "zendframework/zend-stdlib": "^3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2",
+                "zendframework/zend-coding-standard": "~1.0.0",
+                "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
+                "zendframework/zend-filter": "^2.6",
+                "zendframework/zend-inputfilter": "^2.6",
+                "zendframework/zend-serializer": "^2.6.1",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3"
+            },
+            "suggest": {
+                "zendframework/zend-eventmanager": "^2.6.2 || ^3.0, to support aggregate hydrator usage",
+                "zendframework/zend-filter": "^2.6, to support naming strategy hydrator usage",
+                "zendframework/zend-serializer": "^2.6.1, to use the SerializableStrategy",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3, to support hydrator plugin manager usage"
+            },
+            "time": "2019-10-04T11:17:36+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-release-2.4": "2.4.x-dev"
+                },
+                "zf": {
+                    "component": "Zend\\Hydrator",
+                    "config-provider": "Zend\\Hydrator\\ConfigProvider"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Hydrator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Serialize objects to arrays, and vice versa",
+            "keywords": [
+                "ZendFramework",
+                "hydrator",
+                "zf"
+            ],
+            "support": {
+                "chat": "https://zendframework-slack.herokuapp.com",
+                "docs": "https://docs.zendframework.com/zend-hydrator/",
+                "forum": "https://discourse.zendframework.com/c/questions/components",
+                "issues": "https://github.com/zendframework/zend-hydrator/issues",
+                "rss": "https://github.com/zendframework/zend-hydrator/releases.atom",
+                "source": "https://github.com/zendframework/zend-hydrator"
+            },
+            "abandoned": "laminas/laminas-hydrator",
+            "install-path": "../zendframework/zend-hydrator"
+        },
+        {
+            "name": "zendframework/zend-stdlib",
+            "version": "3.2.1",
+            "version_normalized": "3.2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-stdlib.git",
+                "reference": "66536006722aff9e62d1b331025089b7ec71c065"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/66536006722aff9e62d1b331025089b7ec71c065",
+                "reference": "66536006722aff9e62d1b331025089b7ec71c065",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "^0.13",
+                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2",
+                "zendframework/zend-coding-standard": "~1.0.0"
+            },
+            "time": "2018-08-28T21:34:05+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2.x-dev",
+                    "dev-develop": "3.3.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Stdlib\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "SPL extensions, array utilities, error handlers, and more",
+            "keywords": [
+                "ZendFramework",
+                "stdlib",
+                "zf"
+            ],
+            "support": {
+                "docs": "https://docs.zendframework.com/zend-stdlib/",
+                "forum": "https://discourse.zendframework.com/c/questions/components",
+                "issues": "https://github.com/zendframework/zend-stdlib/issues",
+                "rss": "https://github.com/zendframework/zend-stdlib/releases.atom",
+                "slack": "https://zendframework-slack.herokuapp.com",
+                "source": "https://github.com/zendframework/zend-stdlib"
+            },
+            "abandoned": "laminas/laminas-stdlib",
+            "install-path": "../zendframework/zend-stdlib"
         }
     ],
     "dev": true,

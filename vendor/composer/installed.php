@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '0f3d060894e2a6b16041a500491c8077a0b48453',
+    'reference' => '4cb08417fb4a32753a8b025282dbce3cd9ea2aa1',
     'name' => 'dgc-network/dgc-payment',
   ),
   'versions' => 
@@ -36,7 +36,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '0f3d060894e2a6b16041a500491c8077a0b48453',
+      'reference' => '4cb08417fb4a32753a8b025282dbce3cd9ea2aa1',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -64,6 +64,15 @@
       array (
       ),
       'reference' => '53330f47520498c0ae1f61f7e2c90f55690c06a3',
+    ),
+    'padrio/php-electrum-api' => 
+    array (
+      'pretty_version' => 'v1.7.0',
+      'version' => '1.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '21a877b8fcce63a5be99ff11c275b12814b99f21',
     ),
     'psr/http-client' => 
     array (
@@ -119,6 +128,24 @@
       array (
         0 => '*',
       ),
+    ),
+    'zendframework/zend-hydrator' => 
+    array (
+      'pretty_version' => '2.4.2',
+      'version' => '2.4.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2bfc6845019e7b6d38b0ab5e55190244dc510285',
+    ),
+    'zendframework/zend-stdlib' => 
+    array (
+      'pretty_version' => '3.2.1',
+      'version' => '3.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '66536006722aff9e62d1b331025089b7ec71c065',
     ),
   ),
 );

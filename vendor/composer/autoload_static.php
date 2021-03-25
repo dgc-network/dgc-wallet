@@ -8,13 +8,18 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'ef3d9dab4f9e36ea1b6959f291959656' => __DIR__ . '/..' . '/denpa/php-bitcoinrpc/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'Z' => 
+        array (
+            'Zend\\Stdlib\\' => 12,
+            'Zend\\Hydrator\\' => 14,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
@@ -25,6 +30,10 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+        ),
+        'E' => 
+        array (
+            'Electrum\\' => 9,
         ),
         'D' => 
         array (
@@ -37,6 +46,14 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
     );
 
     public static $prefixDirsPsr4 = array (
+        'Zend\\Stdlib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',
+        ),
+        'Zend\\Hydrator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-hydrator/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
@@ -56,6 +73,10 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Electrum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/padrio/php-electrum-api/src',
         ),
         'Denpa\\Bitcoin\\' => 
         array (
