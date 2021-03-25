@@ -28,6 +28,11 @@ if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
 }
 
 /*
+ * Include open-trade-engine file.
+ */
+include_once dirname( __FILE__ ) . '/opentradeengine/examples.php';
+
+/*
  * Include dgcRPC file.
  */
 include_once dirname( __FILE__ ) . '/dgcRPC/dgc-rpc.php';
