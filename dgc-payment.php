@@ -30,7 +30,7 @@ if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
 /*
  * Include open-trade-engine file.
  */
-include_once dirname( __FILE__ ) . '/opentradeengine/examples.php';
+//include_once dirname( __FILE__ ) . '/opentradeengine/examples.php';
 
 /**
  * Don't forget to include composer autoloader by uncommenting line below
