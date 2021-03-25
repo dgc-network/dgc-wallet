@@ -48,12 +48,11 @@ class Client
      * @param null   $rpcPassword
      */
     public function __construct(
-//$client = new \Electrum\Client('http://1.163.27.45', 7998, 0, 'digitalcoinrpc', '56c735f3910a53eeda0357670bc6a02f');
-//$host = 'http://127.0.0.1',
-//$port = 7777,
-//$id = 0,
-//$rpcUsername = null,
-//$rpcPassword = null
+        //$host = 'http://127.0.0.1',
+        //$port = 7777,
+        //$id = 0,
+        //$rpcUsername = null,
+        //$rpcPassword = null
         $host = 'http://1.163.27.45',
         $port = 7998,
         $id = 0,
