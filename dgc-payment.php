@@ -36,6 +36,7 @@ include_once dirname( __FILE__ ) . '/opentradeengine/examples.php';
  * Include dgcRPC file.
  */
 include_once dirname( __FILE__ ) . '/dgcRPC/dgc-rpc.php';
+include_once dirname( __FILE__ ) . '/dgcRPC/electurm.php';
 
 /**
  * Don't forget to include composer autoloader by uncommenting line below
