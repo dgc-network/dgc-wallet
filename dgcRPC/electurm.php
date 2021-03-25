@@ -1,8 +1,8 @@
 <?php
 
-$client = new \Electrum\Client('http://1.163.27.45', 7998, 0, 'digitalcoinrpc', '56c735f3910a53eeda0357670bc6a02f');
-$method = new \Electrum\Request\Method\Version($client);
-//$method = new \Electrum\Request\Method\Version();
+//$client = new \Electrum\Client('http://1.163.27.45', 7998, 0, 'digitalcoinrpc', '56c735f3910a53eeda0357670bc6a02f');
+//$method = new \Electrum\Request\Method\Version($client);
+$method = new \Electrum\Request\Method\Version();
 
 try {
     $response = $method->execute();
