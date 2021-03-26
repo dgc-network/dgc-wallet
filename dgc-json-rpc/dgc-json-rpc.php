@@ -17,7 +17,7 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
     $atts = array_change_key_case( (array) $atts, CASE_LOWER );
  
     // override default attributes with user attributes
-    $wporg_atts = shortcode_atts(
+    $attributes = shortcode_atts(
         array(
             'title' => 'WordPress.org',
             'params' => '',
@@ -26,10 +26,10 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
 
 	//$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	$bitcoind = new BitcoinClient('http://digitalcoinrpc:56c735f3910a53eeda0357670bc6a02f@1.163.27.45:7998/');
-	if ( $wporg_atts['params'] == '' ) {
+	if ( $attributes['params'] == '' ) {
 		$info = $bitcoind->request( $tag );
 	} else {
-		$info = $bitcoind->request( $tag, $wporg_atts['params'] );
+		$info = $bitcoind->request( $tag, $attributes['params'] );
 	}
 	$result = json_decode($info);
 /*
@@ -96,7 +96,7 @@ function wporg_shortcodes_init() {
     add_shortcode( 'getblockchaininfo', 'dgc_shortcode' );
     add_shortcode( 'getdifficulty', 'dgc_shortcode' );
     add_shortcode( 'getwalletinfo', 'dgc_shortcode' );
+    add_shortcode( 'getaddressbalance', 'dgc_shortcode' );
 	
 }
- 
 add_action( 'init', 'wporg_shortcodes_init' );
