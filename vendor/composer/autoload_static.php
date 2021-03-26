@@ -15,11 +15,6 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
     );
 
     public static $prefixLengthsPsr4 = array (
-        'Z' => 
-        array (
-            'Zend\\Stdlib\\' => 12,
-            'Zend\\Hydrator\\' => 14,
-        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
@@ -30,10 +25,6 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
-        ),
-        'E' => 
-        array (
-            'Electrum\\' => 9,
         ),
         'D' => 
         array (
@@ -46,14 +37,6 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
     );
 
     public static $prefixDirsPsr4 = array (
-        'Zend\\Stdlib\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',
-        ),
-        'Zend\\Hydrator\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-hydrator/src',
-        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
@@ -73,10 +56,6 @@ class ComposerStaticInit77eafbbc4e8d8d8e07e585a9c1feff8c
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
-        'Electrum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/padrio/php-electrum-api/src',
         ),
         'Denpa\\Bitcoin\\' => 
         array (
