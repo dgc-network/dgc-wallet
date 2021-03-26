@@ -97,7 +97,7 @@ function wporg_shortcodes_init() {
     add_shortcode( 'getblockchaininfo', 'dgc_shortcode' );
     add_shortcode( 'getdifficulty', 'dgc_shortcode' );
     add_shortcode( 'getwalletinfo', 'dgc_shortcode' );
-    add_shortcode( 'getaddressbalance', 'dgc_shortcode' );
+    //add_shortcode( 'getaddressbalance', 'dgc_shortcode' );
 	
 }
 add_action( 'init', 'wporg_shortcodes_init' );
