@@ -26,7 +26,8 @@ function dgc_shortcode( $atts = [], $content = null, $tag = '' ) {
 
 	//$bitcoind = new BitcoinClient('http://DiGitalCoin:dIgITALcOIN@165.232.130.97:7998/');
 	//$bitcoind = new BitcoinClient('http://digitalcoinrpc:56c735f3910a53eeda0357670bc6a02f@1.163.27.45:7998/');
-	$bitcoind = new BitcoinClient('http://digitalcoinrpc:56c735f3910a53eeda0357670bc6a02f@1.163.25.197:7998/');
+	//$bitcoind = new BitcoinClient('http://digitalcoinrpc:56c735f3910a53eeda0357670bc6a02f@1.163.25.197:7998/');
+	$bitcoind = new BitcoinClient('http://digitalcoinrpc:56c735f3910a53eeda0357670bc6a02f@1.160.6.38:7998/');
 	if ( $attributes['params'] == '' ) {
 		$info = $bitcoind->request( $tag );
 	} else {
