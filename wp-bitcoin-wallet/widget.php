@@ -31,6 +31,22 @@ class WPBW_Widget {
 		<label>Get Block 0 Hash:</label>
 		<pre><?php echo $this->bitcoind->getblockhash(0); ?></pre>
 		</br>
+
+		<label>Get Wallet Info:</label>
+		<pre>
+		<?php 
+		$result = $this->bitcoind->getwalletinfo(); 
+	    // start box
+    	$o = '{'; 
+		foreach ($result as $key=>$value) {
+        	$o .= '  "'. $key . '": ' . $value . '<br>';
+    	}
+    	$o .= '}'; 
+		echo $o;
+		?>
+		</pre>
+		</br>
+
 		<label>Get Info:</label>
 		<pre>
 		<?php 
@@ -49,13 +65,16 @@ class WPBW_Widget {
 		?>
 		</pre>
 		</br>
+
 		<label>Receiving address:</label>
 		<pre><?php echo $this->bitcoind->getaccountaddress($this->account); ?></pre>
 		</br>
+
 		<label>Balance:</label>
 		<pre><?php echo $this->bitcoind->getbalance($this->account); ?></pre>
 		</br>
 		</br>
+
 		<strong>Send Coins:</strong>
 		<br />
 		<br />
