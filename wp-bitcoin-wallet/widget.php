@@ -28,40 +28,20 @@ class WPBW_Widget {
 		$this->handle_post();
 
 		?>
-		<label>Get Block 0 Hash:</label>
+		<label>Block 0 Hash:</label>
 		<pre><?php echo $this->bitcoind->getblockhash(0); ?></pre>
 		</br>
 
-		<label>Get Wallet Info:</label>
+		<label>Wallet Info:</label>
 		<pre>
 		<?php 
 		$result = $this->bitcoind->getwalletinfo(); 
-	    // start box
-    	$o = '{'; 
+    	$o = '{<br>'; 
 		foreach ($result as $key=>$value) {
         	$o .= '  "'. $key . '": ' . $value . '<br>';
     	}
     	$o .= '}'; 
 		echo $o;
-		?>
-		</pre>
-		</br>
-
-		<label>Get Info:</label>
-		<pre>
-		<?php 
-		$result = $this->bitcoind->getinfo(); 
-    // start box
-    $o = '<div class="wporg-box">';
- 
-	foreach ($result as $key=>$value) {
-        $o .= $key . ' : ' . $value . '<br>';
-    }
-	$o .= '<br>';
-
-    // end box
-    $o .= '</div>';
-	echo $o;
 		?>
 		</pre>
 		</br>
