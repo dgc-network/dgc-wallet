@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7c26937fc82c072c4122e26ab0a7144771399e51',
+    'reference' => '7e50d9dcf39cd67ba1a17058ff8cde6d0960d9f3',
     'name' => 'dgc-network/dgc-payment',
   ),
   'versions' => 
@@ -27,16 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7c26937fc82c072c4122e26ab0a7144771399e51',
-    ),
-    'psr/log' => 
-    array (
-      'pretty_version' => '1.1.3',
-      'version' => '1.1.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '0f73288fd15629204f9d42b7055f72dacbe811fc',
+      'reference' => '7e50d9dcf39cd67ba1a17058ff8cde6d0960d9f3',
     ),
     'roundcube/plugin-installer' => 
     array (
