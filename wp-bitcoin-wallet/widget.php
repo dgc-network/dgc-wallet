@@ -28,6 +28,9 @@ class WPBW_Widget {
 		$this->handle_post();
 
 		?>
+		<label>Get Block 0 Hash:</label>
+		<pre><?php echo $this->bitcoind->getblockhash(0); ?></pre>
+		</br>
 		<label>Get Info:</label>
 		<pre>
 		<?php 
