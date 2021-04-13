@@ -1,4 +1,5 @@
 <?php
+
 class WPBW_Widget {
 	private $bitcoind;
 	private $account;
@@ -27,6 +28,9 @@ class WPBW_Widget {
 		$this->handle_post();
 
 		?>
+		<label>Get Info:</label>
+		<pre><?php echo $this->bitcoind->getinfo(); ?></pre>
+		</br>
 		<label>Receiving address:</label>
 		<pre><?php echo $this->bitcoind->getaccountaddress($this->account); ?></pre>
 		</br>
