@@ -41,7 +41,13 @@ include_once dirname( __FILE__ ) . '/vendor/autoload.php';
 /*
  * Include dgcRPC file.
  */
-include_once dirname( __FILE__ ) . '/dgc-json-rpc/dgc-json-rpc.php';
+//include_once dirname( __FILE__ ) . '/dgc-json-rpc/dgc-json-rpc.php';
+//include_once dirname( __FILE__ ) . '/dgcRPC/electurm.php';
+
+/*
+ * Include wp-bitcoin-wallet
+ */
+include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wp-bitcoin-wallet.php';
 //include_once dirname( __FILE__ ) . '/dgcRPC/electurm.php';
 
 /*
