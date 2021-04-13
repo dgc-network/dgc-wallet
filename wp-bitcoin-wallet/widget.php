@@ -29,7 +29,22 @@ class WPBW_Widget {
 
 		?>
 		<label>Get Info:</label>
-		<pre><?php echo $this->bitcoind->getinfo(); ?></pre>
+		<pre>
+		<?php 
+		$result = $this->bitcoind->getinfo(); 
+    // start box
+    $o = '<div class="wporg-box">';
+ 
+	foreach ($result as $key=>$value) {
+        $o .= $key . ' : ' . $value . '<br>';
+    }
+	$o .= '<br>';
+
+    // end box
+    $o .= '</div>';
+	echo $o;
+		?>
+		</pre>
 		</br>
 		<label>Receiving address:</label>
 		<pre><?php echo $this->bitcoind->getaccountaddress($this->account); ?></pre>
