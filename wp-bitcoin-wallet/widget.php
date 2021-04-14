@@ -35,11 +35,11 @@ class WPBW_Widget {
 		<label>Wallet Info:</label>
 		<?php 
 		$result = $this->bitcoind->getwalletinfo(); 
-    	$o = '<div>{<br>'; 
+    	$o = '<pre>{<br>'; 
 		foreach ($result as $key=>$value) {
         	$o .= '  "'. $key . '": ' . $value . '<br>';
     	}
-    	$o .= '}</div>'; 
+    	$o .= '}</pre>'; 
 		echo $o;
 		?>
 		</br>
