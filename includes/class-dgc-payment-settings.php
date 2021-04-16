@@ -86,6 +86,11 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                     'id' => '_payment_settings_credit',
                     'title' => __( 'Credit Options', 'text-domain' ),
                     'icon' => 'dashicons-money'
+                ),
+                array(
+                    'id' => '_payment_settings_digitalcoin',
+                    'title' => __( 'Digitalcoin', 'text-domain' ),
+                    'icon' => 'dashicons-money'
                 )
             );
             return apply_filters( 'dgc_payment_settings_sections', $sections);
@@ -98,150 +103,184 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
          */
         public function get_settings_fields() {
             $settings_fields = array(
-                '_payment_settings_general' => array_merge( array(
+                '_payment_settings_general' => array_merge( 
                     array(
-                        'name' => 'product_title',
-                        'label' => __( 'Rechargeable Product Title', 'text-domain' ),
-                        'desc' => __( 'Enter payment rechargeable product title', 'text-domain' ),
-                        'type' => 'text',
-                        'default' => $this->get_rechargeable_product_title()
-                    ),
+                        array(
+                            'name' => 'product_title',
+                            'label' => __( 'Rechargeable Product Title', 'text-domain' ),
+                            'desc' => __( 'Enter payment rechargeable product title', 'text-domain' ),
+                            'type' => 'text',
+                            'default' => $this->get_rechargeable_product_title()
+                        ),
+                        array(
+                            'name' => 'product_image',
+                            'label' => __( 'Rechargeable Product Image', 'text-domain' ),
+                            'desc' => __( 'Choose payment rechargeable product image', 'text-domain' ),
+                            'type' => 'attachment',
+                            'options' => array(
+                                'button_label' => __( 'Set product image', 'text-domain' ),
+                                'uploader_title' => __( 'Product image', 'text-domain' ),
+                                'uploader_button_text' => __( 'Set product image', 'text-domain' )
+                            )
+                        ) 
+                    ), 
+                    $this->get_wc_tax_options(), 
                     array(
-                        'name' => 'product_image',
-                        'label' => __( 'Rechargeable Product Image', 'text-domain' ),
-                        'desc' => __( 'Choose payment rechargeable product image', 'text-domain' ),
-                        'type' => 'attachment',
-                        'options' => array(
-                            'button_label' => __( 'Set product image', 'text-domain' ),
-                            'uploader_title' => __( 'Product image', 'text-domain' ),
-                            'uploader_button_text' => __( 'Set product image', 'text-domain' )
-                        )
-                    ) ), $this->get_wc_tax_options(), array(
+                        array(
+                            'name' => 'min_topup_amount',
+                            'label' => __( 'Minimum Topup Amount', 'text-domain' ),
+                            'desc' => __( 'The minimum amount needed for payment top up', 'text-domain' ),
+                            'type' => 'number',
+                            'step' => '0.01'
+                        ),
+                        array(
+                            'name' => 'max_topup_amount',
+                            'label' => __( 'Maximum Topup Amount', 'text-domain' ),
+                            'desc' => __( 'The maximum amount needed for payment top up', 'text-domain' ),
+                            'type' => 'number',
+                            'step' => '0.01'
+                        ) 
+                    ), 
+                    $this->wp_menu_locations(), 
                     array(
-                        'name' => 'min_topup_amount',
-                        'label' => __( 'Minimum Topup Amount', 'text-domain' ),
-                        'desc' => __( 'The minimum amount needed for payment top up', 'text-domain' ),
-                        'type' => 'number',
-                        'step' => '0.01'
-                    ),
-                    array(
-                        'name' => 'max_topup_amount',
-                        'label' => __( 'Maximum Topup Amount', 'text-domain' ),
-                        'desc' => __( 'The maximum amount needed for payment top up', 'text-domain' ),
-                        'type' => 'number',
-                        'step' => '0.01'
-                    ) ), $this->wp_menu_locations(), array(
-                    array(
-                        'name' => 'is_auto_deduct_for_partial_payment',
-                        'label' => __( 'Auto deduct payment balance for partial payment', 'text-domain' ),
-                        'desc' => __( 'If a purchase requires more balance than you have in your payment, then if checked the payment balance will be deduct first and the rest of the amount will need to be paid.', 'text-domain' ),
-                        'type' => 'checkbox',
-                    ),
-                    array(
-                        'name' => 'is_enable_payment_transfer',
-                        'label' => __( 'Allow Payment Transfer', 'text-domain' ),
-                        'desc' => __( 'If checked user will be able to transfer fund to another user.', 'text-domain' ),
-                        'type' => 'checkbox',
-                        'default' => 'on'
-                    ),
-                    array(
-                        'name' => 'min_transfer_amount',
-                        'label' => __( 'Minimum Transfer Amount', 'text-domain' ),
-                        'desc' => __( 'Enter minimum transfer amount', 'text-domain' ),
-                        'type' => 'number',
-                        'step' => '0.01'
-                    ),
-                    array(
-                        'name' => 'transfer_charge_type',
-                        'label' => __( 'Transfer charge type', 'text-domain' ),
-                        'desc' => __( 'Select transfer charge type percentage or fixed', 'text-domain' ),
-                        'type' => 'select',
-                        'options' => array( 'percent' => __( 'Percentage', 'text-domain' ), 'fixed' => __( 'Fixed', 'text-domain' ) ),
-                        'size' => 'regular-text wc-enhanced-select'
-                    ),
-                    array(
-                        'name' => 'transfer_charge_amount',
-                        'label' => __( 'Transfer charge Amount', 'text-domain' ),
-                        'desc' => __( 'Enter transfer charge amount', 'text-domain' ),
-                        'type' => 'number',
-                        'step' => '0.01'
-                    ) ), $this->get_wc_payment_allowed_gateways()
+                        array(
+                            'name' => 'is_auto_deduct_for_partial_payment',
+                            'label' => __( 'Auto deduct payment balance for partial payment', 'text-domain' ),
+                            'desc' => __( 'If a purchase requires more balance than you have in your payment, then if checked the payment balance will be deduct first and the rest of the amount will need to be paid.', 'text-domain' ),
+                            'type' => 'checkbox',
+                        ),
+                        array(
+                            'name' => 'is_enable_payment_transfer',
+                            'label' => __( 'Allow Payment Transfer', 'text-domain' ),
+                            'desc' => __( 'If checked user will be able to transfer fund to another user.', 'text-domain' ),
+                            'type' => 'checkbox',
+                            'default' => 'on'
+                        ),
+                        array(
+                            'name' => 'min_transfer_amount',
+                            'label' => __( 'Minimum Transfer Amount', 'text-domain' ),
+                            'desc' => __( 'Enter minimum transfer amount', 'text-domain' ),
+                            'type' => 'number',
+                            'step' => '0.01'
+                        ),
+                        array(
+                            'name' => 'transfer_charge_type',
+                            'label' => __( 'Transfer charge type', 'text-domain' ),
+                            'desc' => __( 'Select transfer charge type percentage or fixed', 'text-domain' ),
+                            'type' => 'select',
+                            'options' => array( 'percent' => __( 'Percentage', 'text-domain' ), 'fixed' => __( 'Fixed', 'text-domain' ) ),
+                            'size' => 'regular-text wc-enhanced-select'
+                        ),
+                        array(
+                            'name' => 'transfer_charge_amount',
+                            'label' => __( 'Transfer charge Amount', 'text-domain' ),
+                            'desc' => __( 'Enter transfer charge amount', 'text-domain' ),
+                            'type' => 'number',
+                            'step' => '0.01'
+                        ) 
+                    ), 
+                    $this->get_wc_payment_allowed_gateways()
                 ),
-                '_payment_settings_credit' => array_merge( array(
+
+                '_payment_settings_credit' => array_merge( 
                     array(
-                        'name' => 'is_enable_cashback_reward_program',
-                        'label' => __( 'Cashback Reward Program', 'text-domain' ),
-                        'desc' => __( 'Run cashback reward program on your store', 'text-domain' ),
-                        'type' => 'checkbox',
-                    ),
+                        array(
+                            'name' => 'is_enable_cashback_reward_program',
+                            'label' => __( 'Cashback Reward Program', 'text-domain' ),
+                            'desc' => __( 'Run cashback reward program on your store', 'text-domain' ),
+                            'type' => 'checkbox',
+                        ),
+                        array(
+                            'name' => 'process_cashback_status',
+                            'label' => __( 'Process cashback', 'text-domain' ),
+                            'desc' => __( 'Select order status to process cashback', 'text-domain' ),
+                            'type' => 'select',
+                            'options' => apply_filters( 'dgc_payment_process_cashback_status', array( 'pending' => __( 'Pending payment', 'text-domain' ), 'on-hold' => __( 'On hold', 'text-domain' ), 'processing' => __( 'Processing', 'text-domain' ), 'completed' => __( 'Completed', 'text-domain' ) ) ),
+                            'default' => array( 'processing', 'completed' ),
+                            'size' => 'regular-text wc-enhanced-select',
+                            'multiple' => true
+                        ),
+                        array(
+                            'name' => 'cashback_rule',
+                            'label' => __( 'Cashback Rule', 'text-domain' ),
+                            'desc' => __( 'Select Cashback Rule cart or product wise', 'text-domain' ),
+                            'type' => 'select',
+                            'options' => array( 'cart' => __( 'Cart wise', 'text-domain' ), 'product' => __( 'Product wise', 'text-domain' ), 'product_cat' => __( 'Product category wise', 'text-domain' ) ),
+                            'size' => 'regular-text wc-enhanced-select'
+                        ),
+                        array(
+                            'name' => 'cashback_type',
+                            'label' => __( 'Cashback type', 'text-domain' ),
+                            'desc' => __( 'Select cashback type percentage or fixed', 'text-domain' ),
+                            'type' => 'select',
+                            'options' => array( 'percent' => __( 'Percentage', 'text-domain' ), 'fixed' => __( 'Fixed', 'text-domain' ) ),
+                            'size' => 'regular-text wc-enhanced-select'
+                        ),
+                        array(
+                            'name' => 'cashback_amount',
+                            'label' => __( 'Cashback Amount', 'text-domain' ),
+                            'desc' => __( 'Enter cashback amount', 'text-domain' ),
+                            'type' => 'number',
+                            'step' => '0.01'
+                        ),
+                        array(
+                            'name' => 'min_cart_amount',
+                            'label' => __( 'Minimum Cart Amount', 'text-domain' ),
+                            'desc' => __( 'Enter applicable minimum cart amount for cashback', 'text-domain' ),
+                            'type' => 'number',
+                            'step' => '0.01'
+                        ),
+                        array(
+                            'name' => 'max_cashback_amount',
+                            'label' => __( 'Maximum Cashback Amount', 'text-domain' ),
+                            'desc' => __( 'Enter maximum cashback amount', 'text-domain' ),
+                            'type' => 'number',
+                            'step' => '0.01'
+                        ),
+                        array(
+                            'name' => 'allow_min_cashback',
+                            'label' => __( 'Allow Minimum cashback', 'text-domain' ),
+                            'desc' => __( 'If checked minimum cashback amount will be applied on product category cashback calculation.', 'text-domain' ),
+                            'type' => 'checkbox',
+                            'default' => 'on'
+                        ),
+                        array(
+                            'name' => 'is_enable_gateway_charge',
+                            'label' => __( 'Payment gateway charge', 'text-domain' ),
+                            'desc' => __( 'Charge customer when they add balance to their payment?', 'text-domain' ),
+                            'type' => 'checkbox',
+                        ),
+                        array(
+                            'name' => 'gateway_charge_type',
+                            'label' => __( 'Charge type', 'text-domain' ),
+                            'desc' => __( 'Select gateway charge type percentage or fixed', 'text-domain' ),
+                            'type' => 'select',
+                            'options' => array( 'percent' => __( 'Percentage', 'text-domain' ), 'fixed' => __( 'Fixed', 'text-domain' ) ),
+                            'size' => 'regular-text wc-enhanced-select'
+                        ) 
+                    ), 
+                    $this->get_wc_payment_gateways(), 
+                    array()
+                ),
+
+                '_payment_settings_digitalcoin' => array_merge( 
                     array(
-                        'name' => 'process_cashback_status',
-                        'label' => __( 'Process cashback', 'text-domain' ),
-                        'desc' => __( 'Select order status to process cashback', 'text-domain' ),
-                        'type' => 'select',
-                        'options' => apply_filters( 'dgc_payment_process_cashback_status', array( 'pending' => __( 'Pending payment', 'text-domain' ), 'on-hold' => __( 'On hold', 'text-domain' ), 'processing' => __( 'Processing', 'text-domain' ), 'completed' => __( 'Completed', 'text-domain' ) ) ),
-                        'default' => array( 'processing', 'completed' ),
-                        'size' => 'regular-text wc-enhanced-select',
-                        'multiple' => true
-                    ),
-                    array(
-                        'name' => 'cashback_rule',
-                        'label' => __( 'Cashback Rule', 'text-domain' ),
-                        'desc' => __( 'Select Cashback Rule cart or product wise', 'text-domain' ),
-                        'type' => 'select',
-                        'options' => array( 'cart' => __( 'Cart wise', 'text-domain' ), 'product' => __( 'Product wise', 'text-domain' ), 'product_cat' => __( 'Product category wise', 'text-domain' ) ),
-                        'size' => 'regular-text wc-enhanced-select'
-                    ),
-                    array(
-                        'name' => 'cashback_type',
-                        'label' => __( 'Cashback type', 'text-domain' ),
-                        'desc' => __( 'Select cashback type percentage or fixed', 'text-domain' ),
-                        'type' => 'select',
-                        'options' => array( 'percent' => __( 'Percentage', 'text-domain' ), 'fixed' => __( 'Fixed', 'text-domain' ) ),
-                        'size' => 'regular-text wc-enhanced-select'
-                    ),
-                    array(
-                        'name' => 'cashback_amount',
-                        'label' => __( 'Cashback Amount', 'text-domain' ),
-                        'desc' => __( 'Enter cashback amount', 'text-domain' ),
-                        'type' => 'number',
-                        'step' => '0.01'
-                    ),
-                    array(
-                        'name' => 'min_cart_amount',
-                        'label' => __( 'Minimum Cart Amount', 'text-domain' ),
-                        'desc' => __( 'Enter applicable minimum cart amount for cashback', 'text-domain' ),
-                        'type' => 'number',
-                        'step' => '0.01'
-                    ),
-                    array(
-                        'name' => 'max_cashback_amount',
-                        'label' => __( 'Maximum Cashback Amount', 'text-domain' ),
-                        'desc' => __( 'Enter maximum cashback amount', 'text-domain' ),
-                        'type' => 'number',
-                        'step' => '0.01'
-                    ),
-                    array(
-                        'name' => 'allow_min_cashback',
-                        'label' => __( 'Allow Minimum cashback', 'text-domain' ),
-                        'desc' => __( 'If checked minimum cashback amount will be applied on product category cashback calculation.', 'text-domain' ),
-                        'type' => 'checkbox',
-                        'default' => 'on'
-                    ),
-                    array(
-                        'name' => 'is_enable_gateway_charge',
-                        'label' => __( 'Payment gateway charge', 'text-domain' ),
-                        'desc' => __( 'Charge customer when they add balance to their payment?', 'text-domain' ),
-                        'type' => 'checkbox',
-                    ),
-                    array(
-                        'name' => 'gateway_charge_type',
-                        'label' => __( 'Charge type', 'text-domain' ),
-                        'desc' => __( 'Select gateway charge type percentage or fixed', 'text-domain' ),
-                        'type' => 'select',
-                        'options' => array( 'percent' => __( 'Percentage', 'text-domain' ), 'fixed' => __( 'Fixed', 'text-domain' ) ),
-                        'size' => 'regular-text wc-enhanced-select'
-                    ) ), $this->get_wc_payment_gateways(), array()
+                        array(
+                            'name' => 'wpbw_plugin_options[bitcoind_rpc_host]',
+                            'label' => __( 'RPC Host', 'text-domain' ),
+                            'desc' => __( 'Enter RPC Host address', 'text-domain' ),
+                            'type' => 'text'
+                            //'type' => 'text',
+                            //'default' => '1.163.24.93'
+                        ),
+                        array(
+                            'name' => 'wpbw_plugin_options[bitcoind_rpc_port]',
+                            'label' => __( 'RPC Port', 'text-domain' ),
+                            'desc' => __( 'Enter RPC Port', 'text-domain' ),
+                            'type' => 'text'
+                        ) 
+                    ), 
+                    array()
                 )
             );
             return apply_filters( 'dgc_payment_settings_filds', $settings_fields);
@@ -325,7 +364,7 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
         }
 
         /**
-         * allowed payment gateways
+         * get tax options
          * @param string $context
          * @return array
          */
