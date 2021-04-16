@@ -2,9 +2,9 @@
 add_action('admin_menu', 'wpbw_create_config_page');
 
 function wpbw_create_config_page() {
-	//add_options_page('Bitcoin Wallet Options', 'Bitcoin Wallet', 'manage_options', 'wpbw-config-menu', 'wpbw_config_page');
+	add_options_page('Bitcoin Wallet Options', 'Bitcoin Wallet', 'manage_options', 'wpbw-config-menu', 'wpbw_config_page');
 	add_action('admin_init', 'wpbw_register_settings');
-	add_submenu_page( 'dgc-payment', __( 'Digitalcoin', 'text-domain' ), __( 'Digitalcoin', 'text-domain' ), 'manage_woocommerce', 'wpbw-config-menu', 'wpbw_config_page' );
+	//add_submenu_page( 'dgc-payment', __( 'Digitalcoin', 'text-domain' ), __( 'Digitalcoin', 'text-domain' ), 'manage_woocommerce', 'wpbw-config-menu', 'wpbw_config_page' );
 }
 
 function wpbw_config_page() {
