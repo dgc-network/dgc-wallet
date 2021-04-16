@@ -89,7 +89,7 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                 ),
                 array(
                     'id' => '_payment_settings_digitalcoin',
-                    'title' => __( 'Digitalcoin', 'text-domain' ),
+                    'title' => __( 'Configuration', 'text-domain' ),
                     'icon' => 'dashicons-money'
                 )
             );
