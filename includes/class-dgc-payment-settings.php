@@ -266,7 +266,7 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                 '_payment_settings_digitalcoin' => array_merge( 
                     array(
                         array(
-                            'name' => 'wpbw_plugin_options[bitcoind_rpc_host]',
+                            'name' => 'bitcoind_rpc_host',
                             'label' => __( 'RPC Host', 'text-domain' ),
                             'desc' => __( 'Enter RPC Host address', 'text-domain' ),
                             'type' => 'text'
@@ -274,7 +274,7 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                             //'default' => '1.163.24.93'
                         ),
                         array(
-                            'name' => 'wpbw_plugin_options[bitcoind_rpc_port]',
+                            'name' => 'bitcoind_rpc_port',
                             'label' => __( 'RPC Port', 'text-domain' ),
                             'desc' => __( 'Enter RPC Port', 'text-domain' ),
                             'type' => 'text'

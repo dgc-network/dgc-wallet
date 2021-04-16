@@ -11,6 +11,8 @@ class WPBW_Widget {
 		$pass = $options['bitcoind_rpc_password'];
 		$host = $options['bitcoind_rpc_host'];
 		$port = $options['bitcoind_rpc_port'];
+		$rpc_host = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_host', '_payment_settings_digitalcoin', '1.163.24.93' );
+		$rpc_port = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_port', '_payment_settings_digitalcoin', '7998' );
 		$wp_user = wp_get_current_user();
 
 		if($wp_user != 0) {
