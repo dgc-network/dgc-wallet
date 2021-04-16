@@ -2,7 +2,7 @@
 add_action('admin_menu', 'wpbw_create_config_page', 60);
 
 function wpbw_create_config_page() {
-	add_options_page('Bitcoin Wallet Options', 'Bitcoin Wallet', 'manage_options', 'wpbw-config-menu', 'wpbw_config_page');
+	//add_options_page('Bitcoin Wallet Options', 'Bitcoin Wallet', 'manage_options', 'wpbw-config-menu', 'wpbw_config_page');
 	add_action('admin_init', 'wpbw_register_settings');
 	add_submenu_page( 'dgc-payment', __( 'Digitalcoin', 'text-domain' ), __( 'Digitalcoin', 'text-domain' ), 'manage_woocommerce', 'wpbw-config-menu', 'wpbw_config_page' );
 }
@@ -13,23 +13,23 @@ function wpbw_config_page() {
 	}
 	?>
 	<div class="wrap">
-	<h2>Bitcoin Wallet Options</h2>
+	<h2>Wallet Options</h2>
 	<form action="options.php" method="post">
 	<?php settings_fields('wpbw_plugin_options'); ?>
 	<?php $options = get_option('wpbw_plugin_options'); ?>
-	<label>bitcoind RPC Host:</label>
+	<label>RPC Host:</label>
 	<input id="bitcoind_rpc_host" name="wpbw_plugin_options[bitcoind_rpc_host]" size="40" type="text" value="<?php echo $options['bitcoind_rpc_host'] ?>" />
 	<br />
-	<label>bitcoind RPC Port:</label>
+	<label>RPC Port:</label>
 	<input id="bitcoind_rpc_port" name="wpbw_plugin_options[bitcoind_rpc_port]" size="40" type="text" value="<?php echo $options['bitcoind_rpc_port'] ?>" />
 	<br />
-	<label>bitcoind RPC Username:</label>
+	<label>RPC Username:</label>
 	<input id="bitcoind_rpc_username" name="wpbw_plugin_options[bitcoind_rpc_username]" size="40" type="text" value="<?php echo $options['bitcoind_rpc_username'] ?>" />
 	<br />
-	<label>bitcoind RPC Password:</label>
+	<label>RPC Password:</label>
 	<input id="bitcoind_rpc_password" name="wpbw_plugin_options[bitcoind_rpc_password]" size="40" type="text" value="<?php echo $options['bitcoind_rpc_password'] ?>" />
 	<br />
-	<label>bitcoind account prefix:</label>
+	<label>account prefix:</label>
 	<input id="bitcoind_account_prefix" name="wpbw_plugin_options[bitcoind_account_prefix]" size="40" type="text" value="<?php echo $options['bitcoind_account_prefix'] ?>" />
 	<br />
 	<input name="Submit" type="submit" value="<?php esc_attr_e('Save Changes'); ?>" />
