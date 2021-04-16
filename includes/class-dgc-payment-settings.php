@@ -290,9 +290,9 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                             'type' => 'password'
                         ),
                         array(
-                            'name' => 'bitcoind_rpc_account_prefix',
-                            'label' => __( 'Account prefix', 'text-domain' ),
-                            'desc' => __( 'Enter account prefix', 'text-domain' ),
+                            'name' => 'bitcoind_wallet_address',
+                            'label' => __( 'Wallet account address', 'text-domain' ),
+                            'desc' => __( 'Enter wallet account address', 'text-domain' ),
                             'type' => 'text'
                         ) 
                     ), 
