@@ -270,13 +270,29 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                             'label' => __( 'RPC Host', 'text-domain' ),
                             'desc' => __( 'Enter RPC Host address', 'text-domain' ),
                             'type' => 'text'
-                            //'type' => 'text',
-                            //'default' => '1.163.24.93'
                         ),
                         array(
                             'name' => 'bitcoind_rpc_port',
                             'label' => __( 'RPC Port', 'text-domain' ),
                             'desc' => __( 'Enter RPC Port', 'text-domain' ),
+                            'type' => 'text'
+                        ),
+                        array(
+                            'name' => 'bitcoind_rpc_username',
+                            'label' => __( 'RPC Username', 'text-domain' ),
+                            'desc' => __( 'Enter RPC Username', 'text-domain' ),
+                            'type' => 'text'
+                        ),
+                        array(
+                            'name' => 'bitcoind_rpc_password',
+                            'label' => __( 'RPC Password', 'text-domain' ),
+                            'desc' => __( 'Enter RPC Password', 'text-domain' ),
+                            'type' => 'password'
+                        ),
+                        array(
+                            'name' => 'bitcoind_rpc_account_prefix',
+                            'label' => __( 'Account prefix', 'text-domain' ),
+                            'desc' => __( 'Enter account prefix', 'text-domain' ),
                             'type' => 'text'
                         ) 
                     ), 

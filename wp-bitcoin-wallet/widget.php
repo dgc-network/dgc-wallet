@@ -11,15 +11,18 @@ class WPBW_Widget {
 		$pass = $options['bitcoind_rpc_password'];
 		$host = $options['bitcoind_rpc_host'];
 		$port = $options['bitcoind_rpc_port'];
-		$rpc_host = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_host', '_payment_settings_digitalcoin', '1.163.24.93' );
-		$rpc_port = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_port', '_payment_settings_digitalcoin', '7998' );
+		$rpc_host = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_host', '_payment_settings_digitalcoin' );
+		$rpc_port = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_port', '_payment_settings_digitalcoin' );
+		$rpc_user = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_username', '_payment_settings_digitalcoin' );
+		$rpc_pass = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_password', '_payment_settings_digitalcoin' );
 		$wp_user = wp_get_current_user();
 
 		if($wp_user != 0) {
 			$this->account = $options['bitcoind_account_prefix'].hash("sha256", $wp_user->user_login);
-			$this->bitcoind = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
+			//$this->bitcoind = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
+			$this->bitcoind = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
 
-			wp_add_dashboard_widget('wpbw_widget', 'Bitcoin Wallet', array($this, 'display'));
+			wp_add_dashboard_widget('wpbw_widget', 'Wallet', array($this, 'display'));
 		} else {
 			// We shouldn't ever get here, since only logged-in users can access the dashboard.
 			wp_die(__('You do not have sufficient permissions to access this page.'));
