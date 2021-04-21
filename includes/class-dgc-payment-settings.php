@@ -290,10 +290,10 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                             'type' => 'password'
                         ),
                         array(
-                            'name' => 'bitcoind_wallet_address',
-                            'label' => __( 'Wallet account address', 'text-domain' ),
-                            'desc' => __( 'Enter wallet account address', 'text-domain' ),
-                            'type' => 'text'
+                            'name' => 'wallet_passphrase',
+                            'label' => __( 'Wallet passphrase', 'text-domain' ),
+                            'desc' => __( 'Enter wallet passphrase', 'text-domain' ),
+                            'type' => 'password'
                         ) 
                     ), 
                     array()
