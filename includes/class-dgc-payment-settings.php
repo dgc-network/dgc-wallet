@@ -88,7 +88,7 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                     'icon' => 'dashicons-money'
                 ),
                 array(
-                    'id' => '_payment_settings_digitalcoin',
+                    'id' => '_payment_settings_conf',
                     'title' => __( 'Configuration', 'text-domain' ),
                     'icon' => 'dashicons-money'
                 )
@@ -263,7 +263,7 @@ if ( ! class_exists( 'dgc_Payment_Settings' ) ):
                     array()
                 ),
 
-                '_payment_settings_digitalcoin' => array_merge( 
+                '_payment_settings_conf' => array_merge( 
                     array(
                         array(
                             'name' => 'bitcoind_rpc_host',

@@ -471,10 +471,7 @@ if ( ! class_exists( 'dgc_Payment_Admin' ) ) {
                 'name' => 'variable_cashback_amount[' . $loop . ']',
                 'type' => 'number',
                 'data_type' => 'decimal',
-                'custom_attributes' => array(
-                        'step' => '1',
-                        'min' => '0'
-                    ),
+                'custom_attributes' => array('step' => '1', 'min' => '0'),
                 'label' => __( 'Cashback Amount', 'text-domain' ),
                 'value' => get_post_meta( $variation->ID, '_cashback_amount', true ),
                 'wrapper_class' => 'form-row form-row-last',

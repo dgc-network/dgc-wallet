@@ -12,6 +12,7 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
          * @var INT 
          */
         public $user_id = 0;
+        private $dgc_client;
 
         /**
          * Payment balance.
@@ -30,6 +31,12 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
          */
         public function __construct() {
             $this->user_id = get_current_user_id();
+            $rpc_host = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_host', '_payment_settings_conf' );
+            $rpc_port = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_port', '_payment_settings_conf' );
+            $rpc_user = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_username', '_payment_settings_conf' );
+            $rpc_pass = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_password', '_payment_settings_conf' );
+            $passphrase = dgc_payment()->settings_api->get_option( 'wallet_passphrase', '_payment_settings_conf' );
+			$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
         }
 
         /**
@@ -55,9 +62,13 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
             $this->set_user_id( $user_id );
             $this->payment_balance = 0;
             if ( $this->user_id ) {
-                $credit_amount = array_sum(wp_list_pluck( get_payment_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'credit' ) ) ) ), 'amount' ) );
-                $debit_amount = array_sum(wp_list_pluck( get_payment_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
-                $balance = $credit_amount - $debit_amount;
+                //$credit_amount = array_sum(wp_list_pluck( get_payment_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'credit' ) ) ) ), 'amount' ) );
+                //$debit_amount = array_sum(wp_list_pluck( get_payment_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
+                //$balance = $credit_amount - $debit_amount;
+                $receive_address = get_user_meta( $this->user_id, 'receive_address' , true );
+                $change_address = get_user_meta( $this->user_id, 'change_address' , true );
+                $balance = $this->dgc_client->getbalance($receive_address);
+                $balance += $this->dgc_client->getbalance($change_address);
                 $this->payment_balance = apply_filters( 'dgc_payment_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->payment_balance, dgc_payment_wc_price_args($this->user_id) ) : number_format( $this->payment_balance, wc_get_price_decimals(), '.', '' );

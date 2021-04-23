@@ -14,11 +14,11 @@ class WPBW_Widget {
 		//$pass = $options['bitcoind_rpc_password'];
 		//$host = $options['bitcoind_rpc_host'];
 		//$port = $options['bitcoind_rpc_port'];
-		$rpc_host = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_host', '_payment_settings_digitalcoin' );
-		$rpc_port = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_port', '_payment_settings_digitalcoin' );
-		$rpc_user = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_username', '_payment_settings_digitalcoin' );
-		$rpc_pass = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_password', '_payment_settings_digitalcoin' );
-		$passphrase = dgc_payment()->settings_api->get_option( 'wallet_passphrase', '_payment_settings_digitalcoin' );
+		$rpc_host = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_host', '_payment_settings_conf' );
+		$rpc_port = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_port', '_payment_settings_conf' );
+		$rpc_user = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_username', '_payment_settings_conf' );
+		$rpc_pass = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_password', '_payment_settings_conf' );
+		$passphrase = dgc_payment()->settings_api->get_option( 'wallet_passphrase', '_payment_settings_conf' );
 		$wp_user = wp_get_current_user();
 		$current_user_id = get_current_user_id();
 
