@@ -14,7 +14,7 @@ class dgcClient {
 
 	function getBalance($user_session)
 	{
-		return $this->jsonrpc->getbalance("zelles(" . $user_session . ")", 6);
+		return $this->jsonrpc->listunspent();
 		//return 21;
 	}
 

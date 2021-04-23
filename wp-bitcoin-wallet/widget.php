@@ -36,6 +36,11 @@ class WPBW_Widget {
 		$this->handle_post();
 
 		?>
+		<label>dgc Balance:</label>
+		<pre><?php echo $this->dgc_client->getbalance($this->account); ?></pre>
+		</br>
+		</br>
+
 		<label>Block 0 Hash:</label>
 		<pre><?php echo $this->jsonrpc->getblockhash(0); ?></pre>
 		</br>
@@ -58,11 +63,6 @@ class WPBW_Widget {
 
 		<label>Balance:</label>
 		<pre><?php echo $this->jsonrpc->getbalance($this->account); ?></pre>
-		</br>
-		</br>
-
-		<label>dgc Balance:</label>
-		<pre><?php echo $this->dgc_client->getbalance($this->account); ?></pre>
 		</br>
 		</br>
 
