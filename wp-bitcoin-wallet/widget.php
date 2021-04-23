@@ -37,9 +37,11 @@ class WPBW_Widget {
 
 		?>
 		<label>dgc Balance:</label>
+		<?php $this->account = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS'; ?>
+		<?php $output = $this->account . ': '; ?>
+		<?php $output .= $this->dgc_client->getbalance($this->account); ?>
 		<pre>
-		<?php echo $this->account . ': '; ?>
-		<?php echo $this->dgc_client->getbalance($this->account); ?>
+		<?php echo $output; ?>
 		</pre>
 		</br>
 
