@@ -5,42 +5,29 @@ class dgcClient {
 	private $uri;
 	private $jsonrpc;
 
-	function __construct($host, $port, $user, $pass)
-	{
-		$this->uri = "http://" . $user . ":" . $pass . "@" . $host . ":" . $port . "/";
+	function __construct($host, $port, $user, $pass) {
 		$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
+		//$this->uri = "http://" . $user . ":" . $pass . "@" . $host . ":" . $port . "/";
 		//$this->jsonrpc = new jsonRPCClient($this->uri);
 	}
 
-	function getBalance($address='')
-	{
+	function getBalance($address='') {
 		$amount = 0;
 		$result = $this->jsonrpc->listunspent();
 		foreach ($result as $array_value) {
-			/*
-			foreach ($array_value as $key=>$value) {
-				if (($key == 'address') && ($value == $address)) {
-					$amount = $amount ;
-				}
-				echo $value;
-			}
-			*/
 			if ( $array_value["address"] == $address ) {
 				$amount = $amount + $array_value["amount"];
 			}
-			//echo $array_value["amount"];
-			//echo $value->amount;
-        	//$o .= '  "'. $key . '": ' . $value . '<br>';
-        	//$o .= '  "'. $key . '": ' . $value . '<br>';
     	}
 		return $amount;
-		//return $this->jsonrpc->listunspent();
-		//return 21;
 	}
 
-    function getAddress($user_session)
-    {
-        return $this->jsonrpc->getaccountaddress("zelles(" . $user_session . ")");
+    function getNewAddress() {
+        return $this->jsonrpc->getnewaddress();
+	}
+
+    function getRawChangeAddress() {
+        return $this->jsonrpc->getrawchangeaddress();
 	}
 
 	function getAddressList($user_session)
