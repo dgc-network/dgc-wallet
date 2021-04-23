@@ -2,8 +2,10 @@
 
 class WPBW_Widget {
 	private $jsonrpc;
-	private $dgc_client;
 	private $account;
+	private $dgc_client;
+	private $receive_address;
+	private $change_address;
 
 	public function register() {
 		require_once('jsonRPCClient.php');
@@ -25,14 +27,14 @@ class WPBW_Widget {
 			//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
 			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
 			$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
-			$receive_address = get_user_meta( $current_user_id, 'receive_address' , true );
-			$change_address = get_user_meta( $current_user_id, 'change_address' , true );
-			if ($receive_address=='') {
-				$receive_address = $this->dgc_client->getnewaddress();
+			$this->receive_address = get_user_meta( $current_user_id, 'receive_address' , true );
+			$this->change_address = get_user_meta( $current_user_id, 'change_address' , true );
+			if ($this->receive_address=='') {
+				$this->receive_address = $this->dgc_client->getnewaddress();
 				update_user_meta( $current_user_id, 'receive_address' , $receive_address );
 			}
-			if ($change_address=='') {
-				$change_address = $this->dgc_client->getrawchangeaddress();
+			if ($this->change_address=='') {
+				$this->change_address = $this->dgc_client->getrawchangeaddress();
 				update_user_meta( $current_user_id, 'change_address' , $change_address );
 			}
 
@@ -47,12 +49,39 @@ class WPBW_Widget {
 		$this->handle_post();
 
 		?>
-		<label>dgc Balance:</label>
+		<label>Top1 Balance:</label>
 		<?php $this->account = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS'; ?>
 		<?php $output = $this->account . ': '; ?>
 		<?php $output .= $this->dgc_client->getbalance($this->account); ?>
 		<pre><?php echo $output; ?></pre>
 		</br>
+
+		<label>Receiving address Balance:</label>
+		<?php $output = $this->receive_address . ': '; ?>
+		<?php $output .= $this->dgc_client->getbalance($this->receive_address); ?>
+		<pre><?php echo $output; ?></pre>
+		</br>
+
+		<label>Changing address Balance:</label>
+		<?php $output = $this->change_address . ': '; ?>
+		<?php $output .= $this->dgc_client->getbalance($this->change_address); ?>
+		<pre><?php echo $output; ?></pre>
+		</br>
+
+		<label>Balance:</label>		
+		<?php
+		//$first_name = $all_meta_for_user['first_name'][0];
+		//$last_name = $all_meta_for_user['last_name'][0];
+		$current_user_id = get_current_user_id();
+		$first_name = get_user_meta( $current_user_id, 'first_name' , true );
+		$last_name = get_user_meta( $current_user_id, 'last_name' , true );
+		$balance = $this->dgc_client->getbalance($this->receive_address);
+		$balance += $this->dgc_client->getbalance($this->change_address);
+		$output = '<pre>';
+		$output .= $first_name . ' ' . $last_name . ': ' . $balance;
+		$output .= '</pre><br>';
+		echo $output;
+		?>
 
 		<label>Wallet Info:</label>
 		<?php 
