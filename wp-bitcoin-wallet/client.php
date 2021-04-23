@@ -41,12 +41,6 @@ class dgcClient {
 		return $this->jsonrpc->listtransactions("zelles(" . $user_session . ")", 10);
 	}
 
-	function getNewAddress($user_session)
-	{
-		return $this->jsonrpc->getnewaddress("zelles(" . $user_session . ")");
-		//return "1test";
-	}
-
 	function withdraw($user_session, $address, $amount)
 	{
 		return $this->jsonrpc->sendfrom("zelles(" . $user_session . ")", $address, (float)$amount, 6);
