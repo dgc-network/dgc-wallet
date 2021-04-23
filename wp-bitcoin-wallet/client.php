@@ -8,6 +8,7 @@ class Client {
 	function __construct($host, $port, $user, $pass)
 	{
 		$this->uri = "http://" . $user . ":" . $pass . "@" . $host . ":" . $port . "/";
+		//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
 		$this->jsonrpc = new jsonRPCClient($this->uri);
 	}
 

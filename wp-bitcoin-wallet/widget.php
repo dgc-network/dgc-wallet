@@ -21,8 +21,8 @@ class WPBW_Widget {
 		if($wp_user != 0) {
 			$this->account = $options['bitcoind_account_prefix'].hash("sha256", $wp_user->user_login);
 			//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
-			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
-			//$this->jsonrpc = new Client($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
+			//$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
+			$this->jsonrpc = new Client($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
 
 			wp_add_dashboard_widget('wpbw_widget', 'Wallet', array($this, 'display'));
 		} else {
