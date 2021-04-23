@@ -52,31 +52,16 @@ class WPBW_Widget {
 		<label>Top1 Balance:</label>
 		<?php $this->account = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS'; ?>
 		<?php $output = $this->account . ': '; ?>
-		<?php $output .= $this->dgc_client->getbalance($this->account); ?>
-		<pre><?php echo $output; ?></pre>
-		</br>
-
-		<label>Receiving address Balance:</label>
-		<?php $output = $this->receive_address . ': '; ?>
-		<?php $output .= $this->dgc_client->getbalance($this->receive_address); ?>
-		<pre><?php echo $output; ?></pre>
-		</br>
-
-		<label>Changing address Balance:</label>
-		<?php $output = $this->change_address . ': '; ?>
-		<?php $output .= $this->dgc_client->getbalance($this->change_address); ?>
+		<?php //$output .= $this->dgc_client->getbalance($this->account); ?>
 		<pre><?php echo $output; ?></pre>
 		</br>
 
 		<label>Balance:</label>		
 		<?php
-		//$first_name = $all_meta_for_user['first_name'][0];
-		//$last_name = $all_meta_for_user['last_name'][0];
 		$current_user_id = get_current_user_id();
 		$first_name = get_user_meta( $current_user_id, 'first_name' , true );
 		$last_name = get_user_meta( $current_user_id, 'last_name' , true );
-		$balance = $this->dgc_client->getbalance($this->receive_address);
-		$balance += $this->dgc_client->getbalance($this->change_address);
+		$balance = $this->dgc_client->getbalance($current_user_id);
 		$output = '<pre>';
 		$output .= $first_name . ' ' . $last_name . ': ' . $balance;
 		$output .= '</pre><br>';

@@ -2,7 +2,7 @@
 //To enable developer mode (no need for an RPC server, replace this file with the snipet at https://gist.github.com/d3e148deb5969c0e4b60 
 
 class dgcClient {
-	private $uri;
+	//private $uri;
 	private $jsonrpc;
 
 	function __construct($host, $port, $user, $pass) {
@@ -11,7 +11,22 @@ class dgcClient {
 		//$this->jsonrpc = new jsonRPCClient($this->uri);
 	}
 
-	function getbalance($address='') {
+	function getbalance( $user_id = '' ) {
+		$amount = 0;
+		if ( $user_id != '') {
+			$receive_address = get_user_meta( $user_id, 'receive_address' , true );
+			$change_address = get_user_meta( $user_id, 'change_address' , true );
+			$result = $this->jsonrpc->listunspent();
+			foreach ($result as $array_value) {
+				if (( $array_value["address"] == $receive_address ) || ( $array_value["address"] == $change_address )) {
+					$amount = $amount + $array_value["amount"];
+				}
+			}
+		}
+		return $amount;
+	}
+
+	function getbalanceBackup($address='') {
 		$amount = 0;
 		$result = $this->jsonrpc->listunspent();
 		foreach ($result as $array_value) {
