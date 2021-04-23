@@ -96,11 +96,20 @@ add_action(
     'show_user_profile',
     'wporg_usermeta_form_field_birthday'
 );
+add_action(
+    'show_user_profile',
+    'wporg_usermeta_form_field_dgc_accounts'
+);
   
 // Add the field to user profile editing screen.
 add_action(
     'edit_user_profile',
     'wporg_usermeta_form_field_birthday'
+);
+  
+add_action(
+    'edit_user_profile',
+    'wporg_usermeta_form_field_dgc_accounts'
 );
   
 // Add the save action to user's own profile editing screen update.
@@ -115,6 +124,9 @@ add_action(
     'wporg_usermeta_form_field_birthday_update'
 );
 
+/**
+ * 
+ */
 add_action('admin_menu', 'wpbw_create_config_page', 60);
 
 function wpbw_create_config_page() {

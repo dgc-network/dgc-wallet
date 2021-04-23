@@ -54,18 +54,6 @@ class WPBW_Widget {
 		<pre><?php echo $output; ?></pre>
 		</br>
 
-		<label>new address:</label>
-		<pre><?php echo $this->jsonrpc->getnewaddress(); ?></pre>
-		</br>
-
-		<label>change address:</label>
-		<pre><?php echo $this->jsonrpc->getrawchangeaddress(); ?></pre>
-		</br>
-
-		<label>Block 0 Hash:</label>
-		<pre><?php echo $this->jsonrpc->getblockhash(0); ?></pre>
-		</br>
-
 		<label>Wallet Info:</label>
 		<?php 
 		$result = $this->jsonrpc->getwalletinfo(); 
