@@ -14,13 +14,20 @@ class dgcClient {
 
 	function getBalance($user_session)
 	{
-		return $this->jsonrpc->listunspent();
+		$result = $this->jsonrpc->listunspent();
+		foreach ($result as $key=>$value) {
+			echo $value->address;
+			echo $value->amount;
+        	//$o .= '  "'. $key . '": ' . $value . '<br>';
+        	//$o .= '  "'. $key . '": ' . $value . '<br>';
+    	}
+		//return $this->jsonrpc->listunspent();
 		//return 21;
 	}
 
-       function getAddress($user_session)
-        {
-                return $this->jsonrpc->getaccountaddress("zelles(" . $user_session . ")");
+    function getAddress($user_session)
+    {
+        return $this->jsonrpc->getaccountaddress("zelles(" . $user_session . ")");
 	}
 
 	function getAddressList($user_session)
