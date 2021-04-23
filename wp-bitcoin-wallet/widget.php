@@ -37,8 +37,10 @@ class WPBW_Widget {
 
 		?>
 		<label>dgc Balance:</label>
-		<pre><?php echo $this->dgc_client->getbalance($this->account); ?></pre>
-		</br>
+		<pre>
+		<?php echo $this->account . ': '; ?>
+		<?php echo $this->dgc_client->getbalance($this->account); ?>
+		</pre>
 		</br>
 
 		<label>Block 0 Hash:</label>
