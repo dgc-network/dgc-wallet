@@ -12,14 +12,21 @@ class dgcClient {
 		//$this->jsonrpc = new jsonRPCClient($this->uri);
 	}
 
-	function getBalance($user_session)
+	function getBalance($address)
 	{
+		$amount = 0;
 		$result = $this->jsonrpc->listunspent();
 		foreach ($result as $array_value) {
+			/*
 			foreach ($array_value as $key=>$value) {
+				if (($key == 'address') && ($value == $address)) {
+					$amount = $amount ;
+				}
 				echo $value;
 			}
-			//echo $value->address;
+			*/
+			echo $array_value["address"];
+			echo $array_value["amount"];
 			//echo $value->amount;
         	//$o .= '  "'. $key . '": ' . $value . '<br>';
         	//$o .= '  "'. $key . '": ' . $value . '<br>';
