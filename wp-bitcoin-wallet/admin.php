@@ -31,34 +31,34 @@ function wporg_usermeta_form_field_birthday( $user )
     <?php
 }
   
-function wporg_usermeta_form_field_dgc_accounts( $user )
+function wporg_usermeta_form_field_dgc_addresses( $user )
 {
     ?>
-    <h3>Digitalcoin Accounts</h3>
+    <h3>Digitalcoin Addresses</h3>
     <table class="form-table">
 		<tr>
             <th>
-                <label for="receive_account">Receive Account</label>
+                <label for="receive_address">Receive Account</label>
             </th>
             <td>
                 <input type="text"
                        class="regular-text ltr"
-                       id="receive_account"
-                       name="receive_account"
-                       value="<?= esc_attr( get_user_meta( $user->ID, 'receive_account', true ) ) ?>"
+                       id="receive_address"
+                       name="receive_address"
+                       value="<?= esc_attr( get_user_meta( $user->ID, 'receive_address', true ) ) ?>"
                        disabled>
             </td>
         </tr>
         <tr>
             <th>
-                <label for="change_account">Change Account</label>
+                <label for="change_address">Change Account</label>
             </th>
             <td>
                 <input type="text"
                        class="regular-text ltr"
-                       id="change_account"
-                       name="change_account"
-                       value="<?= esc_attr( get_user_meta( $user->ID, 'change_account', true ) ) ?>"
+                       id="change_address"
+                       name="change_address"
+                       value="<?= esc_attr( get_user_meta( $user->ID, 'change_address', true ) ) ?>"
                        disabled>
             </td>
         </tr>
@@ -81,13 +81,10 @@ function wporg_usermeta_form_field_birthday_update( $user_id )
     }
   
     // create/update user meta for the $user_id
-	if ($_POST['receive_account']='') {
-		$_POST['receive_account']='';
-	}
     return update_user_meta(
         $user_id,
-        'receive_account',
-        $_POST['receive_account']
+        'receive_address',
+        $_POST['receive_address']
     );
 }
   
@@ -98,7 +95,7 @@ add_action(
 );
 add_action(
     'show_user_profile',
-    'wporg_usermeta_form_field_dgc_accounts'
+    'wporg_usermeta_form_field_dgc_addresses'
 );
   
 // Add the field to user profile editing screen.
@@ -109,7 +106,7 @@ add_action(
   
 add_action(
     'edit_user_profile',
-    'wporg_usermeta_form_field_dgc_accounts'
+    'wporg_usermeta_form_field_dgc_addresses'
 );
   
 // Add the save action to user's own profile editing screen update.
