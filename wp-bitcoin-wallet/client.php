@@ -11,7 +11,7 @@ class dgcClient {
 		//$this->jsonrpc = new jsonRPCClient($this->uri);
 	}
 
-	function getBalance($address='') {
+	function getbalance($address='') {
 		$amount = 0;
 		$result = $this->jsonrpc->listunspent();
 		foreach ($result as $array_value) {
@@ -22,11 +22,11 @@ class dgcClient {
 		return $amount;
 	}
 
-    function getNewAddress() {
+    function getnewaddress() {
         return $this->jsonrpc->getnewaddress();
 	}
 
-    function getRawChangeAddress() {
+    function getrawchangeaddress() {
         return $this->jsonrpc->getrawchangeaddress();
 	}
 

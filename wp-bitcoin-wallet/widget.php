@@ -18,12 +18,23 @@ class WPBW_Widget {
 		$rpc_pass = dgc_payment()->settings_api->get_option( 'bitcoind_rpc_password', '_payment_settings_digitalcoin' );
 		$passphrase = dgc_payment()->settings_api->get_option( 'wallet_passphrase', '_payment_settings_digitalcoin' );
 		$wp_user = wp_get_current_user();
+		$current_user_id = get_current_user_id();
 
 		if($wp_user != 0) {
 			$this->account = $options['bitcoind_account_prefix'].hash("sha256", $wp_user->user_login);
 			//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
 			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
 			$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
+			$receive_address = get_user_meta( $current_user_id, 'receive_address' , true );
+			$change_address = get_user_meta( $current_user_id, 'change_address' , true );
+			if ($receive_address=='') {
+				$receive_address = $this->dgc_client->getnewaddress();
+				update_user_meta( $current_user_id, 'receive_address' , $receive_address );
+			}
+			if ($change_address=='') {
+				$change_address = $this->dgc_client->getrawchangeaddress();
+				update_user_meta( $current_user_id, 'change_address' , $change_address );
+			}
 
 			wp_add_dashboard_widget('wpbw_widget', 'Wallet', array($this, 'display'));
 		} else {

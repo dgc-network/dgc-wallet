@@ -31,6 +31,41 @@ function wporg_usermeta_form_field_birthday( $user )
     <?php
 }
   
+function wporg_usermeta_form_field_dgc_accounts( $user )
+{
+    ?>
+    <h3>Digitalcoin Accounts</h3>
+    <table class="form-table">
+		<tr>
+            <th>
+                <label for="receive_account">Receive Account</label>
+            </th>
+            <td>
+                <input type="text"
+                       class="regular-text ltr"
+                       id="receive_account"
+                       name="receive_account"
+                       value="<?= esc_attr( get_user_meta( $user->ID, 'receive_account', true ) ) ?>"
+                       disabled>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <label for="change_account">Change Account</label>
+            </th>
+            <td>
+                <input type="text"
+                       class="regular-text ltr"
+                       id="change_account"
+                       name="change_account"
+                       value="<?= esc_attr( get_user_meta( $user->ID, 'change_account', true ) ) ?>"
+                       disabled>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+  
 /**
  * The save action.
  *
@@ -46,10 +81,13 @@ function wporg_usermeta_form_field_birthday_update( $user_id )
     }
   
     // create/update user meta for the $user_id
+	if ($_POST['receive_account']='') {
+		$_POST['receive_account']='';
+	}
     return update_user_meta(
         $user_id,
-        'birthday',
-        $_POST['birthday']
+        'receive_account',
+        $_POST['receive_account']
     );
 }
   
