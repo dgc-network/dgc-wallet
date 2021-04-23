@@ -2,6 +2,7 @@
 
 class WPBW_Widget {
 	private $jsonrpc;
+	private $dgc_client;
 	private $account;
 
 	public function register() {
@@ -21,8 +22,8 @@ class WPBW_Widget {
 		if($wp_user != 0) {
 			$this->account = $options['bitcoind_account_prefix'].hash("sha256", $wp_user->user_login);
 			//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
-			//$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
-			$this->jsonrpc = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
+			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
+			$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
 
 			wp_add_dashboard_widget('wpbw_widget', 'Wallet', array($this, 'display'));
 		} else {
@@ -60,8 +61,8 @@ class WPBW_Widget {
 		</br>
 		</br>
 
-		<label>Balance:</label>
-		<pre><?php echo $this->getbalance($this->account); ?></pre>
+		<label>dgc Balance:</label>
+		<pre><?php echo $this->dgc_client->getbalance($this->account); ?></pre>
 		</br>
 		</br>
 
@@ -111,11 +112,6 @@ class WPBW_Widget {
 		}
 	}
 
-	function getBalance()
-	{
-		return $this->jsonrpc->getbalance();
-		//return 21;
-	}
 }
 
 $wpbw_widget = new WPBW_Widget();
