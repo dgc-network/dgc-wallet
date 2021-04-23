@@ -16,6 +16,7 @@ class dgcClient {
 	{
 		$result = $this->jsonrpc->listunspent();
 		foreach ($result as $key=>$value) {
+			echo $value;
 			echo $value->address;
 			echo $value->amount;
         	//$o .= '  "'. $key . '": ' . $value . '<br>';
