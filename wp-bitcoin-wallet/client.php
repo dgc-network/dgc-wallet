@@ -19,8 +19,8 @@ class dgcClient {
 			foreach ($array_value as $key=>$value) {
 				echo $value;
 			}
-			echo $value->address;
-			echo $value->amount;
+			//echo $value->address;
+			//echo $value->amount;
         	//$o .= '  "'. $key . '": ' . $value . '<br>';
         	//$o .= '  "'. $key . '": ' . $value . '<br>';
     	}
