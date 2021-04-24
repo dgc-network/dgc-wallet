@@ -1,6 +1,4 @@
 <?php
-//To enable developer mode (no need for an RPC server, replace this file with the snipet at https://gist.github.com/d3e148deb5969c0e4b60 
-
 class dgcClient {
 	private $jsonrpc;
 
