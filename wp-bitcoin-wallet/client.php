@@ -2,20 +2,20 @@
 //To enable developer mode (no need for an RPC server, replace this file with the snipet at https://gist.github.com/d3e148deb5969c0e4b60 
 
 class dgcClient {
-	//private $uri;
 	private $jsonrpc;
 
 	function __construct($host, $port, $user, $pass) {
 		$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
-		//$this->uri = "http://" . $user . ":" . $pass . "@" . $host . ":" . $port . "/";
-		//$this->jsonrpc = new jsonRPCClient($this->uri);
 	}
 
 	function getbalance( $user_id = '' ) {
 		$amount = 0;
 		if ( $user_id != '') {
+			$addresses = array();
 			$receive_address = get_user_meta( $user_id, 'receive_address' , true );
 			$change_address = get_user_meta( $user_id, 'change_address' , true );
+			array_push($addresses, $receive_address, $change_address);
+			$result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
 			$result = $this->jsonrpc->listunspent();
 			foreach ($result as $array_value) {
 				if (( $array_value["address"] == $receive_address ) || ( $array_value["address"] == $change_address )) {
@@ -26,40 +26,37 @@ class dgcClient {
 		return $amount;
 	}
 
-	function getbalanceBackup($address='') {
-		$amount = 0;
-		$result = $this->jsonrpc->listunspent();
-		foreach ($result as $array_value) {
-			if ( $array_value["address"] == $address ) {
-				$amount = $amount + $array_value["amount"];
+	function sendtoaddress( $user_id = '', $amount = 0 ) {
+		$txid = '';
+		$balance_amount = $amount;
+		if ( $user_id != '') {
+			$current_user_id = get_current_user_id();
+			$addresses = array();
+			$send_address = get_user_meta( $current_user_id, 'receive_address' , true );
+			$change_address = get_user_meta( $current_user_id, 'change_address' , true );
+			$recipient = get_user_meta( $user_id, 'receive_address' , true );
+			array_push($addresses, $send_address);
+			$result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
+			$transactions = array();
+			foreach ($result as $array_value) {
+				$utxo_object->txid = $array_value["txid"];
+				$utxo_object->vout = $array_value["vout"];
+				array_push($transactions, $utxo_object);
+				if ( $array_value["amount"] >= $balance_amount ) {
+					$outputs->$recipient = $amount;
+					$outputs->$change_address = $amount - $array_value["amount"];
+					$rawtxhex = $this->jsonrpc->createrawtransaction($transactions, $outputs);
+					$result = $this->jsonrpc->signrawtransaction($rawtxhex);
+					if ($result->complete) {
+						$txid = $this->jsonrpc->sendrawtransaction($result->hex);
+						return $txid;
+					}					
+				} else {
+					$balance_amount = $balance_amount - $array_value["amount"];
+				}
 			}
-    	}
-		return $amount;
-	}
-
-    function getnewaddress() {
-        return $this->jsonrpc->getnewaddress();
-	}
-
-    function getrawchangeaddress() {
-        return $this->jsonrpc->getrawchangeaddress();
-	}
-
-	function getAddressList($user_session)
-	{
-		return $this->jsonrpc->getaddressesbyaccount("zelles(" . $user_session . ")");
-		//return array("1test", "1test");
-	}
-
-	function getTransactionList($user_session)
-	{
-		return $this->jsonrpc->listtransactions("zelles(" . $user_session . ")", 10);
-	}
-
-	function withdraw($user_session, $address, $amount)
-	{
-		return $this->jsonrpc->sendfrom("zelles(" . $user_session . ")", $address, (float)$amount, 6);
-		//return "ok wow";
+		}
+		return $txid;
 	}
 }
 ?>
