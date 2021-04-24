@@ -46,11 +46,12 @@ class dgcClient {
 					$outputs->$recipient = $amount;
 					$outputs->$change_address = $amount - $array_value["amount"];
 					$rawtxhex = $this->jsonrpc->createrawtransaction($transactions, $outputs);
-					$result = $this->jsonrpc->signrawtransaction($rawtxhex);
-					if ($result->complete) {
+					$result = $this->jsonrpc->fundrawtransaction($rawtxhex);
+					//$result = $this->jsonrpc->signrawtransaction($rawtxhex);
+					//if ($result->complete) {
 						$txid = $this->jsonrpc->sendrawtransaction($result->hex);
 						return $txid;
-					}					
+					//}					
 				} else {
 					$balance_amount = $balance_amount - $array_value["amount"];
 				}
