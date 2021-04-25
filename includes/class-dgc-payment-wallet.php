@@ -122,29 +122,6 @@ if ( ! class_exists( 'dgc_Payment_Wallet' ) ) {
             }
             if ( $wpdb->insert( "{$wpdb->base_prefix}dgc_payment_transactions", apply_filters( 'dgc_payment_transactions_args', array( 'blog_id' => $GLOBALS['blog_id'], 'user_id' => $this->user_id, 'type' => $type, 'amount' => $amount, 'balance' => $balance, 'currency' => get_woocommerce_currency(), 'details' => $details, 'date' => current_time('mysql') ), array( '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ) ) {
                 $transaction_id = $wpdb->insert_id;
-/*
-                // dgc-API-call:begin: /createRecord
-                $transaction_id = time();
-                $data =  apply_filters( 'dgc_payment_transactions_args', array( 
-                    'transaction_id'=> $transaction_id, 
-                    'blog_id'       => $GLOBALS['blog_id'], 
-                    'user_id'       => $this->user_id, 
-                    'publicKey'		=> get_user_meta($this->user_id, "publicKey", true ),
-                    'type'          => $type,
-                    'amount'        => $amount, 
-                    'balance'       => $balance, 
-                    'currency'      => get_woocommerce_currency(), 
-                    'details'       => $details, 
-                    'deleted'     => 0, 
-                    'date'          => time() 
-                ), array( '%d', '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%d', '%d') ) ;
-                $dgc_API_args = array(
-                    'table'		=> $wpdb->prefix . 'dgc_payment_transactions',
-                    'data'		=> $data,
-                );
-                $dgc_API_res = dgc_API_call('/createRecord', 'POST', $dgc_API_args);
-                // dgc-API-call:end: /createRecord
-*/    
                 update_user_meta($this->user_id, $this->meta_key, $balance);
                 clear_dgc_payment_cache( $this->user_id );
                 do_action( 'dgc_payment_transaction_recorded', $transaction_id, $this->user_id, $amount, $type);
