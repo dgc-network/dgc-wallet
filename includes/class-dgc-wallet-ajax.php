@@ -188,9 +188,9 @@ if ( ! class_exists( 'dgc_Wallet_Ajax' ) ) {
 
         public function dgc_wallet_partial_payment_update_session() {
             if ( isset( $_POST['checked'] ) && $_POST['checked'] == 'true' ) {
-                update_payment_partial_payment_session(true );
+                update_partial_payment_session(true );
             } else {
-                update_payment_partial_payment_session();
+                update_partial_payment_session();
             }
             wp_die();
         }

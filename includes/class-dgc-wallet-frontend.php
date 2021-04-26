@@ -202,7 +202,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
         public function dgc_wallet_frontend_loaded() {
             // reset partial payment session
             if (!is_ajax()) {
-                update_payment_partial_payment_session();
+                update_partial_payment_session();
             }
             /**
              * Process payment recharge.
@@ -334,7 +334,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
                     do_action('dgc_wallet_transfer_amount_credited', $credit_transaction_id, $whom->ID, get_current_user_id());
                     $debit_transaction_id = dgc_wallet()->payment->debit(get_current_user_id(), $debit_amount, $debit_note);
                     do_action('dgc_wallet_transfer_amount_debited', $debit_transaction_id, get_current_user_id(), $whom->ID);
-                    update_payment_transaction_meta($debit_transaction_id, '_payment_transfer_charge', $transfer_charge, get_current_user_id());
+                    update_transaction_meta($debit_transaction_id, '_payment_transfer_charge', $transfer_charge, get_current_user_id());
                     $response = array(
                         'is_valid' => true,
                         'message' => __('Amount transferred successfully!', 'text-domain')
@@ -404,7 +404,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          */
         public function restrict_other_from_add_to_cart($valid) {
             $recharge_product = get_rechargeable_product();
-            if (is_payment_rechargeable_cart()) {
+            if (is_rechargeable_cart()) {
                 wc_add_notice(apply_filters('dgc_wallet_restrict_other_from_add_to_cart', __('You can not add another product while your cart contains with payment rechargeable product.', 'text-domain')), 'error');
                 $valid = false;
             }
@@ -418,7 +418,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * @return type
          */
         public function woocommerce_available_payment_gateways($_available_gateways) {
-            if (is_payment_rechargeable_cart()) {
+            if (is_rechargeable_cart()) {
                 foreach ($_available_gateways as $gateway_id => $gateway) {
                     if (dgc_wallet()->settings_api->get_option($gateway_id, '_wallet_settings_general', 'on') != 'on') {
                         unset($_available_gateways[$gateway_id]);
@@ -432,7 +432,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * Cashback notice
          */
         public function woocommerce_before_cart_table() {
-            if (dgc_wallet()->cashback->calculate_cashback() && !is_payment_rechargeable_cart() && apply_filters('display_cashback_notice_at_woocommerce_page', true)) :
+            if (dgc_wallet()->cashback->calculate_cashback() && !is_rechargeable_cart() && apply_filters('display_cashback_notice_at_woocommerce_page', true)) :
                 ?>
                 <div class="woocommerce-Message woocommerce-Message--info woocommerce-info">
                     <?php
@@ -456,7 +456,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          */
         public function woocommerce_checkout_order_processed($order_id, $posted_data, $order) {
             $cashback_amount = dgc_wallet()->cashback->calculate_cashback();
-            if ($cashback_amount && !is_payment_rechargeable_order(wc_get_order($order_id)) && is_user_logged_in()) {
+            if ($cashback_amount && !is_rechargeable_order(wc_get_order($order_id)) && is_user_logged_in()) {
                 update_post_meta($order_id, '_payment_cashback', $cashback_amount);
             }
         }
@@ -469,13 +469,13 @@ if (!class_exists('dgc_Wallet_Frontend')) {
             $parial_payment_amount = apply_filters('dgc_wallet_partial_payment_amount', dgc_wallet()->payment->get_wallet_balance(get_current_user_id(), 'edit'));
             if ($parial_payment_amount > 0) {
                 $fee = array(
-                    'id' => '_via_payment_partial_payment',
+                    'id' => '_via_partial_payment',
                     'name' => __('Via payment', 'text-domain'),
                     'amount' => (float) -1 * $parial_payment_amount,
                     'taxable' => false,
                     'tax_class' => '',
                 );
-                if (is_enable_payment_partial_payment() && $parial_payment_amount) {
+                if (is_enable_partial_payment() && $parial_payment_amount) {
                     wc()->cart->fees_api()->add_fee($fee);
                 } else {
                     $all_fees = wc()->cart->fees_api()->get_fees();
@@ -494,7 +494,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * @return array
          */
         public function woocommerce_cart_totals_get_fees_from_cart_taxes($fee_taxes, $fee) {
-            if ('_via_payment_partial_payment' === $fee->object->id) {
+            if ('_via_partial_payment' === $fee->object->id) {
                 $fee_taxes = array();
             }
             return $fee_taxes;
@@ -505,7 +505,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * @return NULL
          */
         public function woocommerce_review_order_after_order_total() {
-            if (apply_filters('dgc_wallet_disable_partial_payment', ( is_full_payment_through_payment() || is_payment_rechargeable_cart()))) {
+            if (apply_filters('dgc_wallet_disable_partial_payment', ( is_full_payment_through_payment() || is_rechargeable_cart()))) {
                 return;
             }
             wp_enqueue_style('dashicons');
@@ -627,7 +627,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          */
         public function woocommerce_cart_get_total($total) {
             if (is_user_logged_in()) {
-                $total += get_dgc_wallet_coupon_cashback_amount();
+                $total += get_coupon_cashback_amount();
             }
             return $total;
         }

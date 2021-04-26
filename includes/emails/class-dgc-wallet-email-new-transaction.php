@@ -54,7 +54,7 @@ if ( ! class_exists( 'dgc_Wallet_Email_New_Transaction' ) ) {
          */
         public function trigger( $transaction_id ) {
             
-            $transaction = get_payment_transaction( $transaction_id );
+            $transaction = get_transaction( $transaction_id );
             if ( $transaction ) {
                 $this->setup_locale();
 

@@ -110,7 +110,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
      * @return boolean
      */
     public function is_available() {
-        return apply_filters( 'dgc_wallet_payment_is_available', ( parent::is_available() && is_full_payment_through_payment() && is_user_logged_in() && ! is_enable_payment_partial_payment() ) );
+        return apply_filters( 'dgc_wallet_payment_is_available', ( parent::is_available() && is_full_payment_through_payment() && is_user_logged_in() && ! is_enable_partial_payment() ) );
     }
 
     public function get_icon() {
@@ -216,7 +216,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
                 return;
             }
             $order = wc_get_order( $order_id );
-            if ( ! is_payment_rechargeable_order( $order ) ) {
+            if ( ! is_rechargeable_order( $order ) ) {
                 return;
             }
             $recharge_amount = apply_filters( 'dgc_wallet_credit_purchase_amount', $order->get_subtotal( 'edit' ), $order_id );
@@ -233,7 +233,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
             if ( $transaction_id ) {
                 update_post_meta( $order_id, '_dgc_wallet_purchase_credited', true );
                 update_post_meta( $order_id, '_payment_payment_transaction_id', $transaction_id );
-                update_payment_transaction_meta( $transaction_id, '_dgc_wallet_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
+                update_transaction_meta( $transaction_id, '_dgc_wallet_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
                 do_action( 'dgc_wallet_credit_purchase_completed', $transaction_id, $order );
             }
         }
@@ -245,7 +245,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
                 $transaction_id = dgc_wallet()->payment->debit( $order->get_customer_id(), $partial_payment_amount, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
                 if ( $transaction_id ) {
                     $order->add_order_note(sprintf( __( '%s paid through payment', 'text-domain' ), wc_price( $partial_payment_amount, dgc_wallet_wc_price_args($order->get_customer_id()) ) ) );
-                    update_payment_transaction_meta( $transaction_id, '_partial_payment', true, $order->get_customer_id() );
+                    update_transaction_meta( $transaction_id, '_partial_payment', true, $order->get_customer_id() );
                     update_post_meta( $order_id, '_partial_pay_through_payment_compleate', $transaction_id );
                     do_action( 'dgc_wallet_partial_payment_completed', $transaction_id, $order );
                 }

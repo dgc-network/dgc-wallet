@@ -32,7 +32,7 @@ final class dgc_Wallet {
     public $cashback = null;
 
     /**
-     * Payment REST API
+     * REST API
      * @var dgc_Wallet_API 
      */
     public $rest_api = null;
@@ -293,7 +293,7 @@ final class dgc_Wallet {
      * @return array
      */
     public function woocommerce_reports_get_order_report_query( $query ) {
-        $rechargable_orders = get_payment_rechargeable_orders();
+        $rechargable_orders = get_rechargeable_orders();
         if ( ! empty( $rechargable_orders) && apply_filters('dgc_wallet_exclude_payment_rechargeable_orders_from_report', true) ) {
             $exclude_orders = implode( ', ', $rechargable_orders);
             $query['where'] .= " AND posts.ID NOT IN ({$exclude_orders})";
@@ -305,8 +305,8 @@ final class dgc_Wallet {
      */
     public function add_marketplace_support() {
         if (class_exists( 'WCMp' ) ) {
-            include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/wc-merketplace/class-dgc-wallet-wcmp-gateway.php' );
-            include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/wc-merketplace/class-dgc-wallet-wcmp.php' );
+            include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/wcmp/class-dgc-wallet-wcmp-gateway.php' );
+            include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/wcmp/class-dgc-wallet-wcmp.php' );
         }
         if (class_exists( 'WeDevs_Dokan' ) ) {
             include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/dokan/class-dgc-wallet-dokan.php' );

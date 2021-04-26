@@ -85,7 +85,7 @@ if (!class_exists('dgc_Wallet_Cashback')) {
          */
         private static function calculate_cashback_form_cart() {
             $cashback_amount = 0;
-            if(is_payment_rechargeable_cart()){
+            if(is_rechargeable_cart()){
                 return $cashback_amount;
             }
             switch (self::$cashback_rule) {
@@ -135,7 +135,7 @@ if (!class_exists('dgc_Wallet_Cashback')) {
         private static function calculate_cashback_form_order($order_id = 0) {
             $cashback_amount = 0;
             $order = wc_get_order($order_id);
-            if (!$order || is_payment_rechargeable_order($order)) {
+            if (!$order || is_rechargeable_order($order)) {
                 return $cashback_amount;
             }
             switch (self::$cashback_rule) {

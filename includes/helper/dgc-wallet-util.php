@@ -1,53 +1,53 @@
 <?php
 
-if ( ! function_exists( 'is_payment_rechargeable_order' ) ) {
+if ( ! function_exists( 'is_rechargeable_order' ) ) {
 
     /**
      * Check if order contains rechargeable product
      * @param WC_Order object $order
      * @return boolean
      */
-    function is_payment_rechargeable_order( $order ) {
-        $is_payment_rechargeable_order = false;
+    function is_rechargeable_order( $order ) {
+        $is_rechargeable_order = false;
         foreach ( $order->get_items( 'line_item' ) as $item ) {
             $product_id = $item['product_id'];
             if ( $product_id == get_rechargeable_product()->get_id() ) {
-                $is_payment_rechargeable_order = true;
+                $is_rechargeable_order = true;
                 break;
             }
         }
-        return apply_filters( 'dgc_wallet_is_payment_rechargeable_order', $is_payment_rechargeable_order, $order );
+        return apply_filters( 'dgc_wallet_is_rechargeable_order', $is_rechargeable_order, $order );
     }
 
 }
 
-if ( ! function_exists( 'is_payment_rechargeable_cart' ) ) {
+if ( ! function_exists( 'is_rechargeable_cart' ) ) {
 
     /**
      * Check if cart contains rechargeable product
      * @return boolean
      */
-    function is_payment_rechargeable_cart() {
-        $is_payment_rechargeable_cart = false;
+    function is_rechargeable_cart() {
+        $is_rechargeable_cart = false;
         if ( ! is_null( wc()->cart) && sizeof( wc()->cart->get_cart() ) > 0 && get_rechargeable_product() ) {
             foreach ( wc()->cart->get_cart() as $key => $cart_item ) {
                 if ( $cart_item['product_id'] == get_rechargeable_product()->get_id() ) {
-                    $is_payment_rechargeable_cart = true;
+                    $is_rechargeable_cart = true;
                     break;
                 }
             }
         }
-        return apply_filters( 'dgc_wallet_is_payment_rechargeable_cart', $is_payment_rechargeable_cart);
+        return apply_filters( 'dgc_wallet_is_rechargeable_cart', $is_rechargeable_cart);
     }
 
 }
 
-if( !function_exists( 'get_dgc_wallet_coupon_cashback_amount' ) ){
+if( !function_exists( 'get_coupon_cashback_amount' ) ){
     /**
      * Get coupon cash-back amount from cart.
      * @return Number
      */
-    function get_dgc_wallet_coupon_cashback_amount(){
+    function get_coupon_cashback_amount(){
         $coupon_cashback_amount = 0;
         if ( is_user_logged_in() ) {
             foreach (WC()->cart->get_applied_coupons() as $code) {
@@ -63,17 +63,17 @@ if( !function_exists( 'get_dgc_wallet_coupon_cashback_amount' ) ){
     
 }
 
-if(!function_exists('get_dgc_wallet_cart_fee_total')){
+if(!function_exists('get_cart_fee_total')){
     /**
      * Get total fee amount from cart.
      * @return number
      */
-    function get_dgc_wallet_cart_fee_total(){
+    function get_cart_fee_total(){
         $fee_amount = 0;
         $fees = wc()->cart->get_fees();
         if($fees){
             foreach ($fees as $fee_key => $fee){
-                if('_via_payment_partial_payment' != $fee_key){
+                if('_via_partial_payment' != $fee_key){
                     $fee_amount += $fee->amount;
                 }
             }
@@ -82,33 +82,33 @@ if(!function_exists('get_dgc_wallet_cart_fee_total')){
     }
 }
 
-if ( ! function_exists( 'get_dgc_wallet_cart_total' ) ) {
+if ( ! function_exists( 'get_cart_total' ) ) {
     /**
      * Get WooCommerce cart total.
      * @return number
      */
-    function get_dgc_wallet_cart_total() {
+    function get_cart_total() {
         $cart_total = 0;
         if ( !is_admin() && is_array( wc()->cart->cart_contents) && sizeof( wc()->cart->cart_contents) > 0 ) {
-            $cart_total = wc()->cart->get_subtotal( 'edit' ) + wc()->cart->get_taxes_total() + wc()->cart->get_shipping_total( 'edit' ) - wc()->cart->get_discount_total() + get_dgc_wallet_coupon_cashback_amount() + get_dgc_wallet_cart_fee_total();
+            $cart_total = wc()->cart->get_subtotal( 'edit' ) + wc()->cart->get_taxes_total() + wc()->cart->get_shipping_total( 'edit' ) - wc()->cart->get_discount_total() + get_coupon_cashback_amount() + get_cart_fee_total();
         }
         return apply_filters( 'dgc_wallet_cart_total', $cart_total );
     }
 
 }
 
-if ( ! function_exists( 'is_enable_payment_partial_payment' ) ) {
+if ( ! function_exists( 'is_enable_partial_payment' ) ) {
     /**
      * Check if enable partial payment.
      * @return Boolean
      */
-    function is_enable_payment_partial_payment() {
+    function is_enable_partial_payment() {
         $is_enable = false;
-        $cart_total = get_dgc_wallet_cart_total();
-        if ( ! is_payment_rechargeable_cart() && is_user_logged_in() && ( ( ! is_null( wc()->session) && wc()->session->get( 'is_payment_partial_payment', false ) ) || 'on' === dgc_wallet()->settings_api->get_option( 'is_auto_deduct_for_partial_payment', '_wallet_settings_general' ) ) && $cart_total >= apply_filters( 'dgc_wallet_partial_payment_amount', dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ) ) ) {
+        $cart_total = get_cart_total();
+        if ( ! is_rechargeable_cart() && is_user_logged_in() && ( ( ! is_null( wc()->session) && wc()->session->get( 'is_partial_payment', false ) ) || 'on' === dgc_wallet()->settings_api->get_option( 'is_auto_deduct_for_partial_payment', '_wallet_settings_general' ) ) && $cart_total >= apply_filters( 'dgc_wallet_partial_payment_amount', dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ) ) ) {
             $is_enable = true;
         }
-        return apply_filters( 'is_enable_payment_partial_payment', $is_enable);
+        return apply_filters( 'is_enable_partial_payment', $is_enable);
     }
 
 }
@@ -121,7 +121,7 @@ if( !function_exists( 'is_partial_payment_order_item' ) ){
      * @return boolean
      */
     function is_partial_payment_order_item($item_id, $item){
-        if( get_metadata( 'order_item', $item_id, '_legacy_fee_key', true ) && '_via_payment_partial_payment' === get_metadata( 'order_item', $item_id, '_legacy_fee_key', true ) ){
+        if( get_metadata( 'order_item', $item_id, '_legacy_fee_key', true ) && '_via_partial_payment' === get_metadata( 'order_item', $item_id, '_legacy_fee_key', true ) ){
             return true;
         }
         else if ( 'via_payment' === strtolower(str_replace( ' ', '_', $item->get_name( 'edit' ) ) ) ) {
@@ -154,26 +154,26 @@ if ( ! function_exists( 'get_order_partial_payment_amount' ) ) {
 
 }
 
-if ( ! function_exists( 'update_payment_partial_payment_session' ) ) {
+if ( ! function_exists( 'update_partial_payment_session' ) ) {
     /**
      * Refresh WooCommerce session for partial payment.
      * @param boolean $set
      */
-    function update_payment_partial_payment_session( $set = false ) {
+    function update_partial_payment_session( $set = false ) {
         if(!is_null(wc()->session)){
-            wc()->session->set( 'is_payment_partial_payment', $set );
+            wc()->session->set( 'is_partial_payment', $set );
         }
     }
 
 }
 
-if ( ! function_exists( 'get_payment_rechargeable_orders' ) ) {
+if ( ! function_exists( 'get_rechargeable_orders' ) ) {
 
     /**
-     * Return payment rechargeable order id 
+     * Return rechargeable order id 
      * @return array
      */
-    function get_payment_rechargeable_orders() {
+    function get_rechargeable_orders() {
         $args = array(
             'posts_per_page'   => -1,
             'meta_key'         => '_dgc_wallet_purchase_credited',
@@ -201,7 +201,7 @@ if ( ! function_exists( 'get_rechargeable_product' ) ) {
 
 }
 
-if ( ! function_exists( 'set_payment_transaction_meta' ) ) {
+if ( ! function_exists( 'set_transaction_meta' ) ) {
 
     /**
      * Insert meta data into transaction meta table
@@ -211,7 +211,7 @@ if ( ! function_exists( 'set_payment_transaction_meta' ) ) {
      * @param mixed $meta_value
      * @return boolean
      */
-    function set_payment_transaction_meta( $transaction_id, $meta_key, $meta_value, $user_id = '' ) {
+    function set_transaction_meta( $transaction_id, $meta_key, $meta_value, $user_id = '' ) {
         global $wpdb;
         $meta_key   = wp_unslash( $meta_key );
         $meta_value = wp_unslash( $meta_value );
@@ -224,7 +224,7 @@ if ( ! function_exists( 'set_payment_transaction_meta' ) ) {
 
 }
 
-if ( ! function_exists( 'update_payment_transaction_meta' ) ) {
+if ( ! function_exists( 'update_transaction_meta' ) ) {
 
     /**
      * Update meta data into transaction meta table
@@ -234,10 +234,10 @@ if ( ! function_exists( 'update_payment_transaction_meta' ) ) {
      * @param mixed $meta_value
      * @return boolean
      */
-    function update_payment_transaction_meta( $transaction_id, $meta_key, $meta_value, $user_id = '' ) {
+    function update_transaction_meta( $transaction_id, $meta_key, $meta_value, $user_id = '' ) {
         global $wpdb;
         if ( is_null( $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->base_prefix}dgc_wallet_transaction_meta WHERE transaction_id = %s AND meta_key = %s", array( $transaction_id, $meta_key ) ) ) ) ) {
-            return set_payment_transaction_meta( $transaction_id, $meta_key, $meta_value, $user_id );
+            return set_transaction_meta( $transaction_id, $meta_key, $meta_value, $user_id );
         } else {
             $meta_key   = wp_unslash( $meta_key );
             $meta_value = wp_unslash( $meta_value );
@@ -250,7 +250,7 @@ if ( ! function_exists( 'update_payment_transaction_meta' ) ) {
 
 }
 
-if ( ! function_exists( 'get_payment_transaction_meta' ) ) {
+if ( ! function_exists( 'get_transaction_meta' ) ) {
 
     /**
      * Fetch transaction meta
@@ -260,7 +260,7 @@ if ( ! function_exists( 'get_payment_transaction_meta' ) ) {
      * @param boolean $single
      * @return boolean
      */
-    function get_payment_transaction_meta( $transaction_id, $meta_key, $single = true ) {
+    function get_transaction_meta( $transaction_id, $meta_key, $single = true ) {
         global $wpdb;
         $result = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->base_prefix}dgc_wallet_transaction_meta WHERE transaction_id = %s AND meta_key = %s", $transaction_id, $meta_key ) );
         if ( ! is_null( $result ) ) {
@@ -272,7 +272,7 @@ if ( ! function_exists( 'get_payment_transaction_meta' ) ) {
 
 }
 
-if ( ! function_exists( 'get_payment_transactions' ) ) {
+if ( ! function_exists( 'get_transactions' ) ) {
 
     /**
      * Get all payment transactions
@@ -281,7 +281,7 @@ if ( ! function_exists( 'get_payment_transactions' ) ) {
      * @param mixed $output
      * @return db rows
      */
-    function get_payment_transactions( $args = array(), $output = OBJECT) {
+    function get_transactions( $args = array(), $output = OBJECT) {
         global $wpdb;
         $default_args = array(
             'user_id'    => get_current_user_id(),
@@ -355,41 +355,6 @@ if ( ! function_exists( 'get_payment_transactions' ) ) {
             // Enable big selects for reports
             $wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
             $cached_results[$user_id][$query_hash] = $wpdb->get_results( $query );
-/*
-            // dgc-API-call:begin: /retrieveRecords
-            //$dgc_API_result = array();
-	    	$dgc_API_args = array(
-		    	'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
-			    'query'		=> array(
-				    //'user_id'	=> $user_id,
-				    //'deleted'	=> 0,
-                    'publicKey'	=> get_user_meta($user_id, "publicKey", true ),
-			    )
-		    );
-            if ($args['where'] == array(array('key'=>'type', 'value'=>'credit'))) {
-                $dgc_API_args['query'] = array(
-				    //'user_id'	=> $user_id,
-				    'type'	    => 'credit',
-                    'publicKey'	=> get_user_meta($user_id, "publicKey", true ),
-                );
-            }
-            if ($args['where'] == array(array('key'=>'type', 'value'=>'debit'))) {
-                $dgc_API_args['query'] = array(
-				    //'user_id'	=> $user_id,
-				    'type'	    => 'debit',
-                    'publicKey'	=> get_user_meta($user_id, "publicKey", true ),
-                );
-            }
-		    $dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
-		    foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-                if (null !== $dgc_API_row->properties) {
-                    //array_push($dgc_API_result, $dgc_API_row->properties) ;
-                    array_push($cached_results[$user_id][$query_hash], $dgc_API_row->properties) ;
-                }
-		    }
-            //$cached_results[$user_id][$query_hash] = $dgc_API_result;
-            // dgc-API-call:end: /retrieveRecords
-*/            
             set_transient( 'dgc_wallet_transaction_results', $cached_results, DAY_IN_SECONDS );
         }
 
@@ -400,32 +365,16 @@ if ( ! function_exists( 'get_payment_transactions' ) ) {
 
 }
 
-if(!function_exists('get_payment_transaction')){
-    function get_payment_transaction($transaction_id){
+if(!function_exists('get_transaction')){
+    function get_transaction($transaction_id){
         global $wpdb;
         $sql = "SELECT * FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE transaction_id = {$transaction_id}";
         $transaction = $wpdb->get_row($sql);
-/*
-		// dgc-API-call:begin: /retrieveRecords
-		$dgc_API_args = array(
-			'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
-			'query'		=> array(
-				'transaction_id'	=> $transaction_id,
-			)
-		);
-		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
-		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-            if (null !== $dgc_API_row->properties){
-                $transaction = $dgc_API_row->properties;
-            }
-		}
-        // dgc-API-call:end: /retrieveRecords
-*/        
         return $transaction;
     }
 }
 
-if(!function_exists('get_payment_transaction_type')){
+if(!function_exists('get_transaction_type')){
     /**
      * Return transaction type by transaction id
      * @since 1.0.0
@@ -433,25 +382,9 @@ if(!function_exists('get_payment_transaction_type')){
      * @param int $transaction_id
      * @return type(string) | false
      */
-    function get_payment_transaction_type($transaction_id){
+    function get_transaction_type($transaction_id){
         global $wpdb;
         $transaction = $wpdb->get_row("SELECT type FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE transaction_id = {$transaction_id}");
-/*        
-		// dgc-API-call:begin: /retrieveRecords
-		$dgc_API_args = array(
-			'table'		=> $wpdb->prefix . 'dgc_wallet_transactions',
-			'query'		=> array(
-				'transaction_id'	=> $transaction_id,
-			)
-		);
-		$dgc_API_res = dgc_API_call('/retrieveRecords/', 'POST', $dgc_API_args);
-		foreach(json_decode($dgc_API_res['body']) as $dgc_API_row) {
-            if (null !== $dgc_API_row->properties){
-                $transaction = $dgc_API_row->properties;
-            }
-		}
-        // dgc-API-call:end: /retrieveRecords
-*/        
         if( $transaction ){
             return $transaction->type;
         }
@@ -459,28 +392,13 @@ if(!function_exists('get_payment_transaction_type')){
     }
 }
 
-if ( ! function_exists( 'update_payment_transaction' ) ) {
+if ( ! function_exists( 'update_transaction' ) ) {
 
-    function update_payment_transaction( $transaction_id, $user_id, $data = array(), $format = NULL ) {
+    function update_transaction( $transaction_id, $user_id, $data = array(), $format = NULL ) {
         global $wpdb;
         $update = false;
         if ( ! empty( $data) ) {
             $update = $wpdb->update( "{$wpdb->base_prefix}dgc_wallet_transactions", $data, array( 'transaction_id' => $transaction_id ), $format, array( '%d' ) );
-/*            
-			// dgc-API-call:begin: /updateRecords
-			$dgc_API_args = array(
-				'table'	=> $wpdb->prefix . 'dgc_wallet_transactions',
-                'query'	=> array(
-                    'transaction_id'	=> $transaction_id,
-                ),
-				'data'	=> $data,
-			);
-			$dgc_API_res = dgc_API_call('/updateRecords', 'POST', $dgc_API_args);
-			if (json_decode($dgc_API_res['response']['code']) == 200) {
-				$update = true; 
-			}
-            // dgc-API-call:end: /updateRecords
-*/            
             if ( $update ) {
                 clear_dgc_wallet_cache( $user_id );
             }
@@ -508,15 +426,15 @@ if ( ! function_exists( 'clear_dgc_wallet_cache' ) ) {
 
 }
 
-if ( ! function_exists( 'get_payment_cashback_amount' ) ) {
+if ( ! function_exists( 'get_cashback_amount' ) ) {
 
     /**
      * 
      * @param int $order_id
      * @return float
      */
-    function get_payment_cashback_amount( $order_id = 0 ) {
-        _deprecated_function('get_payment_cashback_amount', '1.0.0', 'dgc_wallet()->cashback->calculate_cashback()');
+    function get_cashback_amount( $order_id = 0 ) {
+        _deprecated_function('get_cashback_amount', '1.0.0', 'dgc_wallet()->cashback->calculate_cashback()');
         if($order_id){
             return dgc_wallet()->cashback->calculate_cashback(false, $order_id);
         }
@@ -533,8 +451,8 @@ if ( ! function_exists( 'is_full_payment_through_payment' ) ) {
      */
     function is_full_payment_through_payment() {
         $is_valid_payment_through_payment = true;
-        $current_payment_balance          = dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' );
-        if ( !is_admin() && ( is_array( wc()->cart->cart_contents) && sizeof( wc()->cart->cart_contents) > 0 ) && ( $current_payment_balance < get_dgc_wallet_cart_total() || is_payment_rechargeable_cart() ) ) {
+        $current_wallet_balance          = dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' );
+        if ( !is_admin() && ( is_array( wc()->cart->cart_contents) && sizeof( wc()->cart->cart_contents) > 0 ) && ( $current_wallet_balance < get_cart_total() || is_rechargeable_cart() ) ) {
             $is_valid_payment_through_payment = false;
         }
         return apply_filters( 'is_valid_payment_through_payment', $is_valid_payment_through_payment );
@@ -542,9 +460,9 @@ if ( ! function_exists( 'is_full_payment_through_payment' ) ) {
 
 }
 
-if ( ! function_exists( 'get_all_payment_users' ) ) {
+if ( ! function_exists( 'get_all_users' ) ) {
 
-    function get_all_payment_users( $exclude_me = true ) {
+    function get_all_users( $exclude_me = true ) {
         $args = array(
             'blog_id' => $GLOBALS['blog_id'],
             'exclude' => $exclude_me ? array( get_current_user_id() ) : array(),
@@ -577,7 +495,7 @@ if ( ! function_exists( 'get_total_order_cashback_amount' ) ) {
                 $transaction_ids[] = $_coupon_cashback_transaction_id;
             }
             if ( ! empty( $transaction_ids ) ) {
-                $total_cashback_amount = array_sum( wp_list_pluck( get_payment_transactions( array( 'user_id' => $order->get_customer_id(), 'where' => array( array( 'key' => 'transaction_id', 'value' => $transaction_ids, 'operator' => 'IN' ) ) ) ), 'amount' ) );
+                $total_cashback_amount = array_sum( wp_list_pluck( get_transactions( array( 'user_id' => $order->get_customer_id(), 'where' => array( array( 'key' => 'transaction_id', 'value' => $transaction_ids, 'operator' => 'IN' ) ) ) ), 'amount' ) );
             }
         }
         return apply_filters( 'dgc_wallet_total_order_cashback_amount', $total_cashback_amount );

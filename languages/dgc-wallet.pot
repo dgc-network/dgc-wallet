@@ -694,8 +694,8 @@ msgstr ""
 
 #: includes/class-dgc-wallet-method.php:44
 #: includes/marketplace/dokan/class-dgc-wallet-dokan.php:55
-#: includes/marketplace/wc-merketplace/class-dgc-wallet-wcmp.php:36
-#: includes/marketplace/wc-merketplace/class-dgc-wallet-wcmp.php:41
+#: includes/marketplace/wcmp/class-dgc-wallet-wcmp.php:36
+#: includes/marketplace/wcmp/class-dgc-wallet-wcmp.php:41
 #: includes/marketplace/wcfmmp/class-dgc-wallet-wcfmmp-gateway.php:24
 msgid "Payment"
 msgstr ""
@@ -1125,16 +1125,16 @@ msgstr ""
 msgid "0.00"
 msgstr ""
 
-#: includes/marketplace/wc-merketplace/class-dgc-wallet-wcmp-gateway.php:29
+#: includes/marketplace/wcmp/class-dgc-wallet-wcmp-gateway.php:29
 #: includes/marketplace/wcfmmp/class-dgc-wallet-wcfmmp-gateway.php:48
 msgid "New transaction has been initiated"
 msgstr ""
 
-#: includes/marketplace/wc-merketplace/class-dgc-wallet-wcmp-gateway.php:42
+#: includes/marketplace/wcmp/class-dgc-wallet-wcmp-gateway.php:42
 msgid "Invalid payment method"
 msgstr ""
 
-#: includes/marketplace/wc-merketplace/class-dgc-wallet-wcmp-gateway.php:70
+#: includes/marketplace/wcmp/class-dgc-wallet-wcmp-gateway.php:70
 msgid "Commission received for commission id "
 msgstr ""
 

@@ -98,7 +98,7 @@ if ( ! class_exists( 'dgc_Blockchain_API' ) ) {
         }
         
         function dgc_API_test_shortcode() {
-            return json_encode(get_payment_transactions());
+            return json_encode(get_transactions());
             return dgc_API_last_exchange_shortcode();
         }
         

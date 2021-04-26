@@ -215,7 +215,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                     'order_id' => $post->ID,
                     'payment_method' => $order->get_payment_method( 'edit' ),
                     'default_price' => wc_price( 0 ),
-                    'is_refundable' => apply_filters( 'dgc_wallet_is_order_refundable', ( ! is_payment_rechargeable_order( $order ) && $order->get_payment_method( 'edit' ) != 'payment' ) && $order->get_customer_id( 'edit' ), $order ),
+                    'is_refundable' => apply_filters( 'dgc_wallet_is_order_refundable', ( ! is_rechargeable_order( $order ) && $order->get_payment_method( 'edit' ) != 'payment' ) && $order->get_customer_id( 'edit' ), $order ),
                     'i18n' => array(
                         'refund' => __( 'Refund', 'text-domain' ),
                         'via_payment' => __( 'to customer payment', 'text-domain' )
@@ -767,7 +767,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             if ( apply_filters( 'process_dgc_wallet_general_cashback', !get_post_meta( $order->get_id(), '_general_cashback_transaction_id', true ), $order ) && dgc_wallet()->cashback->calculate_cashback(false, $order->get_id()) ) {
                 $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), dgc_wallet()->cashback->calculate_cashback(false, $order->get_id()), __( 'Payment credit through cashback #', 'text-domain' ) . $order->get_order_number() );
                 if ( $transaction_id ) {
-                    update_payment_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
+                    update_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
                     update_post_meta( $order->get_id(), '_general_cashback_transaction_id', $transaction_id );
                     do_action( 'dgc_wallet_general_cashback_credited', $transaction_id );
                 }
@@ -778,7 +778,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                 if ( $coupon_cashback_amount ) {
                     $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), $coupon_cashback_amount, __( 'Payment credit through cashback by applying coupon', 'text-domain' ) );
                     if ( $transaction_id ) {
-                        update_payment_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
+                        update_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
                         update_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', $transaction_id );
                         do_action( 'dgc_wallet_coupon_cashback_credited', $transaction_id );
                     }

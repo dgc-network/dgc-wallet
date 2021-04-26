@@ -98,7 +98,7 @@ $menu_items = apply_filters('dgc_wallet_nav_menu_items', array(
             <?php } ?> 
             <?php do_action( 'dgc_wallet_menu_content' ); ?>
         <?php } else if ( apply_filters( 'dgc_wallet_is_enable_transaction_details', true ) ) { ?>
-            <?php $transactions = get_payment_transactions( array( 'limit' => apply_filters( 'dgc_wallet_transactions_count', 10 ) ) ); ?>
+            <?php $transactions = get_transactions( array( 'limit' => apply_filters( 'dgc_wallet_transactions_count', 10 ) ) ); ?>
             <?php if ( ! empty( $transactions ) ) { ?>
                 <ul class="dgc-wallet-transactions-items">
                     <?php foreach ( $transactions as $transaction ) : ?> 

@@ -69,7 +69,7 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
             $for_commissions = implode( ',', $this->commissions );
             $transaction_id  = dgc_wallet()->payment->credit( $this->vendor->id, $amount_to_pay, __( 'Commission received for commission id ', 'text-domain' ). $for_commissions );
             if ( $transaction_id ) {
-                update_payment_transaction_meta( $transaction_id, '_type', 'vendor_commission', $this->vendor->id );
+                update_transaction_meta( $transaction_id, '_type', 'vendor_commission', $this->vendor->id );
                 return true;
             }
             return false;

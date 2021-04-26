@@ -171,8 +171,8 @@ if ( ! class_exists( 'dgc_Wallet_Dokan' ) ) {
                     $transaction_id = dgc_wallet()->payment->credit( $data['user_id'], $data['amount'], __( 'Commission received for order id ', 'text-domain' ) . $data['order_id'] );
                     if ( $transaction_id ) {
                         $withdraw->insert_withdraw( $data);
-                        update_payment_transaction_meta( $transaction_id, '_dokan_withdrawal_id', $wpdb->insert_id );
-                        update_payment_transaction_meta( $transaction_id, '_type', 'vendor_commission', $data['user_id'] );
+                        update_transaction_meta( $transaction_id, '_dokan_withdrawal_id', $wpdb->insert_id );
+                        update_transaction_meta( $transaction_id, '_type', 'vendor_commission', $data['user_id'] );
                         // update on vendor-balance table
                         $wpdb->update( $wpdb->prefix . 'dokan_vendor_balance', array( 'credit' => $data['amount'] ), array( 'trn_id' => $data['order_id'], 'trn_type' => 'dokan_orders' ), array( '%f' ), array( '%d', '%s' ) );
                     }
@@ -259,14 +259,14 @@ if ( ! class_exists( 'dgc_Wallet_Dokan' ) ) {
             $payment_transaction = $wpdb->get_row( $wpdb->prepare( "SELECT transactions.transaction_id FROM {$wpdb->base_prefix}dgc_wallet_transactions AS transactions INNER JOIN {$wpdb->base_prefix}dgc_wallet_transaction_meta AS transaction_meta ON transactions.transaction_id = transaction_meta.transaction_id WHERE transaction_meta.meta_key = %s AND transaction_meta.meta_value = %d", '_dokan_withdrawal_id', $row_id ) );
             if (1 === $status) {
                 if ( $payment_transaction && isset( $payment_transaction->transaction_id ) ) {
-                    update_payment_transaction( $payment_transaction->transaction_id, $user_id, array( 'deleted' => 0 ), array( '%d' ) );
+                    update_transaction( $payment_transaction->transaction_id, $user_id, array( 'deleted' => 0 ), array( '%d' ) );
                 } else {
                     $transaction_id = dgc_wallet()->payment->credit( $user_id, $resualt->amount, __( 'Withdrawal request #' . $row_id ) );
-                    update_payment_transaction_meta( $transaction_id, '_dokan_withdrawal_id', $row_id );
+                    update_transaction_meta( $transaction_id, '_dokan_withdrawal_id', $row_id );
                 }
             } else {
                 if ( $payment_transaction && isset( $payment_transaction->transaction_id ) ) {
-                    update_payment_transaction( $payment_transaction->transaction_id, $user_id, array( 'deleted' => 1 ), array( '%d' ) );
+                    update_transaction( $payment_transaction->transaction_id, $user_id, array( 'deleted' => 1 ), array( '%d' ) );
                 }
             }
         }

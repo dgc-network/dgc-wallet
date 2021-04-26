@@ -105,7 +105,7 @@ class WC_REST_dgc_Wallet_Controller extends WC_REST_Controller {
     public function get_items( $request ) {
         //get parameters from request
         $params = $request->get_params();
-        $data = get_payment_transactions( array( 'user_id' => $params['id'] ) );
+        $data = get_transactions( array( 'user_id' => $params['id'] ) );
         return new WP_REST_Response( $data, 200 );
     }
     /**
