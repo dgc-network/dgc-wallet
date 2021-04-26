@@ -11,7 +11,7 @@ if ( ! function_exists( 'is_payment_rechargeable_order' ) ) {
         $is_payment_rechargeable_order = false;
         foreach ( $order->get_items( 'line_item' ) as $item ) {
             $product_id = $item['product_id'];
-            if ( $product_id == get_payment_rechargeable_product()->get_id() ) {
+            if ( $product_id == get_rechargeable_product()->get_id() ) {
                 $is_payment_rechargeable_order = true;
                 break;
             }
@@ -29,9 +29,9 @@ if ( ! function_exists( 'is_payment_rechargeable_cart' ) ) {
      */
     function is_payment_rechargeable_cart() {
         $is_payment_rechargeable_cart = false;
-        if ( ! is_null( wc()->cart) && sizeof( wc()->cart->get_cart() ) > 0 && get_payment_rechargeable_product() ) {
+        if ( ! is_null( wc()->cart) && sizeof( wc()->cart->get_cart() ) > 0 && get_rechargeable_product() ) {
             foreach ( wc()->cart->get_cart() as $key => $cart_item ) {
-                if ( $cart_item['product_id'] == get_payment_rechargeable_product()->get_id() ) {
+                if ( $cart_item['product_id'] == get_rechargeable_product()->get_id() ) {
                     $is_payment_rechargeable_cart = true;
                     break;
                 }
@@ -188,13 +188,13 @@ if ( ! function_exists( 'get_payment_rechargeable_orders' ) ) {
 
 }
 
-if ( ! function_exists( 'get_payment_rechargeable_product' ) ) {
+if ( ! function_exists( 'get_rechargeable_product' ) ) {
 
     /**
      * get rechargeable product
      * @return WC_Product object
      */
-    function get_payment_rechargeable_product() {
+    function get_rechargeable_product() {
         dgc_Wallet_Install::cteate_product_if_not_exist();
         return wc_get_product(apply_filters( 'dgc_wallet_rechargeable_product_id', get_option( '_dgc_wallet_recharge_product' ) ) );
     }

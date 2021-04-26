@@ -211,11 +211,11 @@ if (!class_exists('dgc_Wallet_Frontend')) {
                 $is_valid = $this->is_valid_payment_recharge_amount($_POST['dgc_wallet_balance_to_add']);
                 if ($is_valid['is_valid']) {
                     add_filter('woocommerce_add_cart_item_data', array($this, 'add_dgc_wallet_product_price_to_cart_item_data'), 10, 2);
-                    $product = get_payment_rechargeable_product();
-                    if ($product) {
+                    $recharge_product = get_rechargeable_product();
+                    if ($recharge_product) {
                         dgc_wallet_persistent_cart_update();
                         wc()->cart->empty_cart();
-                        wc()->cart->add_to_cart($product->get_id());
+                        wc()->cart->add_to_cart($recharge_product->get_id());
                         $redirect_url = apply_filters('dgc_wallet_redirect_to_checkout_after_added_amount', true) ? wc_get_checkout_url() : wc_get_cart_url();
                         wp_safe_redirect($redirect_url);
                         exit();
@@ -371,9 +371,9 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * @return boolean
          */
         public function make_dgc_wallet_recharge_product_purchasable($is_purchasable, $product) {
-            $payment_product = get_payment_rechargeable_product();
-            if ($payment_product) {
-                if ($payment_product->get_id() == $product->get_id()) {
+            $recharge_product = get_rechargeable_product();
+            if ($recharge_product) {
+                if ($recharge_product->get_id() == $product->get_id()) {
                     $is_purchasable = true;
                 }
             }
@@ -386,12 +386,12 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * @return NULL
          */
         public function dgc_wallet_set_recharge_product_price($cart) {
-            $product = get_payment_rechargeable_product();
-            if (!$product && empty($cart->cart_contents)) {
+            $recharge_product = get_rechargeable_product();
+            if (!$recharge_product && empty($cart->cart_contents)) {
                 return;
             }
             foreach ($cart->cart_contents as $key => $value) {
-                if (isset($value['recharge_amount']) && $value['recharge_amount'] && $product->get_id() == $value['product_id']) {
+                if (isset($value['recharge_amount']) && $value['recharge_amount'] && $recharge_product->get_id() == $value['product_id']) {
                     $value['data']->set_price($value['recharge_amount']);
                 }
             }
@@ -403,7 +403,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * @return boolean
          */
         public function restrict_other_from_add_to_cart($valid) {
-            $product = get_payment_rechargeable_product();
+            $recharge_product = get_rechargeable_product();
             if (is_payment_rechargeable_cart()) {
                 wc_add_notice(apply_filters('dgc_wallet_restrict_other_from_add_to_cart', __('You can not add another product while your cart contains with payment rechargeable product.', 'text-domain')), 'error');
                 $valid = false;

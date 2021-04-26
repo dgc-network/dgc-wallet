@@ -269,7 +269,8 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
                             'name' => 'bitcoind_rpc_host',
                             'label' => __( 'RPC Host', 'text-domain' ),
                             'desc' => __( 'Enter RPC Host address', 'text-domain' ),
-                            'type' => 'text'
+                            'type' => 'text',
+                            'default' => $this->bitcoind_rpc_default()
                         ),
                         array(
                             'name' => 'bitcoind_rpc_port',
@@ -306,11 +307,24 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
          * Fetch rechargeable product title
          * @return string title
          */
+        public function get_bitcoind_rpc_default() {
+            $rpc_default = array();
+            $rpc_default['host'] = 'localhost';
+            $rpc_default['port'] = '7998';
+            $rpc_default['username'] = 'digitalcoinrpc';
+            $rpc_default['password'] = '56c735f3910a53eeda0357670bc6a02f';
+            return $rpc_default;
+        }
+
+        /**
+         * Fetch rechargeable product title
+         * @return string title
+         */
         public function get_rechargeable_product_title() {
             $product_title = '';
-            $payment_product = get_payment_rechargeable_product();
-            if ( $payment_product) {
-                $product_title = $payment_product->get_title();
+            $recharge_product = get_rechargeable_product();
+            if ( $recharge_product) {
+                $product_title = $recharge_product->get_title();
             }
             return $product_title;
         }
@@ -468,10 +482,10 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
          * @return boolean | int 
          */
         public function set_rechargeable_product_title( $title) {
-            $payment_product = get_payment_rechargeable_product();
-            if ( $payment_product) {
-                $payment_product->set_name( $title);
-                return $payment_product->save();
+            $recharge_product = get_rechargeable_product();
+            if ( $recharge_product) {
+                $recharge_product->set_name( $title);
+                return $recharge_product->save();
             }
             return false;
         }
@@ -482,11 +496,11 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
          * @return boolean | int 
          */
         public function set_rechargeable_tax_status( $_tax_status, $_tax_class) {
-            $payment_product = get_payment_rechargeable_product();
-            if ( $payment_product) {
-                $payment_product->set_tax_status( $_tax_status);
-                $payment_product->set_tax_class( $_tax_class);
-                return $payment_product->save();
+            $recharge_product = get_rechargeable_product();
+            if ( $recharge_product) {
+                $recharge_product->set_tax_status( $_tax_status);
+                $recharge_product->set_tax_class( $_tax_class);
+                return $recharge_product->save();
             }
             return false;
         }
@@ -497,10 +511,10 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
          * @return boolean | int 
          */
         public function set_rechargeable_product_image( $attachment_id ) {
-            $payment_product = get_payment_rechargeable_product();
-            if ( $payment_product) {
-                $payment_product->set_image_id( $attachment_id );
-                return $payment_product->save();
+            $recharge_product = get_rechargeable_product();
+            if ( $recharge_product) {
+                $recharge_product->set_image_id( $attachment_id );
+                return $recharge_product->save();
             }
             return false;
         }

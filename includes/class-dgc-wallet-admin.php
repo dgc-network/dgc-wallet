@@ -206,7 +206,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
 
             if (in_array( $screen_id, array( 'product', 'edit-product' ) ) ) {
                 wp_enqueue_script( 'dgc_wallet_admin_product' );
-                wp_localize_script( 'dgc_wallet_admin_product', 'dgc_wallet_admin_product_param', array( 'product_id' => get_payment_rechargeable_product()->get_id(), 'is_hidden' => apply_filters( 'dgc_wallet_hide_rechargeable_product', true ) ) );
+                wp_localize_script( 'dgc_wallet_admin_product', 'dgc_wallet_admin_product_param', array( 'product_id' => get_rechargeable_product()->get_id(), 'is_hidden' => apply_filters( 'dgc_wallet_hide_rechargeable_product', true ) ) );
             }
             if (in_array( $screen_id, array( 'shop_order' ) ) ) {
                 $order = wc_get_order( $post->ID );

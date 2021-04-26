@@ -210,9 +210,9 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
          * @return void
          */
         public function payment_credit_purchase( $order_id ) {
-            $payment_product = get_payment_rechargeable_product();
+            $recharge_product = get_rechargeable_product();
             $charge_amount = 0;
-            if ( get_post_meta( $order_id, '_dgc_wallet_purchase_credited', true ) || !$payment_product) {
+            if ( get_post_meta( $order_id, '_dgc_wallet_purchase_credited', true ) || !$recharge_product) {
                 return;
             }
             $order = wc_get_order( $order_id );

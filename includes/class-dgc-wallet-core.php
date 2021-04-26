@@ -143,7 +143,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
          */
 /*        
         public function payment_credit_purchase( $order_id ) {
-            $payment_product = get_payment_rechargeable_product();
+            $payment_product = get_rechargeable_product();
             $charge_amount = 0;
             if ( get_post_meta( $order_id, '_dgc_wallet_purchase_credited', true ) || !$payment_product) {
                 return;
