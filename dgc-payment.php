@@ -36,7 +36,7 @@ if ( ! defined( 'DGC_PAYMENT_PLUGIN_FILE' ) ) {
  * Don't forget to include composer autoloader by uncommenting line below
  * if you're not already done it anywhere else in your project.
  **/
-include_once dirname( __FILE__ ) . '/vendor/autoload.php';
+//include_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
 /*
  * Include dgcRPC file.
