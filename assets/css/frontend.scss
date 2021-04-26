@@ -1,17 +1,17 @@
 @font-face {
-    font-family: 'dgcpayment';
-    src:  url('../fonts/dgcpayment.eot?tewfy0');
-    src:  url('../fonts/dgcpayment.eot?tewfy0#iefix') format('embedded-opentype'),
-        url('../fonts/dgcpayment.ttf?tewfy0') format('truetype'),
-        url('../fonts/dgcpayment.woff?tewfy0') format('woff'),
-        url('../fonts/dgcpayment.svg?tewfy0#dgcpayment') format('svg');
+    font-family: 'dgc_wallet';
+    src:  url('../fonts/dgc-wallet.eot?tewfy0');
+    src:  url('../fonts/dgc-wallet.eot?tewfy0#iefix') format('embedded-opentype'),
+        url('../fonts/dgc-wallet.ttf?tewfy0') format('truetype'),
+        url('../fonts/dgc-wallet.woff?tewfy0') format('woff'),
+        url('../fonts/dgc-wallet.svg?tewfy0#dgc_wallet') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
-[class^="dgc-payment-icon-"], [class*=" dgc-payment-icon-"] {
+[class^="dgc-wallet-icon-"], [class*=" dgc-wallet-icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'dgcpayment' !important;
+    font-family: 'dgc_wallet' !important;
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -24,11 +24,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.dgc-payment-icon-payment:before {
+.dgc-wallet-icon-payment:before {
     content: "\e900";
 }
 
-.dgc-payment-my-payment-container {
+.dgc-wallet-my-payment-container {
     max-width: 100%;
     overflow: hidden;
     border: 1px solid #f2f2f2;
@@ -36,21 +36,21 @@
     p {
         margin: 0 auto;
     }
-    .dgc-payment-sidebar {
+    .dgc-wallet-sidebar {
         width: 30%;
         float: left;
         background: #f2f2f2;
         min-height: 100px;
         padding-top: 20px;
     }
-    .dgc-payment-content {
+    .dgc-wallet-content {
         width: 70%;
         float: left;
         min-height: 100px;
         padding: 20px;
     }
 }
-.dgc-payment-sidebar {
+.dgc-wallet-sidebar {
     ul {
         margin: 0 auto;
         li {
@@ -84,24 +84,24 @@
         }
     }
 }
-.dgc-payment-sidebar-heading {
+.dgc-wallet-sidebar-heading {
     text-align: center;
 }
-.dgc-payment-content-h3 {
+.dgc-wallet-content-h3 {
     float: left;
     margin: 0 0 15px;
     line-height: 1em;
 }
-.dgc-payment-content {
-    .dgc-payment-price {
+.dgc-wallet-content {
+    .dgc-wallet-price {
         float: right;
         margin: 0 0 15px;
     }
 }
-.dgc-payment-content-heading {
+.dgc-wallet-content-heading {
     overflow: hidden;
 }
-.dgc-payment-transactions-items {
+.dgc-wallet-transactions-items {
     margin: 0 auto;
     li {
         overflow: hidden;
@@ -117,37 +117,37 @@
         }
     }
 }
-.dgc-payment-transaction-type-credit {
+.dgc-wallet-transaction-type-credit {
     color: #197F36;
 }
-.dgc-payment-transaction-type-debit {
+.dgc-wallet-transaction-type-debit {
     color: #BF0003;
 }
-.dgc-payment-balance-to-add {
+.dgc-wallet-balance-to-add {
     width: 100%;
 }
 .woo-add-to-payment {
     float: right;
     margin-top: 10px;
 }
-.dgc-payment-view-more {
+.dgc-wallet-view-more {
     float: right;
     span {
         vertical-align: middle;
     }
 }
-p.dgc-payment-field-container {
+p.dgc-wallet-field-container {
     margin-bottom: 11px;
 }
-.dgc-payment-select2 {
+.dgc-wallet-select2 {
     width: 100%;
 }
 @media (max-width: 600px) {
-    .dgc-payment-my-payment-container {
-        .dgc-payment-sidebar {
+    .dgc-wallet-my-payment-container {
+        .dgc-wallet-sidebar {
             width: 100%;
         }
-        .dgc-payment-content {
+        .dgc-wallet-content {
             width: 100%;
         }
         display: block;
@@ -155,7 +155,7 @@ p.dgc-payment-field-container {
 }
 
 /* for display cashback in shop page */
-.on-dgc-payment-cashback{
+.on-dgc-wallet-cashback{
     border-color: #6d6d6d;
     border: 1px solid;
     color: #43454b;
@@ -167,10 +167,10 @@ p.dgc-payment-field-container {
     margin-bottom: 1em;
     border-radius: 3px;
 }
-.woocommerce-MyAccount-navigation > ul li.woocommerce-MyAccount-navigation-link--dgc-payment a::before {
-    font-family: 'dgcpayment' !important;
+.woocommerce-MyAccount-navigation > ul li.woocommerce-MyAccount-navigation-link--dgc-wallet a::before {
+    font-family: 'dgc_wallet' !important;
     content: "\e900";
 }
-#dgc-payment-transaction-details.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
+#dgc-wallet-transaction-details.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
     line-height: 19px !important;
 }

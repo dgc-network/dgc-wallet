@@ -1,6 +1,6 @@
 <?php
 /**
- * Customer payment transaction email
+ * Customer wallet transaction email
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/emails/user-new-transaction.php.
  *
@@ -23,10 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
 <?php if ( $type == 'credit' ) { ?>
-<p><?php _e( "Thank you for using your payment.", 'text-domain' ); ?> <?php echo wc_price( $amount, dgc_payment_wc_price_args($user->ID) ); ?> <?php _e( 'has been credited to your payment.', 'text-domain' ); ?> <?php _e( 'Current payment balance is', 'text-domain' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( $user->ID ); ?></p>
+<p><?php _e( "Thank you for using dgc wallet.", 'text-domain' ); ?> <?php echo wc_price( $amount, dgc_wallet_wc_price_args($user->ID) ); ?> <?php _e( 'has been credited to your wallet.', 'text-domain' ); ?> <?php _e( 'Current wallet balance is', 'text-domain' ); ?> <?php echo dgc_wallet()->payment->get_wallet_balance( $user->ID ); ?></p>
 <?php } ?>
 <?php if ( $type == 'debit' ) { ?>
-    <p><?php _e( "Thank you for using your payment.", 'text-domain' ); ?> <?php echo wc_price( $amount, dgc_payment_wc_price_args($user->ID) ); ?> <?php _e( 'has been debited from your payment.', 'text-domain' ); ?> <?php _e( 'Current payment balance is', 'text-domain' ); ?> <?php echo dgc_payment()->payment->get_payment_balance( $user->ID ); ?></p>
+    <p><?php _e( "Thank you for using dgc wallet.", 'text-domain' ); ?> <?php echo wc_price( $amount, dgc_wallet_wc_price_args($user->ID) ); ?> <?php _e( 'has been debited from your wallet.', 'text-domain' ); ?> <?php _e( 'Current wallet balance is', 'text-domain' ); ?> <?php echo dgc_wallet()->payment->get_wallet_balance( $user->ID ); ?></p>
 <?php } ?>
 <?php
 /**

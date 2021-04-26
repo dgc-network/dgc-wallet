@@ -167,7 +167,7 @@ if ( ! class_exists( 'dgc_Blockchain_API' ) ) {
          * @since 1.2.5
          */
         private function rest_api_includes() {
-            include_once dirname( __FILE__) . '/api/class-wc-rest-dgc-payment-controller.php';
+            include_once dirname( __FILE__) . '/api/class-wc-rest-dgc-wallet-controller.php';
         }
 
         /**
@@ -179,11 +179,11 @@ if ( ! class_exists( 'dgc_Blockchain_API' ) ) {
             $this->rest_api_includes();
             $controllers = array(
                 // v2 controllers.
-                'WC_REST_dgc_Payment_Controller'
+                'WC_REST_dgc_Wallet_Controller'
             );
             foreach ( $controllers as $controller) {
-                $dgc_payment_api = new $controller();
-                $dgc_payment_api->register_routes();
+                $dgc_wallet_api = new $controller();
+                $dgc_wallet_api->register_routes();
             }
         }
 

@@ -1,7 +1,7 @@
 /* global payment_param */
 
 jQuery(function ($) {
-    $('#dgc-payment-transaction-details').DataTable(
+    $('#dgc-wallet-transaction-details').DataTable(
             {
                 responsive: true,
                 searching: false,
@@ -15,7 +15,7 @@ jQuery(function ($) {
                 }
             }
     );
-    $('.dgc-payment-select2').selectWoo({
+    $('.dgc-wallet-select2').selectWoo({
         language: {
             inputTooShort: function () {
                 if (payment_param.search_by_user_email) {
@@ -41,7 +41,7 @@ jQuery(function ($) {
             quietMillis: 50,
             data: function (term) {
                 return {
-                    action: 'dgc-payment-user-search',
+                    action: 'dgc-wallet-user-search',
                     autocomplete_field: 'ID',
                     term: term.term
                 };

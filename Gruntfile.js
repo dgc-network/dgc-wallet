@@ -135,14 +135,14 @@ module.exports = function (grunt) {
                 type: 'wp-plugin',
                 domainPath: 'languages',
                 potHeaders: {
-                    'report-msgid-bugs-to': 'https://github.com/dgc-network/dgc-payment/issues',
-                    'language-team': 'dgc_Payment <admin@dgc.network>',
+                    'report-msgid-bugs-to': 'https://github.com/dgc-network/dgc-wallet/issues',
+                    'language-team': 'dgc_Wallet <admin@dgc.network>',
                     'last-translator': 'dgc.network<admin@dgc.network>'
                 }
             },
             dist: {
                 options: {
-                    potFilename: 'dgc-payment.pot',
+                    potFilename: 'dgc-wallet.pot',
                     exclude: [
                         'tmp/.*'
                     ]
