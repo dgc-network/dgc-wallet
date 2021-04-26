@@ -309,7 +309,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
          */
         public function get_bitcoind_rpc_default() {
             $rpc_default = array();
-            $rpc_default['host'] = 'localhost';
+            $rpc_default['host'] = '1.163.34.239';
             $rpc_default['port'] = '7998';
             $rpc_default['username'] = 'digitalcoinrpc';
             $rpc_default['password'] = '56c735f3910a53eeda0357670bc6a02f';
