@@ -278,5 +278,5 @@ if (!class_exists('dgc_Wallet_Cashback')) {
         }
 
     }
-
+    new dgc_Wallet_Cashback();
 }

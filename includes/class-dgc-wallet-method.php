@@ -204,75 +204,74 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
         update_post_meta( $order->get_id(), '_payment_scheduled_subscription_payment_processed', true );
     }
 
-        /**
-         * Credit payment balance through order payment
-         * @param int $order_id
-         * @return void
-         */
-        public function payment_credit_purchase( $order_id ) {
-            $recharge_product = get_rechargeable_product();
-            $charge_amount = 0;
-            if ( get_post_meta( $order_id, '_dgc_wallet_purchase_credited', true ) || !$recharge_product) {
-                return;
+    /**
+     * Credit payment balance through order payment
+     * @param int $order_id
+     * @return void
+     */
+    public function payment_credit_purchase( $order_id ) {
+        $recharge_product = get_rechargeable_product();
+        $charge_amount = 0;
+        if ( get_post_meta( $order_id, '_dgc_wallet_purchase_credited', true ) || !$recharge_product) {
+            return;
+        }
+        $order = wc_get_order( $order_id );
+        if ( ! is_rechargeable_order( $order ) ) {
+            return;
+        }
+        $recharge_amount = apply_filters( 'dgc_wallet_credit_purchase_amount', $order->get_subtotal( 'edit' ), $order_id );
+        if ( 'on' === dgc_wallet()->settings_api->get_option( 'is_enable_gateway_charge', '_wallet_settings_credit', 'off' ) ) {
+            $charge_amount = dgc_wallet()->settings_api->get_option( $order->get_payment_method(), '_wallet_settings_credit', 0 );
+            if ( 'percent' === dgc_wallet()->settings_api->get_option( 'gateway_charge_type', '_wallet_settings_credit', 'percent' ) ) {
+                $recharge_amount -= $recharge_amount * ( $charge_amount / 100 );
+            } else {
+                $recharge_amount -= $charge_amount;
             }
-            $order = wc_get_order( $order_id );
-            if ( ! is_rechargeable_order( $order ) ) {
-                return;
-            }
-            $recharge_amount = apply_filters( 'dgc_wallet_credit_purchase_amount', $order->get_subtotal( 'edit' ), $order_id );
-            if ( 'on' === dgc_wallet()->settings_api->get_option( 'is_enable_gateway_charge', '_wallet_settings_credit', 'off' ) ) {
-                $charge_amount = dgc_wallet()->settings_api->get_option( $order->get_payment_method(), '_wallet_settings_credit', 0 );
-                if ( 'percent' === dgc_wallet()->settings_api->get_option( 'gateway_charge_type', '_wallet_settings_credit', 'percent' ) ) {
-                    $recharge_amount -= $recharge_amount * ( $charge_amount / 100 );
-                } else {
-                    $recharge_amount -= $charge_amount;
-                }
-                update_post_meta( $order_id, '_dgc_wallet_purchase_gateway_charge', $charge_amount );
-            }
-            $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), $recharge_amount, __( 'Payment credit through purchase #', 'text-domain' ) . $order->get_order_number() );
+            update_post_meta( $order_id, '_dgc_wallet_purchase_gateway_charge', $charge_amount );
+        }
+        $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), $recharge_amount, __( 'Payment credit through purchase #', 'text-domain' ) . $order->get_order_number() );
+        if ( $transaction_id ) {
+            update_post_meta( $order_id, '_dgc_wallet_purchase_credited', true );
+            update_post_meta( $order_id, '_payment_payment_transaction_id', $transaction_id );
+            update_transaction_meta( $transaction_id, '_dgc_wallet_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
+            do_action( 'dgc_wallet_credit_purchase_completed', $transaction_id, $order );
+        }
+    }
+
+    public function partial_payment( $order_id ) {
+        $order = wc_get_order( $order_id );
+        $partial_payment_amount = get_order_partial_payment_amount( $order_id );
+        if ( $partial_payment_amount && !get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
+            $transaction_id = dgc_wallet()->payment->debit( $order->get_customer_id(), $partial_payment_amount, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
             if ( $transaction_id ) {
-                update_post_meta( $order_id, '_dgc_wallet_purchase_credited', true );
-                update_post_meta( $order_id, '_payment_payment_transaction_id', $transaction_id );
-                update_transaction_meta( $transaction_id, '_dgc_wallet_purchase_gateway_charge', $charge_amount, $order->get_customer_id() );
-                do_action( 'dgc_wallet_credit_purchase_completed', $transaction_id, $order );
+                $order->add_order_note(sprintf( __( '%s paid through payment', 'text-domain' ), wc_price( $partial_payment_amount, dgc_wallet_wc_price_args($order->get_customer_id()) ) ) );
+                update_transaction_meta( $transaction_id, '_partial_payment', true, $order->get_customer_id() );
+                update_post_meta( $order_id, '_partial_pay_through_payment_compleate', $transaction_id );
+                do_action( 'dgc_wallet_partial_payment_completed', $transaction_id, $order );
             }
         }
+    }
 
-        public function partial_payment( $order_id ) {
-            $order = wc_get_order( $order_id );
-            $partial_payment_amount = get_order_partial_payment_amount( $order_id );
-            if ( $partial_payment_amount && !get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
-                $transaction_id = dgc_wallet()->payment->debit( $order->get_customer_id(), $partial_payment_amount, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
-                if ( $transaction_id ) {
-                    $order->add_order_note(sprintf( __( '%s paid through payment', 'text-domain' ), wc_price( $partial_payment_amount, dgc_wallet_wc_price_args($order->get_customer_id()) ) ) );
-                    update_transaction_meta( $transaction_id, '_partial_payment', true, $order->get_customer_id() );
-                    update_post_meta( $order_id, '_partial_pay_through_payment_compleate', $transaction_id );
-                    do_action( 'dgc_wallet_partial_payment_completed', $transaction_id, $order );
+    public function process_cancelled_order( $order_id ) {
+        $order = wc_get_order( $order_id );
+        /** credit partial payment amount * */
+        $partial_payment_amount = get_order_partial_payment_amount( $order_id );
+        if ( $partial_payment_amount && get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
+            dgc_wallet()->payment->credit( $order->get_customer_id(), $partial_payment_amount, sprintf( __( 'Your order with ID #%s has been cancelled and hence your payment amount has been refunded!', 'text-domain' ), $order->get_order_number() ) );
+            $order->add_order_note(sprintf( __( 'Payment amount %s has been credited to customer upon cancellation', 'text-domain' ), $partial_payment_amount ) );
+            delete_post_meta( $order_id, '_partial_pay_through_payment_compleate' );
+        }
+
+        /** debit cashback amount * */
+        if ( apply_filters( 'dgc_wallet_debit_cashback_upon_cancellation', get_total_order_cashback_amount( $order_id ) ) ) {
+            $total_cashback_amount = get_total_order_cashback_amount( $order_id );
+            if ( $total_cashback_amount ) {
+                if ( dgc_wallet()->payment->debit( $order->get_customer_id(), $total_cashback_amount, sprintf( __( 'Cashback for #%s has been debited upon cancellation', 'text-domain' ), $order->get_order_number() ) ) ) {
+                    delete_post_meta( $order_id, '_general_cashback_transaction_id' );
+                    delete_post_meta( $order_id, '_coupon_cashback_transaction_id' );
                 }
             }
         }
-
-        public function process_cancelled_order( $order_id ) {
-            $order = wc_get_order( $order_id );
-            /** credit partial payment amount * */
-            $partial_payment_amount = get_order_partial_payment_amount( $order_id );
-            if ( $partial_payment_amount && get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
-                dgc_wallet()->payment->credit( $order->get_customer_id(), $partial_payment_amount, sprintf( __( 'Your order with ID #%s has been cancelled and hence your payment amount has been refunded!', 'text-domain' ), $order->get_order_number() ) );
-                $order->add_order_note(sprintf( __( 'Payment amount %s has been credited to customer upon cancellation', 'text-domain' ), $partial_payment_amount ) );
-                delete_post_meta( $order_id, '_partial_pay_through_payment_compleate' );
-            }
-
-            /** debit cashback amount * */
-            if ( apply_filters( 'dgc_wallet_debit_cashback_upon_cancellation', get_total_order_cashback_amount( $order_id ) ) ) {
-                $total_cashback_amount = get_total_order_cashback_amount( $order_id );
-                if ( $total_cashback_amount ) {
-                    if ( dgc_wallet()->payment->debit( $order->get_customer_id(), $total_cashback_amount, sprintf( __( 'Cashback for #%s has been debited upon cancellation', 'text-domain' ), $order->get_order_number() ) ) ) {
-                        delete_post_meta( $order_id, '_general_cashback_transaction_id' );
-                        delete_post_meta( $order_id, '_coupon_cashback_transaction_id' );
-                    }
-                }
-            }
-        }
-
+    }
 
 }
