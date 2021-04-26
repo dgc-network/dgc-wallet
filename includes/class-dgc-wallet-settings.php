@@ -269,8 +269,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
                             'name' => 'bitcoind_rpc_host',
                             'label' => __( 'RPC Host', 'text-domain' ),
                             'desc' => __( 'Enter RPC Host address', 'text-domain' ),
-                            'type' => 'text',
-                            'default' => $this->bitcoind_rpc_default('host')
+                            'type' => 'text'
                         ),
                         array(
                             'name' => 'bitcoind_rpc_port',
