@@ -64,76 +64,6 @@ class dgc_Wallet_Install {
 		//} else {
 		//	dgc_API_prefix();
         //}
-/*        
-		dgc_API_prefix();
-	
-		$dgc_API_args = array(
-			'data'		=> array(),
-		);
-		$dgc_API_arg = array(
-			'name'			=> $wpdb->prefix . 'dgc_wallet_transactions',
-			'properties'	=> array(
-				array(
-					'name'			=> 'transaction_id',
-					'dataType'		=> 3,
-					'numberExponent'=> 0,
-					'required'		=> true,
-				),
-				array(
-					'name'			=> 'blog_id',
-					'dataType'		=> 3,
-					'numberExponent'=> 0,
-					'default'		=> 1,
-				),
-				array(
-					'name'			=> 'user_id',
-					'dataType'		=> 3,
-					'numberExponent'=> 0,
-					'default'		=> 1,
-				),
-				array(
-					'name'			=> 'publicKey',
-					'dataType'		=> 4,
-				),
-				array(
-					'name'			=> 'type',
-					'dataType'		=> 4,
-				),
-				array(
-					'name'			=> 'amount',
-					'dataType'		=> 3,
-					'numberExponent'=> 6,
-				),
-				array(
-					'name'			=> 'balance',
-					'dataType'		=> 3,
-					'numberExponent'=> 6,
-				),
-				array(
-					'name'			=> 'currency',
-					'dataType'		=> 4,
-				),
-				array(
-					'name'			=> 'details',
-					'dataType'		=> 4,
-				),
-				array(
-					'name'			=> 'deleted',
-					'dataType'		=> 3,
-					'numberExponent'=> 0,
-					'default'		=> 0,
-				),
-				array(
-					'name'			=> 'date',
-					'dataType'		=> 3,
-					'numberExponent'=> 0,
-				)
-			)
-		);
-		$dgc_API_args['data'][] = $dgc_API_arg;
-		$dgc_API_res = dgc_API_call('/createTables', 'POST', $dgc_API_args);
-		return json_encode($dgc_API_res);
-*/
     }
 
     /**
@@ -187,7 +117,7 @@ class dgc_Wallet_Install {
      */
     private static function create_product() {
         $product_args = array(
-            'post_title' => wc_clean( 'Payment Topup' ),
+            'post_title' => wc_clean( 'Wallet Topup product' ),
             'post_status' => 'private',
             'post_type' => 'product',
             'post_excerpt' => '',

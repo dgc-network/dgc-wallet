@@ -44,7 +44,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
         }
 
         foreach ( apply_filters( 'payment_partial_payment_order_status', array( 'on-hold', 'processing', 'completed' ) ) as $status) {
-            add_action( 'woocommerce_order_status_' . $status, array( $this, 'payment_partial_payment' ) );
+            add_action( 'woocommerce_order_status_' . $status, array( $this, 'partial_payment' ) );
         }
 
         add_action( 'woocommerce_order_status_cancelled', array( $this, 'process_cancelled_order' ) );
@@ -238,7 +238,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
             }
         }
 
-        public function payment_partial_payment( $order_id ) {
+        public function partial_payment( $order_id ) {
             $order = wc_get_order( $order_id );
             $partial_payment_amount = get_order_partial_payment_amount( $order_id );
             if ( $partial_payment_amount && !get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {

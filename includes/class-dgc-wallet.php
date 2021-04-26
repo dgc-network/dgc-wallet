@@ -23,7 +23,7 @@ final class dgc_Wallet {
      * Wallet instance.
      * @var dgc_Wallet_Core 
      */
-    public $payment = null;
+    public $wallet_core = null;
 
     /**
      * Cashback instance.
@@ -112,7 +112,7 @@ final class dgc_Wallet {
         $this->settings_api = new dgc_Wallet_Settings_API();
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-core.php' );
-        $this->payment = new dgc_Wallet_Core();
+        $this->wallet_core = new dgc_Wallet_Core();
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-cashback.php' );
         $this->cashback = new dgc_Wallet_Cashback();
@@ -167,18 +167,18 @@ final class dgc_Wallet {
         /** Move the below to class-dgc-wallet-method */
 /*
         foreach ( apply_filters( 'payment_credit_purchase_order_status', array( 'processing', 'completed' ) ) as $status) {
-            add_action( 'woocommerce_order_status_' . $status, array( $this->payment, 'payment_credit_purchase' ) );
+            add_action( 'woocommerce_order_status_' . $status, array( $this->wallet_core, 'payment_credit_purchase' ) );
         }
 
         foreach ( apply_filters( 'payment_partial_payment_order_status', array( 'on-hold', 'processing', 'completed' ) ) as $status) {
-            add_action( 'woocommerce_order_status_' . $status, array( $this->payment, 'payment_partial_payment' ) );
+            add_action( 'woocommerce_order_status_' . $status, array( $this->wallet_core, 'partial_payment' ) );
         }
 
         foreach ( apply_filters( 'payment_cashback_order_status', $this->settings_api->get_option( 'process_cashback_status', '_wallet_settings_credit', array( 'processing', 'completed' ) ) ) as $status) {
-            add_action( 'woocommerce_order_status_' . $status, array( $this->payment, 'payment_cashback' ), 12 );
+            add_action( 'woocommerce_order_status_' . $status, array( $this->wallet_core, 'payment_cashback' ), 12 );
         }
 
-        add_action( 'woocommerce_order_status_cancelled', array( $this->payment, 'process_cancelled_order' ) );
+        add_action( 'woocommerce_order_status_cancelled', array( $this->wallet_core, 'process_cancelled_order' ) );
 */
         add_filter( 'woocommerce_reports_get_order_report_query', array( $this, 'woocommerce_reports_get_order_report_query' ) );
 
