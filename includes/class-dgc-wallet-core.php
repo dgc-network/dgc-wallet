@@ -235,7 +235,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
         }
 */
     }
-    
-    new dgc_Wallet_Core();
+
+    //new dgc_Wallet_Core();
 
 }

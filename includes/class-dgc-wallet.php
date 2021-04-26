@@ -112,10 +112,10 @@ final class dgc_Wallet {
         $this->settings_api = new dgc_Wallet_Settings_API();
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-core.php' );
-        //$this->wallet_core = new dgc_Wallet_Core();
+        $this->wallet_core = new dgc_Wallet_Core();
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-cashback.php' );
-        //$this->cashback = new dgc_Wallet_Cashback();
+        $this->cashback = new dgc_Wallet_Cashback();
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-widgets.php' );
         
