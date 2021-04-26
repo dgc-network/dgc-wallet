@@ -270,7 +270,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
                             'label' => __( 'RPC Host', 'text-domain' ),
                             'desc' => __( 'Enter RPC Host address', 'text-domain' ),
                             'type' => 'text',
-                            'default' => $this->bitcoind_rpc_default()
+                            'default' => $this->bitcoind_rpc_default('host')
                         ),
                         array(
                             'name' => 'bitcoind_rpc_port',
@@ -307,13 +307,13 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
          * Fetch rechargeable product title
          * @return string title
          */
-        public function get_bitcoind_rpc_default() {
+        public function get_bitcoind_rpc_default($param) {
             $rpc_default = array();
             $rpc_default['host'] = '1.163.34.239';
             $rpc_default['port'] = '7998';
             $rpc_default['username'] = 'digitalcoinrpc';
             $rpc_default['password'] = '56c735f3910a53eeda0357670bc6a02f';
-            return $rpc_default;
+            return $rpc_default[$param];
         }
 
         /**
