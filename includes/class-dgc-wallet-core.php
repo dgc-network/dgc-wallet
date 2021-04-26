@@ -31,6 +31,9 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
          */
         public function __construct() {
             $this->user_id = get_current_user_id();
+        }
+
+        function init() {
             $rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
             $rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
             $rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
@@ -39,6 +42,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             if (($rpc_host) && ($rpc_port) && ($rpc_user) && ($rpc_pass)) {
                 $this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
             }
+
         }
 
         /**
@@ -67,6 +71,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 //$credit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'credit' ) ) ) ), 'amount' ) );
                 //$debit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
                 //$balance = $credit_amount - $debit_amount;
+                $this->init();
                 $balance = $this->dgc_client->getbalance($this->user_id);
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
