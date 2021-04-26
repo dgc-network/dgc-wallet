@@ -85,7 +85,7 @@ class dgc_Wallet_Balance_Details extends WP_List_Table {
                 'username' => $user->data->user_login,
                 'name'     => $user->data->display_name,
                 'email'    => $user->data->user_email,
-                'balance'  => dgc_wallet()->payment->get_wallet_balance( $user->ID ),
+                'balance'  => dgc_wallet()->wallet_core->get_wallet_balance( $user->ID ),
                 'actions'  => ''
             ), $user);
         }

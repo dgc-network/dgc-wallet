@@ -114,7 +114,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
     }
 
     public function get_icon() {
-        $current_balance = dgc_wallet()->payment->get_wallet_balance( get_current_user_id() );
+        $current_balance = dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id() );
         return apply_filters( 'dgc_wallet_gateway_icon', sprintf( __( ' | Current Balance: <strong>%s</strong>', 'text-domain' ), $current_balance), $this->id );
     }
 
@@ -135,17 +135,17 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
     public function process_payment( $order_id ) {
         
         $order = wc_get_order( $order_id );
-        if ( ( $order->get_total( 'edit' ) > dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ) ) && apply_filters( 'dgc_wallet_disallow_negative_transaction', (dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ) <= 0 || $order->get_total( 'edit' ) > dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ) ), $order->get_total( 'edit' ), dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ) ) ) {
-            wc_add_notice( __( 'Payment error: ', 'text-domain' ) . sprintf( __( 'Your payment balance is low. Please add %s to proceed with this transaction.', 'text-domain' ), wc_price( $order->get_total( 'edit' ) - dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ), dgc_wallet_wc_price_args($order->get_customer_id()) ) ), 'error' );
+        if ( ( $order->get_total( 'edit' ) > dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) ) && apply_filters( 'dgc_wallet_disallow_negative_transaction', (dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) <= 0 || $order->get_total( 'edit' ) > dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) ), $order->get_total( 'edit' ), dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) ) ) {
+            wc_add_notice( __( 'Payment error: ', 'text-domain' ) . sprintf( __( 'Your payment balance is low. Please add %s to proceed with this transaction.', 'text-domain' ), wc_price( $order->get_total( 'edit' ) - dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ), dgc_wallet_wc_price_args($order->get_customer_id()) ) ), 'error' );
             return;
         }
-        //$payment_response = dgc_wallet()->payment->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_wallet_order_payment_description', __( 'For order payment #', 'text-domain' ) . $order->get_order_number(), $order) );
-        if ( $payment_response = dgc_wallet()->payment->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_wallet_order_payment_description', __( 'Paid for order #', 'text-domain' ) . $order->get_order_number(), $order) ) ) {
+        //$payment_response = dgc_wallet()->wallet_core->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_wallet_order_payment_description', __( 'For order payment #', 'text-domain' ) . $order->get_order_number(), $order) );
+        if ( $payment_response = dgc_wallet()->wallet_core->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_wallet_order_payment_description', __( 'Paid for order #', 'text-domain' ) . $order->get_order_number(), $order) ) ) {
             foreach ( $order->get_items() as $item_id => $item ) {
                 $product_id = $item->get_product_id();
                 $total = $item->get_total();
                 $vendor_id = get_post_field( 'post_author', $product_id );
-                dgc_wallet()->payment->credit( $vendor_id, $total, apply_filters('dgc_wallet_order_payment_description', __( 'Received from order #', 'text-domain' ) . $order->get_order_number(), $order) );
+                dgc_wallet()->wallet_core->credit( $vendor_id, $total, apply_filters('dgc_wallet_order_payment_description', __( 'Received from order #', 'text-domain' ) . $order->get_order_number(), $order) );
             }
         };
         
@@ -177,7 +177,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
      */
     public function process_refund( $order_id, $amount = null, $reason = '' ) {
         $order = wc_get_order( $order_id );
-        $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), $amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
+        $transaction_id = dgc_wallet()->wallet_core->credit( $order->get_customer_id(), $amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
         if ( !$transaction_id ) {
             throw new Exception( __( 'Refund not credited to customer', 'text-domain' ) );
         }
@@ -195,7 +195,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
         if ( get_post_meta( $order->get_id(), '_payment_scheduled_subscription_payment_processed', true ) ) {
             return;
         }
-        $payment_response = dgc_wallet()->payment->debit( $order->get_customer_id(), $amount_to_charge, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
+        $payment_response = dgc_wallet()->wallet_core->debit( $order->get_customer_id(), $amount_to_charge, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
         if ( $payment_response ) {
             $order->payment_complete();
         } else {
@@ -229,7 +229,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
             }
             update_post_meta( $order_id, '_dgc_wallet_purchase_gateway_charge', $charge_amount );
         }
-        $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), $recharge_amount, __( 'Payment credit through purchase #', 'text-domain' ) . $order->get_order_number() );
+        $transaction_id = dgc_wallet()->wallet_core->credit( $order->get_customer_id(), $recharge_amount, __( 'Payment credit through purchase #', 'text-domain' ) . $order->get_order_number() );
         if ( $transaction_id ) {
             update_post_meta( $order_id, '_dgc_wallet_purchase_credited', true );
             update_post_meta( $order_id, '_payment_payment_transaction_id', $transaction_id );
@@ -242,7 +242,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
         $order = wc_get_order( $order_id );
         $partial_payment_amount = get_order_partial_payment_amount( $order_id );
         if ( $partial_payment_amount && !get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
-            $transaction_id = dgc_wallet()->payment->debit( $order->get_customer_id(), $partial_payment_amount, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
+            $transaction_id = dgc_wallet()->wallet_core->debit( $order->get_customer_id(), $partial_payment_amount, __( 'For order payment #', 'text-domain' ) . $order->get_order_number() );
             if ( $transaction_id ) {
                 $order->add_order_note(sprintf( __( '%s paid through payment', 'text-domain' ), wc_price( $partial_payment_amount, dgc_wallet_wc_price_args($order->get_customer_id()) ) ) );
                 update_transaction_meta( $transaction_id, '_partial_payment', true, $order->get_customer_id() );
@@ -257,7 +257,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
         /** credit partial payment amount * */
         $partial_payment_amount = get_order_partial_payment_amount( $order_id );
         if ( $partial_payment_amount && get_post_meta( $order_id, '_partial_pay_through_payment_compleate', true ) ) {
-            dgc_wallet()->payment->credit( $order->get_customer_id(), $partial_payment_amount, sprintf( __( 'Your order with ID #%s has been cancelled and hence your payment amount has been refunded!', 'text-domain' ), $order->get_order_number() ) );
+            dgc_wallet()->wallet_core->credit( $order->get_customer_id(), $partial_payment_amount, sprintf( __( 'Your order with ID #%s has been cancelled and hence your payment amount has been refunded!', 'text-domain' ), $order->get_order_number() ) );
             $order->add_order_note(sprintf( __( 'Payment amount %s has been credited to customer upon cancellation', 'text-domain' ), $partial_payment_amount ) );
             delete_post_meta( $order_id, '_partial_pay_through_payment_compleate' );
         }
@@ -266,7 +266,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
         if ( apply_filters( 'dgc_wallet_debit_cashback_upon_cancellation', get_total_order_cashback_amount( $order_id ) ) ) {
             $total_cashback_amount = get_total_order_cashback_amount( $order_id );
             if ( $total_cashback_amount ) {
-                if ( dgc_wallet()->payment->debit( $order->get_customer_id(), $total_cashback_amount, sprintf( __( 'Cashback for #%s has been debited upon cancellation', 'text-domain' ), $order->get_order_number() ) ) ) {
+                if ( dgc_wallet()->wallet_core->debit( $order->get_customer_id(), $total_cashback_amount, sprintf( __( 'Cashback for #%s has been debited upon cancellation', 'text-domain' ), $order->get_order_number() ) ) ) {
                     delete_post_meta( $order_id, '_general_cashback_transaction_id' );
                     delete_post_meta( $order_id, '_coupon_cashback_transaction_id' );
                 }

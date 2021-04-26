@@ -116,7 +116,7 @@ class WC_REST_dgc_Wallet_Controller extends WC_REST_Controller {
     public function get_item( $request ) {
         //get parameters from request
         $params  = $request->get_params();
-        $balance = dgc_wallet()->payment->get_wallet_balance( $params['id'], 'edit' );
+        $balance = dgc_wallet()->wallet_core->get_wallet_balance( $params['id'], 'edit' );
         return new WP_REST_Response( $balance, 200 );
     }
     /**
@@ -130,9 +130,9 @@ class WC_REST_dgc_Wallet_Controller extends WC_REST_Controller {
             $params['details'] = isset( $params['details'] ) ? $params['details'] : '';
             $transaction_id = false;
             if ( 'credit' === $params['type'] ) {
-                $transaction_id = dgc_wallet()->payment->credit( $params['id'], $params['amount'], $params['details'] );
+                $transaction_id = dgc_wallet()->wallet_core->credit( $params['id'], $params['amount'], $params['details'] );
             } else if ( 'debit' === $params['type'] ) {
-                $transaction_id = dgc_wallet()->payment->debit( $params['id'], $params['amount'], $params['details'] );
+                $transaction_id = dgc_wallet()->wallet_core->debit( $params['id'], $params['amount'], $params['details'] );
             }
             return new WP_REST_Response( array( 'response' => 'success', 'id' => $transaction_id ), 200 );
         } else {

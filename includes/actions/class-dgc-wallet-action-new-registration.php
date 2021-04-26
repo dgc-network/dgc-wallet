@@ -48,7 +48,7 @@ class Action_New_Registration extends dgc_Wallet_Action {
     public function dgc_wallet_new_user_registration_credit( $user_id ){
         if ( $this->is_enabled() && $this->settings['amount'] && apply_filters( 'dgc_wallet_new_user_registration_credit', true, $user_id ) ){
             $amount = apply_filters( 'dgc_wallet_new_user_registration_credit_amount', $this->settings['amount'], $user_id );
-            $transaction_id = dgc_wallet()->payment->credit( $user_id, $amount, sanitize_textarea_field( $this->settings['description'] ) );
+            $transaction_id = dgc_wallet()->wallet_core->credit( $user_id, $amount, sanitize_textarea_field( $this->settings['description'] ) );
             if($transaction_id){
                 do_action('dgc_wallet_action_new_registration_credited', $transaction_id, $user_id, $this);
             }

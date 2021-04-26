@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 $currency  = get_woocommerce_currency_symbol();
-$remaining = dgc_wallet()->payment->get_wallet_balance( $user->ID, 'edit' );
+$remaining = dgc_wallet()->wallet_core->get_wallet_balance( $user->ID, 'edit' );
 echo "= " . $email_heading . " =\n\n";
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 if ( $type == 'credit' ) { 

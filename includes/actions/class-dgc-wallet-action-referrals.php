@@ -190,14 +190,14 @@ class Action_Referrals extends dgc_Wallet_Action {
                             $transiant_duration = MONTH_IN_SECONDS;
                         }
                         set_transient('dgc_wallet_referral_visit_' . $referral_user->ID, $dgc_wallet_referral_visit_count + 1, $transiant_duration);
-                        $transaction_id = dgc_wallet()->payment->credit($referral_user->ID, $referral_visit_amount, $this->settings['referring_visitors_description']);
+                        $transaction_id = dgc_wallet()->wallet_core->credit($referral_user->ID, $referral_visit_amount, $this->settings['referring_visitors_description']);
                         update_user_meta($referral_user->ID, '_dgc_wallet_referring_visitor', $referral_visitor_count + 1);
                         update_user_meta($referral_user->ID, '_dgc_wallet_referring_earning', $dgc_wallet_referring_earning + $referral_visit_amount);
                         do_action('dgc_wallet_after_referral_visit', $transaction_id, $this);
                     }
                 }
             } else{
-                $transaction_id = dgc_wallet()->payment->credit($referral_user->ID, $referral_visit_amount, $this->settings['referring_visitors_description']);
+                $transaction_id = dgc_wallet()->wallet_core->credit($referral_user->ID, $referral_visit_amount, $this->settings['referring_visitors_description']);
                 update_user_meta($referral_user->ID, '_dgc_wallet_referring_visitor', $referral_visitor_count + 1);
                 update_user_meta($referral_user->ID, '_dgc_wallet_referring_earning', $dgc_wallet_referring_earning + $referral_visit_amount);
                 do_action('dgc_wallet_after_referral_visit', $transaction_id, $this);
@@ -224,14 +224,14 @@ class Action_Referrals extends dgc_Wallet_Action {
                             $transiant_duration = MONTH_IN_SECONDS;
                         }
                         set_transient('dgc_wallet_referral_signup_' . $referral_user->ID, $dgc_wallet_referral_signup_count + 1, $transiant_duration);
-                        $transaction_id = dgc_wallet()->payment->credit($referral_user->ID, $referral_signup_amount, $this->settings['referring_signups_description']);
+                        $transaction_id = dgc_wallet()->wallet_core->credit($referral_user->ID, $referral_signup_amount, $this->settings['referring_signups_description']);
                         update_user_meta($referral_user->ID, '_dgc_wallet_referring_signup', $referral_signup_count + 1);
                         update_user_meta($referral_user->ID, '_dgc_wallet_referring_earning', $dgc_wallet_referring_earning + $referral_signup_amount);
                         do_action('dgc_wallet_after_referral_signup', $transaction_id, $user_id, $this);
                     }
                 }
             } else{
-                $transaction_id = dgc_wallet()->payment->credit($referral_user->ID, $referral_signup_amount, $this->settings['referring_signups_description']);
+                $transaction_id = dgc_wallet()->wallet_core->credit($referral_user->ID, $referral_signup_amount, $this->settings['referring_signups_description']);
                 update_user_meta($referral_user->ID, '_dgc_wallet_referring_signup', $referral_signup_count + 1);
                 update_user_meta($referral_user->ID, '_dgc_wallet_referring_earning', $dgc_wallet_referring_earning + $referral_signup_amount);
                 do_action('dgc_wallet_after_referral_signup', $transaction_id, $user_id, $this);

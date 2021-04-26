@@ -105,7 +105,7 @@ if ( ! function_exists( 'is_enable_partial_payment' ) ) {
     function is_enable_partial_payment() {
         $is_enable = false;
         $cart_total = get_cart_total();
-        if ( ! is_rechargeable_cart() && is_user_logged_in() && ( ( ! is_null( wc()->session) && wc()->session->get( 'is_partial_payment', false ) ) || 'on' === dgc_wallet()->settings_api->get_option( 'is_auto_deduct_for_partial_payment', '_wallet_settings_general' ) ) && $cart_total >= apply_filters( 'dgc_wallet_partial_payment_amount', dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ) ) ) {
+        if ( ! is_rechargeable_cart() && is_user_logged_in() && ( ( ! is_null( wc()->session) && wc()->session->get( 'is_partial_payment', false ) ) || 'on' === dgc_wallet()->settings_api->get_option( 'is_auto_deduct_for_partial_payment', '_wallet_settings_general' ) ) && $cart_total >= apply_filters( 'dgc_wallet_partial_payment_amount', dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) ) ) {
             $is_enable = true;
         }
         return apply_filters( 'is_enable_partial_payment', $is_enable);
@@ -451,7 +451,7 @@ if ( ! function_exists( 'is_full_payment_through_payment' ) ) {
      */
     function is_full_payment_through_payment() {
         $is_valid_payment_through_payment = true;
-        $current_wallet_balance          = dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' );
+        $current_wallet_balance          = dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' );
         if ( !is_admin() && ( is_array( wc()->cart->cart_contents) && sizeof( wc()->cart->cart_contents) > 0 ) && ( $current_wallet_balance < get_cart_total() || is_rechargeable_cart() ) ) {
             $is_valid_payment_through_payment = false;
         }

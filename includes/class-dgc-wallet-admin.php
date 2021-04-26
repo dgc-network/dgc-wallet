@@ -258,7 +258,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                 <p>
                     <?php
                     _e( 'Current wallet balance: ', 'text-domain' );
-                    echo dgc_wallet()->payment->get_wallet_balance( $user_id );
+                    echo dgc_wallet()->wallet_core->get_wallet_balance( $user_id );
                     ?>
                 </p>
                 <form id="posts-filter" method="post">
@@ -311,7 +311,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             ?>
             <div class="wrap">
                 <h2><?php _e( 'Transaction details', 'text-domain' ); ?> <a style="text-decoration: none;" href="<?php echo add_query_arg( array( 'page' => 'dgc-wallet' ), admin_url( 'admin.php' ) ); ?>"><span class="dashicons dashicons-editor-break" style="vertical-align: middle;"></span></a></h2>
-                <p><?php _e( 'Current wallet balance: ', 'text-domain' ); echo dgc_wallet()->payment->get_wallet_balance( $user_id ); ?></p>
+                <p><?php _e( 'Current wallet balance: ', 'text-domain' ); echo dgc_wallet()->wallet_core->get_wallet_balance( $user_id ); ?></p>
                 <?php do_action('before_dgc_wallet_transaction_details_page', $user_id); ?>
                 <form id="posts-filter" method="get">
                     <?php $this->transaction_details_table->display(); ?>
@@ -352,9 +352,9 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                 if ( $user_id != NULL && ! empty( $user_id ) && $amount != NULL && ! empty( $amount ) ) {
                     $amount = apply_filters( 'dgc_wallet_adjust_balance_amount', number_format( $amount, wc_get_price_decimals(), '.', '' ), $user_id );
                     if ( 'credit' === $payment_type) {
-                        $transaction_id = dgc_wallet()->payment->credit( $user_id, $amount, $description);
+                        $transaction_id = dgc_wallet()->wallet_core->credit( $user_id, $amount, $description);
                     } else if ( 'debit' === $payment_type) {
-                        $transaction_id = dgc_wallet()->payment->debit( $user_id, $amount, $description);
+                        $transaction_id = dgc_wallet()->wallet_core->debit( $user_id, $amount, $description);
                     }
                     if ( !$transaction_id ) {
                         $message = __( 'An error occurred please try again', 'text-domain' );
@@ -692,7 +692,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          */
         public function manage_users_custom_column( $value, $column_name, $user_id ) {
             if ( $column_name === 'current_payment_balance' ) {
-                return sprintf( '<a href="%s" title="%s">%s</a>', admin_url( '?page=dgc-wallet-transactions&user_id=' . $user_id ), __( 'View details', 'text-domain' ), dgc_wallet()->payment->get_wallet_balance( $user_id ) );
+                return sprintf( '<a href="%s" title="%s">%s</a>', admin_url( '?page=dgc-wallet-transactions&user_id=' . $user_id ), __( 'View details', 'text-domain' ), dgc_wallet()->wallet_core->get_wallet_balance( $user_id ) );
             }
             return $value;
         }
@@ -756,7 +756,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         public function recalculate_order_cashback($order){
             dgc_wallet()->cashback->calculate_cashback(false, $order->get_id(), true);
             if (in_array($order->get_status(), apply_filters('payment_cashback_order_status', dgc_wallet()->settings_api->get_option('process_cashback_status', '_wallet_settings_credit', array('processing', 'completed'))))) {
-                //dgc_wallet()->payment->payment_cashback($order->get_id());
+                //dgc_wallet()->wallet_core->payment_cashback($order->get_id());
                 $this->payment_cashback($order->get_id());
             }
         }
@@ -765,7 +765,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             $order = wc_get_order( $order_id );
             /* General Cashback */
             if ( apply_filters( 'process_dgc_wallet_general_cashback', !get_post_meta( $order->get_id(), '_general_cashback_transaction_id', true ), $order ) && dgc_wallet()->cashback->calculate_cashback(false, $order->get_id()) ) {
-                $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), dgc_wallet()->cashback->calculate_cashback(false, $order->get_id()), __( 'Payment credit through cashback #', 'text-domain' ) . $order->get_order_number() );
+                $transaction_id = dgc_wallet()->wallet_core->credit( $order->get_customer_id(), dgc_wallet()->cashback->calculate_cashback(false, $order->get_id()), __( 'Payment credit through cashback #', 'text-domain' ) . $order->get_order_number() );
                 if ( $transaction_id ) {
                     update_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
                     update_post_meta( $order->get_id(), '_general_cashback_transaction_id', $transaction_id );
@@ -776,7 +776,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             if ( apply_filters( 'process_dgc_wallet_coupon_cashback', !get_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', true ), $order ) && get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ) ) {
                 $coupon_cashback_amount = apply_filters( 'dgc_wallet_coupon_cashback_amount', get_post_meta( $order->get_id(), '_coupon_cashback_amount', true ), $order );
                 if ( $coupon_cashback_amount ) {
-                    $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), $coupon_cashback_amount, __( 'Payment credit through cashback by applying coupon', 'text-domain' ) );
+                    $transaction_id = dgc_wallet()->wallet_core->credit( $order->get_customer_id(), $coupon_cashback_amount, __( 'Payment credit through cashback by applying coupon', 'text-domain' ) );
                     if ( $transaction_id ) {
                         update_transaction_meta( $transaction_id, '_type', 'cashback', $order->get_customer_id() );
                         update_post_meta( $order->get_id(), '_coupon_cashback_transaction_id', $transaction_id );

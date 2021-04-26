@@ -54,7 +54,7 @@ $menu_items = apply_filters('dgc_wallet_nav_menu_items', array(
     <div class="dgc-wallet-content">
         <div class="dgc-wallet-content-heading">
             <h3 class="dgc-wallet-content-h3"><?php _e( 'Balance', 'text-domain' ); ?></h3>
-            <p class="dgc-wallet-price"><?php echo dgc_wallet()->payment->get_wallet_balance( get_current_user_id() ); ?></p>
+            <p class="dgc-wallet-price"><?php echo dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id() ); ?></p>
         </div>
         <div style="clear: both"></div>
         <hr/>

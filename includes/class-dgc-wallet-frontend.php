@@ -323,16 +323,16 @@ if (!class_exists('dgc_Wallet_Frontend')) {
                         'message' => __('Invalid user', 'text-domain')
                     );
                 }
-                if (floatval($debit_amount) > dgc_wallet()->payment->get_wallet_balance(get_current_user_id(), 'edit')) {
+                if (floatval($debit_amount) > dgc_wallet()->wallet_core->get_wallet_balance(get_current_user_id(), 'edit')) {
                     return array(
                         'is_valid' => false,
                         'message' => __('Entered amount is greater than current payment amount.', 'text-domain')
                     );
                 }
 
-                if ($credit_transaction_id = dgc_wallet()->payment->credit($whom->ID, $credit_amount, $credit_note)) {
+                if ($credit_transaction_id = dgc_wallet()->wallet_core->credit($whom->ID, $credit_amount, $credit_note)) {
                     do_action('dgc_wallet_transfer_amount_credited', $credit_transaction_id, $whom->ID, get_current_user_id());
-                    $debit_transaction_id = dgc_wallet()->payment->debit(get_current_user_id(), $debit_amount, $debit_note);
+                    $debit_transaction_id = dgc_wallet()->wallet_core->debit(get_current_user_id(), $debit_amount, $debit_note);
                     do_action('dgc_wallet_transfer_amount_debited', $debit_transaction_id, get_current_user_id(), $whom->ID);
                     update_transaction_meta($debit_transaction_id, '_payment_transfer_charge', $transfer_charge, get_current_user_id());
                     $response = array(
@@ -466,7 +466,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * @since 1.2.1
          */
         public function dgc_wallet_add_partial_payment_fee() {
-            $parial_payment_amount = apply_filters('dgc_wallet_partial_payment_amount', dgc_wallet()->payment->get_wallet_balance(get_current_user_id(), 'edit'));
+            $parial_payment_amount = apply_filters('dgc_wallet_partial_payment_amount', dgc_wallet()->wallet_core->get_wallet_balance(get_current_user_id(), 'edit'));
             if ($parial_payment_amount > 0) {
                 $fee = array(
                     'id' => '_via_partial_payment',

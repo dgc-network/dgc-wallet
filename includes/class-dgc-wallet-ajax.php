@@ -48,7 +48,7 @@ if ( ! class_exists( 'dgc_Wallet_Ajax' ) ) {
             $order_id = absint( filter_input(INPUT_POST, 'order_id') );
             $order = wc_get_order($order_id);
             $partial_payment_amount = get_order_partial_payment_amount($order_id);
-            $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), $partial_payment_amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
+            $transaction_id = dgc_wallet()->wallet_core->credit( $order->get_customer_id(), $partial_payment_amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
             if($transaction_id){
                 $response['success'] = true;
                 $order->add_order_note(sprintf( __( '%s refunded to customer payment', 'text-domain' ), wc_price( $partial_payment_amount, dgc_wallet_wc_price_args($order->get_customer_id()) ) ));
@@ -114,7 +114,7 @@ if ( ! class_exists( 'dgc_Wallet_Ajax' ) ) {
                     'restock_items' => $restock_refunded_items,
                 ) );
                 if ( ! is_wp_error( $refund ) ) {
-                    $transaction_id = dgc_wallet()->payment->credit( $order->get_customer_id(), $refund_amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
+                    $transaction_id = dgc_wallet()->wallet_core->credit( $order->get_customer_id(), $refund_amount, __( 'Payment refund #', 'text-domain' ) . $order->get_order_number() );
                     if ( !$transaction_id ) {
                         throw new Exception( __( 'Refund not credited to customer', 'text-domain' ) );
                     } else {

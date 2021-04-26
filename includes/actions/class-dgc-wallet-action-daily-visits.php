@@ -83,7 +83,7 @@ class Action_Daily_Visits extends dgc_Wallet_Action {
         }
         
         if ( $this->settings['amount'] && apply_filters( 'dgc_wallet_site_visit_credit', true ) ) {
-            dgc_wallet()->payment->credit( $user_id, $this->settings['amount'], sanitize_textarea_field( $this->settings['description'] ) );
+            dgc_wallet()->wallet_core->credit( $user_id, $this->settings['amount'], sanitize_textarea_field( $this->settings['description'] ) );
         }
     }
 

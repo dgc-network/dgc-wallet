@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $title      = __( 'Current wallet balance', 'text-domain' );
 $menu_item  = '<li class="right"><a class="dgc-wallet-menu-contents" href="' . esc_url( wc_get_account_endpoint_url( get_option( 'woocommerce_dgc_wallet_endpoint', 'text-domain' ) ) ) . '" title="' . $title . '">';
 $menu_item .= '<span class="dgc-wallet-icon-payment"></span>&nbsp;';
-$menu_item .= dgc_wallet()->payment->get_wallet_balance( get_current_user_id() );
+$menu_item .= dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id() );
 $menu_item .= '</a></li>';
 
 echo $menu_item;

@@ -168,7 +168,7 @@ if ( ! class_exists( 'dgc_Wallet_Dokan' ) ) {
                     );
 
                     $data           = array_merge( $data, $withdraw_data);
-                    $transaction_id = dgc_wallet()->payment->credit( $data['user_id'], $data['amount'], __( 'Commission received for order id ', 'text-domain' ) . $data['order_id'] );
+                    $transaction_id = dgc_wallet()->wallet_core->credit( $data['user_id'], $data['amount'], __( 'Commission received for order id ', 'text-domain' ) . $data['order_id'] );
                     if ( $transaction_id ) {
                         $withdraw->insert_withdraw( $data);
                         update_transaction_meta( $transaction_id, '_dokan_withdrawal_id', $wpdb->insert_id );
@@ -261,7 +261,7 @@ if ( ! class_exists( 'dgc_Wallet_Dokan' ) ) {
                 if ( $payment_transaction && isset( $payment_transaction->transaction_id ) ) {
                     update_transaction( $payment_transaction->transaction_id, $user_id, array( 'deleted' => 0 ), array( '%d' ) );
                 } else {
-                    $transaction_id = dgc_wallet()->payment->credit( $user_id, $resualt->amount, __( 'Withdrawal request #' . $row_id ) );
+                    $transaction_id = dgc_wallet()->wallet_core->credit( $user_id, $resualt->amount, __( 'Withdrawal request #' . $row_id ) );
                     update_transaction_meta( $transaction_id, '_dokan_withdrawal_id', $row_id );
                 }
             } else {

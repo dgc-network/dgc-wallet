@@ -16,7 +16,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
-$current_payment_amount = apply_filters( 'dgc_wallet_partial_payment_amount', dgc_wallet()->payment->get_wallet_balance( get_current_user_id(), 'edit' ) );
+$current_payment_amount = apply_filters( 'dgc_wallet_partial_payment_amount', dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) );
 if ( $current_payment_amount <= 0 ) {
     return;
 }

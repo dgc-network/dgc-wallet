@@ -53,7 +53,7 @@ class Action_Product_Review extends dgc_Wallet_Action {
             }
             $product = wc_get_product( $commentdata['comment_post_ID'] );
             if ( $this->settings['amount'] && $product && apply_filters( 'dgc_wallet_product_review_credit', true, $commentdata ) ) {
-                $transaction_id = dgc_wallet()->payment->credit( $commentdata['user_id'], $this->settings['amount'], sanitize_textarea_field( $this->settings['description'] ) );
+                $transaction_id = dgc_wallet()->wallet_core->credit( $commentdata['user_id'], $this->settings['amount'], sanitize_textarea_field( $this->settings['description'] ) );
                 update_comment_meta( $comment_ID, 'payment_transaction_id', $transaction_id );
             }
         }
@@ -65,7 +65,7 @@ class Action_Product_Review extends dgc_Wallet_Action {
         }
         $product = wc_get_product( $comment->comment_post_ID );
         if ( $this->settings['amount'] && $product && apply_filters( 'dgc_wallet_product_review_credit', true, $comment ) ) {
-            $transaction_id = dgc_wallet()->payment->credit( $comment->user_id, $this->settings['amount'], sanitize_textarea_field( $this->settings['description'] ) );
+            $transaction_id = dgc_wallet()->wallet_core->credit( $comment->user_id, $this->settings['amount'], sanitize_textarea_field( $this->settings['description'] ) );
             update_comment_meta( $comment->comment_ID, 'payment_transaction_id', $transaction_id );
         }
     }
