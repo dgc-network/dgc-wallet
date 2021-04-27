@@ -42,7 +42,6 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             if (($rpc_host) && ($rpc_port) && ($rpc_user) && ($rpc_pass)) {
                 $this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
             }
-
         }
 
         /**
@@ -72,7 +71,8 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 //$debit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
                 //$balance = $credit_amount - $debit_amount;
                 $this->init();
-                $balance = $this->dgc_client->getbalance($this->user_id);
+                //$balance = $this->dgc_client->getbalance($this->user_id);
+                $balance = 100;
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
