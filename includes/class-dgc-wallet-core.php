@@ -40,8 +40,9 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
             //if (($rpc_host) && ($rpc_port) && ($rpc_user) && ($rpc_pass)) {
-                $this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
+                //$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
             //}
+            return $rpc_pass;
         }
 
         /**
@@ -72,7 +73,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 //$balance = $credit_amount - $debit_amount;
                 $this->init();
                 //$balance = $this->dgc_client->getbalance($this->user_id);
-                $balance = 100;
+                $balance = $this->init();
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
