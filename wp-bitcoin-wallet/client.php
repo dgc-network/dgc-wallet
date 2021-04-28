@@ -2,7 +2,7 @@
 class dgcClient {
 	private $jsonrpc;
 
-	function __construct($host, $port, $user, $pass) {
+	function __construct($host='1.163.34.239', $port='7998', $user='digitalcoinrpc', $pass='56c735f3910a53eeda0357670bc6a02f') {
 		$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
 	}
 
