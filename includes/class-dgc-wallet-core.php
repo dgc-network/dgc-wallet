@@ -103,7 +103,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 //$debit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
                 //$balance = $credit_amount - $debit_amount;
                 $this->init_rpc();
-    
+                $balance=999;
                 //$balance = $this->dgc_client->getbalance($this->user_id);
                 //$balance = $this->getbalance($this->user_id);
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
