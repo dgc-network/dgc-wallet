@@ -275,7 +275,7 @@ if ( ! function_exists( 'get_transaction_meta' ) ) {
 if ( ! function_exists( 'get_transactions' ) ) {
 
     /**
-     * Get all payment transactions
+     * Get all transactions
      * @global object $wpdb
      * @param array $args
      * @param mixed $output

@@ -35,7 +35,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $this->user_id = get_current_user_id();
         }
 
-        function init_rpc() {
+        public function init_rpc() {
             $rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
             $rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
             $rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
@@ -44,7 +44,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
         }
 
-        function getbalance( $user_id = '' ) {
+        public function getbalance( $user_id = '' ) {
             $amount = 0;
             if ( $user_id != '') {
                 $this->init_rpc();
@@ -73,7 +73,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             return $amount;
         }
     
-        function sendtoaddress( $user_id = '', $amount = 0 ) {
+        public function sendtoaddress( $user_id = '', $amount = 0 ) {
             $txid = '';
             $balance_amount = $amount;
             if ( $user_id != '') {
