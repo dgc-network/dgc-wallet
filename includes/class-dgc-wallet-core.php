@@ -10,8 +10,8 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 
         //private $dgc_client;
         private $json_rpc;
-        private $receive_address;
-        private $change_address;
+        //private $receive_address;
+        //private $change_address;
 
         /**
          * WordPress user ID.
@@ -56,6 +56,14 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 $addresses = array();
                 $receive_address = get_user_meta( $user_id, 'receive_address' , true );
                 $change_address = get_user_meta( $user_id, 'change_address' , true );
+                if ($receive_address=='') {
+                    $receive_address = $this->jsonrpc->getnewaddress();
+                    update_user_meta( $user_id, 'receive_address' , $receive_address );
+                }
+                if ($change_address=='') {
+                    $change_address = $this->jsonrpc->getrawchangeaddress();
+                    update_user_meta( $user_id, 'change_address' , $change_address );
+                }
                 array_push($addresses, $receive_address, $change_address);
                 $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
                 $result = $this->jsonrpc->listunspent();
@@ -95,18 +103,6 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 //$debit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
                 //$balance = $credit_amount - $debit_amount;
                 $this->init_rpc();
-                $this->receive_address = get_user_meta( $current_user_id, 'receive_address' , true );
-                $this->change_address = get_user_meta( $current_user_id, 'change_address' , true );
-                if ($this->receive_address=='') {
-                    $this->receive_address = $this->jsonrpc->getnewaddress();
-                    //$this->receive_address = $this->dgc_client->getnewaddress();
-                    update_user_meta( $current_user_id, 'receive_address' , $receive_address );
-                }
-                if ($this->change_address=='') {
-                    $this->change_address = $this->jsonrpc->getrawchangeaddress();
-                    //$this->change_address = $this->dgc_client->getrawchangeaddress();
-                    update_user_meta( $current_user_id, 'change_address' , $change_address );
-                }
     
                 //$balance = $this->dgc_client->getbalance($this->user_id);
                 $balance = $this->getbalance($this->user_id);
