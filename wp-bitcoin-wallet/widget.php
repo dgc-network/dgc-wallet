@@ -8,7 +8,7 @@ class WPBW_Widget {
 	private $change_address;
 
 	public function register() {
-		require_once('jsonRPCClient.php');
+		//require_once('jsonRPCClient.php');
 		$options = get_option('wpbw_plugin_options');
 		//$user = $options['bitcoind_rpc_username'];
 		//$pass = $options['bitcoind_rpc_password'];
