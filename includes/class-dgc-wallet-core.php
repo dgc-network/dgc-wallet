@@ -76,7 +76,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             return $amount;
         }
     
-            /**
+        /**
          * setter method
          * @param int $user_id
          */

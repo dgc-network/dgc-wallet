@@ -32,12 +32,12 @@ class WPBW_Widget {
 			if ($this->receive_address=='') {
 				$this->receive_address = $this->jsonrpc->getnewaddress();
 				//$this->receive_address = $this->dgc_client->getnewaddress();
-				update_user_meta( $current_user_id, 'receive_address' , $receive_address );
+				update_user_meta( $current_user_id, 'receive_address' , $this->receive_address );
 			}
 			if ($this->change_address=='') {
 				$this->change_address = $this->jsonrpc->getrawchangeaddress();
 				//$this->change_address = $this->dgc_client->getrawchangeaddress();
-				update_user_meta( $current_user_id, 'change_address' , $change_address );
+				update_user_meta( $current_user_id, 'change_address' , $this->change_address );
 			}
 
 			wp_add_dashboard_widget('wpbw_widget', 'Wallet', array($this, 'display'));
