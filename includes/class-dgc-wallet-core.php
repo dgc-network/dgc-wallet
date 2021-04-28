@@ -7,13 +7,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 
     class dgc_Wallet_Core {
+
+        //private $dgc_client;
+        private $json_rpc;
+        private $receive_address;
+        private $change_address;
+
         /**
          * WordPress user ID.
          * @var INT 
          */
         public $user_id = 0;
-        private $dgc_client;
-
+    
         /**
          * Wallet balance.
          * @var float 
@@ -33,18 +38,37 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $this->user_id = get_current_user_id();
         }
 
-        function init() {
+        function init_rpc() {
             $rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
             $rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
             $rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
             $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
+			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
             //if (($rpc_host) && ($rpc_port) && ($rpc_user) && ($rpc_pass)) {
-                $this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
+                //$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
             //}
         }
 
-        /**
+        function getbalance( $user_id = '' ) {
+            $amount = 0;
+            if ( $user_id != '') {
+                $addresses = array();
+                $receive_address = get_user_meta( $user_id, 'receive_address' , true );
+                $change_address = get_user_meta( $user_id, 'change_address' , true );
+                array_push($addresses, $receive_address, $change_address);
+                $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
+                $result = $this->jsonrpc->listunspent();
+                foreach ($result as $array_value) {
+                    if (( $array_value["address"] == $receive_address ) || ( $array_value["address"] == $change_address )) {
+                        $amount = $amount + $array_value["amount"];
+                    }
+                }
+            }
+            return $amount;
+        }
+    
+            /**
          * setter method
          * @param int $user_id
          */
@@ -70,8 +94,22 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 //$credit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'credit' ) ) ) ), 'amount' ) );
                 //$debit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
                 //$balance = $credit_amount - $debit_amount;
-                $this->init();
+                $this->init_rpc();
+                $this->receive_address = get_user_meta( $current_user_id, 'receive_address' , true );
+                $this->change_address = get_user_meta( $current_user_id, 'change_address' , true );
+                if ($this->receive_address=='') {
+                    $this->receive_address = $this->jsonrpc->getnewaddress();
+                    //$this->receive_address = $this->dgc_client->getnewaddress();
+                    update_user_meta( $current_user_id, 'receive_address' , $receive_address );
+                }
+                if ($this->change_address=='') {
+                    $this->change_address = $this->jsonrpc->getrawchangeaddress();
+                    //$this->change_address = $this->dgc_client->getrawchangeaddress();
+                    update_user_meta( $current_user_id, 'change_address' , $change_address );
+                }
+    
                 //$balance = $this->dgc_client->getbalance($this->user_id);
+                $balance = $this->getbalance($this->user_id);
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
