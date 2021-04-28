@@ -62,12 +62,14 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                     update_user_meta( $user_id, 'change_address' , $change_address );
                 }
                 array_push($addresses, $receive_address, $change_address);
+                $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
+                array_push($addresses, $top1_address);
                 $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
-                $result = $this->jsonrpc->listunspent();
+                //$result = $this->jsonrpc->listunspent();
                 foreach ($result as $array_value) {
-                    if (( $array_value["address"] == $receive_address ) || ( $array_value["address"] == $change_address )) {
+                    //if (( $array_value["address"] == $receive_address ) || ( $array_value["address"] == $change_address )) {
                         $amount = $amount + $array_value["amount"];
-                    }
+                    //}
                 }
             }
             return $amount;
