@@ -26,15 +26,17 @@ class WPBW_Widget {
 			$this->account = $options['bitcoind_account_prefix'].hash("sha256", $wp_user->user_login);
 			//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
 			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
-			$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
+			//$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
 			$this->receive_address = get_user_meta( $current_user_id, 'receive_address' , true );
 			$this->change_address = get_user_meta( $current_user_id, 'change_address' , true );
 			if ($this->receive_address=='') {
-				$this->receive_address = $this->dgc_client->getnewaddress();
+				$this->receive_address = $this->jsonrpc->getnewaddress();
+				//$this->receive_address = $this->dgc_client->getnewaddress();
 				update_user_meta( $current_user_id, 'receive_address' , $receive_address );
 			}
 			if ($this->change_address=='') {
-				$this->change_address = $this->dgc_client->getrawchangeaddress();
+				$this->change_address = $this->jsonrpc->getrawchangeaddress();
+				//$this->change_address = $this->dgc_client->getrawchangeaddress();
 				update_user_meta( $current_user_id, 'change_address' , $change_address );
 			}
 
@@ -61,7 +63,8 @@ class WPBW_Widget {
 		$current_user_id = get_current_user_id();
 		$first_name = get_user_meta( $current_user_id, 'first_name' , true );
 		$last_name = get_user_meta( $current_user_id, 'last_name' , true );
-		$balance = $this->dgc_client->getbalance($current_user_id);
+		$balance = $this->jsonrpc->getbalance($current_user_id);
+		//$balance = $this->dgc_client->getbalance($current_user_id);
 		$output = '<pre>';
 		$output .= $first_name . ' ' . $last_name . ': ' . $balance;
 		$output .= '</pre><br>';
