@@ -63,8 +63,8 @@ class WPBW_Widget {
 		$current_user_id = get_current_user_id();
 		$first_name = get_user_meta( $current_user_id, 'first_name' , true );
 		$last_name = get_user_meta( $current_user_id, 'last_name' , true );
-		$balance = $this->jsonrpc->getbalance($current_user_id);
-		//$balance = $this->dgc_client->getbalance($current_user_id);
+		//$balance = $this->jsonrpc->getbalance();
+		$balance = $this->dgc_client->getbalance($current_user_id);
 		$output = '<pre>';
 		$output .= $first_name . ' ' . $last_name . ': ' . $balance;
 		$output .= '</pre><br>';
