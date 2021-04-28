@@ -139,6 +139,6 @@ class WPBW_Widget {
 
 //$wpbw_widget = new WPBW_Widget();
 
-//add_action('wp_dashboard_setup', array($wpbw_widget, 'register'));
+add_action('wp_dashboard_setup', array($wpbw_widget, 'register'));
 
 ?>

@@ -40,7 +40,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
             //if (($rpc_host) && ($rpc_port) && ($rpc_user) && ($rpc_pass)) {
-                $this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
+                //$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
             //}
             return $rpc_pass;
         }
