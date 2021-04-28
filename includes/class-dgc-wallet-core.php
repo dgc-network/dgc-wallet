@@ -8,10 +8,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 
     class dgc_Wallet_Core {
 
-        //private $dgc_client;
         private $json_rpc;
-        //private $receive_address;
-        //private $change_address;
 
         /**
          * WordPress user ID.
@@ -105,7 +102,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 $this->init_rpc();
                 $balance=999;
                 //$balance = $this->dgc_client->getbalance($this->user_id);
-                //$balance = $this->getbalance($this->user_id);
+                $balance = $this->getbalance($this->user_id);
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
