@@ -167,6 +167,7 @@ class dgc_Wallet_Balance_Details extends WP_List_Table {
 
         return $role_links;
     }
+
     /**
     * Output extra table controls.
     *
@@ -179,7 +180,6 @@ class dgc_Wallet_Balance_Details extends WP_List_Table {
         do_action('dgc_wallet_users_list_extra_tablenav', $which);
     }
     
-
     /**
      * Define which columns are hidden
      *

@@ -107,7 +107,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
                     $title = apply_filters('dgc_wallet_account_menu_title', __('dgcWallet', 'text-domain'));
                     break;
                 case 'dgc-wallet-transactions' :
-                    $title = apply_filters('dgc_wallet_account_transaction_menu_title', __('Payment Transactions', 'text-domain'));
+                    $title = apply_filters('dgc_wallet_account_transaction_menu_title', __('Wallet Transactions', 'text-domain'));
                     break;
                 default :
                     $title = '';

@@ -102,7 +102,8 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         public function admin_menu() {
             $dgc_wallet_menu_page_hook = add_menu_page( 'dgcWallet', 'dgcWallet', 'manage_woocommerce', 'dgc-wallet', array( $this, 'payment_page' ), '', 59 );
             add_action( "load-$dgc_wallet_menu_page_hook", array( $this, 'add_dgc_wallet_details' ) );
-            $dgc_wallet_menu_page_hook_add = add_submenu_page( '', __( 'dgcWallet', 'text-domain' ), __( 'dgcWallet', 'text-domain' ), 'manage_woocommerce', 'dgc-wallet-add', array( $this, 'add_balance_to_user_payment' ) );
+            //$dgc_wallet_menu_page_hook_add = add_submenu_page( '', __( 'dgcWallet', 'text-domain' ), __( 'dgcWallet', 'text-domain' ), 'manage_woocommerce', 'dgc-wallet-add', array( $this, 'add_balance_to_user_wallet' ) );
+            $dgc_wallet_menu_page_hook_add = add_submenu_page( '', __( 'dgcWallet', 'text-domain' ), __( 'dgcWallet', 'text-domain' ), 'manage_woocommerce', 'dgc-wallet-add', array( $this, 'display_user_wallet_qr_code' ) );
             add_action( "load-$dgc_wallet_menu_page_hook_add", array( $this, 'add_dgc_wallet_add_balance_option' ) );
             $dgc_wallet_menu_page_hook_view = add_submenu_page( '', __( 'dgcWallet', 'text-domain' ), __( 'dgcWallet', 'text-domain' ), 'manage_woocommerce', 'dgc-wallet-transactions', array( $this, 'transaction_details_page' ) );
             add_action( "load-$dgc_wallet_menu_page_hook_view", array( $this, 'add_dgc_wallet_transaction_details_option' ) );
@@ -114,8 +115,9 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          */
         public function plugin_actions_page() {
             $screen = get_current_screen();
-            $payment_actions = new dgc_Wallet_Actions();
-            if ( in_array($screen->id, array('dgc_wallet_page_dgc-payment-actions', 'dgc_wallet_page_dgc-payment-actions')) && isset( $_GET['action'] ) && isset( $payment_actions->actions[$_GET['action']] ) ) {
+            $wallet_actions = new dgc_Wallet_Actions();
+            //if ( in_array($screen->id, array('dgc_wallet_page_dgc-wallet-actions', 'dgc_wallet_page_dgc-wallet-actions')) && isset( $_GET['action'] ) && isset( $wallet_actions->actions[$_GET['action']] ) ) {
+            if ( in_array($screen->id, array('dgc_wallet_page_dgc-wallet-actions')) && isset( $_GET['action'] ) && isset( $wallet_actions->actions[$_GET['action']] ) ) {
                 $this->display_action_settings();
             } else {
                 $this->display_actions_table();
@@ -126,13 +128,13 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * Plugin action setting init
          */
         public function display_action_settings() {
-            $payment_actions = dgc_Wallet_Actions::instance();
+            $wallet_actions = dgc_Wallet_Actions::instance();
             ?>
             <div class="wrap woocommerce">
                 <form method="post">
                     <?php
-                    $payment_actions->actions[$_GET['action']]->init_settings();
-                    $payment_actions->actions[$_GET['action']]->admin_options();
+                    $wallet_actions->actions[$_GET['action']]->init_settings();
+                    $wallet_actions->actions[$_GET['action']]->admin_options();
                     submit_button();
                     ?>
                 </form>
@@ -144,7 +146,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * Plugin action setting table
          */
         public function display_actions_table() {
-            $payment_actions = dgc_Wallet_Actions::instance();
+            $wallet_actions = dgc_Wallet_Actions::instance();
             echo '<div class="wrap">';
             echo '<h2>' . __( 'Payment actions', 'text-domain' ) . '</h2>';
             settings_errors();
@@ -160,7 +162,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                     </tr>
                 </thead>
                 <tbody class="ui-sortable">
-                    <?php foreach ( $payment_actions->actions as $action) : ?>
+                    <?php foreach ( $wallet_actions->actions as $action) : ?>
                         <tr data-gateway_id="<?php echo $action->get_action_id(); ?>">
                             <td>
                                 <?php
@@ -232,7 +234,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         public function payment_page() {
             ?>
             <div class="wrap">
-                <h2><?php _e( 'Users payment details', 'text-domain' ); ?></h2>
+                <h2><?php _e( 'Users wallet details', 'text-domain' ); ?></h2>
                 <?php do_action('dgc_wallet_before_balance_details_table'); ?>
                 <?php $this->balance_details_table->views(); ?>
                 <form id="posts-filter" method="post">
@@ -246,9 +248,30 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         }
 
         /**
-         * Admin add payment balance form
+         * Display user wallet QR code
          */
-        public function add_balance_to_user_payment() {
+        public function display_user_wallet_qr_code() {
+            $user_id = filter_input(INPUT_GET, 'user_id' );
+            $receive_address = get_user_meta( $user_id, 'receive_address' , true );
+            ?>
+            <div class="wrap">
+                <?php settings_errors(); ?>
+                <h2><?php _e( 'Wallet Address', 'text-domain' ); ?> <a style="text-decoration: none;" href="<?php echo add_query_arg( array( 'page' => 'dgc-wallet' ), admin_url( 'admin.php' ) ); ?>"><span class="dashicons dashicons-editor-break" style="vertical-align: middle;"></span></a></h2>
+                <p>
+                    <?php
+                    _e( 'Current wallet balance: ', 'text-domain' );
+                    echo dgc_wallet()->wallet_core->get_wallet_balance( $user_id );
+                    ?>
+                </p>
+                <input type="text" disabled name="receive_address" value="<?php echo $receive_address; ?>" />
+            </div>
+            <?php
+        }
+
+        /**
+         * Admin add wallet balance form
+         */
+        public function add_balance_to_user_wallet() {
             $user_id = filter_input(INPUT_GET, 'user_id' );
             $currency = apply_filters( 'dgc_wallet_user_currency', '', $user_id );
             ?>
@@ -339,7 +362,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         }
 
         /**
-         * Handel admin add payment balance
+         * Handel admin add wallet balance
          */
         public function add_dgc_wallet_add_balance_option() {
             if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['dgc-wallet-admin-adjust-balance'] ) && wp_verify_nonce( $_POST['dgc-wallet-admin-adjust-balance'], 'dgc-wallet-admin-adjust-balance' ) ) {
@@ -542,7 +565,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                 return $footer_text;
             }
             $current_screen = get_current_screen();
-            $dgc_wallet_pages = array( 'toplevel_page_dgc-payment', 'admin_page_dgc-payment-add', 'admin_page_dgc-payment-transactions', 'dgc_wallet_page_dgc-payment-settings', 'dgc_wallet_page_dgc-payment-actions', 'dgc_wallet_page_dgc-payment-extensions', 'dgc_wallet_page_dgc-payment-settings' );
+            $dgc_wallet_pages = array( 'toplevel_page_dgc-wallet', 'admin_page_dgc-wallet-add', 'admin_page_dgc-wallet-transactions', 'dgc_wallet_page_dgc-wallet-settings', 'dgc_wallet_page_dgc-wallet-actions', 'dgc_wallet_page_dgc-wallet-extensions', 'dgc_wallet_page_dgc-wallet-settings' );
             if ( isset( $current_screen->id ) && in_array( $current_screen->id, $dgc_wallet_pages) ) {
                 if ( !get_option( 'woocommerce_payment_admin_footer_text_rated' ) ) {
                     $footer_text = sprintf(
@@ -562,7 +585,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         }
 
         /**
-         * Payment endpoins settings
+         * Wallet endpoins settings
          * @param array $settings
          * @return array
          */
@@ -577,8 +600,8 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                     'desc_tip' => true,
                 ),
                 array(
-                    'title' => __( 'Payment Transactions', 'text-domain' ),
-                    'desc' => __( 'Endpoint for the "My account &rarr; View payment transactions" page.', 'text-domain' ),
+                    'title' => __( 'Wallet Transactions', 'text-domain' ),
+                    'desc' => __( 'Endpoint for the "My account &rarr; View wallet transactions" page.', 'text-domain' ),
                     'id' => 'woocommerce_dgc_wallet_transactions_endpoint',
                     'type' => 'text',
                     'default' => 'dgc-wallet-transactions',
@@ -586,20 +609,20 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                 )
             ) );
 
-            $paymentendpoint_settings = array(
+            $wallet_endpoint_settings = array(
                 array(
-                    'title' => __( 'Payment endpoints', 'text-domain' ),
+                    'title' => __( 'Wallet endpoints', 'text-domain' ),
                     'type' => 'title',
                     'desc' => __( 'Endpoints are appended to your page URLs to handle specific actions on the accounts pages. They should be unique and can be left blank to disable the endpoint.', 'text-domain' ),
-                    'id' => 'payment_endpoint_options'
+                    'id' => 'wallet_endpoint_options'
                 )
             );
             foreach ( $settings_fields as $settings_field) {
-                $paymentendpoint_settings[] = $settings_field;
+                $wallet_endpoint_settings[] = $settings_field;
             }
-            $paymentendpoint_settings[] = array( 'type' => 'sectionend', 'id' => 'payment_endpoint_options' );
+            $wallet_endpoint_settings[] = array( 'type' => 'sectionend', 'id' => 'wallet_endpoint_options' );
 
-            return array_merge( $settings, $paymentendpoint_settings);
+            return array_merge( $settings, $wallet_endpoint_settings);
         }
 
         /**
@@ -678,7 +701,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          */
         public function manage_users_columns( $columns) {
             if (current_user_can( 'manage_woocommerce' ) ) {
-                $columns['current_payment_balance'] = __( 'Payment Balance', 'text-domain' );
+                $columns['current_wallet_balance'] = __( 'Wallet Balance', 'text-domain' );
             }
             return $columns;
         }
@@ -691,20 +714,19 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * @return string
          */
         public function manage_users_custom_column( $value, $column_name, $user_id ) {
-            if ( $column_name === 'current_payment_balance' ) {
+            if ( $column_name === 'current_wallet_balance' ) {
                 return sprintf( '<a href="%s" title="%s">%s</a>', admin_url( '?page=dgc-wallet-transactions&user_id=' . $user_id ), __( 'View details', 'text-domain' ), dgc_wallet()->wallet_core->get_wallet_balance( $user_id ) );
             }
             return $value;
         }
 
         /**
-         * Add screen id dgc_wallet_page_dgc-payment-actions to WooCommerce
+         * Add screen id dgc_wallet_page_dgc-wallet-actions to WooCommerce
          * @param array $screen_ids
          * @return array
          */
         public function woocommerce_screen_ids_callback( $screen_ids ) {
-            $screen_ids[] = 'dgc_wallet_page_dgc-payment-actions';
-            //$screen_ids[] = 'dgc_wallet_page_dgc-payment-actions';
+            $screen_ids[] = 'dgc_wallet_page_dgc-wallet-actions';
             return $screen_ids;
         }
 

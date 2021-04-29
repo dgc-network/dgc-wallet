@@ -109,7 +109,7 @@ class WC_REST_dgc_Wallet_Controller extends WC_REST_Controller {
         return new WP_REST_Response( $data, 200 );
     }
     /**
-     * Get user payment balance
+     * Get user wallet balance
      * @param WP_REST_Request $request
      * @return \WP_REST_Response
      */

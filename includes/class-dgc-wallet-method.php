@@ -136,7 +136,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
         
         $order = wc_get_order( $order_id );
         if ( ( $order->get_total( 'edit' ) > dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) ) && apply_filters( 'dgc_wallet_disallow_negative_transaction', (dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) <= 0 || $order->get_total( 'edit' ) > dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) ), $order->get_total( 'edit' ), dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ) ) ) {
-            wc_add_notice( __( 'Payment error: ', 'text-domain' ) . sprintf( __( 'Your payment balance is low. Please add %s to proceed with this transaction.', 'text-domain' ), wc_price( $order->get_total( 'edit' ) - dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ), dgc_wallet_wc_price_args($order->get_customer_id()) ) ), 'error' );
+            wc_add_notice( __( 'Payment error: ', 'text-domain' ) . sprintf( __( 'Your wallet balance is low. Please add %s to proceed with this transaction.', 'text-domain' ), wc_price( $order->get_total( 'edit' ) - dgc_wallet()->wallet_core->get_wallet_balance( get_current_user_id(), 'edit' ), dgc_wallet_wc_price_args($order->get_customer_id()) ) ), 'error' );
             return;
         }
         //$payment_response = dgc_wallet()->wallet_core->debit( get_current_user_id(), $order->get_total( 'edit' ), apply_filters('dgc_wallet_order_payment_description', __( 'For order payment #', 'text-domain' ) . $order->get_order_number(), $order) );
@@ -205,7 +205,7 @@ class dgc_Wallet_Method extends WC_Payment_Gateway {
     }
 
     /**
-     * Credit payment balance through order payment
+     * Credit wallet balance through order payment
      * @param int $order_id
      * @return void
      */

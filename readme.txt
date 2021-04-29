@@ -118,11 +118,11 @@ Yes you can! Join in on our [GitHub repository](https://github.com/dgc-network/d
 == Screenshots ==
 
 1. User payment page.
-2. Transfer payment balance.
+2. Transfer wallet balance.
 3. View transaction details.
 4. All user balance details.
 5. Admin view transaction details.
-6. Admin adjust payment balance.
+6. Admin adjust wallet balance.
 7. dgcWallet for WooCommerce payment gateway.
 8. WooCommerce refund.
 9. Payment actions.

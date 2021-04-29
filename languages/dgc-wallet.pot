@@ -352,7 +352,7 @@ msgid "to customer payment"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:226
-msgid "Users payment details"
+msgid "Users wallet details"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:230
@@ -485,15 +485,15 @@ msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:572
 #: includes/class-dgc-wallet-frontend.php:110
-msgid "Payment Transactions"
+msgid "Wallet Transactions"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:573
-msgid "Endpoint for the \"My account &rarr; View payment transactions\" page."
+msgid "Endpoint for the \"My account &rarr; View wallet transactions\" page."
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:583
-msgid "Payment endpoints"
+msgid "Wallet endpoints"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:585
@@ -504,7 +504,7 @@ msgid ""
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:673
-msgid "Payment Balance"
+msgid "Wallet Balance"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:687
@@ -746,7 +746,7 @@ msgid "Payment error: "
 msgstr ""
 
 #: includes/class-dgc-wallet-method.php:115
-msgid "Your payment balance is low. Please add %s to proceed with this transaction."
+msgid "Your wallet balance is low. Please add %s to proceed with this transaction."
 msgstr ""
 
 #: includes/class-dgc-wallet-method.php:118
@@ -824,13 +824,13 @@ msgid "The maximum amount needed for payment top up"
 msgstr ""
 
 #: includes/class-dgc-wallet-settings.php:135
-msgid "Auto deduct payment balance for partial payment"
+msgid "Auto deduct wallet balance for partial payment"
 msgstr ""
 
 #: includes/class-dgc-wallet-settings.php:136
 msgid ""
 "If a purchase requires more balance than you have in your payment, then if "
-"checked the payment balance will be deduct first and the rest of the amount "
+"checked the wallet balance will be deduct first and the rest of the amount "
 "will need to be paid."
 msgstr ""
 

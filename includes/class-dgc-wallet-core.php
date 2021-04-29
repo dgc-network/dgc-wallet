@@ -191,7 +191,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
         }
 
         /**
-         * Record payment transactions
+         * Record wallet transactions
          * @global object $wpdb
          * @param int $amount
          * @param string $type
@@ -232,7 +232,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
         /** Move the below to class-dgc-wallet-admin */
         
         /**
-         * Credit payment balance through order payment
+         * Credit wallet balance through order payment
          * @param int $order_id
          * @return void
          */

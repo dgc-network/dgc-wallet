@@ -82,7 +82,7 @@ class dgc_Wallet_Actions {
         $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
         // Register scripts
         wp_register_script('dgc_wallet_admin_actions', dgc_wallet()->plugin_url() . '/assets/js/admin/admin-actions' . $suffix . '.js', array('jquery'), DGC_WALLET_PLUGIN_VERSION);
-        if (in_array( $screen_id, array( 'dgc_wallet_page_dgc-payment-actions', 'dgc_wallet_page_dgc-payment-actions' ) ) ) {
+        if (in_array( $screen_id, array( 'dgc_wallet_page_dgc-wallet-actions', 'dgc_wallet_page_dgc-wallet-actions' ) ) ) {
             wp_enqueue_script('dgc_wallet_admin_actions');
         }
     }

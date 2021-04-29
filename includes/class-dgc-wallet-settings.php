@@ -55,7 +55,7 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
             $suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
             //wp_register_script( 'dgc-wallet-admin-settings', dgc_wallet()->plugin_url() . '/assets/js/admin/admin-settings' . $suffix . '.js', array( 'jquery' ), DGC_WALLET_PLUGIN_VERSION);
             wp_register_script( 'dgc-wallet-admin-settings', dgc_wallet()->plugin_url() . '/assets/js/admin/admin-settings.js', array( 'jquery' ), DGC_WALLET_PLUGIN_VERSION);
-            //if (in_array( $screen_id, array( 'dgc_wallet_page_dgc-payment-settings', 'dgc_wallet_page_dgc-payment-settings' ) ) ) {
+            //if (in_array( $screen_id, array( 'dgc_wallet_page_dgc-wallet-settings', 'dgc_wallet_page_dgc-wallet-settings' ) ) ) {
                 wp_enqueue_style( 'dashicons' );
                 wp_enqueue_style( 'wp-color-picker' );
                 wp_enqueue_style( 'dgc_wallet_admin_styles' );
@@ -145,8 +145,8 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
                     array(
                         array(
                             'name' => 'is_auto_deduct_for_partial_payment',
-                            'label' => __( 'Auto deduct payment balance for partial payment', 'text-domain' ),
-                            'desc' => __( 'If a purchase requires more balance than you have in your payment, then if checked the payment balance will be deduct first and the rest of the amount will need to be paid.', 'text-domain' ),
+                            'label' => __( 'Auto deduct wallet balance for partial payment', 'text-domain' ),
+                            'desc' => __( 'If a purchase requires more balance than you have in your payment, then if checked the wallet balance will be deduct first and the rest of the amount will need to be paid.', 'text-domain' ),
                             'type' => 'checkbox',
                         ),
                         array(
