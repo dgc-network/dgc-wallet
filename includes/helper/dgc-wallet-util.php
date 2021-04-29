@@ -282,8 +282,10 @@ if ( ! function_exists( 'get_transactions' ) ) {
      * @return db rows
      */
     function get_transactions( $args = array(), $output = OBJECT) {
-
-        $array = dgc_wallet()->wallet_core->listtransactions($args['user_id'], 50, 100);
+        $limit = $args['limit'];
+        $lower = (int)strstr($limit, ',');
+        $upper = (int)strstr($limit, ',', true);
+        $array = dgc_wallet()->wallet_core->listtransactions($args['user_id'], ($upper-$lower), $lower);
         //return $array;
 
         $object = json_decode(json_encode($array), FALSE);
