@@ -266,6 +266,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                 <input type="text" disabled class="regular-text ltr" name="receive_address" value="<?php echo $receive_address; ?>" />
                 <?php echo do_shortcode( '[kaya_qrcode content="'.$receive_address.'"]' ); ?>
                 <?php echo do_shortcode( '[kaya_qrcode content="DN8QcjTL5uqY3isGArBqFgzhqJfu9HYWzY"]' ); ?>
+                <?php echo '<img src="help/simple_png_output.php" />'; ?>
             </div>
             <?php
         }
