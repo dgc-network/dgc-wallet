@@ -95,23 +95,23 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             return $amount;
         }
     
-        public function listtransactions( $user_id = '', $count = 20 ) {
+        public function listtransactions( $user_id = '', $count = 20, $from = 0 ) {
 
             //digitalcoin-cli listtransactions "*" 20 100 true
             if ( $user_id != '') {
                 //$this->init_rpc();
                 $addresses = $this->getnewaddress($user_id);
-                $transactions = $this->jsonrpc->listtransactions('*', $count, 0, true);
+                $transactions = $this->jsonrpc->listtransactions('*', $count, $from, true);
                 if ( ! empty( $transactions ) && is_array( $transactions ) ) {
                     foreach ( $transactions as $key => $transaction ) {
                         $data[] = array(
-                            'transaction_id' => $transaction->txid,
+                            'transaction_id' => $transaction['txid'],
                             'user_id'        => $user_id,
-                            'type'           => ( 'send' === $transaction->category) ? 'credit' : 'debit',
-                            'amount'         => $transaction->amount,
-                            'currency'       => 'DGC',
-                            'details'        => $transaction->address,
-                            'date'           => $transaction->time
+                            'type'           => ( 'send' === $transaction['category']) ? 'credit' : 'debit',
+                            'amount'         => $transaction['amount'],
+                            'currency'       => 'Digitalcoin',
+                            'details'        => $transaction['txid'],
+                            'date'           => date("F j, Y", $transaction->time)
                         );
                     }
                 }

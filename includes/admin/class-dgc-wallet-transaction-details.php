@@ -99,7 +99,7 @@ class dgc_Wallet_Transaction_Details extends WP_List_Table {
         $transactions = get_transactions( array( 'user_id' => $user_id, 'limit' => $lower . ',' . $uper ) );
         $this->total_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}dgc_wallet_transactions WHERE user_id={$user_id}" );
 
-        $transactions = dgc_wallet()->wallet_core->listtransactions($user_id);
+        $transactions = dgc_wallet()->wallet_core->listtransactions($user_id, 50, 100);
         if ( ! empty( $transactions ) && is_array( $transactions ) ) {
             foreach ( $transactions as $key => $transaction ) {
                 $data[] = array(
