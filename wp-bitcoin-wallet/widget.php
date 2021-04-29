@@ -63,8 +63,9 @@ class WPBW_Widget {
 		$current_user_id = get_current_user_id();
 		$first_name = get_user_meta( $current_user_id, 'first_name' , true );
 		$last_name = get_user_meta( $current_user_id, 'last_name' , true );
-		$balance = $this->jsonrpc->getbalance();
-		//$balance = $this->dgc_client->getbalance($current_user_id);
+		//$balance = $this->jsonrpc->getbalance();
+        //$array = dgc_wallet()->wallet_core->listtransactions($user_id, 50, 100);
+		$balance = $this->wallet_core->getbalance($current_user_id);
 		$output = '<pre>';
 		$output .= $first_name . ' ' . $last_name . ': ' . $balance;
 		$output .= '</pre><br>';
@@ -73,7 +74,8 @@ class WPBW_Widget {
 
 		<label>Wallet Info:</label>
 		<?php 
-		$result = $this->jsonrpc->getwalletinfo(); 
+        $result = dgc_wallet()->wallet_core->listtransactions($user_id, 50, 100);
+		//$result = $this->jsonrpc->getwalletinfo(); 
     	$o = '<pre>{<br>'; 
 		foreach ($result as $key=>$value) {
         	$o .= '  "'. $key . '": ' . $value . '<br>';
@@ -81,15 +83,6 @@ class WPBW_Widget {
     	$o .= '}</pre>'; 
 		echo $o;
 		?>
-		</br>
-
-		<label>Receiving address:</label>
-		<pre><?php echo $this->jsonrpc->getaccountaddress($this->account); ?></pre>
-		</br>
-
-		<label>Balance:</label>
-		<pre><?php echo $this->jsonrpc->getbalance($this->account); ?></pre>
-		</br>
 		</br>
 
 		<strong>Send Coins:</strong>

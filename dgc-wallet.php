@@ -31,6 +31,7 @@ if ( ! defined( 'DGC_WALLET_PLUGIN_FILE' ) ) {
  * Include wp-bitcoin-wallet
  */
 //include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wp-bitcoin-wallet.php';
+include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/widget.php';
 
 /*
  * Include dependencies file.
