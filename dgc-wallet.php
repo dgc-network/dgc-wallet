@@ -30,7 +30,8 @@ if ( ! defined( 'DGC_WALLET_PLUGIN_FILE' ) ) {
 /*
  * Include php QR code
  */
-include_once dirname( __FILE__ ) . '/phpqrcode/qrlib.php';
+//include_once dirname( __FILE__ ) . '/phpqrcode/qrlib.php';
+include_once dirname( __FILE__ ) . '/phpqrcode/phpqrcode.php';
 
 /*
  * Include wp-bitcoin-wallet
