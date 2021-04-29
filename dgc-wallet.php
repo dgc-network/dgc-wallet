@@ -28,6 +28,11 @@ if ( ! defined( 'DGC_WALLET_PLUGIN_FILE' ) ) {
 }
 
 /*
+ * Include php QR code
+ */
+include_once dirname( __FILE__ ) . '/phpqrcode/qrlib.php';
+
+/*
  * Include wp-bitcoin-wallet
  */
 //include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wp-bitcoin-wallet.php';
