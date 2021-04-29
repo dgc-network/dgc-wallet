@@ -88,10 +88,10 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                             'transaction_id' => $transaction['txid'],
                             'user_id'        => $user_id,
                             'type'           => ( 'send' === $transaction['category']) ? 'credit' : 'debit',
-                            'amount'         => $transaction['amount'],
+                            'amount'         => (float)$transaction['amount'],
                             'currency'       => 'Digitalcoin',
                             'details'        => $transaction['txid'],
-                            'date'           => date("F j, Y", $transaction->time)
+                            'date'           => date("F j, Y", (int)$transaction->time)
                         );
                     }
                 }
