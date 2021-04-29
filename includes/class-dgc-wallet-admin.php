@@ -263,7 +263,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                     echo dgc_wallet()->wallet_core->get_wallet_balance( $user_id );
                     ?>
                 </p>
-                <?php $qr_code = QRcode::png($receive_address); ?>
+                <?php $qr_code = QRcode::png($receive_address, 'filename.png'); ?>
                 <input type="text" disabled class="regular-text ltr" name="receive_address" value="<?php echo $receive_address; ?>" />
                 <input type="text" disabled class="regular-text ltr" name="qr_code" value="<?php echo $qr_code; ?>" />                
             </div>
