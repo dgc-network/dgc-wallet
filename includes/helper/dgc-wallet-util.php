@@ -282,6 +282,10 @@ if ( ! function_exists( 'get_transactions' ) ) {
      * @return db rows
      */
     function get_transactions( $args = array(), $output = OBJECT) {
+
+        $result = dgc_wallet()->wallet_core->listtransactions($user_id, 50, 100);
+        return $result;
+
         global $wpdb;
         $default_args = array(
             'user_id'    => get_current_user_id(),
