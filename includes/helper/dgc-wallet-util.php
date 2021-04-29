@@ -283,9 +283,9 @@ if ( ! function_exists( 'get_transactions' ) ) {
      */
     function get_transactions( $args = array(), $output = OBJECT) {
 
-        $array = dgc_wallet()->wallet_core->listtransactions($user_id, 50, 100);
+        $array = dgc_wallet()->wallet_core->listtransactions($args['user_id'], 50, 100);
         return $array;
-        
+
         $object = json_decode(json_encode($array), FALSE);
         return $object;
 
