@@ -578,3 +578,89 @@ if (!function_exists('dgc_wallet_wc_price_args')) {
     }
 
 }
+
+/**
+ * The field on the editing screens.
+ *
+ * @param $user WP_User user object
+ */
+function wporg_usermeta_form_field_dgc_addresses( $user ) {
+    ?>
+    <h3>Digitalcoin Addresses</h3>
+    <table class="form-table">
+		<tr>
+            <th>
+                <label for="receive_address">Receiving address</label>
+            </th>
+            <td>
+                <input type="text"
+                       class="regular-text ltr"
+                       id="receive_address"
+                       name="receive_address"
+                       value="<?= esc_attr( get_user_meta( $user->ID, 'receive_address', true ) ) ?>"
+                       disabled>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <label for="change_address">Changing address</label>
+            </th>
+            <td>
+                <input type="text"
+                       class="regular-text ltr"
+                       id="change_address"
+                       name="change_address"
+                       value="<?= esc_attr( get_user_meta( $user->ID, 'change_address', true ) ) ?>"
+                       disabled>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+  
+/**
+ * The save action.
+ *
+ * @param $user_id int the ID of the current user.
+ *
+ * @return bool Meta ID if the key didn't exist, true on successful update, false on failure.
+ */
+function wporg_usermeta_form_field_update( $user_id )
+{
+    // check that the current user have the capability to edit the $user_id
+    if ( ! current_user_can( 'edit_user', $user_id ) ) {
+        return false;
+    }
+  
+    // create/update user meta for the $user_id
+    return update_user_meta(
+        $user_id,
+        'receive_address',
+        $_POST['receive_address']
+    );
+}
+  
+// Add the field to user's own profile editing screen.
+add_action(
+    'show_user_profile',
+    'wporg_usermeta_form_field_dgc_addresses'
+);
+  
+// Add the field to user profile editing screen.
+add_action(
+    'edit_user_profile',
+    'wporg_usermeta_form_field_dgc_addresses'
+);
+  
+// Add the save action to user's own profile editing screen update.
+add_action(
+    'personal_options_update',
+    'wporg_usermeta_form_field_update'
+);
+  
+// Add the save action to user profile editing screen update.
+add_action(
+    'edit_user_profile_update',
+    'wporg_usermeta_form_field_update'
+);
+
