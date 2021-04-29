@@ -44,10 +44,31 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
         }
 
+        public function getnewaddress( $user_id = '' ) {
+            $addresses = array();
+            if ( $user_id != '') {
+                $this->init_rpc();
+                $receive_address = get_user_meta( $user_id, 'receive_address' , true );
+                $change_address = get_user_meta( $user_id, 'change_address' , true );
+                if ($receive_address=='') {
+                    $receive_address = $this->jsonrpc->getnewaddress();
+                    update_user_meta( $user_id, 'receive_address' , $receive_address );
+                }
+                if ($change_address=='') {
+                    $change_address = $this->jsonrpc->getrawchangeaddress();
+                    update_user_meta( $user_id, 'change_address' , $change_address );
+                }
+                array_push($addresses, $receive_address, $change_address);
+            }
+            return $addresses;
+        }
+
         public function getbalance( $user_id = '' ) {
             $amount = 0;
             if ( $user_id != '') {
-                $this->init_rpc();
+                //$this->init_rpc();
+                $addresses = $this->getnewaddress($user_id);
+/*
                 $addresses = array();
                 $receive_address = get_user_meta( $user_id, 'receive_address' , true );
                 $change_address = get_user_meta( $user_id, 'change_address' , true );
@@ -60,6 +81,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                     update_user_meta( $user_id, 'change_address' , $change_address );
                 }
                 array_push($addresses, $receive_address, $change_address);
+*/                
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
                 array_push($addresses, $top1_address);
                 $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
@@ -71,6 +93,38 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 }
             }
             return $amount;
+        }
+    
+        public function listtransactions( $user_id = '', $count = 20 ) {
+
+            //digitalcoin-cli listtransactions "*" 20 100 true
+            if ( $user_id != '') {
+                //$this->init_rpc();
+                $addresses = $this->getnewaddress($user_id);
+                $transactions = $this->jsonrpc->listtransactions('*', $count, 0, true);
+                if ( ! empty( $transactions ) && is_array( $transactions ) ) {
+                    foreach ( $transactions as $key => $transaction ) {
+                        $data[] = array(
+                            'transaction_id' => $transaction->txid,
+                            'user_id'        => $user_id,
+                            'type'           => ( 'send' === $transaction->category) ? 'credit' : 'debit',
+                            'amount'         => $transaction->amount,
+                            'currency'       => 'DGC',
+                            'details'        => $transaction->address,
+                            'date'           => $transaction->time
+                        );
+                    }
+                }
+                return $data;
+/*
+                foreach ($result as $array_value) {
+                    //if (( $array_value["address"] == $receive_address ) || ( $array_value["address"] == $change_address )) {
+                        echo $array_value["amount"];
+                    //}
+                }
+*/                
+            }
+
         }
     
         public function sendtoaddress( $user_id = '', $amount = 0 ) {
