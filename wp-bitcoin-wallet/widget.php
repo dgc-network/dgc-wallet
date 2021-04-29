@@ -74,7 +74,7 @@ class WPBW_Widget {
 
 		<label>Wallet Info:</label>
 		<?php 
-        $result = dgc_wallet()->wallet_core->listtransactions($user_id, 50, 100);
+        $result = dgc_wallet()->wallet_core->listtransactions($current_user_id, 50, 100);
 		//$result = $this->jsonrpc->getwalletinfo(); 
     	$o = '<pre>{<br>'; 
 		foreach ($result as $key=>$value) {
