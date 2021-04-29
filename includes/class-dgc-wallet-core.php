@@ -91,7 +91,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                             'amount'         => (float)$transaction['amount'],
                             'currency'       => 'Digitalcoin',
                             'details'        => $transaction['txid'],
-                            'date'           => date("F j, Y", (int)$transaction['time'])
+                            'date'           => (int)$transaction['time']
                         );
                     }
                 }
