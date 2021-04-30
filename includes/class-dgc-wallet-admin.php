@@ -267,7 +267,8 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
                 </p>
                 <input type="text" disabled class="regular-text ltr" name="receive_address" value="<?php echo $receive_address; ?>" />
                 <br>
-                <img src="https://sc-outing.com/wp-content/plugins/dgc-wallet-master/includes/helper/simple_png_output.php" />
+                
+                <?php //echo '<img src="https://sc-outing.com/wp-content/plugins/dgc-wallet-master/includes/helper/simple_png_output.php" />' ?>
             </div>
             <?php
         }
