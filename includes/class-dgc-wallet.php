@@ -113,6 +113,7 @@ final class dgc_Wallet {
         include_once( DGC_WALLET_ABSPATH . 'includes/helper/dgc-wallet-util.php' );
         include_once( DGC_WALLET_ABSPATH . 'includes/helper/dgc-wallet-update-functions.php' );
         include_once( DGC_WALLET_ABSPATH . 'includes/helper/jsonRPCClient.php' );
+        include_once( DGC_WALLET_ABSPATH . 'includes/helper/phpqrcode.php' );
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-install.php' );
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-settings-api.php' );
