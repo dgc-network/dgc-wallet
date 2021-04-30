@@ -4,4 +4,5 @@
     
     // outputs image directly into browser, as PNG stream
     //QRcode::png('PHP QR Code :)');
-    QRcode::png(dgc_wallet()->wallet_admin->qrcode_address);
+    $qrcode_address = dgc_wallet()->wallet_admin->qrcode_address;
+    QRcode::png($qrcode_address);

@@ -13,7 +13,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * @since 1.1.10
          */
         protected static $_instance = null;
-        private $qrcode_address;
+        public $qrcode_address;
 
         /**
          * dgc_Wallet_Transaction_Details Class Object
