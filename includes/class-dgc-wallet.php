@@ -26,6 +26,12 @@ final class dgc_Wallet {
     public $wallet_core = null;
 
     /**
+     * Wallet instance.
+     * @var dgc_Wallet_Admin
+     */
+    public $wallet_admin = null;
+
+    /**
      * Cashback instance.
      * @var dgc_Wallet_Cashback 
      */
@@ -124,6 +130,7 @@ final class dgc_Wallet {
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-settings.php' );
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-extensions.php' );
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-admin.php' );
+            $this->wallet_admin = new dgc_Wallet_Admin();
         }
         if ( $this->is_request( 'frontend' ) ) {
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-frontend.php' );

@@ -13,6 +13,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * @since 1.1.10
          */
         protected static $_instance = null;
+        private $qrcode_address;
 
         /**
          * dgc_Wallet_Transaction_Details Class Object
@@ -253,6 +254,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         public function display_user_wallet_qr_code() {
             $user_id = filter_input(INPUT_GET, 'user_id' );
             $receive_address = get_user_meta( $user_id, 'receive_address' , true );
+            $this->qrcode_address = $receive_address;
             ?>
             <div class="wrap">
                 <?php settings_errors(); ?>
@@ -915,4 +917,4 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
     }
 
 }
-dgc_Wallet_Admin::instance();
+//dgc_Wallet_Admin::instance();
