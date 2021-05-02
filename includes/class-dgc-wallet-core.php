@@ -91,7 +91,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                             'type'           => ( 'send' === $transaction['category']) ? 'credit' : 'debit',
                             'amount'         => (float)$transaction['amount'],
                             'currency'       => 'Digitalcoin',
-                            'details'        => $get_transaction->hex,
+                            'details'        => $get_transaction['hex'],
                             'date'           => (int)$transaction['time']
                         );
                     }
