@@ -84,14 +84,14 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 $transactions = $this->jsonrpc->listtransactions('*', $count, $from, true);
                 if ( ! empty( $transactions ) && is_array( $transactions ) ) {
                     foreach ( $transactions as $transaction ) {
-                        $get_transaction = $this->jsonrpc->gettransaction($transaction['txid']);
+                        //$get_transaction = $this->jsonrpc->gettransaction($transaction['txid']);
                         $data[] = array(
                             'transaction_id' => $transaction['txid'],
                             'user_id'        => $user_id,
                             'type'           => ( 'send' === $transaction['category']) ? 'credit' : 'debit',
                             'amount'         => (float)$transaction['amount'],
                             'currency'       => 'Digitalcoin',
-                            'details'        => $get_transaction->hex,
+                            'details'        => '$get_transaction->hex',
                             'date'           => (int)$transaction['time']
                         );
                     }
