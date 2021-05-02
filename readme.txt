@@ -125,7 +125,7 @@ Yes you can! Join in on our [GitHub repository](https://github.com/dgc-network/d
 6. Admin adjust wallet balance.
 7. dgcWallet for WooCommerce payment gateway.
 8. WooCommerce refund.
-9. Payment actions.
+9. Wallet actions.
 
 == Changelog ==
 

@@ -309,12 +309,12 @@ msgid "dgcWallet"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:140
-msgid "Payment actions"
+msgid "Wallet actions"
 msgstr ""
 
 #: includes/class-dgc-wallet-admin.php:143
 msgid ""
-"Integrated payment actions are listed below. If active those actions will be "
+"Integrated wallet actions are listed below. If active those actions will be "
 "triggered with respective WordPress hook."
 msgstr ""
 

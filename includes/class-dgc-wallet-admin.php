@@ -101,7 +101,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * init admin menu
          */
         public function admin_menu() {
-            $dgc_wallet_menu_page_hook = add_menu_page( 'dgcWallet', 'dgcWallet', 'manage_woocommerce', 'dgc-wallet', array( $this, 'payment_page' ), '', 59 );
+            $dgc_wallet_menu_page_hook = add_menu_page( 'dgcWallet', 'dgcWallet', 'manage_woocommerce', 'dgc-wallet', array( $this, 'wallet_page' ), '', 59 );
             add_action( "load-$dgc_wallet_menu_page_hook", array( $this, 'add_dgc_wallet_details' ) );
             //$dgc_wallet_menu_page_hook_add = add_submenu_page( '', __( 'dgcWallet', 'text-domain' ), __( 'dgcWallet', 'text-domain' ), 'manage_woocommerce', 'dgc-wallet-add', array( $this, 'add_balance_to_user_wallet' ) );
             $dgc_wallet_menu_page_hook_add = add_submenu_page( '', __( 'dgcWallet', 'text-domain' ), __( 'dgcWallet', 'text-domain' ), 'manage_woocommerce', 'dgc-wallet-add', array( $this, 'display_user_wallet_qr_code' ) );
@@ -149,10 +149,10 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         public function display_actions_table() {
             $wallet_actions = dgc_Wallet_Actions::instance();
             echo '<div class="wrap">';
-            echo '<h2>' . __( 'Payment actions', 'text-domain' ) . '</h2>';
+            echo '<h2>' . __( 'Wallet actions', 'text-domain' ) . '</h2>';
             settings_errors();
             ?>
-            <p><?php _e( 'Integrated payment actions are listed below. If active those actions will be triggered with respective WordPress hook.', 'text-domain' ); ?></p>
+            <p><?php _e( 'Integrated wallet actions are listed below. If active those actions will be triggered with respective WordPress hook.', 'text-domain' ); ?></p>
             <table class="wc_emails widefat" cellspacing="0">
                 <thead>
                     <tr>
@@ -230,9 +230,9 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
         }
 
         /**
-         * Display user payment details page
+         * Display user wallet details page
          */
-        public function payment_page() {
+        public function wallet_page() {
             ?>
             <div class="wrap">
                 <h2><?php _e( 'Users wallet details', 'text-domain' ); ?></h2>

@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Payment actions.
+ * Wallet actions.
  *
  * @author subrata
  */
