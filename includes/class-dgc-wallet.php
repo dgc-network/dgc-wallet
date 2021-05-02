@@ -113,7 +113,7 @@ final class dgc_Wallet {
         include_once( DGC_WALLET_ABSPATH . 'includes/helper/dgc-wallet-util.php' );
         include_once( DGC_WALLET_ABSPATH . 'includes/helper/dgc-wallet-update-functions.php' );
         include_once( DGC_WALLET_ABSPATH . 'includes/helper/jsonRPCClient.php' );
-        //include_once( DGC_WALLET_ABSPATH . 'includes/helper/phpqrcode.php' );        
+        include_once( DGC_WALLET_ABSPATH . 'includes/helper/phpqrcode.php' );        
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-install.php' );
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-settings-api.php' );
@@ -131,7 +131,7 @@ final class dgc_Wallet {
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-settings.php' );
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-extensions.php' );
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-admin.php' );
-            //$this->wallet_admin = new dgc_Wallet_Admin();
+            $this->wallet_admin = new dgc_Wallet_Admin();
         }
         if ( $this->is_request( 'frontend' ) ) {
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-frontend.php' );
