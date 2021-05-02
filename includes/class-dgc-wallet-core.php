@@ -83,8 +83,8 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 $addresses = $this->getnewaddress($user_id);
                 $transactions = $this->jsonrpc->listtransactions('*', $count, $from, true);
                 if ( ! empty( $transactions ) && is_array( $transactions ) ) {
-                    $get_transaction = $this->jsonrpc->gettransaction($transaction['txid']);
                     foreach ( $transactions as $transaction ) {
+                        $get_transaction = $this->jsonrpc->gettransaction($transaction['txid']);
                         $data[] = array(
                             'transaction_id' => $transaction['txid'],
                             'user_id'        => $user_id,
