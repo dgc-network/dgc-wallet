@@ -288,6 +288,9 @@ if ( ! function_exists( 'get_transactions' ) ) {
         $upper = (int)strstr($limit, ',', true);
         $count = $upper-$lower;
         $array = dgc_wallet()->wallet_core->listtransactions($args['user_id']);
+        foreach ($array as $item) {
+            $item['details']=$limit;
+        }
         //return (object)$array;
         $object = json_decode(json_encode($array), FALSE);
         return $object;
