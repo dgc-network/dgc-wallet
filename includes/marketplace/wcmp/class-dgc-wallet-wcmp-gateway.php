@@ -23,7 +23,7 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
             $this->currency         = get_woocommerce_currency();
             $this->transaction_mode = $transaction_mode;
             if ( $this->validate_request() ) {
-                if ( $this->process_payment_payment() ) {
+                if ( $this->process_wallet_payment() ) {
                     $this->record_transaction();
                     if ( $this->transaction_id ) {
                         return array( 'message' => __( 'New transaction has been initiated', 'text-domain' ), 'type' => 'success', 'transaction_id' => $this->transaction_id );
@@ -64,7 +64,7 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
             return parent::validate_request();
         }
 
-        private function process_payment_payment() {
+        private function process_wallet_payment() {
             $amount_to_pay   = round( $this->get_transaction_total() - $this->transfer_charge( $this->transaction_mode) - $this->gateway_charge(), 2 );
             $for_commissions = implode( ',', $this->commissions );
             $transaction_id  = dgc_wallet()->wallet_core->credit( $this->vendor->id, $amount_to_pay, __( 'Commission received for commission id ', 'text-domain' ). $for_commissions );
