@@ -131,7 +131,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
             wp_register_script('jquery-datatables-script', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array('jquery'));
             wp_register_script('jquery-datatables-responsive-script', '//cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js', array('jquery'));
             wp_register_script('dgc-wallet-endpoint', dgc_wallet()->plugin_url() . '/assets/js/frontend/dgc-wallet-endpoint' . $suffix . '.js', array('jquery', 'jquery-datatables-script'), DGC_WALLET_PLUGIN_VERSION);
-            $payment_localize_param = array(
+            $wallet_localize_param = array(
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'search_by_user_email' => apply_filters('dgc_wallet_user_search_exact_match', true),
                 'i18n' => array(
@@ -151,7 +151,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
                     'searching' => __('Searching…', 'text-domain')
                 )
             );
-            wp_localize_script('dgc-wallet-endpoint', 'payment_param', $payment_localize_param);
+            wp_localize_script('dgc-wallet-endpoint', 'wallet_param', $wallet_localize_param);
             wp_enqueue_style('dgc-wallet-style');
             //if (is_account_page()) {
                 wp_enqueue_style('dashicons');
