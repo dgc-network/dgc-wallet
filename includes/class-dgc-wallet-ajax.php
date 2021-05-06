@@ -32,13 +32,13 @@ if ( ! class_exists( 'dgc_Wallet_Ajax' ) ) {
         public function __construct() {
             add_action( 'wp_ajax_dgc_wallet_order_refund', array( $this, 'dgc_wallet_order_refund' ) );
             add_action( 'wp_ajax_woocommerce_payment_rated', array( $this, 'woocommerce_payment_rated' ) );
-            add_action( 'wp_ajax_dgc-payment-user-search', array( $this, 'dgc_wallet_user_search' ) );
+            add_action( 'wp_ajax_dgc-wallet-user-search', array( $this, 'dgc_wallet_user_search' ) );
             add_action( 'wp_ajax_dgc_wallet_partial_payment_update_session', array( $this, 'dgc_wallet_partial_payment_update_session' ) );
             add_action( 'wp_ajax_dgc_wallet_refund_partial_payment', array($this, 'dgc_wallet_refund_partial_payment' ) );
-            add_action( 'wp_ajax_dgc-payment-dismiss-promotional-notice', array($this, 'dgc_wallet_dismiss_promotional_notice' ) );
+            add_action( 'wp_ajax_dgc-wallet-dismiss-promotional-notice', array($this, 'dgc_wallet_dismiss_promotional_notice' ) );
         }
         /**
-         * Payment partial payment refund.
+         * Wallet partial payment refund.
          */
         public function dgc_wallet_refund_partial_payment(){
             if ( !current_user_can( 'edit_shop_orders' ) ) {
