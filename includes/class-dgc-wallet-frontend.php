@@ -31,11 +31,11 @@ if (!class_exists('dgc_Wallet_Frontend')) {
         public function __construct() {
             add_filter('wp_nav_menu_items', array($this, 'add_payment_nav_menu'), 100, 2);
             add_filter('woocommerce_get_query_vars', array($this, 'add_woocommerce_query_vars'));
-            add_filter('woocommerce_endpoint_dgc-payment_title', array($this, 'woocommerce_endpoint_title'), 10, 2);
-            add_filter('woocommerce_endpoint_dgc-payment-transactions_title', array($this, 'woocommerce_endpoint_title'), 10, 2);
+            add_filter('woocommerce_endpoint_dgc-wallet_title', array($this, 'woocommerce_endpoint_title'), 10, 2);
+            add_filter('woocommerce_endpoint_dgc-wallet-transactions_title', array($this, 'woocommerce_endpoint_title'), 10, 2);
             add_filter('woocommerce_account_menu_items', array($this, 'dgc_wallet_menu_items'), 10, 1);
-            add_action('woocommerce_account_dgc-payment_endpoint', array($this, 'dgc_wallet_endpoint_content'));
-            add_action('woocommerce_account_dgc-payment-transactions_endpoint', array($this, 'dgc_wallet_transactions_endpoint_content'));
+            add_action('woocommerce_account_dgc-wallet_endpoint', array($this, 'dgc_wallet_endpoint_content'));
+            add_action('woocommerce_account_dgc-wallet-transactions_endpoint', array($this, 'dgc_wallet_transactions_endpoint_content'));
 
             add_filter('woocommerce_is_purchasable', array($this, 'make_dgc_wallet_recharge_product_purchasable'), 10, 2);
             add_action('wp_loaded', array($this, 'dgc_wallet_frontend_loaded'), 20);
