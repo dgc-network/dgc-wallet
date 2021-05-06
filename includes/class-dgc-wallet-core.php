@@ -217,6 +217,46 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             } else if ( $type == 'debit' ) {
                 $balance -= $amount;
             }
+
+            /**
+             * sendtoaddress()
+             * sender --> recipient
+             */
+            $txid = '';
+            $balance_amount = $amount;
+            $user_id = $this->user_id;
+            if ( $user_id != '') {
+                $this->init_rpc();
+                $current_user_id = get_current_user_id();
+                $addresses = array();
+                $send_address = get_user_meta( $current_user_id, 'receive_address' , true );
+                $change_address = get_user_meta( $current_user_id, 'change_address' , true );
+                $recipient = get_user_meta( $user_id, 'receive_address' , true );
+                array_push($addresses, $send_address);
+                $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
+                $transactions = array();
+                foreach ($result as $array_value) {
+                    $utxo_object->txid = $array_value["txid"];
+                    $utxo_object->vout = $array_value["vout"];
+                    array_push($transactions, $utxo_object);
+                    if ( $array_value["amount"] >= $balance_amount ) {
+                        $outputs->$recipient = $amount;
+                        $outputs->$change_address = $amount - $array_value["amount"];
+                        $rawtxhex = $this->jsonrpc->createrawtransaction($transactions, $outputs);
+                        $result = $this->jsonrpc->fundrawtransaction($rawtxhex);
+                        //$result = $this->jsonrpc->signrawtransaction($rawtxhex);
+                        //if ($result->complete) {
+                            $txid = $this->jsonrpc->sendrawtransaction($result->hex);
+                            return $txid;
+                        //}					
+                    } else {
+                        $balance_amount = $balance_amount - $array_value["amount"];
+                    }
+                }
+            }
+            return $txid;
+
+
             if ( $wpdb->insert( "{$wpdb->base_prefix}dgc_wallet_transactions", apply_filters( 'dgc_wallet_transactions_args', array( 'blog_id' => $GLOBALS['blog_id'], 'user_id' => $this->user_id, 'type' => $type, 'amount' => $amount, 'balance' => $balance, 'currency' => get_woocommerce_currency(), 'details' => $details, 'date' => current_time('mysql') ), array( '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ) ) {
                 $transaction_id = $wpdb->insert_id;
                 update_user_meta($this->user_id, $this->meta_key, $balance);
