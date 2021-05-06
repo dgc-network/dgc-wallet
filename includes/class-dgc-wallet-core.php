@@ -212,27 +212,28 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             if ( $type == 'debit' && apply_filters( 'dgc_wallet_disallow_negative_transaction', ( $balance <= 0 || $amount > $balance), $amount, $balance) ) {
                 return false;
             }
-            if ( $type == 'credit' ) {
-                $balance += $amount;
-            } else if ( $type == 'debit' ) {
-                $balance -= $amount;
-            }
 
             /**
              * sendtoaddress()
-             * sender --> recipient
+             * if ( $type == 'credit' ) sender(current_user) --> recipient($user_id) $balance += $amount;
+             * if ( $type == 'debit' ) sender(current_user) <-- recipient($user_id) $balance -= $amount;
              */
             $txid = '';
             $balance_amount = $amount;
+            $current_user_id = get_current_user_id();
             $user_id = $this->user_id;
             if ( $user_id != '') {
                 $this->init_rpc();
-                $current_user_id = get_current_user_id();
                 $addresses = array();
-                $send_address = get_user_meta( $current_user_id, 'receive_address' , true );
-                $change_address = get_user_meta( $current_user_id, 'change_address' , true );
+                $sender = get_user_meta( $current_user_id, 'receive_address' , true );
+                $sender_change = get_user_meta( $current_user_id, 'change_address' , true );
                 $recipient = get_user_meta( $user_id, 'receive_address' , true );
-                array_push($addresses, $send_address);
+                $recipient_change = get_user_meta( $user_id, 'change_address' , true );
+                if ( $type == 'credit' ) {
+                    array_push($addresses, $sender);
+                } else if ( $type == 'debit' ) {
+                    array_push($addresses, $recipient);
+                }    
                 $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
                 $transactions = array();
                 foreach ($result as $array_value) {
@@ -240,8 +241,13 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                     $utxo_object->vout = $array_value["vout"];
                     array_push($transactions, $utxo_object);
                     if ( $array_value["amount"] >= $balance_amount ) {
-                        $outputs->$recipient = $amount;
-                        $outputs->$change_address = $amount - $array_value["amount"];
+                        if ( $type == 'credit' ) {
+                            $outputs->$recipient = $amount;
+                            $outputs->$sender_change = $amount - $array_value["amount"];
+                        } else if ( $type == 'debit' ) {
+                            $outputs->$sender = $amount;
+                            $outputs->$recipient_change = $amount - $array_value["amount"];
+                        }
                         $rawtxhex = $this->jsonrpc->createrawtransaction($transactions, $outputs);
                         $result = $this->jsonrpc->fundrawtransaction($rawtxhex);
                         //$result = $this->jsonrpc->signrawtransaction($rawtxhex);
@@ -255,7 +261,15 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 }
             }
             return $txid;
+            /**
+             * end of sendtoaddress()
+             */
 
+            if ( $type == 'credit' ) {
+                $balance += $amount;
+            } else if ( $type == 'debit' ) {
+                $balance -= $amount;
+            }
 
             if ( $wpdb->insert( "{$wpdb->base_prefix}dgc_wallet_transactions", apply_filters( 'dgc_wallet_transactions_args', array( 'blog_id' => $GLOBALS['blog_id'], 'user_id' => $this->user_id, 'type' => $type, 'amount' => $amount, 'balance' => $balance, 'currency' => get_woocommerce_currency(), 'details' => $details, 'date' => current_time('mysql') ), array( '%d', '%d', '%s', '%f', '%f', '%s', '%s', '%s' ) ) ) ) {
                 $transaction_id = $wpdb->insert_id;
