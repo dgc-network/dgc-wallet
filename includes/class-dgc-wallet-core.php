@@ -42,7 +42,6 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
             $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/')
-            var_dump($this->jsonrpc);
         }
 
         function getnewaddress( $user_id = '' ) {
