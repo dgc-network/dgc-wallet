@@ -15,8 +15,8 @@ License: GPLv3 or later
 
 if(is_admin()) {
 	require_once dirname(__FILE__).'/admin.php';
-	require_once dirname(__FILE__).'/client.php';
-	require_once dirname(__FILE__).'/widget.php';
+	//require_once dirname(__FILE__).'/client.php';
+	//require_once dirname(__FILE__).'/widget.php';
 }
 
 ?>
