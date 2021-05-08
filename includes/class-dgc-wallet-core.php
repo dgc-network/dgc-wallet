@@ -47,26 +47,26 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 $receive_address = get_user_meta( $user_id, 'receive_address' , true );
                 $change_address = get_user_meta( $user_id, 'change_address' , true );
                 if ($receive_address=='') {
-                    try {
+                    //try {
                         $receive_address = $this->jsonrpc->getnewaddress();
                         update_user_meta( $user_id, 'receive_address' , $receive_address );
-                    }
+                    //}
                     //catch exception
-                    catch(Exception $e) {
+                    //catch(Exception $e) {
                         //echo 'Message: ' .$e->getMessage();
-                        throw new Exception('Message: ' .$e->getMessage());
-                    }
+                    //    throw new Exception('Message: ' .$e->getMessage());
+                    //}
                 }
                 if ($change_address=='') {
-                    try {
+                    //try {
                         $change_address = $this->jsonrpc->getrawchangeaddress();
                         update_user_meta( $user_id, 'change_address' , $change_address );
-                    }
+                    //}
                     //catch exception
-                    catch(Exception $e) {
+                    //catch(Exception $e) {
                         //echo 'Message: ' .$e->getMessage();
-                        throw new Exception('Message: ' .$e->getMessage());
-                    }
+                    //    throw new Exception('Message: ' .$e->getMessage());
+                    //}
                 }
                 array_push($addresses, $receive_address, $change_address);
             }
@@ -79,17 +79,17 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 $addresses = $this->get_addresses($user_id);
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
                 array_push($addresses, $top1_address);
-                try {
+                //try {
                     $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
                     foreach ($result as $array_value) {
                         $amount = $amount + $array_value["amount"];
                     }    
-                }
+                //}
                 //catch exception
-                catch(Exception $e) {
+                //catch(Exception $e) {
                     //echo 'Message: ' .$e->getMessage();
-                    throw new Exception('Message: ' .$e->getMessage());
-                }
+                //    throw new Exception('Message: ' .$e->getMessage());
+                //}
             }
             return $amount;
         }
@@ -98,7 +98,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $data = array();
             if ( $user_id != '') {
                 $addresses = $this->get_addresses($user_id);
-                try {
+                //try {
                     $transactions = $this->jsonrpc->listtransactions('*', $count, $from, true);
                     if ( ! empty( $transactions ) && is_array( $transactions ) ) {
                         foreach ( $transactions as $transaction ) {
@@ -115,12 +115,12 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                             );
                         }
                     }    
-                }
+                //}
                 //catch exception
-                catch(Exception $e) {
+                //catch(Exception $e) {
                     //echo 'Message: ' .$e->getMessage();
-                    throw new Exception('Message: ' .$e->getMessage());
-                }
+                //    throw new Exception('Message: ' .$e->getMessage());
+                //}
             }
             return $data;
         }
@@ -224,7 +224,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                     array_push($addresses, $recipient);
                 }    
                 $transactions = array();
-                try {
+                //try {
                     $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
                     foreach ($result as $array_value) {
                         $utxo_object->txid = $array_value["txid"];
@@ -249,12 +249,12 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                             $balance_amount = $balance_amount - $array_value["amount"];
                         }
                     }    
-                }
+                //}
                 //catch exception
-                catch(Exception $e) {
+                //catch(Exception $e) {
                     //echo 'Message: ' .$e->getMessage();
-                    throw new Exception('Message: ' .$e->getMessage());
-                }
+                //    throw new Exception('Message: ' .$e->getMessage());
+                //}
             }
             return $txid;
             /**
