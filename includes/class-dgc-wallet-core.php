@@ -32,18 +32,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
          * Class constructor
          */
         public function __construct() {
-            $this->user_id = get_current_user_id();
-            
-            $rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
-            $rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
-            $rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
-            $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
-            $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
-            $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
-
-        }
-
-        function init_rpc() {
+            $this->user_id = get_current_user_id();            
             $rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
             $rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
             $rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
@@ -55,66 +44,62 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
         function get_addresses( $user_id = '' ) {
             $addresses = array();
             if ( $user_id != '') {
-                //$this->init_rpc();
-                //if ($this->init_rpc())
-                //    wp_die(__('You do not have sufficient permissions to access this page.'));
                 $receive_address = get_user_meta( $user_id, 'receive_address' , true );
                 $change_address = get_user_meta( $user_id, 'change_address' , true );
                 if ($receive_address=='') {
-                    $receive_address = $this->jsonrpc->getnewaddress();
-/*
-                    if (property_exists($response, 'result')) {
-                        echo $response->result;
-                    } elseif (property_exists($response, 'error')) {
-                        echo $response->error->message;
-                    } else {
-                        echo print_r($response);
-                    }        
-*/
-                    update_user_meta( $user_id, 'receive_address' , $receive_address );
+                    try {
+                        $receive_address = $this->jsonrpc->getnewaddress();
+                        update_user_meta( $user_id, 'receive_address' , $receive_address );
+                    }
                 }
                 if ($change_address=='') {
-                    $change_address = $this->jsonrpc->getrawchangeaddress();
-                    update_user_meta( $user_id, 'change_address' , $change_address );
+                    try {
+                        $change_address = $this->jsonrpc->getrawchangeaddress();
+                        update_user_meta( $user_id, 'change_address' , $change_address );
+                    }
                 }
                 array_push($addresses, $receive_address, $change_address);
             }
             return $addresses;
         }
 
-        public function getbalance( $user_id = '' ) {
+        public function get_balance( $user_id = '' ) {
             $amount = 0;
             if ( $user_id != '') {
                 $addresses = $this->get_addresses($user_id);
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
                 array_push($addresses, $top1_address);
-                $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
-                foreach ($result as $array_value) {
-                    $amount = $amount + $array_value["amount"];
+                try {
+                    $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
+                    foreach ($result as $array_value) {
+                        $amount = $amount + $array_value["amount"];
+                    }    
                 }
             }
             return $amount;
         }
     
-        public function listtransactions( $user_id = '', $count = 20, $from = 0 ) {
+        public function list_transactions( $user_id = '', $count = 20, $from = 0 ) {
             $data = array();
             if ( $user_id != '') {
                 $addresses = $this->get_addresses($user_id);
-                $transactions = $this->jsonrpc->listtransactions('*', $count, $from, true);
-                if ( ! empty( $transactions ) && is_array( $transactions ) ) {
-                    foreach ( $transactions as $transaction ) {
-                        //$get_transaction = $this->jsonrpc->gettransaction($transaction['txid']);
-                        $data[] = array(
-                            'transaction_id' => $transaction['txid'],
-                            'user_id'        => $user_id,
-                            'type'           => ( 'send' === $transaction['category']) ? 'credit' : 'debit',
-                            'amount'         => (float)$transaction['amount'],
-                            'currency'       => 'Digitalcoin',
-                            'details'        => $transaction['txid'],
-                            //'details'        => $get_transaction['hex'],
-                            'date'           => (int)$transaction['time']
-                        );
-                    }
+                try {
+                    $transactions = $this->jsonrpc->listtransactions('*', $count, $from, true);
+                    if ( ! empty( $transactions ) && is_array( $transactions ) ) {
+                        foreach ( $transactions as $transaction ) {
+                            //$get_transaction = $this->jsonrpc->gettransaction($transaction['txid']);
+                            $data[] = array(
+                                'transaction_id' => $transaction['txid'],
+                                'user_id'        => $user_id,
+                                'type'           => ( 'send' === $transaction['category']) ? 'credit' : 'debit',
+                                'amount'         => (float)$transaction['amount'],
+                                'currency'       => 'Digitalcoin',
+                                'details'        => $transaction['txid'],
+                                //'details'        => $get_transaction['hex'],
+                                'date'           => (int)$transaction['time']
+                            );
+                        }
+                    }    
                 }
             }
             return $data;
@@ -124,7 +109,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $txid = '';
             $balance_amount = $amount;
             if ( $user_id != '') {
-                $this->init_rpc();
+                //$this->init_rpc();
                 $current_user_id = get_current_user_id();
                 $addresses = array();
                 $send_address = get_user_meta( $current_user_id, 'receive_address' , true );
@@ -181,7 +166,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 //$credit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'credit' ) ) ) ), 'amount' ) );
                 //$debit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
                 //$balance = $credit_amount - $debit_amount;
-                $balance = $this->getbalance($this->user_id);
+                $balance = $this->get_balance($this->user_id);
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
@@ -242,7 +227,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $current_user_id = get_current_user_id();
             $user_id = $this->user_id;
             if ( $user_id != '') {
-                $this->init_rpc();
+                //$this->init_rpc();
                 $addresses = array();
                 $sender = get_user_meta( $current_user_id, 'receive_address' , true );
                 $sender_change = get_user_meta( $current_user_id, 'change_address' , true );
@@ -253,30 +238,32 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 } else if ( $type == 'debit' ) {
                     array_push($addresses, $recipient);
                 }    
-                $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
                 $transactions = array();
-                foreach ($result as $array_value) {
-                    $utxo_object->txid = $array_value["txid"];
-                    $utxo_object->vout = $array_value["vout"];
-                    array_push($transactions, $utxo_object);
-                    if ( $array_value["amount"] >= $balance_amount ) {
-                        if ( $type == 'credit' ) {
-                            $outputs->$recipient = $amount;
-                            $outputs->$sender_change = $amount - $array_value["amount"];
-                        } else if ( $type == 'debit' ) {
-                            $outputs->$sender = $amount;
-                            $outputs->$recipient_change = $amount - $array_value["amount"];
+                try {
+                    $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
+                    foreach ($result as $array_value) {
+                        $utxo_object->txid = $array_value["txid"];
+                        $utxo_object->vout = $array_value["vout"];
+                        array_push($transactions, $utxo_object);
+                        if ( $array_value["amount"] >= $balance_amount ) {
+                            if ( $type == 'credit' ) {
+                                $outputs->$recipient = $amount;
+                                $outputs->$sender_change = $amount - $array_value["amount"];
+                            } else if ( $type == 'debit' ) {
+                                $outputs->$sender = $amount;
+                                $outputs->$recipient_change = $amount - $array_value["amount"];
+                            }
+                            $rawtxhex = $this->jsonrpc->createrawtransaction($transactions, $outputs);
+                            $result = $this->jsonrpc->fundrawtransaction($rawtxhex);
+                            //$result = $this->jsonrpc->signrawtransaction($rawtxhex);
+                            //if ($result->complete) {
+                                $txid = $this->jsonrpc->sendrawtransaction($result->hex);
+                                return $txid;
+                            //}					
+                        } else {
+                            $balance_amount = $balance_amount - $array_value["amount"];
                         }
-                        $rawtxhex = $this->jsonrpc->createrawtransaction($transactions, $outputs);
-                        $result = $this->jsonrpc->fundrawtransaction($rawtxhex);
-                        //$result = $this->jsonrpc->signrawtransaction($rawtxhex);
-                        //if ($result->complete) {
-                            $txid = $this->jsonrpc->sendrawtransaction($result->hex);
-                            return $txid;
-                        //}					
-                    } else {
-                        $balance_amount = $balance_amount - $array_value["amount"];
-                    }
+                    }    
                 }
             }
             return $txid;

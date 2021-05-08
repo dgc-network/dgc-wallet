@@ -64,8 +64,8 @@ class WPBW_Widget {
 		$first_name = get_user_meta( $current_user_id, 'first_name' , true );
 		$last_name = get_user_meta( $current_user_id, 'last_name' , true );
 		//$balance = $this->jsonrpc->getbalance();
-        //$array = dgc_wallet()->wallet_core->listtransactions($user_id, 50, 100);
-		$balance = dgc_wallet()->wallet_core->getbalance($current_user_id);
+        //$array = dgc_wallet()->wallet_core->list_transactions($user_id, 50, 100);
+		$balance = dgc_wallet()->wallet_core->get_balance($current_user_id);
 		$output = '<pre>';
 		$output .= $first_name . ' ' . $last_name . ': ' . $balance;
 		$output .= '</pre><br>';
@@ -74,7 +74,7 @@ class WPBW_Widget {
 
 		<label>List Transactions:</label>
 		<?php 
-        $result = dgc_wallet()->wallet_core->listtransactions($current_user_id);
+        $result = dgc_wallet()->wallet_core->list_transactions($current_user_id);
     	$o = '<pre>[<br>'; 
 		foreach ($result as $array_value) {
 			$o .= '{<br>'; 
