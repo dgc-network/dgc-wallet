@@ -38,10 +38,10 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
             $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
-            //$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
+            $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
         }
 
-        function get_addresses( $user_id = '' ) {
+        public function get_addresses( $user_id = '' ) {
             $addresses = array();
             if ( $user_id != '') {
                 $receive_address = get_user_meta( $user_id, 'receive_address' , true );
@@ -72,7 +72,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             }
             return $addresses;
         }
-
+/*
         public function get_balance( $user_id = '' ) {
             $amount = 0;
             if ( $user_id != '') {
@@ -93,7 +93,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             }
             return $amount;
         }
-    
+*/    
         public function list_transactions( $user_id = '', $count = 20, $from = 0 ) {
             $data = array();
             if ( $user_id != '') {
@@ -151,7 +151,23 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 //$credit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'credit' ) ) ) ), 'amount' ) );
                 //$debit_amount = array_sum(wp_list_pluck( get_transactions( array( 'user_id' => $this->user_id, 'where' => array( array( 'key' => 'type', 'value' => 'debit' ) ) ) ), 'amount' ) );
                 //$balance = $credit_amount - $debit_amount;
-                $balance = $this->get_balance($this->user_id);
+
+                //$balance = $this->get_balance($this->user_id);
+                $balance = 0;
+                $addresses = $this->get_addresses($this->user_id);
+                $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
+                array_push($addresses, $top1_address);
+                //try {
+                    $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
+                    foreach ($result as $array_value) {
+                        $balance = $balance + $array_value["amount"];
+                    }    
+                //}
+                //catch exception
+                //catch(Exception $e) {
+                    //echo 'Message: ' .$e->getMessage();
+                //    throw new Exception('Message: ' .$e->getMessage());
+                //}
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
