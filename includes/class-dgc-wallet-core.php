@@ -47,7 +47,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 echo 'Message: ' .$e->getMessage();
                     //    throw new Exception('Message: ' .$e->getMessage());
             }
-/            
+*/            
             //$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
 
         }
