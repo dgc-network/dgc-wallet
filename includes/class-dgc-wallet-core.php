@@ -42,14 +42,16 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
             $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
-            if ($this->jsonrpc==false)
-                wp_die(__('You do not have sufficient permissions to access this page.'));
+            if ($this->jsonrpc==false) return false;
+            //    wp_die(__('You do not have sufficient permissions to access this page.'));
         }
 
         function getnewaddress( $user_id = '' ) {
             $addresses = array();
             if ( $user_id != '') {
-                $this->init_rpc();
+                //$this->init_rpc();
+                if ($this->init_rpc()==false)
+                    wp_die(__('You do not have sufficient permissions to access this page.'));
                 $receive_address = get_user_meta( $user_id, 'receive_address' , true );
                 $change_address = get_user_meta( $user_id, 'change_address' , true );
                 if ($receive_address=='') {
