@@ -52,7 +52,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
         }
 
-        function getnewaddress( $user_id = '' ) {
+        function get_addresses( $user_id = '' ) {
             $addresses = array();
             if ( $user_id != '') {
                 $this->init_rpc();
@@ -85,7 +85,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
         public function getbalance( $user_id = '' ) {
             $amount = 0;
             if ( $user_id != '') {
-                $addresses = $this->getnewaddress($user_id);
+                $addresses = $this->get_addresses($user_id);
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
                 array_push($addresses, $top1_address);
                 $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
@@ -99,7 +99,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
         public function listtransactions( $user_id = '', $count = 20, $from = 0 ) {
             $data = array();
             if ( $user_id != '') {
-                $addresses = $this->getnewaddress($user_id);
+                $addresses = $this->get_addresses($user_id);
                 $transactions = $this->jsonrpc->listtransactions('*', $count, $from, true);
                 if ( ! empty( $transactions ) && is_array( $transactions ) ) {
                     foreach ( $transactions as $transaction ) {
