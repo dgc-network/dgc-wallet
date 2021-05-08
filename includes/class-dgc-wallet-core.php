@@ -43,6 +43,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
             $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
             if ($this->jsonrpc==false) return false;
+            return true;
             //    wp_die(__('You do not have sufficient permissions to access this page.'));
         }
 
