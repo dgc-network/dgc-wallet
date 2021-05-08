@@ -51,11 +51,19 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                         $receive_address = $this->jsonrpc->getnewaddress();
                         update_user_meta( $user_id, 'receive_address' , $receive_address );
                     }
+                    //catch exception
+                    catch(Exception $e) {
+                        echo 'Message: ' .$e->getMessage();
+                    }
                 }
                 if ($change_address=='') {
                     try {
                         $change_address = $this->jsonrpc->getrawchangeaddress();
                         update_user_meta( $user_id, 'change_address' , $change_address );
+                    }
+                    //catch exception
+                    catch(Exception $e) {
+                        echo 'Message: ' .$e->getMessage();
                     }
                 }
                 array_push($addresses, $receive_address, $change_address);
@@ -74,6 +82,10 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                     foreach ($result as $array_value) {
                         $amount = $amount + $array_value["amount"];
                     }    
+                }
+                //catch exception
+                catch(Exception $e) {
+                    echo 'Message: ' .$e->getMessage();
                 }
             }
             return $amount;
@@ -100,6 +112,10 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                             );
                         }
                     }    
+                }
+                //catch exception
+                catch(Exception $e) {
+                    echo 'Message: ' .$e->getMessage();
                 }
             }
             return $data;
@@ -264,6 +280,10 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                             $balance_amount = $balance_amount - $array_value["amount"];
                         }
                     }    
+                }
+                //catch exception
+                catch(Exception $e) {
+                    echo 'Message: ' .$e->getMessage();
                 }
             }
             return $txid;
