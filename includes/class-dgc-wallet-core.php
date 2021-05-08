@@ -8,7 +8,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 
     class dgc_Wallet_Core {
 
-        private $json_rpc;
+        private $json_rpc=false;
 
         /**
          * WordPress user ID.
@@ -42,12 +42,13 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
             $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
+            if !($this->jsonrpc) return false;
         }
 
         function getnewaddress( $user_id = '' ) {
             $addresses = array();
             if ( $user_id != '') {
-                if !($this->init_rpc()) return false;
+                $this->init_rpc();
                 $receive_address = get_user_meta( $user_id, 'receive_address' , true );
                 $change_address = get_user_meta( $user_id, 'change_address' , true );
                 if ($receive_address=='') {
