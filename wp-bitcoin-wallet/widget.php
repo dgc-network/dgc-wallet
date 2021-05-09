@@ -64,22 +64,6 @@ class WPBW_Widget {
 		echo $output;
 		?>
 
-		<label>List Transactions:</label>
-		<?php 
-        $result = dgc_wallet()->wallet_core->list_transactions($current_user_id);
-    	$o = '<pre>[<br>'; 
-		foreach ($result as $array_value) {
-			$o .= '{<br>'; 
-			foreach ($array_value as $key=>$value) {
-				$o .= '  "'. $key . '": ' . $value . '<br>';
-			}
-			$o .= '}<br>'; 
-    	}
-    	$o .= ']</pre>'; 
-		echo $o;
-		?>
-		</br>
-
 		<strong>Send Coins:</strong>
 		<br />
 		<br />
@@ -111,6 +95,23 @@ class WPBW_Widget {
 */		
 		?>
 		</ul>
+
+		<label>List Transactions:</label>
+		<?php 
+        $result = dgc_wallet()->wallet_core->list_transactions($current_user_id);
+    	$o = '<pre>[<br>'; 
+		foreach ($result as $array_value) {
+			$o .= '{<br>'; 
+			foreach ($array_value as $key=>$value) {
+				$o .= '  "'. $key . '": ' . $value . '<br>';
+			}
+			$o .= '}<br>'; 
+    	}
+    	$o .= ']</pre>'; 
+		echo $o;
+		?>
+		</br>
+
 		<?php
 	}
 
@@ -118,10 +119,38 @@ class WPBW_Widget {
 		if(isset($_REQUEST['wpbw_widget_send'])) {
 			check_admin_referer('wpbw_widget_nonce');
 			//TODO: Sanitize inputs!
-			$transaction = $this->jsonrpc->sendfrom($this->account, $_REQUEST['wpbw_send_address'], (float)$_REQUEST['wpbw_send_numcoins']);
-			?>
+			//$transaction = $this->jsonrpc->sendfrom($this->account, $_REQUEST['wpbw_send_address'], (float)$_REQUEST['wpbw_send_numcoins']);
+
+            $txid = '';
+			$recipient= $_REQUEST['wpbw_send_address']
+            $amount = (float)$_REQUEST['wpbw_send_numcoins'];
+			dgc_wallet()->wallet_core->init_rpc();
+			$addresses = array();
+            $current_user_id = get_current_user_id();
+			$sender = get_user_meta( $current_user_id, 'receive_address' , true );
+			$sender_change = get_user_meta( $current_user_id, 'change_address' , true );
+			array_push($addresses, $sender);
+
+			$result = dgc_wallet()->jsonrpc->listunspent(6, 9999999, $addresses);
+            $balance_amount = (float)$_REQUEST['wpbw_send_numcoins'];
+			$transactions = array();
+			foreach ($result as $array_value) {
+				$utxo_object->txid = $array_value["txid"];
+				$utxo_object->vout = $array_value["vout"];
+				array_push($transactions, $utxo_object);
+				if ( (float)$array_value["amount"] >= $balance_amount ) {
+					$outputs->$recipient = $amount;
+					$outputs->$sender_change = $amount - (float)$array_value["amount"];
+					$rawtxhex = dgc_wallet()->jsonrpc->createrawtransaction($transactions, $outputs);
+					$result = dgc_wallet()->jsonrpc->fundrawtransaction($rawtxhex);
+					$txid = dgc_wallet()->jsonrpc->sendrawtransaction($result->hex);
+				} else {
+					$balance_amount = $balance_amount - (float)$array_value["amount"];
+				}
+			}    
+?>
 			<label>Sent, transaction ID is:</label>
-			<pre><?php echo $transaction; ?>.</pre>
+			<pre><?php echo $txid; ?>.</pre>
 			<br />
 			<br />
 			<?php
