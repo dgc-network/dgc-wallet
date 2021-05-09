@@ -49,7 +49,7 @@ class WPBW_Widget {
 	}
 
 	public function display() {
-		$this->handle_post();
+		//$this->handle_post();
 
 		?>
 		<label>Balance:</label>		
@@ -118,7 +118,7 @@ class WPBW_Widget {
 		if(isset($_REQUEST['wpbw_widget_send'])) {
 			check_admin_referer('wpbw_widget_nonce');
 			//TODO: Sanitize inputs!
-			//$transaction = $this->jsonrpc->sendfrom($this->account, $_REQUEST['wpbw_send_address'], (float)$_REQUEST['wpbw_send_numcoins']);
+			$transaction = $this->jsonrpc->sendfrom($this->account, $_REQUEST['wpbw_send_address'], (float)$_REQUEST['wpbw_send_numcoins']);
 			?>
 			<label>Sent, transaction ID is:</label>
 			<pre><?php echo $transaction; ?>.</pre>
