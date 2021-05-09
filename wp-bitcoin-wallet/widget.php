@@ -130,7 +130,7 @@ class WPBW_Widget {
 			$sender = get_user_meta( $current_user_id, 'receive_address' , true );
 			$sender_change = get_user_meta( $current_user_id, 'change_address' , true );
 			array_push($addresses, $sender);
-
+/*
 			$result = dgc_wallet()->jsonrpc->listunspent(6, 9999999, $addresses);
             $balance_amount = (float)$_REQUEST['wpbw_send_numcoins'];
 			$transactions = array();
@@ -147,7 +147,8 @@ class WPBW_Widget {
 				} else {
 					$balance_amount = $balance_amount - (float)$array_value["amount"];
 				}
-			}    
+			}
+*/			
 ?>
 			<label>Sent, transaction ID is:</label>
 			<pre><?php echo $txid; ?>.</pre>
