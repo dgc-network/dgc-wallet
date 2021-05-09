@@ -159,10 +159,11 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 
                 //$balance = $this->get_balance($this->user_id);
                 $balance = 0;
+/*                
                 $addresses = $this->get_addresses($this->user_id);
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
                 array_push($addresses, $top1_address);
-/*                
+                
                 try {
                     $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
                     foreach ($result as $array_value) {
