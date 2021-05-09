@@ -172,17 +172,17 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 $addresses = $this->get_addresses($this->user_id);
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
                 array_push($addresses, $top1_address);
-                //try {
+                try {
                     $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
                     foreach ($result as $array_value) {
                         $balance = $balance + $array_value["amount"];
                     }    
-                //}
+                }
                 //catch exception
-                //catch(Exception $e) {
-                    //echo 'Message: ' .$e->getMessage();
+                catch(Exception $e) {
+                    echo 'Message: ' .$e->getMessage();
                 //    throw new Exception('Message: ' .$e->getMessage());
-                //}
+                }
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
