@@ -180,8 +180,8 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 }
                 //catch exception
                 catch(Exception $e) {
-                    echo 'Message: ' .$e->getMessage();
-                //    throw new Exception('Message: ' .$e->getMessage());
+                    //echo 'Message: ' .$e->getMessage();
+                    throw new Exception('Message: ' .$e->getMessage());
                 }
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
