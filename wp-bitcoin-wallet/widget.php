@@ -125,6 +125,7 @@ class WPBW_Widget {
 			$recipient= $_REQUEST['wpbw_send_address'];
             $amount = (float)$_REQUEST['wpbw_send_numcoins'];
 			dgc_wallet()->wallet_core->init_rpc();
+            $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
 			$addresses = array();
             $current_user_id = get_current_user_id();
 			$sender = get_user_meta( $current_user_id, 'receive_address' , true );
@@ -143,9 +144,10 @@ class WPBW_Widget {
 				if ( (float)$array_value["amount"] >= $balance_amount ) {
 					$outputs->$recipient = $amount;
 					$outputs->$sender_change = $amount - (float)$array_value["amount"];
-					$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
-					$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
-					$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
+					dgc_wallet()->wallet_core->jsonrpc->passphrase($passphrase);
+					//$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
+					//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
+					//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
 					//$txid = $sender_change;
 				} else {
 					$balance_amount = $balance_amount - (float)$array_value["amount"];
