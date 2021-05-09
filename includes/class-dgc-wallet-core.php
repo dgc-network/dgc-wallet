@@ -159,6 +159,8 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 
                 //$balance = $this->get_balance($this->user_id);
                 $balance = 0;
+                init_rpc();
+
 /*                
                 $addresses = $this->get_addresses($this->user_id);
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
