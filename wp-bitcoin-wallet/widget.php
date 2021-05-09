@@ -23,6 +23,7 @@ class WPBW_Widget {
 		$current_user_id = get_current_user_id();
 
 		if($wp_user != 0) {
+/*			
 			$this->account = $options['bitcoind_account_prefix'].hash("sha256", $wp_user->user_login);
 			//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
 			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
@@ -39,7 +40,7 @@ class WPBW_Widget {
 				//$this->change_address = $this->dgc_client->getrawchangeaddress();
 				update_user_meta( $current_user_id, 'change_address' , $this->change_address );
 			}
-
+*/
 			wp_add_dashboard_widget('wpbw_widget', 'Wallet', array($this, 'display'));
 		} else {
 			// We shouldn't ever get here, since only logged-in users can access the dashboard.
@@ -51,20 +52,11 @@ class WPBW_Widget {
 		$this->handle_post();
 
 		?>
-		<label>Top1 Balance:</label>
-		<?php $this->account = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS'; ?>
-		<?php $output = $this->account . ': '; ?>
-		<?php //$output .= $this->dgc_client->getbalance($this->account); ?>
-		<pre><?php echo $output; ?></pre>
-		</br>
-
 		<label>Balance:</label>		
 		<?php
 		$current_user_id = get_current_user_id();
 		$first_name = get_user_meta( $current_user_id, 'first_name' , true );
 		$last_name = get_user_meta( $current_user_id, 'last_name' , true );
-		//$balance = $this->jsonrpc->getbalance();
-        //$array = dgc_wallet()->wallet_core->list_transactions($user_id, 50, 100);
 		$balance = dgc_wallet()->wallet_core->get_balance($current_user_id);
 		$output = '<pre>';
 		$output .= $first_name . ' ' . $last_name . ': ' . $balance;
@@ -84,18 +76,6 @@ class WPBW_Widget {
 			$o .= '}<br>'; 
     	}
     	$o .= ']</pre>'; 
-		echo $o;
-		?>
-		</br>
-
-		<label>Wallet Info:</label>
-		<?php 
-		$result = $this->jsonrpc->getwalletinfo(); 
-    	$o = '<pre>{<br>'; 
-		foreach ($result as $key=>$value) {
-        	$o .= '  "'. $key . '": ' . $value . '<br>';
-    	}
-    	$o .= '}</pre>'; 
 		echo $o;
 		?>
 		</br>
