@@ -574,14 +574,14 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             if ( isset( $current_screen->id ) && in_array( $current_screen->id, $dgc_wallet_pages) ) {
                 if ( !get_option( 'woocommerce_payment_admin_footer_text_rated' ) ) {
                     $footer_text = sprintf(
-                            __( 'If you like %1$s please leave us a %2$s rating. A huge thanks in advance!', 'text-domain' ), sprintf( '<strong>%s</strong>', esc_html__( 'dgcWallet for WooCommerce', 'text-domain' ) ), '<a href="https://wordpress.org/support/plugin/dgc-wallet/reviews?rate=5#new-post" target="_blank" class="wc-rating-link" data-rated="' . esc_attr__( 'Thanks :)', 'text-domain' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+                        __( 'If you like %1$s please leave us a %2$s rating. A huge thanks in advance!', 'text-domain' ), sprintf( '<strong>%s</strong>', esc_html__( 'dgcWallet for WooCommerce', 'text-domain' ) ), '<a href="https://wordpress.org/support/plugin/dgc-wallet/reviews?rate=5#new-post" target="_blank" class="wc-rating-link" data-rated="' . esc_attr__( 'Thanks :)', 'text-domain' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
                     );
                     wc_enqueue_js( "
-					jQuery( 'a.wc-rating-link' ).click( function() {
-						jQuery.post( '" . WC()->ajax_url() . "', { action: 'woocommerce_payment_rated' } );
-						jQuery( this ).parent().text( jQuery( this ).data( 'rated' ) );
-					});
-				" );
+					    jQuery( 'a.wc-rating-link' ).click( function() {
+						    jQuery.post( '" . WC()->ajax_url() . "', { action: 'woocommerce_payment_rated' } );
+						    jQuery( this ).parent().text( jQuery( this ).data( 'rated' ) );
+					    });
+				    " );
                 } else {
                     $footer_text = __( 'Thank you for using dgcWallet for WooCommerce.', 'text-domain' );
                 }
