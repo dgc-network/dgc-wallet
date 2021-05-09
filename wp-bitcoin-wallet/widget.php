@@ -130,8 +130,9 @@ class WPBW_Widget {
 			$sender = get_user_meta( $current_user_id, 'receive_address' , true );
 			$sender_change = get_user_meta( $current_user_id, 'change_address' , true );
 			array_push($addresses, $sender);
+			$txid = $sender_change;
 
-			$result = dgc_wallet()->jsonrpc->listunspent(6, 9999999, $addresses);
+			//$result = dgc_wallet()->jsonrpc->listunspent(6, 9999999, $addresses);
 /*			
             $balance_amount = (float)$_REQUEST['wpbw_send_numcoins'];
 			$transactions = array();
