@@ -43,16 +43,6 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
             $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
-/*            
-            try {
-                //$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
-            }
-            catch(Exception $e) {
-                echo 'Message: ' .$e->getMessage();
-                    //    throw new Exception('Message: ' .$e->getMessage());
-            }
-*/            
-
         }
 
         public function get_addresses( $user_id = '' ) {
@@ -172,6 +162,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 $addresses = $this->get_addresses($this->user_id);
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
                 array_push($addresses, $top1_address);
+/*                
                 try {
                     $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
                     foreach ($result as $array_value) {
@@ -183,6 +174,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                     //echo 'Message: ' .$e->getMessage();
                     throw new Exception('Message: ' .$e->getMessage());
                 }
+*/                
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
