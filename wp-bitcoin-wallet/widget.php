@@ -148,7 +148,7 @@ class WPBW_Widget {
 					//$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
 					//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
 					//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
-					//$txid = $sender_change;
+					$txid = $sender_change;
 				} else {
 					$balance_amount = $balance_amount - (float)$array_value["amount"];
 				}
