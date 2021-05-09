@@ -121,7 +121,7 @@ class WPBW_Widget {
 			//TODO: Sanitize inputs!
 			//$transaction = $this->jsonrpc->sendfrom($this->account, $_REQUEST['wpbw_send_address'], (float)$_REQUEST['wpbw_send_numcoins']);
 
-            $txid = '';
+            $txid = 'test';
 			$recipient= $_REQUEST['wpbw_send_address'];
             $amount = (float)$_REQUEST['wpbw_send_numcoins'];
 			dgc_wallet()->wallet_core->init_rpc();
