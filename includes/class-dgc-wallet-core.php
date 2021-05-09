@@ -36,7 +36,6 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
         }
 
         function init_rpc() {
-
             $rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
             $rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
             $rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
@@ -77,28 +76,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             }
             return $addresses;
         }
-/*
-        public function get_balance( $user_id = '' ) {
-            $amount = 0;
-            if ( $user_id != '') {
-                $addresses = $this->get_addresses($user_id);
-                $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
-                array_push($addresses, $top1_address);
-                //try {
-                    $result = $this->jsonrpc->listunspent(6, 9999999, $addresses);
-                    foreach ($result as $array_value) {
-                        $amount = $amount + $array_value["amount"];
-                    }    
-                //}
-                //catch exception
-                //catch(Exception $e) {
-                    //echo 'Message: ' .$e->getMessage();
-                //    throw new Exception('Message: ' .$e->getMessage());
-                //}
-            }
-            return $amount;
-        }
-*/    
+
         public function list_transactions( $user_id = '', $count = 20, $from = 0 ) {
             $data = array();
             if ( $user_id != '') {
@@ -235,7 +213,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
             $current_user_id = get_current_user_id();
             $user_id = $this->user_id;
             if ( $user_id != '') {
-                //$this->init_rpc();
+                $this->init_rpc();
                 $addresses = array();
                 $sender = get_user_meta( $current_user_id, 'receive_address' , true );
                 $sender_change = get_user_meta( $current_user_id, 'change_address' , true );
