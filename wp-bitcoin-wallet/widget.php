@@ -49,7 +49,7 @@ class WPBW_Widget {
 	}
 
 	public function display() {
-		//$this->handle_post();
+		$this->handle_post();
 
 		?>
 		<label>Balance:</label>		
