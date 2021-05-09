@@ -37,16 +37,16 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 
         function init_rpc() {
 
-            //$rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
-            //$rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
-            //$rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
-            //$rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
-            //$passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
-            //$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
+            $rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
+            $rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
+            $rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
+            $rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
+            $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
+            $this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
         }
 
         public function get_addresses( $user_id = '' ) {
-            init_rpc();
+            $this->init_rpc();
             $addresses = array();
             if ( $user_id != '') {
                 $receive_address = get_user_meta( $user_id, 'receive_address' , true );
@@ -159,9 +159,6 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
 
                 //$balance = $this->get_balance($this->user_id);
                 $balance = 0;
-                init_rpc();
-
-/*                
                 $addresses = $this->get_addresses($this->user_id);
                 $top1_address = 'DQMLne3GZHo4uiu5nWsxdFsTrrmxYJnubS';
                 array_push($addresses, $top1_address);
@@ -177,7 +174,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                     //echo 'Message: ' .$e->getMessage();
                     throw new Exception('Message: ' .$e->getMessage());
                 }
-*/                
+                
                 $this->wallet_balance = apply_filters( 'dgc_wallet_current_balance', $balance, $this->user_id );
             }
             return 'view' === $context ? wc_price( $this->wallet_balance, dgc_wallet_wc_price_args($this->user_id) ) : number_format( $this->wallet_balance, wc_get_price_decimals(), '.', '' );
