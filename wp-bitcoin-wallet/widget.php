@@ -23,10 +23,10 @@ class WPBW_Widget {
 		$current_user_id = get_current_user_id();
 
 		if($wp_user != 0) {
+			//$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
 /*			
 			$this->account = $options['bitcoind_account_prefix'].hash("sha256", $wp_user->user_login);
 			//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
-			$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
 			//$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
 			$this->receive_address = get_user_meta( $current_user_id, 'receive_address' , true );
 			$this->change_address = get_user_meta( $current_user_id, 'change_address' , true );
@@ -100,6 +100,7 @@ class WPBW_Widget {
 		<br />
 		<ul>
 		<?php
+/*		
 		$transactions = array_reverse($this->jsonrpc->listtransactions($this->account));
 
 		foreach($transactions as $t) {
@@ -107,6 +108,7 @@ class WPBW_Widget {
 			<li><?php echo $t['txid']; ?></li>
 			<?php
 		}
+*/		
 		?>
 		</ul>
 		<?php
@@ -116,7 +118,7 @@ class WPBW_Widget {
 		if(isset($_REQUEST['wpbw_widget_send'])) {
 			check_admin_referer('wpbw_widget_nonce');
 			//TODO: Sanitize inputs!
-			$transaction = $this->jsonrpc->sendfrom($this->account, $_REQUEST['wpbw_send_address'], (float)$_REQUEST['wpbw_send_numcoins']);
+			//$transaction = $this->jsonrpc->sendfrom($this->account, $_REQUEST['wpbw_send_address'], (float)$_REQUEST['wpbw_send_numcoins']);
 			?>
 			<label>Sent, transaction ID is:</label>
 			<pre><?php echo $transaction; ?>.</pre>
