@@ -144,11 +144,17 @@ class WPBW_Widget {
 				if ( (float)$array_value["amount"] >= $balance_amount ) {
 					$outputs->$recipient = $amount;
 					$outputs->$sender_change = $amount - (float)$array_value["amount"];
-					//dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
-					//$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
-					//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
-					//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
-					$txid = $sender_change;
+					try {
+						dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
+						//$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
+						//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
+						//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
+						$txid = $sender_change;
+					}
+                    catch(Exception $e) {
+                        //echo 'Message: ' .$e->getMessage();
+                        throw new Exception('Message: ' .$e->getMessage());
+                    }
 				} else {
 					$balance_amount = $balance_amount - (float)$array_value["amount"];
 				}
