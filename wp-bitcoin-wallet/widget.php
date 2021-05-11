@@ -145,11 +145,11 @@ class WPBW_Widget {
 					$outputs->$recipient = $amount;
 					$outputs->$sender_change = $amount - (float)$array_value["amount"];
 					try {
-						dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
+						//dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
 						//$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
 						//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
 						//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
-						$txid = $sender_change;
+						$txid = $passphrase;
 					}
                     catch(Exception $e) {
                         //echo 'Message: ' .$e->getMessage();
