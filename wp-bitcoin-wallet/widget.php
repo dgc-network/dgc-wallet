@@ -150,8 +150,8 @@ class WPBW_Widget {
 						//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
 						//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
 						$txid = $passphrase;
-						echo $utxo_object->txid;
-						echo $utxo_object->vout;
+						echo "txod:".$utxo_object->txid."<br>";
+						echo "vout:".$utxo_object->vout;
 					}
                     catch(Exception $e) {
                         //echo 'Message: ' .$e->getMessage();
