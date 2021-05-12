@@ -135,7 +135,7 @@ class WPBW_Widget {
 			array_push($addresses, $top1_address);
 
 			$result = dgc_wallet()->wallet_core->jsonrpc->listunspent(6, 9999999, $addresses);
-			dgc_wallet()->wallet_core->jsonrpc->walletpassphrase('mypassphrase', 60);
+			dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
 			$send_amount_balance = (float)$_REQUEST['wpbw_send_numcoins'];
 			$transactions = array();
 			foreach ($result as $array_value) {
