@@ -144,7 +144,7 @@ class WPBW_Widget {
 				array_push($transactions, $utxo_object);
 				if ( $utxo_amount >= $send_amount_balance ) {
 					$outputs->$recipient = $send_amount;
-					$outputs->$sender_change = $send_amount - $utxo_amount;
+					$outputs->$sender_change = $utxo_amount - $send_amount;
 					try {
 						//dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
 						//$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
@@ -161,8 +161,9 @@ class WPBW_Widget {
                         //echo 'Message: ' .$e->getMessage();
                         throw new Exception('Message: ' .$e->getMessage());
                     }
+					return "end of transaction"
 				} else {
-					$balance_amount = $balance_amount - (float)$array_value["amount"];
+					$send_amount_balance = $send_amount_balance - $send_amount;
 				}
 			}
 
