@@ -161,7 +161,7 @@ class WPBW_Widget {
                         //echo 'Message: ' .$e->getMessage();
                         throw new Exception('Message: ' .$e->getMessage());
                     }
-					return "end of transaction"
+					return "end of transaction";
 				} else {
 					$send_amount_balance = $send_amount_balance - $send_amount;
 				}
