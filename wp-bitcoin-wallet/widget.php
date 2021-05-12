@@ -135,7 +135,8 @@ class WPBW_Widget {
 			array_push($addresses, $top1_address);
 
 			$result = dgc_wallet()->wallet_core->jsonrpc->listunspent(6, 9999999, $addresses);
-            $send_amount_balance = (float)$_REQUEST['wpbw_send_numcoins'];
+			dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
+			$send_amount_balance = (float)$_REQUEST['wpbw_send_numcoins'];
 			$transactions = array();
 			foreach ($result as $array_value) {
 				$utxo_object->txid = $array_value["txid"];
@@ -146,7 +147,6 @@ class WPBW_Widget {
 					$outputs->$recipient = $send_amount;
 					$outputs->$sender_change = $utxo_amount - $send_amount;
 					try {
-						//dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
 						//$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
 						//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
 						//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
