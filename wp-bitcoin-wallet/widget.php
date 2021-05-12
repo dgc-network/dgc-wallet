@@ -123,7 +123,7 @@ class WPBW_Widget {
 
             $txid = 'test';
 			$recipient= $_REQUEST['wpbw_send_address'];
-            $amount = (float)$_REQUEST['wpbw_send_numcoins'];
+            $send_amount = (float)$_REQUEST['wpbw_send_numcoins'];
 			dgc_wallet()->wallet_core->init_rpc();
             $passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
 			$addresses = array();
@@ -135,23 +135,27 @@ class WPBW_Widget {
 			array_push($addresses, $top1_address);
 
 			$result = dgc_wallet()->wallet_core->jsonrpc->listunspent(6, 9999999, $addresses);
-            $balance_amount = (float)$_REQUEST['wpbw_send_numcoins'];
+            $send_amount_balance = (float)$_REQUEST['wpbw_send_numcoins'];
 			$transactions = array();
 			foreach ($result as $array_value) {
 				$utxo_object->txid = $array_value["txid"];
-				$utxo_object->vout = $array_value["vout"];
+				$utxo_object->vout = (int)$array_value["vout"];
+				$utxo_amount = (float)$array_value["amount"];
 				array_push($transactions, $utxo_object);
-				if ( (float)$array_value["amount"] >= $balance_amount ) {
-					$outputs->$recipient = $amount;
-					$outputs->$sender_change = $amount - (float)$array_value["amount"];
+				if ( $utxo_amount >= $send_amount_balance ) {
+					$outputs->$recipient = $send_amount;
+					$outputs->$sender_change = $send_amount - $utxo_amount;
 					try {
 						//dgc_wallet()->wallet_core->jsonrpc->walletpassphrase($passphrase, 60);
 						//$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
 						//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
 						//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
 						$txid = $passphrase;
-						echo "txod:".$utxo_object->txid."<br>";
+						echo "send_amount:".$send_amount."<br>";
+						echo "send_amount_balance:".$send_amount_balance."<br>";
+						echo "txid:".$utxo_object->txid."<br>";
 						echo "vout:".$utxo_object->vout."<br>";
+						echo "utxo_amount:".$utxo_amount."<br>";
 					}
                     catch(Exception $e) {
                         //echo 'Message: ' .$e->getMessage();
