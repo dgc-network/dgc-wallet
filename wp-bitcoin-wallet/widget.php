@@ -154,7 +154,7 @@ class WPBW_Widget {
 						$txid = $passphrase;
 						echo "createrawtransaction: ".$rawtxhex."<br>";
 						//echo "fundrawtransaction: ".$fundtx."<br>";
-						//echo "fundrawtransaction->hex: ".$fundtx->hex."<br>";
+						echo "fundrawtransaction->hex: ".$fundtx->hex."<br>";
 						//echo "send_amount:".$send_amount."<br>";
 						//echo "send_amount_balance:".$send_amount_balance."<br>";
 						//echo "txid:".$utxo_object->txid."<br>";
