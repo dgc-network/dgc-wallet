@@ -148,7 +148,7 @@ class WPBW_Widget {
 					$outputs->$sender_change = $utxo_amount - $send_amount;
 					try {
 						$rawtxhex = dgc_wallet()->wallet_core->jsonrpc->createrawtransaction($transactions, $outputs);
-						//$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex, true);
+						$fundtx = dgc_wallet()->wallet_core->jsonrpc->fundrawtransaction($rawtxhex);
 						//$txid = dgc_wallet()->wallet_core->jsonrpc->sendrawtransaction($fundtx->hex);
 						$txid = $passphrase;
 						echo "createrawtransaction: ".$rawtxhex."<br>";
