@@ -57,6 +57,7 @@ class WPBW_Widget {
 		$response = wp_remote_get( 'https://api.freiexchange.com/public/ticker/DGC' );
 		$body     = wp_remote_retrieve_body( $response );
 		$result = $body['DGC_BTC'];
+		$result =json_decode($result) ;
 		$output = '<pre>';
 		$output .= 'body: '.$result;
 /*		
