@@ -58,10 +58,12 @@ class WPBW_Widget {
 		$body     = wp_remote_retrieve_body( $response );
 		$result = $body['DGC_BTC'];
 		$output = '<pre>';
-		$output .= $result;
+		$output .= 'body: '.$result;
+/*		
 		foreach($body['DGC_BTC'] as $t) {
 			$output .= $t;
 		}
+*/		
 		$output .= '</pre><br>';
 		echo $output;
 	}
