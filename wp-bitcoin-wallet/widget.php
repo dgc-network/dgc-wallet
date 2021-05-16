@@ -51,6 +51,19 @@ class WPBW_Widget {
 	public function display() {
 		$this->handle_post();
 
+		$response = wp_remote_get( 'https://api.freiexchange.com/public/orderbook/DGC' );
+
+		?>
+		<label>Ticker:</label>		
+		<?php
+		$response = wp_remote_get( 'https://api.freiexchange.com/public/ticker/DGC' );
+		$body     = wp_remote_retrieve_body( $response );
+		$result = $body->DGC_BTC;
+		$output = '<pre>';
+		$output .= $result;
+		$output .= '</pre><br>';
+		echo $output;
+
 		?>
 		<label>Balance:</label>		
 		<?php
