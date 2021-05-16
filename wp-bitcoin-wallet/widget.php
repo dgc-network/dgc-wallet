@@ -59,14 +59,23 @@ class WPBW_Widget {
 		$result = $body['DGC_BTC'];
 		//$result = json_encode($result) ;
 		$output = '<pre>';
-		$output .= 'body: '.$body;
-/*		
-		foreach($body['DGC_BTC'] as $t) {
-			$output .= $t;
-		}
-*/		
+		$output .= $body;
 		$output .= '</pre><br>';
 		echo $output;
+
+		?>
+		<label>OrderBook:</label>		
+		<?php
+		//$response = wp_remote_get( 'https://api.freiexchange.com/public/ticker/DGC' );
+		$response = wp_remote_get( 'https://api.freiexchange.com/public/orderbook/DGC' );
+		$body     = wp_remote_retrieve_body( $response );
+		$result = $body['DGC_BTC'];
+		//$result = json_encode($result) ;
+		$output = '<pre>';
+		$output .= $body;
+		$output .= '</pre><br>';
+		echo $output;
+
 	}
 
 	public function display_backup() {
