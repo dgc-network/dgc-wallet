@@ -9,16 +9,16 @@ class WPBW_Widget {
 
 	public function register() {
 		//require_once('jsonRPCClient.php');
-		//$options = get_option('wpbw_plugin_options');
+		$options = get_option('wpbw_plugin_options');
 		//$user = $options['bitcoind_rpc_username'];
 		//$pass = $options['bitcoind_rpc_password'];
 		//$host = $options['bitcoind_rpc_host'];
 		//$port = $options['bitcoind_rpc_port'];
-		//$rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
-		//$rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
-		//$rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
-		//$rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
-		//$passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
+		$rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
+		$rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
+		$rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
+		$rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
+		$passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
 		$wp_user = wp_get_current_user();
 		$current_user_id = get_current_user_id();
 
@@ -49,6 +49,8 @@ class WPBW_Widget {
 	}
 
 	public function display() {
+		$this->handle_post();
+
 		$response = wp_remote_get( 'https://api.freiexchange.com/public/orderbook/DGC' );
 
 		?>
@@ -61,11 +63,6 @@ class WPBW_Widget {
 		$output .= $result;
 		$output .= '</pre><br>';
 		echo $output;
-
-	}
-
-	public function display_backup() {
-		$this->handle_post();
 
 		?>
 		<label>Balance:</label>		
