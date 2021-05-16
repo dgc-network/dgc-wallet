@@ -54,10 +54,7 @@ class WPBW_Widget {
 		<label>Ticker:</label>		
 		<?php
 		$response = wp_remote_get( 'https://api.freiexchange.com/public/ticker/DGC' );
-		//$response = wp_remote_get( 'https://api.freiexchange.com/public/orderbook/DGC' );
 		$body     = wp_remote_retrieve_body( $response );
-		$result = $body['DGC_BTC'];
-		//$result = json_encode($result) ;
 		$output = '<pre>';
 		$output .= $body;
 		$output .= '</pre><br>';
@@ -66,11 +63,8 @@ class WPBW_Widget {
 		?>
 		<label>OrderBook:</label>		
 		<?php
-		//$response = wp_remote_get( 'https://api.freiexchange.com/public/ticker/DGC' );
 		$response = wp_remote_get( 'https://api.freiexchange.com/public/orderbook/DGC' );
 		$body     = wp_remote_retrieve_body( $response );
-		$result = $body['DGC_BTC'];
-		//$result = json_encode($result) ;
 		$output = '<pre>';
 		$output .= $body;
 		$output .= '</pre><br>';
