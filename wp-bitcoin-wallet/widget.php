@@ -8,39 +8,10 @@ class WPBW_Widget {
 	private $change_address;
 
 	public function register() {
-		//require_once('jsonRPCClient.php');
-		//$options = get_option('wpbw_plugin_options');
-		//$user = $options['bitcoind_rpc_username'];
-		//$pass = $options['bitcoind_rpc_password'];
-		//$host = $options['bitcoind_rpc_host'];
-		//$port = $options['bitcoind_rpc_port'];
-		//$rpc_host = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_host', '_wallet_settings_conf' );
-		//$rpc_port = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_port', '_wallet_settings_conf' );
-		//$rpc_user = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_username', '_wallet_settings_conf' );
-		//$rpc_pass = dgc_wallet()->settings_api->get_option( 'bitcoind_rpc_password', '_wallet_settings_conf' );
-		//$passphrase = dgc_wallet()->settings_api->get_option( 'wallet_passphrase', '_wallet_settings_conf' );
 		$wp_user = wp_get_current_user();
 		$current_user_id = get_current_user_id();
 
 		if($wp_user != 0) {
-			//$this->jsonrpc = new jsonRPCClient('http://'.$rpc_user.':'.$rpc_pass.'@'.$rpc_host.':'.$rpc_port.'/');
-/*			
-			$this->account = $options['bitcoind_account_prefix'].hash("sha256", $wp_user->user_login);
-			//$this->jsonrpc = new jsonRPCClient('http://'.$user.':'.$pass.'@'.$host.':'.$port.'/');
-			//$this->dgc_client = new dgcClient($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
-			$this->receive_address = get_user_meta( $current_user_id, 'receive_address' , true );
-			$this->change_address = get_user_meta( $current_user_id, 'change_address' , true );
-			if ($this->receive_address=='') {
-				$this->receive_address = $this->jsonrpc->getnewaddress();
-				//$this->receive_address = $this->dgc_client->getnewaddress();
-				update_user_meta( $current_user_id, 'receive_address' , $this->receive_address );
-			}
-			if ($this->change_address=='') {
-				$this->change_address = $this->jsonrpc->getrawchangeaddress();
-				//$this->change_address = $this->dgc_client->getrawchangeaddress();
-				update_user_meta( $current_user_id, 'change_address' , $this->change_address );
-			}
-*/
 			wp_add_dashboard_widget('wpbw_widget', 'Wallet', array($this, 'display'));
 		} else {
 			// We shouldn't ever get here, since only logged-in users can access the dashboard.
@@ -54,11 +25,15 @@ class WPBW_Widget {
 		<label>Ticker:</label>		
 		<?php
 		$response = wp_remote_get( 'https://api.freiexchange.com/public/ticker/DGC' );
-		$body     = wp_remote_retrieve_body( $response );
 		$output = '<pre>';
-		$output .= $body;
+		$output .= wp_remote_retrieve_body( $response );
 		$output .= '</pre><br>';
 		echo $output;
+
+	}
+
+	public function display_backup() {
+		$this->handle_post();
 
 		?>
 		<label>OrderBook:</label>		
@@ -69,11 +44,6 @@ class WPBW_Widget {
 		$output .= $body;
 		$output .= '</pre><br>';
 		echo $output;
-
-	}
-
-	public function display_backup() {
-		$this->handle_post();
 
 		?>
 		<label>Balance:</label>		
