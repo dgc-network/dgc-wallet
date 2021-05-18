@@ -54,7 +54,7 @@ function dgc_wallet(){
 $GLOBALS['dgc-wallet'] = dgc_wallet();
 
 /*
-Plugin Name: XYZ Coin Adapter
+Plugin Name: DGC Coin Adapter
 Plugin URI: https://www.dashed-slug.net/bitcoin-altcoin-wallets-wordpress-plugin/full-node-multi-coin-adapter-extension/
 Description:  Example of how to add an RPC-compatible wallet to the Full Node Multi Coin Adapter for Bitcoin and Altcoin Wallets
 Version: 0.1.0
@@ -63,25 +63,25 @@ Author URI: http://alexgeorgiou.gr
 */
 
 function wallets_multiadapter_coins_filter( $coins ) {
-	$coins['XYZ'] = array( // replace XYZ with the coin's ticker symbol in this line
+	$coins['DGC'] = array( // replace DGC with the coin's ticker symbol in this line
 
 		// Coin symbol (again)
-		'symbol' => 'XYZ',
+		'symbol' => 'DGC',
 
 		// Coin name
-		'name' => 'XYZ coin',
+		'name' => 'Digitalcoin',
 
 		// Default withdrawal fee (coin adapter settings override this)
-		'wd fee' => '0.005',
+		'wd fee' => '0.00',
 
 		// Default internal transaction fee (coin adapter settings override this)
-		'move fee' => '0.0005',
+		'move fee' => '0.000',
 
 		// Default min confirmation count required for deposits (coin adapter settings override this)
 		'minconf' => 12,
 
 		// Default RPC port (coin adapter settings override this)
-		'port number' => 12345,
+		'port number' => 7998,
 
 		// Whether the wallet supports -walletnotify
 		'tx notify' => 1,
@@ -96,7 +96,7 @@ function wallets_multiadapter_coins_filter( $coins ) {
 		'versions' => '',
 
 		// An sprintf() pattern for deposit address QR Code URI. If unsure, set to '%s'.
-		'qr pattern' => 'xyzcoin:%s',
+		'qr pattern' => 'digitalcoin:%s',
 
 		// An sprintf() pattern for displaying amounts. If unsure, leave to '%01.8f'.
 		'amount pattern' => '%01.8f',
@@ -108,7 +108,7 @@ function wallets_multiadapter_coins_filter( $coins ) {
 		'explorer address uri' => 'https://blockexplorer.example.com/address/%s/',
 
 		// URL to an 64x64 icon for the coin. Or leave empty to pull the icon from 'assets/sprites/SYMBOL.png'.
-		'icon url' => 'http://www.example.com/xyz-coin-icon-64x64.png',
+		'icon url' => 'http://www.example.com/digitalcoin-icon-64x64.png',
 	);
 
 	return $coins;
