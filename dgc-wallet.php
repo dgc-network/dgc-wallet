@@ -32,7 +32,13 @@ if ( ! defined( 'DGC_WALLET_PLUGIN_FILE' ) ) {
  */
 //include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wp-bitcoin-wallet.php';
 include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/widget.php';
-include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wallets-litecoin-adapter.php';
+
+add_action( 'wallets_declare_adapters', 'action_wallets_declare_adapters' );
+public function action_wallets_declare_adapters() {
+	//include_once __DIR__ . '/includes/wallets-litecoin-adapter.php';
+	include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wallets-litecoin-adapter.php';
+}
+
 
 /*
  * Include dependencies file.
