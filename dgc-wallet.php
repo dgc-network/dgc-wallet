@@ -36,7 +36,7 @@ include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/widget.php';
 add_action( 'wallets_declare_adapters', 'action_wallets_declare_adapters' );
 function action_wallets_declare_adapters() {
 	//include_once __DIR__ . '/includes/wallets-litecoin-adapter.php';
-	include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wallets-litecoin-adapter.php';
+	include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wallets-digitalcoin-adapter.php';
 }
 
 
