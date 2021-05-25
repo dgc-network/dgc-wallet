@@ -19,7 +19,7 @@ class Order
     private $feePercent;
     
     //Constructor
-    function __construct($setPrice, $setQuantity, $setType, $setSide, $setOwner, $setSymbol, $setFeePercent)
+    function __construct($setPrice, $setQuantity, $setType, $setSide, $setOwner, $setSymbol, $setFeePercent=0)
     {
        $this->price = $setPrice;
        $this->quantity = $setQuantity;

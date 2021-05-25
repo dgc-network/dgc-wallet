@@ -72,6 +72,7 @@ $register->insertMember("seller", "Joe", "Smithie", "12-12-1992", "999-888-9999"
 
 
 //create an order, usually done after receiving a post request from user's browser
+//function __construct($setPrice, $setQuantity, $setType, $setSide, $setOwner, $setSymbol, $setFeePercent)
 //types are a work in progress
 $buyOrder = new Order($price = 0.05, $quantity = 1000, $type = 1, $side = 'Buy', $traderID = 4, $symbolID = 1);
 $sellOrder = new Order(0.05, 1000, 1, 'Sell', 5, $symbolID = 1);
