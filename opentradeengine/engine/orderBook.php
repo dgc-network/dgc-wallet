@@ -7,6 +7,7 @@
 require_once("connectionFactory.php");
 require_once("tradeComplete.php");
 require_once("symbolManager.php");
+require_once("orderBookBase.php");
 
 class orderBook {
     
