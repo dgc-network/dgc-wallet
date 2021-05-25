@@ -7,6 +7,53 @@
 include('engine/engine.php');
 include('register.php');
 
+add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
+function dgc_wp_dashboard_setup() {
+    $wp_user = wp_get_current_user();
+
+    if($wp_user != 0) {
+        wp_add_dashboard_widget('opentrade_widget', 'Open Trade', 'display');
+    } else {
+        // We shouldn't ever get here, since only logged-in users can access the dashboard.
+        wp_die(__('You do not have sufficient permissions to access this page.'));
+    }
+}
+
+function display() {
+    handle_post();
+    ?>
+    <label>Ticker:</label>		
+    <?php
+    $response = wp_remote_get( 'https://api.freiexchange.com/public/ticker/DGC' );
+    $output = '<pre>';
+    $output .= wp_remote_retrieve_body( $response );
+    $output .= '</pre><br>';
+    echo $output;
+    ?>
+    <strong>Send Coins:</strong>
+    <br />
+    <br />
+    <form action="" method="post">
+    <?php wp_nonce_field('wpbw_widget_nonce'); ?>
+    <label>Number of coins:</label>
+    <input name="wpbw_send_numcoins" type="text" size="10" />
+    <br />
+    <label>Destination address:</label>
+    <input name="wpbw_send_address" type="text" size="40" />
+    <br />
+    <input name="wpbw_widget_send" type="submit" value="Send" />
+    </form>
+    <br />
+    <?php
+
+}
+
+function handle_post() {
+    if(isset($_REQUEST['wpbw_widget_send'])) {
+        check_admin_referer('wpbw_widget_nonce');
+    }
+}
+
 //add traders to database, usually after receiving a post request from a registration form
 /*
 $register = new Register();
