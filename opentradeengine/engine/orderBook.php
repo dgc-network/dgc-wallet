@@ -135,7 +135,7 @@ class orderBook {
         } catch (Exception $e) {
             $this->connection->query("ROLLBACK");
             $this->connection->query("INSERT INTO `OrderErrors`(`Error`) VALUES('$e') ");
-            THROW NEW Exception("Could not execute order. Error: $e");
+            //THROW NEW Exception("Could not execute order. Error: $e");
         }   
     }
     
