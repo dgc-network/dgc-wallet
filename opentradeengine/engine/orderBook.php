@@ -47,7 +47,8 @@ class orderBook {
         $this->volume = $this->setVolume();
 
         //$this->connection = connectionFactory::getConnection();
-        $this->connection = global $wpdb;
+        global $wpdb;
+        $this->connection = $wpdb;
     }
     
     //Executes an order by determining it's type and matching it with
