@@ -147,12 +147,14 @@ class OrderBookBase {
         global $wpdb;
         $connection = $wpdb;
 
-        $result = $connection->query($this->getOrderQuery." LIMIT 1");
+        //$result = $connection->query($this->getOrderQuery." LIMIT 1");
+        //$row = $wpdb->get_row($this->getOrderQuery." LIMIT 1", ARRAY_A);
 
         $order = NULL;
 
-        if($row = $result->fetch_assoc()) {
-            $result->close();
+        //if($row = $result->fetch_assoc()) {
+        //    $result->close();
+        if ($row = $wpdb->get_row($this->getOrderQuery." LIMIT 1", ARRAY_A)) {
 
             //make an order from the row
             $order = new Order($row['Price'], $row['Quantity'], $row['Type'], $row['Side'], $row['Owner'], $row['Symbol']);
