@@ -35,18 +35,21 @@ class SymbolManager {
         //$connection = connectionFactory::getConnection();
         global $wpdb;
         $connection = $wpdb;
-
+/*
         $statement = $connection->prepare("SELECT `Symbol`, `LeftCurrency`, `RightCurrency`, `MakerFee`,"
             ." `TakerFee` FROM `Symbols` WHERE `SymbolID` = ?");
         $statement->bind_param('i', $symbolID);
         $statement->execute();
+*/
+        $statement = $wpdb->query($wpdb->prepare("SELECT `Symbol`, `LeftCurrency`, `RightCurrency`, `MakerFee`,"
+            ." `TakerFee` FROM `Symbols` WHERE `SymbolID` = %s", $symbolID));
 
         $config = [];
         if($result = $statement->fetch_assoc()) {
             $config = ["symbol"=>$result["Symbol"], "leftCurrency"=>$result["LeftCurrency"], "rightCurrency"=>$result["RightCurrency"],
                 "makerFee"=>$result["MakerFee"], "takerFee"=>$result["TakerFee"]];
         }
-        $statement->close();
+        //$statement->close();
         return $config;
     }
 
