@@ -20,23 +20,53 @@ class Register
         //$connection = ConnectionFactory::getConnection();
         global $wpdb;
         $connection = $wpdb;
-
+/*
         $statement = $connection->prepare("INSERT INTO `Traders`(`UserName`, `FirstName`, `LastName`,"
         ."`BirthDate`, `PhoneNumber`, `SecurityQuestion`, `SecurityAnswer`, `PIN`, `Email`, `PasswordHash`, `Referrer`)"
         ." VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
+*/
         //create password hash from posted password
         $passHash = $this->encrypt($password);
 
+        $statement = $wpdb->insert(
+            'Traders',
+            array(
+                'UserName'          => $userName,
+                'FirstName'         => $firstName,
+                'LastName'          => $lastName,
+                'BirthDate'         => $birthDate,
+                'PhoneNumber'       => $phoneNumber,
+                'SecurityQuestion'  => $securityQuestion,
+                'SecurityAnswer'    => $securityAnswer,
+                'PIN'               => $pin,
+                'Email'             => $email,
+                'PasswordHash'      => $passHash,
+                'Referrer'          => $referrer,
+            ),
+            array(
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%d',
+            )   
+        );
+        $ID = $statement->insert_id;
+/*
         $statement->bind_param("ssssssssssi", $userName, $firstName, $lastName,
               $birthDate, $phoneNumber, $securityQuestion, $securityAnswer,
               $pin, $email, $passHash, $referrer);
 
-
         $statement->execute();
         $ID = $statement->insert_id;
         $statement->close();
-
+*/
         //initiate trader currencies to zero
         $helper = new Helper();
         $currencies = $helper->getCurrencies();
