@@ -11,7 +11,8 @@ class SymbolManager {
 
     function __construct() {
         //$this->connection = connectionFactory::getConnection();
-        $this->connection = global $wpdb;
+        global $wpdb;
+        $this->connection = $wpdb;
     }
 
     function getCurrencies() {
@@ -32,7 +33,8 @@ class SymbolManager {
 
     function getSymbolConfig($symbolID) {
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         $statement = $connection->prepare("SELECT `Symbol`, `LeftCurrency`, `RightCurrency`, `MakerFee`,"
             ." `TakerFee` FROM `Symbols` WHERE `SymbolID` = ?");

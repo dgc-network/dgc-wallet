@@ -22,7 +22,8 @@ class Trader {
 
         //get a connection
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         //retrieve balances
         $result = $connection->query("SELECT `Currencies`.`Symbol` AS 'symbol', `TraderCurrencies`.`Balance` AS 'balance',".

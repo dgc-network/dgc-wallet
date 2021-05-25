@@ -22,7 +22,8 @@ class OrderBookBuy extends OrderBookBase {
         
         if($order != NULL) {
             //$connection = connectionFactory::getConnection();
-            $connection = global $wpdb;
+            global $wpdb;
+            $connection = $wpdb;
             $connection->query("START TRANSACTION");
             
             //execute delete, subtract from held balance, and add back to the right side available balance
@@ -50,7 +51,8 @@ class OrderBookBuy extends OrderBookBase {
         
         //prepare connection, start order adding transaction
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
   
         $connection->query("START TRANSACTION");
 

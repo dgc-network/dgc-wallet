@@ -15,7 +15,8 @@ class tableCreator {
     function _construct()
     {
             //$connection = connectionFactory::getConnection();
-            $connection = global $wpdb;
+            global $wpdb;
+            $connection = $wpdb;
 
             $symbol = "USD";
             //create queries

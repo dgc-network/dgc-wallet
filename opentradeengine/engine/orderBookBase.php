@@ -25,7 +25,8 @@ class OrderBookBase {
     //gets order by ID
     function getByID($orderID) {
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         $result = $connection->query("SELECT * FROM `".$this->symbol.$this->side."s` WHERE `ID`=$orderID LIMIT 1");
 
@@ -50,7 +51,8 @@ class OrderBookBase {
     //load $numberOfOrders with matching symbol into orders array
     function getOrders($numberOfOrders) {
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         $result = $connection->query($this->getOrderQuery." LIMIT ". $numberOfOrders);
 
@@ -74,7 +76,8 @@ class OrderBookBase {
 
     function getCombinedOrders($numberOfOrders) {
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         $result = $connection->query($this->getOrderQuery." LIMIT ". $numberOfOrders);
 
@@ -115,7 +118,8 @@ class OrderBookBase {
     //get orders for certain trader/user ID
     function getUserOrders($numberOfOrders, $traderID) {
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         $result = $connection->query($connection,"SELECT * FROM `".$this->symbol.$this->side ."s` WHERE `Quantity` > 0"
             ." AND `Owner`='".$traderID."' ORDER BY `Price` ".$this->sorting.", `TS` DESC LIMIT".$numberOfOrders);
@@ -140,7 +144,8 @@ class OrderBookBase {
     //returns the top order currently
     function getTop() {
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         $result = $connection->query($this->getOrderQuery." LIMIT 1");
 
@@ -162,7 +167,8 @@ class OrderBookBase {
     //deletes an order from database
     function deleteOrder($orderID) {
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         $query = "DELETE FROM `".$this->symbol.$this->side."s` WHERE `ID`=".$orderID;
 

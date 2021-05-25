@@ -23,7 +23,8 @@ class OrderBookSell extends OrderBookBase {
         
         if($order != NULL) {
             //$connection = connectionFactory::getConnection();
-            $connection = global $wpdb;
+            global $wpdb;
+            $connection = $wpdb;
 
             $connection->query("START TRANSACTION");
             
@@ -56,7 +57,8 @@ class OrderBookSell extends OrderBookBase {
         
         //prepare connection, start order adding transaction
         //$connection = connectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
   
         $connection->query("START TRANSACTION");
 

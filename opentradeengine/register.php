@@ -18,7 +18,8 @@ class Register
                                  $securityAnswer, $pin, $email, $password, $referrer)
     {
         //$connection = ConnectionFactory::getConnection();
-        $connection = global $wpdb;
+        global $wpdb;
+        $connection = $wpdb;
 
         $statement = $connection->prepare("INSERT INTO `Traders`(`UserName`, `FirstName`, `LastName`,"
         ."`BirthDate`, `PhoneNumber`, `SecurityQuestion`, `SecurityAnswer`, `PIN`, `Email`, `PasswordHash`, `Referrer`)"
