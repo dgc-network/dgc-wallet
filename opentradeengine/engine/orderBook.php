@@ -473,7 +473,8 @@ class orderBook {
     //sets methods volume from database at construction
     function setVolume() {
         //get the volume
-        $result = $this->connection->query("SELECT SUM(Quantity) AS Volume FROM `".$this->symbol."Trades` WHERE `ts` >= DATE_SUB(NOW(), INTERVAL 1 DAY)"); 
+        //$result = $this->connection->query("SELECT SUM(Quantity) AS Volume FROM `".$this->symbol."Trades` WHERE `ts` >= DATE_SUB(NOW(), INTERVAL 1 DAY)"); 
+        $result = $wpdb->get_results($wpdb->prepare("SELECT SUM(Quantity) AS Volume FROM %s WHERE `ts` >= DATE_SUB(NOW(), INTERVAL 1 DAY)", $this->symbol."Trades")); 
     
         if($result) {
             $row = mysqli_fetch_assoc($result);
