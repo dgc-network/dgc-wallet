@@ -28,6 +28,11 @@ if ( ! defined( 'DGC_WALLET_PLUGIN_FILE' ) ) {
 }
 
 /*
+ * Include Opentradeengine
+ */
+include_once dirname( __FILE__ ) . '/opentradeengine/example.php';
+
+/*
  * Include wp-bitcoin-wallet
  */
 //include_once dirname( __FILE__ ) . '/wp-bitcoin-wallet/wp-bitcoin-wallet.php';
