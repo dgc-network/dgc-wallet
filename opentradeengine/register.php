@@ -17,7 +17,8 @@ class Register
     public function insertMember($userName, $firstName, $lastName, $birthDate, $phoneNumber, $securityQuestion,
                                  $securityAnswer, $pin, $email, $password, $referrer)
     {
-        $connection = ConnectionFactory::getConnection();
+        //$connection = ConnectionFactory::getConnection();
+        $connection = global $wpdb;
 
         $statement = $connection->prepare("INSERT INTO `Traders`(`UserName`, `FirstName`, `LastName`,"
         ."`BirthDate`, `PhoneNumber`, `SecurityQuestion`, `SecurityAnswer`, `PIN`, `Email`, `PasswordHash`, `Referrer`)"

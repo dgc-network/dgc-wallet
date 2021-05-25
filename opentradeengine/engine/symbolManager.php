@@ -4,13 +4,14 @@
  *
  * Open Trade Engine
  */
-require_once('connectionFactory.php');
+//require_once('connectionFactory.php');
 
 class SymbolManager {
     private $connection;
 
     function __construct() {
-        $this->connection = connectionFactory::getConnection();
+        //$this->connection = connectionFactory::getConnection();
+        $this->connection = global $wpdb;
     }
 
     function getCurrencies() {
@@ -30,7 +31,8 @@ class SymbolManager {
     }
 
     function getSymbolConfig($symbolID) {
-        $connection = connectionFactory::getConnection();
+        //$connection = connectionFactory::getConnection();
+        $connection = global $wpdb;
 
         $statement = $connection->prepare("SELECT `Symbol`, `LeftCurrency`, `RightCurrency`, `MakerFee`,"
             ." `TakerFee` FROM `Symbols` WHERE `SymbolID` = ?");

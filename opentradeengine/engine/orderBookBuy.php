@@ -21,7 +21,8 @@ class OrderBookBuy extends OrderBookBase {
         $orderAmount = ($order->getPrice() * $order->getQuantity()) + $returnFee;
         
         if($order != NULL) {
-            $connection = connectionFactory::getConnection();
+            //$connection = connectionFactory::getConnection();
+            $connection = global $wpdb;
             $connection->query("START TRANSACTION");
             
             //execute delete, subtract from held balance, and add back to the right side available balance
@@ -48,7 +49,8 @@ class OrderBookBuy extends OrderBookBase {
         $rightTotal = ($quantity * $price)+($quantity * $price * $this->makerFee);
         
         //prepare connection, start order adding transaction
-        $connection = connectionFactory::getConnection();
+        //$connection = connectionFactory::getConnection();
+        $connection = global $wpdb;
   
         $connection->query("START TRANSACTION");
 

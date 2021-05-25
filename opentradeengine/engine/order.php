@@ -96,7 +96,8 @@ class Order
     //updates quantity in database as well as in object
     function updateQuantity($newQuantity) {
         //setup the connection
-        $connection = connectionFactory::getConnection();
+        //$connection = connectionFactory::getConnection();
+        $connection = global $wpdb;
 
         //update trade balances in database
         $connection->query("UPDATE `$this->symbol".$this->side."s` SET `Quantity`=" .$newQuantity. " WHERE `ID`=" .$this->ID);

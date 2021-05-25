@@ -4,7 +4,7 @@
  * And a separate book to keep track of sells
  * Open Trade Engine
  */
-require_once("connectionFactory.php");
+//require_once("connectionFactory.php");
 require_once("tradeComplete.php");
 require_once("symbolManager.php");
 require_once("orderBookBase.php");
@@ -46,7 +46,8 @@ class orderBook {
 
         $this->volume = $this->setVolume();
 
-        $this->connection = connectionFactory::getConnection();
+        //$this->connection = connectionFactory::getConnection();
+        $this->connection = global $wpdb;
     }
     
     //Executes an order by determining it's type and matching it with

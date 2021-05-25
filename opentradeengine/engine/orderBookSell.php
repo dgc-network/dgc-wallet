@@ -22,7 +22,8 @@ class OrderBookSell extends OrderBookBase {
         $orderAmount = $order->getQuantity() + $returnFee;
         
         if($order != NULL) {
-            $connection = connectionFactory::getConnection();
+            //$connection = connectionFactory::getConnection();
+            $connection = global $wpdb;
 
             $connection->query("START TRANSACTION");
             
@@ -54,7 +55,8 @@ class OrderBookSell extends OrderBookBase {
         $leftTotal = ($quantity)+($quantity * $this->fee);
         
         //prepare connection, start order adding transaction
-        $connection = connectionFactory::getConnection();
+        //$connection = connectionFactory::getConnection();
+        $connection = global $wpdb;
   
         $connection->query("START TRANSACTION");
 
