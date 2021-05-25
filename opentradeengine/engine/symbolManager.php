@@ -41,7 +41,7 @@ class SymbolManager {
         $statement->bind_param('i', $symbolID);
         $statement->execute();
 */
-        $result = $wpdb->result($wpdb->prepare("SELECT `Symbol`, `LeftCurrency`, `RightCurrency`, `MakerFee`,"
+        $result = $wpdb->get_results($wpdb->prepare("SELECT `Symbol`, `LeftCurrency`, `RightCurrency`, `MakerFee`,"
             ." `TakerFee` FROM `Symbols` WHERE `SymbolID` = %s", $symbolID), ARRAY_A);
 
         $config = [];
