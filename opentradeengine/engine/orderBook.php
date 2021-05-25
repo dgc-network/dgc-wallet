@@ -485,7 +485,9 @@ class orderBook {
             return;
         }
 */      
-        $row = $wpdb->get_row($wpdb->prepare("SELECT SUM(Quantity) AS Volume FROM %s WHERE `ts` >= DATE_SUB(%d, INTERVAL 1 DAY)", $this->symbol.'Trades', current_time('mysql', 1)), ARRAY_A); 
+        global $wpdb;
+        $row = $wpdb->get_row("SELECT SUM(Quantity) AS Volume FROM `".$this->symbol."Trades` WHERE `ts` >= DATE_SUB(NOW(), INTERVAL 1 DAY)", ARRAY_A); 
+        //$row = $wpdb->get_row($wpdb->prepare("SELECT SUM(Quantity) AS Volume FROM %s WHERE `ts` >= DATE_SUB(%d, INTERVAL 1 DAY)", $this->symbol.'Trades', current_time('mysql', 1)), ARRAY_A); 
         if ($row) {
             $this->volume = $row['Volume'];
         }else if (!$row) {
