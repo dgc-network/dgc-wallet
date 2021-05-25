@@ -80,8 +80,8 @@ $sellOrder = new Order(0.05, 1000, 1, 'Sell', 5, $symbolID = 1);
 $engine = new Engine($symbolID = 1);
 $engine->addOrder($buyOrder); //executes or adds order depending on orders already in it
 
-$order = $engine->getOrderByID($ID);
-$engine->cancelOrder($order);
+//$order = $engine->getOrderByID($ID);
+//$engine->cancelOrder($order);
 
 $engine->addOrder($sellOrder);
 

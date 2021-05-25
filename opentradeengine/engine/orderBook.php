@@ -274,7 +274,7 @@ class orderBook {
             }
     }
     
-    //cancels an order by ID
+    //cancels an order
     function cancelOrder($order) {
         if($order->getSide() == "Sell") {
             $this->sells->cancelOrder($order);
@@ -473,9 +473,8 @@ class orderBook {
     //sets methods volume from database at construction
     function setVolume() {
         //get the volume
-/*        
+/*       
         $result = $this->connection->query("SELECT SUM(Quantity) AS Volume FROM `".$this->symbol."Trades` WHERE `ts` >= DATE_SUB(NOW(), INTERVAL 1 DAY)"); 
-        //$result = $wpdb->get_results($wpdb->prepare("SELECT SUM(Quantity) AS Volume FROM %s WHERE `ts` >= DATE_SUB(%d, INTERVAL 1 DAY)", $this->symbol.'Trades', current_time('mysql', 1))); 
     
         if($result) {
             $row = mysqli_fetch_assoc($result);
@@ -485,7 +484,13 @@ class orderBook {
         } else if(!$result) {
             return;
         }
-*/        
+*/      
+        $row = $wpdb->get_row($wpdb->prepare("SELECT SUM(Quantity) AS Volume FROM %s WHERE `ts` >= DATE_SUB(%d, INTERVAL 1 DAY)", $this->symbol.'Trades', current_time('mysql', 1)), ARRAY_A); 
+        if ($row) {
+            $this->volume = $row['Volume'];
+        }else if (!$row) {
+            return;
+        }
     }
     
     //accessor methods
