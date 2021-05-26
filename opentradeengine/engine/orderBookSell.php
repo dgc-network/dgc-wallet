@@ -40,7 +40,7 @@ class OrderBookSell extends OrderBookBase {
             } else {        
                 $connection->query("ROLLBACK");
                 //THROW NEW EXCEPTION ("Could not add sell order");
-                throw new exception( "Could not add sell order" );
+                throw new Exception( "Could not add sell order" );
             }
         }
     }
@@ -77,7 +77,7 @@ class OrderBookSell extends OrderBookBase {
         } else {
             $connection->query("ROLLBACK");
             //THROW NEW EXCEPTION ("Could not add sell order");
-            throw new exception( "Could not add sell order" );
+            throw new Exception( "Could not add sell order" );
         }
     } 
 }
