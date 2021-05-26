@@ -45,6 +45,10 @@ class Trader {
         }
         $result->close();
 */
+        $result = $wpdb->get_results("SELECT `Currencies`.`Symbol` AS 'symbol', `TraderCurrencies`.`Balance` AS 'balance',".
+            " `TraderCurrencies`.`HeldBalance` AS 'heldBalance', `TraderCurrencies`.`PendingBalance` AS 'pendingBalance' FROM".
+            " `TraderCurrencies` LEFT JOIN `Currencies` ON `TraderCurrencies`.`Currency` = `Currencies`.`ID` WHERE `TraderCurrencies`.`Trader` = $ID", ARRAY_A);
+        
         foreach $result as $row {
             $this->balances[$row['symbol']] = [
                 'balance'=>$row['balance'], 
@@ -61,10 +65,11 @@ class Trader {
             $this->points = $row['Points'];
         }
 */
-        foreach $referralResult as $row {
-            $this->referrer = $row['Referrer'];
-            $this->points = $row['Points'];
-        }
+
+        $row = $wpdb->get_row("Select `Referrer`, `Points` FROM `Traders` WHERE `ID` = $ID", ARRAY_A);
+        $this->referrer = $row['Referrer'];
+        $this->points = $row['Points'];
+
     }
     
     public function getPoints()
