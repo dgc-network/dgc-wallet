@@ -37,7 +37,8 @@ class OrderBookBuy extends OrderBookBase {
                 $connection->query("COMMIT");
             } else {        
                 $connection->query("ROLLBACK");
-                THROW NEW EXCEPTION ("Could not cancel buy order");
+                //THROW NEW EXCEPTION ("Could not cancel buy order");
+                throw new exception( "Could not cancel buy order" );
             }
         }
     }
@@ -69,7 +70,8 @@ class OrderBookBuy extends OrderBookBase {
             $connection->query("COMMIT");
         } else {
             $connection->query("ROLLBACK");
-            THROW NEW EXCEPTION ("Could not add buy order");
+            //THROW NEW EXCEPTION ("Could not add buy order");
+            throw new exception( "Could not add buy order" );
         }
     }  
 }

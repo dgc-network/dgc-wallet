@@ -39,7 +39,8 @@ class OrderBookSell extends OrderBookBase {
                 $connection->query("COMMIT");
             } else {        
                 $connection->query("ROLLBACK");
-                THROW NEW EXCEPTION ("Could not add sell order");
+                //THROW NEW EXCEPTION ("Could not add sell order");
+                throw new exception( "Could not add sell order" );
             }
         }
     }
@@ -75,7 +76,8 @@ class OrderBookSell extends OrderBookBase {
             $connection->query("COMMIT");
         } else {
             $connection->query("ROLLBACK");
-            THROW NEW EXCEPTION ("Could not add sell order");
+            //THROW NEW EXCEPTION ("Could not add sell order");
+            throw new exception( "Could not add sell order" );
         }
     } 
 }

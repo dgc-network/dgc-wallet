@@ -10,8 +10,10 @@ class Trader {
     private $referrer = null;
     private $points = 0;
 
-    function __construct($ID) {
-        $this->setupTrader($ID);
+    function __construct($ID=false) {
+        if (!$ID) {
+            $this->setupTrader($ID);
+        }
     }
 
     //fetch trader by ID, for internal use only (not parameterized)
