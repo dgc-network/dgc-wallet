@@ -31,10 +31,10 @@ class Trader {
         $result = $connection->query("SELECT `Currencies`.`Symbol` AS 'symbol', `TraderCurrencies`.`Balance` AS 'balance',".
             " `TraderCurrencies`.`HeldBalance` AS 'heldBalance', `TraderCurrencies`.`PendingBalance` AS 'pendingBalance' FROM".
             " `TraderCurrencies` LEFT JOIN `Currencies` ON `TraderCurrencies`.`Currency` = `Currencies`.`ID` WHERE `TraderCurrencies`.`Trader` = $ID");
-
+/*
         if(!$result)
         {
-            //throw new Exception("Could not fetch trader currencies.".$connection->error);
+            throw new Exception("Could not fetch trader currencies.".$connection->error);
         }
 
         while($row = $result->fetch_assoc())
@@ -44,10 +44,24 @@ class Trader {
                 'pendingBalance'=>$row['pendingBalance']];
         }
         $result->close();
+*/
+        foreach $result as $row {
+            $this->balances[$row['symbol']] = [
+                'balance'=>$row['balance'], 
+                'heldBalance'=>$row['heldBalance'],
+                'pendingBalance'=>$row['pendingBalance']
+            ];
+        }
 
         //get referral information
         $referralResult = $connection->query("Select `Referrer`, `Points` FROM `Traders` WHERE `ID` = $ID");
+/*
         if($row = $referralResult->fetch_assoc()) {
+            $this->referrer = $row['Referrer'];
+            $this->points = $row['Points'];
+        }
+*/
+        foreach $referralResult as $row {
             $this->referrer = $row['Referrer'];
             $this->points = $row['Points'];
         }
