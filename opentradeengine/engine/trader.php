@@ -34,7 +34,7 @@ class Trader {
 
         if(!$result)
         {
-            throw new Exception("Could not fetch trader currencies.".$connection->error);
+            //throw new Exception("Could not fetch trader currencies.".$connection->error);
         }
 
         while($row = $result->fetch_assoc())
