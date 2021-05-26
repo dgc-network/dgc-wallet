@@ -49,7 +49,7 @@ class Trader {
             " `TraderCurrencies`.`HeldBalance` AS 'heldBalance', `TraderCurrencies`.`PendingBalance` AS 'pendingBalance' FROM".
             " `TraderCurrencies` LEFT JOIN `Currencies` ON `TraderCurrencies`.`Currency` = `Currencies`.`ID` WHERE `TraderCurrencies`.`Trader` = $ID", ARRAY_A);
         
-        foreach $result as $row {
+        foreach ($result as $row) {
             $this->balances[$row['symbol']] = [
                 'balance'=>$row['balance'], 
                 'heldBalance'=>$row['heldBalance'],
