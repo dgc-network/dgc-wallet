@@ -213,6 +213,7 @@ function address_exporter( $email_address, $page = 1 ) {
 
         if ( $addresses ) {
             foreach ( $addresses as $add ) {
+                return echo $add->symbol;
 
                 $data = array(
                     array(
