@@ -23,57 +23,25 @@ function display() {
     handle_post();
 ?>
 
-<form class="dashed-slug-wallets balance balance-list onsubmit="return false;" data-bind="css: { 'wallets-ready': !coinsDirty() }">
+<div class="dashed-slug-wallets balance" data-bind="css: { 'wallets-ready': !coinsDirty(), 'fiat-coin': selectedCoin() && coins()[ selectedCoin() ].is_fiat, 'crypto-coin': selectedCoin() && coins()[ selectedCoin() ].is_crypto }">
 	<?php
 		do_action( 'wallets_ui_before' );
 		do_action( 'wallets_ui_before_balance' );
 	?>
-	<!-- ko ifnot: ( Object.keys( coins() ).length > 0 ) -->
-	<p class="no-coins-message"><?php echo apply_filters( 'wallets_ui_text_no_coins', esc_html__( 'No currencies are currently enabled.', 'wallets-front' ) );?></p>
-	<!-- /ko -->
-
 	<!-- ko if: ( Object.keys( coins() ).length > 0 ) -->
 	<span class="wallets-reload-button" title="<?php echo apply_filters( 'wallets_ui_text_reload', esc_attr__( 'Reload data from server', 'wallets-front' ) ); ?>" data-bind="click: function() { coinsDirty( false ); if ( 'object' == typeof ko.tasks ) ko.tasks.runEarly(); coinsDirty( true ); }"></span>
-
-	<label class="zero-balances">
-		<?php echo apply_filters( 'wallets_ui_text_show_zero_balances', esc_html__( 'Show zero balances: ', 'wallets-front' ) ); ?>
-		<input type="checkbox" data-bind="checked: showZeroBalances" />
-	</label>
-
-	<table>
-		<thead>
-			<tr>
-				<th class="coin" colspan="2"><?php echo apply_filters( 'wallets_ui_text_coin', esc_html__( 'Coin', 'wallets-front' ) ); ?></th>
-				<th class="balance"><?php echo apply_filters( 'wallets_ui_text_balance', esc_html__( 'Balance', 'wallets-front' ) ); ?></th>
-				<th class="available_balance"><?php echo apply_filters( 'wallets_ui_text_available_balance', esc_html__( 'Available balance', 'wallets-front' ) ); ?></th>
-			</tr>
-		</thead>
-
-		<tbody data-bind="foreach: jQuery.map( coins(), function( v, i ) { var copy = jQuery.extend({},v); copy.sprintf_pattern = copy.sprintf; delete copy.sprintf; return copy; } )">
-			<!--  ko if: ( $root.showZeroBalances() || balance ) -->
-			<tr data-bind="css: { 'fiat-coin': is_fiat, 'crypto-coin': is_crypto }">
-				<td class="icon">
-					<img data-bind="attr: { src: icon_url, alt: name }" />
-				</td>
-				<td class="coin" data-bind="text: name"></td>
-				<td class="balance">
-					<span data-bind="text: sprintf( sprintf_pattern, balance )"></span>
-					<span class="fiat-amount" data-bind="text: rate ? sprintf( '%s %01.2f', walletsUserData.fiatSymbol, balance * rate ) : '';" ></span>
-				</td>
-				<td class="available_balance">
-					<span data-bind="text: sprintf( sprintf_pattern, available_balance )"></span>
-					<span class="fiat-amount" data-bind="text: rate ? sprintf( '%s %01.2f', walletsUserData.fiatSymbol, available_balance * rate ) : '';" ></span>
-				</td>
-			</tr>
-			<!-- /ko -->
-		</tbody>
-	</table>
+	<label class="coin"><?php echo apply_filters( 'wallets_ui_text_coin', esc_html__( 'Coin', 'wallets-front' ) ); ?>: <select data-bind="options: Object.keys( coins() ).map(function(o){return coins()[o]}), optionsText: 'name', optionsValue: 'symbol', value: selectedCoin, valueUpdate: ['afterkeydown', 'input'], style: { 'background-image': 'url(' + $root.getCoinIconUrl( selectedCoin() ) + ')' }"></select></label>
+	<label class="balance"><?php echo apply_filters( 'wallets_ui_text_balance', esc_html__( 'Balance', 'wallets-front' ) ); ?>: <span data-bind="text: currentCoinBalance">-</span><span class="fiat-amount" data-bind="text: currentCoinFiatBalance" ></span></label>
+	<label class="available_balance" data-bind="if: currentCoinBalance() != currentCoinAvailableBalance()"><?php echo apply_filters( 'wallets_ui_text_available_balance', esc_html__( 'Available balance', 'wallets-front' ) ); ?>: <span data-bind="text: currentCoinAvailableBalance">-</span><span class="fiat-amount" data-bind="text: currentCoinFiatAvailableBalance" ></span></label>
+	<!-- /ko -->
+	<!-- ko ifnot: ( Object.keys( coins() ).length > 0 ) -->
+	<p class="no-coins-message"><?php echo apply_filters( 'wallets_ui_text_no_coins', esc_html__( 'No currencies are currently enabled.', 'wallets-front' ) );?></p>
 	<!-- /ko -->
 	<?php
 		do_action( 'wallets_ui_after_balance' );
 		do_action( 'wallets_ui_after' );
 	?>
-</form>
+</div>
 
     <strong>Buy Coins:</strong>
     <br />
