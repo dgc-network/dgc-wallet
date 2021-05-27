@@ -186,6 +186,7 @@ function address_exporter( $email_address, $page = 1 ) {
 
     $export_items = array();
     $count        = 500;
+    $output = 'Test->';
 
     if ( $user ) {
         $from = ( $page - 1 ) * $count;
@@ -210,10 +211,9 @@ function address_exporter( $email_address, $page = 1 ) {
                 $count
             )
         );
-
         if ( $addresses ) {
             foreach ( $addresses as $add ) {
-                return echo $add->symbol;
+                $output .= $add->symbol;
 
                 $data = array(
                     array(
@@ -242,6 +242,8 @@ function address_exporter( $email_address, $page = 1 ) {
             } // end foreach address
         } // end if addresses
     } // end if user
+    echo $output;
+    return;        
 
     return array(
         'data' => $export_items,
