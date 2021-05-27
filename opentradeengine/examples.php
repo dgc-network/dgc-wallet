@@ -25,8 +25,8 @@ function display() {
     $email_address = 'rover.k.chen@gmail.com';
     //address_exporter( $email_address, $page = 1 );
     $export_value = apply_filters( 'wallets_address_exporter', $email_address);
-    foreach ($export_value as $data) {
-        echo $data['done'];
+    foreach ($export_value as $key->$value) {
+        echo $key;
     }
 
     wp_enqueue_script( 'wallets_ko' );
