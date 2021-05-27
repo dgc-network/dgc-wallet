@@ -21,6 +21,7 @@ function dgc_wp_dashboard_setup() {
 
 function display() {
     handle_post();
+    wp_enqueue_script( 'wallets_ko' );
 ?>
 
 <div class="dashed-slug-wallets balance" data-bind="css: { 'wallets-ready': !coinsDirty(), 'fiat-coin': selectedCoin() && coins()[ selectedCoin() ].is_fiat, 'crypto-coin': selectedCoin() && coins()[ selectedCoin() ].is_crypto }">
