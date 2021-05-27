@@ -26,8 +26,10 @@ function display() {
     //address_exporter( $email_address, $page = 1 );
     $export_value = apply_filters( 'wallets_address_exporter', $email_address);
     foreach ($export_value as $key=>$value) {
-        foreach ($export_value['data']['data'] as $key=>$value) {
-            echo $key.':'.$value;
+        foreach ($export_value['data'] as $key=>$value) {
+            foreach ($export_value['data']['data'] as $key=>$value) {
+                echo $key.':'.$value;
+            }
         }
     }
 
