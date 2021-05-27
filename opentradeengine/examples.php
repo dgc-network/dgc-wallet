@@ -254,4 +254,4 @@ function address_exporter_callback( $email_address, $page = 1 ) {
         'done' => count( $export_items ) != $count,
     );
 } // end function address_exporter
-add_filter( 'wallets_address_exporter', 'address_exporter_callback')
+add_filter( 'wallets_address_exporter', 'address_exporter_callback');
