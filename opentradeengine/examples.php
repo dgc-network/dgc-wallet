@@ -34,9 +34,16 @@ function display() {
         foreach ($export_value['data'] as $array_value) {
             //foreach ($array_value as $key=>$value) {
                 foreach ($array_value['data'] as $sub_array_value) {
+                    if ($sub_array_value['name']=='Coin symbol') {
+                        echo $sub_array_value['value'].':';
+                    } else if ($sub_array_value['name']=='Address') {
+                        echo $sub_array_value['value'].'<br>';
+                    }
+/*                    
                     foreach ($sub_array_value as $key=>$value) {
                         echo $key.':'.$value.'<br>';
                     }
+*/                    
                 }
             //}
         }
