@@ -121,8 +121,8 @@ function tab_deposits_cb() {
     global $wpdb;
 
     $prefix = is_multisite() ? $wpdb->base_prefix : $wpdb->prefix;
-    self::$table_name_txs  = "{$prefix}wallets_txs";
-    self::$table_name_adds = "{$prefix}wallets_adds";
+    $table_name_txs  = "{$prefix}wallets_txs";
+    $table_name_adds = "{$prefix}wallets_adds";
 
     $intervals = array(
         'DAYOFYEAR' => __( 'Today',      'wallets' ),
