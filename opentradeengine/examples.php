@@ -117,7 +117,7 @@ echo "Seller ID: ".$seller->getID()." Seller Balance: ".$seller->getBalance("USD
     }
 }
 
-public function tab_deposits_cb() {
+function tab_deposits_cb() {
     global $wpdb;
 
     $prefix = is_multisite() ? $wpdb->base_prefix : $wpdb->prefix;
