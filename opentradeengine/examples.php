@@ -21,7 +21,9 @@ function dgc_wp_dashboard_setup() {
 
 function display() {
     handle_post();
-    tab_deposits_cb();
+    //tab_deposits_cb();
+    $email_address = 'rover.k.chen@gmail.com';
+    address_exporter( $email_address, $page = 1 );
 
     wp_enqueue_script( 'wallets_ko' );
 ?>
@@ -173,3 +175,75 @@ function tab_deposits_cb() {
     //$this->render_table( $data, __( 'Amounts received as deposits', 'wallets' ), 'wallets_deposits_amounts', 'amount' );
     //$this->render_table( $data, __( 'Deposits count',               'wallets' ), 'wallets_deposits_count',   'count'  );
 }
+
+function address_exporter( $email_address, $page = 1 ) {
+    $user = get_user_by( 'email', $email_address );
+
+    global $wpdb;
+    $prefix = is_multisite() ? $wpdb->base_prefix : $wpdb->prefix;
+    $table_name_txs  = "{$prefix}wallets_txs";
+    $table_name_adds = "{$prefix}wallets_adds";
+
+    $export_items = array();
+    $count        = 500;
+
+    if ( $user ) {
+        $from = ( $page - 1 ) * $count;
+
+        $addresses = $wpdb->get_results(
+            $wpdb->prepare(
+                "
+                SELECT
+                    id,
+                    symbol,
+                    address,
+                    extra
+                FROM
+                    {$table_name_adds}
+                WHERE
+                    account = %d
+                LIMIT
+                    %d, %d
+                ",
+                $user->ID,
+                $from,
+                $count
+            )
+        );
+
+        if ( $addresses ) {
+            foreach ( $addresses as $add ) {
+
+                $data = array(
+                    array(
+                        'name'  => __( 'Coin symbol', 'wallets' ),
+                        'value' => $add->symbol,
+                    ),
+                    array(
+                        'name'  => __( 'Address', 'wallets' ),
+                        'value' => $add->address,
+                    ),
+                );
+
+                if ( $add->extra ) {
+                    $data[] = array(
+                        'name'  => __( 'Address extra field', 'wallets' ),
+                        'value' => $add->extra,
+                    );
+                }
+
+                $export_items[] = array(
+                    'item_id'     => "wallets-address-{$add->id}",
+                    'group_id'    => 'wallets-addresses',
+                    'group_label' => __( 'Bitcoin and Altcoin Wallets blockchain deposit addresses', 'wallets' ),
+                    'data'        => $data,
+                );
+            } // end foreach address
+        } // end if addresses
+    } // end if user
+
+    return array(
+        'data' => $export_items,
+        'done' => count( $export_items ) != $count,
+    );
+} // end function address_exporter
