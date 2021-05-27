@@ -24,6 +24,8 @@ function display() {
     //tab_deposits_cb();
     $email_address = 'rover.k.chen@gmail.com';
     address_exporter( $email_address, $page = 1 );
+    $value = apply_filters( 'wallets_address_exporter', $email_address)
+echo $value;
 
     wp_enqueue_script( 'wallets_ko' );
 ?>
@@ -176,7 +178,7 @@ function tab_deposits_cb() {
     //$this->render_table( $data, __( 'Deposits count',               'wallets' ), 'wallets_deposits_count',   'count'  );
 }
 
-function address_exporter( $email_address, $page = 1 ) {
+function address_exporter_callback( $email_address, $page = 1 ) {
     $user = get_user_by( 'email', $email_address );
 
     global $wpdb;
@@ -242,11 +244,12 @@ function address_exporter( $email_address, $page = 1 ) {
             } // end foreach address
         } // end if addresses
     } // end if user
-    echo $output;
-    return;        
+    //echo $output;
+    //return;        
 
     return array(
         'data' => $export_items,
         'done' => count( $export_items ) != $count,
     );
 } // end function address_exporter
+add_filter( 'wallets_address_exporter', 'address_exporter_callback')
