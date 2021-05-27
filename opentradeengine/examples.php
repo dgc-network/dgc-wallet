@@ -165,6 +165,7 @@ function tab_deposits_cb() {
         foreach ( $data[ $interval ] as $symbol => $fields ) {
             $totals->amount += $data[ $interval ][ $symbol ]->amount;
             $totals->count  += $data[ $interval ][ $symbol ]->count;
+            echo 'symbol:'.$symbol;
         }
         $data[ $interval ]['totals'] = $totals;
 
