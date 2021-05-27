@@ -32,13 +32,13 @@ function display() {
 */    
 //    foreach ($export_value as $key=>$value) {
         foreach ($export_value['data'] as $array_value) {
-            foreach ($array_value as $key=>$value) {
+            //foreach ($array_value as $key=>$value) {
                 foreach ($array_value['data'] as $sub_array_value) {
                     foreach ($sub_array_value as $key=>$value) {
                         echo $key.':'.$value.'<br>';
                     }
                 }
-            }
+            //}
         }
 //    }
 
