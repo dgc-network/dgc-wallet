@@ -21,6 +21,8 @@ function dgc_wp_dashboard_setup() {
 
 function display() {
     handle_post();
+    tab_deposits_cb();
+
     wp_enqueue_script( 'wallets_ko' );
 ?>
 
@@ -115,3 +117,58 @@ echo "Seller ID: ".$seller->getID()." Seller Balance: ".$seller->getBalance("USD
     }
 }
 
+public function tab_deposits_cb() {
+    global $wpdb;
+
+    $prefix = is_multisite() ? $wpdb->base_prefix : $wpdb->prefix;
+    self::$table_name_txs  = "{$prefix}wallets_txs";
+    self::$table_name_adds = "{$prefix}wallets_adds";
+
+    $intervals = array(
+        'DAYOFYEAR' => __( 'Today',      'wallets' ),
+        'WEEK'      => __( 'This week',  'wallets' ),
+        'MONTH'     => __( 'This month', 'wallets' ),
+        'YEAR'      => __( 'This year',  'wallets' ),
+    );
+
+    $data = array();
+
+    foreach ( $intervals as $interval => $interval_text ) {
+        $data[ $interval ] = $wpdb->get_results(
+            $wpdb->prepare(
+                "
+                SELECT
+                    symbol,
+                    SUM( amount - fee ) as amount,
+                    COUNT( 1 ) as count
+                FROM
+                    {$table_name_txs}
+                WHERE
+                    status = 'done'
+                    AND category = 'deposit'
+                    AND amount > 0
+                    AND $interval(created_time) = $interval( NOW() )
+                    AND YEAR(created_time) = YEAR( NOW() )
+                    AND ( blog_id = %d )
+                GROUP BY
+                    symbol
+                ORDER BY
+                    symbol",
+                get_current_blog_id()
+            ),
+            OBJECT_K
+        );
+
+        $totals = new stdClass();
+        $totals->amount = 0;
+        $totals->count  = 0;
+        foreach ( $data[ $interval ] as $symbol => $fields ) {
+            $totals->amount += $data[ $interval ][ $symbol ]->amount;
+            $totals->count  += $data[ $interval ][ $symbol ]->count;
+        }
+        $data[ $interval ]['totals'] = $totals;
+
+    }
+    //$this->render_table( $data, __( 'Amounts received as deposits', 'wallets' ), 'wallets_deposits_amounts', 'amount' );
+    //$this->render_table( $data, __( 'Deposits count',               'wallets' ), 'wallets_deposits_count',   'count'  );
+}
