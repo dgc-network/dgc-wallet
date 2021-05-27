@@ -22,29 +22,55 @@ function dgc_wp_dashboard_setup() {
 function display() {
     handle_post();
 ?>
-    <form class="dashed-slug-wallets api-key" onsubmit="return false;" data-bind="css: { 'wallets-ready': ! noncesDirty() && ajaxSemaphore() < 1 }">
+
+<form class="dashed-slug-wallets balance balance-list onsubmit="return false;" data-bind="css: { 'wallets-ready': !coinsDirty() }">
 	<?php
 		do_action( 'wallets_ui_before' );
-		do_action( 'wallets_ui_before_wallets_api_key' );
+		do_action( 'wallets_ui_before_balance' );
 	?>
-	<span
-		class="wallets-reload-button"
-		title="<?php echo apply_filters( 'wallets_ui_text_reload', esc_attr__( 'Reload data from server', 'wallets-front' ) ); ?>"
-		data-bind="click: function() { noncesDirty( false ); ko.tasks.runEarly(); noncesDirty( true ); }">
-	</span>
+	<!-- ko ifnot: ( Object.keys( coins() ).length > 0 ) -->
+	<p class="no-coins-message"><?php echo apply_filters( 'wallets_ui_text_no_coins', esc_html__( 'No currencies are currently enabled.', 'wallets-front' ) );?></p>
+	<!-- /ko -->
 
-	<label class="apikey"><?php echo apply_filters( 'wallets_ui_text_apikey', esc_html__( 'Wallets API key', 'wallets-front' ) ); ?>:
-		<span class="wallets-clipboard-copy" onClick="jQuery(this).next()[0].select();document.execCommand('copy');" title="<?php echo apply_filters( 'wallets_ui_text_copy_to_clipboard', esc_html__( 'Copy to clipboard', 'wallets-front' ) ); ?>">&#x1F4CB;</span>
-		<input type="text" readonly="readonly" onClick="this.select();" data-bind="value: nonces().api_key" />
+	<!-- ko if: ( Object.keys( coins() ).length > 0 ) -->
+	<span class="wallets-reload-button" title="<?php echo apply_filters( 'wallets_ui_text_reload', esc_attr__( 'Reload data from server', 'wallets-front' ) ); ?>" data-bind="click: function() { coinsDirty( false ); if ( 'object' == typeof ko.tasks ) ko.tasks.runEarly(); coinsDirty( true ); }"></span>
+
+	<label class="zero-balances">
+		<?php echo apply_filters( 'wallets_ui_text_show_zero_balances', esc_html__( 'Show zero balances: ', 'wallets-front' ) ); ?>
+		<input type="checkbox" data-bind="checked: showZeroBalances" />
 	</label>
 
-	<input
-		type="button"
-		data-bind="click: doResetApikey, disable: noncesDirty() || ajaxSemaphore() > 0"
-		value="&#8635; <?php echo apply_filters( 'wallets_ui_text_renew', esc_attr__( 'Renew', 'wallets-front' ) ); ?>" />
+	<table>
+		<thead>
+			<tr>
+				<th class="coin" colspan="2"><?php echo apply_filters( 'wallets_ui_text_coin', esc_html__( 'Coin', 'wallets-front' ) ); ?></th>
+				<th class="balance"><?php echo apply_filters( 'wallets_ui_text_balance', esc_html__( 'Balance', 'wallets-front' ) ); ?></th>
+				<th class="available_balance"><?php echo apply_filters( 'wallets_ui_text_available_balance', esc_html__( 'Available balance', 'wallets-front' ) ); ?></th>
+			</tr>
+		</thead>
 
+		<tbody data-bind="foreach: jQuery.map( coins(), function( v, i ) { var copy = jQuery.extend({},v); copy.sprintf_pattern = copy.sprintf; delete copy.sprintf; return copy; } )">
+			<!--  ko if: ( $root.showZeroBalances() || balance ) -->
+			<tr data-bind="css: { 'fiat-coin': is_fiat, 'crypto-coin': is_crypto }">
+				<td class="icon">
+					<img data-bind="attr: { src: icon_url, alt: name }" />
+				</td>
+				<td class="coin" data-bind="text: name"></td>
+				<td class="balance">
+					<span data-bind="text: sprintf( sprintf_pattern, balance )"></span>
+					<span class="fiat-amount" data-bind="text: rate ? sprintf( '%s %01.2f', walletsUserData.fiatSymbol, balance * rate ) : '';" ></span>
+				</td>
+				<td class="available_balance">
+					<span data-bind="text: sprintf( sprintf_pattern, available_balance )"></span>
+					<span class="fiat-amount" data-bind="text: rate ? sprintf( '%s %01.2f', walletsUserData.fiatSymbol, available_balance * rate ) : '';" ></span>
+				</td>
+			</tr>
+			<!-- /ko -->
+		</tbody>
+	</table>
+	<!-- /ko -->
 	<?php
-		do_action( 'wallets_ui_after_wallets_api_key' );
+		do_action( 'wallets_ui_after_balance' );
 		do_action( 'wallets_ui_after' );
 	?>
 </form>
