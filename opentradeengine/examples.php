@@ -26,7 +26,9 @@ function display() {
     //address_exporter( $email_address, $page = 1 );
     $export_value = apply_filters( 'wallets_address_exporter', $email_address);
     foreach ($export_value as $key=>$value) {
-        echo $key;
+        foreach ($export_value['data'] as $key=>$value) {
+            echo $key;
+        }
     }
 
     wp_enqueue_script( 'wallets_ko' );
@@ -190,7 +192,7 @@ function address_exporter_callback( $email_address, $page = 1 ) {
 
     $export_items = array();
     $count        = 500;
-    $output = 'Test->';
+    //$output = 'Test->';
 
     if ( $user ) {
         $from = ( $page - 1 ) * $count;
@@ -217,7 +219,7 @@ function address_exporter_callback( $email_address, $page = 1 ) {
         );
         if ( $addresses ) {
             foreach ( $addresses as $add ) {
-                $output .= $add->symbol;
+                //$output .= $add->symbol;
 
                 $data = array(
                     array(
