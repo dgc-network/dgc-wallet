@@ -21,51 +21,34 @@ function dgc_wp_dashboard_setup() {
 
 function display() {
     handle_post();
+?>
+    <form class="dashed-slug-wallets api-key" onsubmit="return false;" data-bind="css: { 'wallets-ready': ! noncesDirty() && ajaxSemaphore() < 1 }">
+	<?php
+		do_action( 'wallets_ui_before' );
+		do_action( 'wallets_ui_before_wallets_api_key' );
+	?>
+	<span
+		class="wallets-reload-button"
+		title="<?php echo apply_filters( 'wallets_ui_text_reload', esc_attr__( 'Reload data from server', 'wallets-front' ) ); ?>"
+		data-bind="click: function() { noncesDirty( false ); ko.tasks.runEarly(); noncesDirty( true ); }">
+	</span>
 
-    $atts['decimals'] = absint( $atts['decimals'] );
-    if ( $atts['decimals'] > 16 ) {
-        $atts['decimals'] = 16;
-    }
-    ?>
-    
-    <div class="dashed-slug-wallets rates" data-bind="if: 'none' != walletsUserData.fiatSymbol, css: { 'wallets-ready': !coinsDirty() }">
-        <?php
-            do_action( 'wallets_ui_before' );
-            do_action( 'wallets_ui_before_rates' );
-        ?>
-        <!-- ko ifnot: ( Object.keys( coins() ).length > 0 ) -->
-        <p class="no-coins-message"><?php echo apply_filters( 'wallets_ui_text_no_coins', esc_html__( 'No currencies are currently enabled.', 'wallets-front' ) );?></p>
-        <!-- /ko -->
-    
-        <!-- ko if: ( Object.keys( coins() ).length > 0 ) -->
-        <span class="wallets-reload-button" title="<?php echo apply_filters( 'wallets_ui_text_reload', esc_attr__( 'Reload data from server', 'wallets-front' ) ); ?>" data-bind="click: function() { coinsDirty( false ); if ( 'object' == typeof ko.tasks ) ko.tasks.runEarly(); coinsDirty( true ); }"></span>
-        <table>
-            <thead>
-                <tr>
-                    <th class="coin" colspan="2"><?php echo apply_filters( 'wallets_ui_text_coin', esc_html__( 'Coin', 'wallets-front' ) ); ?></th>
-                    <th class="rate"><?php echo apply_filters( 'wallets_ui_text_exchangerate', esc_html__( 'Exchange Rate', 'wallets-front' ) ); ?></th>
-                </tr>
-            </thead>
-    
-            <tbody data-bind="foreach: jQuery.map( coins(), function( v, i ) { var copy = jQuery.extend({},v); copy.sprintf_pattern = copy.sprintf; delete copy.sprintf; return copy; } )">
-                <tr data-bind="if: rate && ( symbol != walletsUserData.fiatSymbol ), css: { 'fiat-coin': is_fiat, 'crypto-coin': is_crypto }">
-                    <td class="icon">
-                        <img data-bind="attr: { src: icon_url, alt: name }" />
-                    </td>
-                    <td class="coin" data-bind="text: name"></td>
-                    <td class="rate">
-                        <span data-bind="text: sprintf( '%01.<?php echo $atts['decimals']; ?>f %s', rate, walletsUserData.fiatSymbol )"></span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <!-- /ko -->
-        <?php
-            do_action( 'wallets_ui_after_rates' );
-            do_action( 'wallets_ui_after' );
-        ?>
-    </div>    
-    
+	<label class="apikey"><?php echo apply_filters( 'wallets_ui_text_apikey', esc_html__( 'Wallets API key', 'wallets-front' ) ); ?>:
+		<span class="wallets-clipboard-copy" onClick="jQuery(this).next()[0].select();document.execCommand('copy');" title="<?php echo apply_filters( 'wallets_ui_text_copy_to_clipboard', esc_html__( 'Copy to clipboard', 'wallets-front' ) ); ?>">&#x1F4CB;</span>
+		<input type="text" readonly="readonly" onClick="this.select();" data-bind="value: nonces().api_key" />
+	</label>
+
+	<input
+		type="button"
+		data-bind="click: doResetApikey, disable: noncesDirty() || ajaxSemaphore() > 0"
+		value="&#8635; <?php echo apply_filters( 'wallets_ui_text_renew', esc_attr__( 'Renew', 'wallets-front' ) ); ?>" />
+
+	<?php
+		do_action( 'wallets_ui_after_wallets_api_key' );
+		do_action( 'wallets_ui_after' );
+	?>
+</form>
+
     <strong>Buy Coins:</strong>
     <br />
     <br />
