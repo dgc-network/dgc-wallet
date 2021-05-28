@@ -141,8 +141,7 @@ class orderBook {
     }
     
     //Execute a buy order by performing different operations depending on quantity
-    function executeBuy($newOrder, $lowestSellOrder)
-    {   
+    function executeBuy($newOrder, $lowestSellOrder) {   
         //If the new buy order's quantity is met by one sell order
         if($newOrder->getQuantity() <= $lowestSellOrder->getQuantity()
             && $newOrder->getPrice() >= $lowestSellOrder->getPrice()) {
@@ -193,7 +192,7 @@ class orderBook {
                     $this->buys->deleteOrder($newOrder);
                 }
             }
-        }   else if ($lowestSellOrder->getQuantity() < 0.00000001 || $newOrder->getPrice() < $lowestSellOrder->getPrice()) { //lowest sell order is empty or this buy order's price is lower than the sell order, add what's left to the buy book
+        } else if ($lowestSellOrder->getQuantity() < 0.00000001 || $newOrder->getPrice() < $lowestSellOrder->getPrice()) { //lowest sell order is empty or this buy order's price is lower than the sell order, add what's left to the buy book
             $this->buys->addOrder($newOrder);
         }
     }
@@ -221,31 +220,34 @@ class orderBook {
             //If the buy order's quantity is less than 8 significant figures, also delete it from sell book
             if($difference < 0.00000001) {
                 $this->buys->deleteOrder($highestBuyOrder->getID());
-            } 
+            }
+
         } else if($newOrder->getQuantity() > $highestBuyOrder->getQuantity()
             && $highestBuyOrder->getPrice() >= $newOrder->getPrice()) { //If the sell order is only partially met by a buy order
-                //updates balance for a partial order, completes the buy orders that are on the book and filled
-                $this->updateBalancesSell($newOrder, $highestBuyOrder, $highestBuyOrder->getQuantity());
-
-                //Add the completed buy order to the database
-                $this->addTrade($highestBuyOrder, $newOrder->getOwner(), $highestBuyOrder->getPrice());
-
-                //subtract the sell order quantity from $newOrder
-                $newOrder->updateQuantity(($newOrder->getQuantity()) - ($highestBuyOrder->getQuantity()));
-
-                //delete completed sell order from buy book and get a new one
-                $this->buys->deleteOrder($highestBuyOrder->getID());
-
-                $highestBuyOrder = $this->buys->getTop();
                 
-                //buy order is null so we add the rest of order as a sell order
-                if($highestBuyOrder->getID() == NULL && $newOrder->getQuantity() > 0.00000001) {
-                    $this->sells->addOrder($newOrder);
-                } else if($newOrder->getQuantity() >= 0.00000001) {
-                   $this->executeSell($newOrder, $highestBuyOrder);
-                } else if ($newOrder->getQuantity() < 0.00000001) {
-                    $this->sells->deleteOrder($newOrder);
-                } 
+            //updates balance for a partial order, completes the buy orders that are on the book and filled
+            $this->updateBalancesSell($newOrder, $highestBuyOrder, $highestBuyOrder->getQuantity());
+
+            //Add the completed buy order to the database
+            $this->addTrade($highestBuyOrder, $newOrder->getOwner(), $highestBuyOrder->getPrice());
+
+            //subtract the sell order quantity from $newOrder
+            $newOrder->updateQuantity(($newOrder->getQuantity()) - ($highestBuyOrder->getQuantity()));
+
+            //delete completed sell order from buy book and get a new one
+            $this->buys->deleteOrder($highestBuyOrder->getID());
+
+            $highestBuyOrder = $this->buys->getTop();
+            
+            //buy order is null so we add the rest of order as a sell order
+            if($highestBuyOrder->getID() == NULL && $newOrder->getQuantity() > 0.00000001) {
+                $this->sells->addOrder($newOrder);
+            } else if($newOrder->getQuantity() >= 0.00000001) {
+               $this->executeSell($newOrder, $highestBuyOrder);
+            } else if ($newOrder->getQuantity() < 0.00000001) {
+                $this->sells->deleteOrder($newOrder);
+            }
+
         } else if ($highestBuyOrder->getQuantity() < 0.00000001 || $newOrder->getPrice() > $highestBuyOrder->getPrice()) { //highest buy order is empty, add what's left to the sell book
             $this->sells->addOrder($newOrder);
         }
@@ -268,11 +270,11 @@ class orderBook {
               $newTrade->getType()."','".$newTrade->getSide()."','".$newTrade->getOwner()."','$otherSideTraderID',
               ".$newTrade->getQuantity().", $this->lastBuyFee, $this->lastSellFee, $totalRight, $totalLeft)";
           
-            $result = $this->connection->query($query);
+        $result = $this->connection->query($query);
 
-            if(!$result) {
-              throw new Exception("Could not add trade to database.");
-            }
+        if(!$result) {
+            throw new Exception("Could not add trade to database.");
+        }
     }
     
     //cancels an order
@@ -560,7 +562,7 @@ class orderBook {
     }
     
     //get n user sells
-     function getMarketSells($number) {
+    function getMarketSells($number) {
         return $this->sells->getOrders($number);
     }
     

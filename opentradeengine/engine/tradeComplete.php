@@ -5,8 +5,7 @@
  * Open Trade Engine
  */
 
-class Trade
-{ 
+class Trade { 
     //Variables
     private $price;
     private $quantity;
@@ -22,8 +21,7 @@ class Trade
     private $type;
     
     //Constructor
-    function __construct($setID, $setTS, $setPrice, $setQuantity, $setType, $setSide, $setOwner, $setActingTrader, $setBuyFee, $setSellFee, $setRightTotal, $setLeftTotal)
-    {
+    function __construct($setID, $setTS, $setPrice, $setQuantity, $setType, $setSide, $setOwner, $setActingTrader, $setBuyFee, $setSellFee, $setRightTotal, $setLeftTotal) {
        $this->ID= $setID;
        $this->TS = $setTS;
        $this->price = $setPrice;
@@ -39,89 +37,70 @@ class Trade
     }
     
     //getters  
-    function getID()
-    {
+    function getID() {
         return $this->ID;
     }
     
-    function getPrice()
-    {
+    function getPrice() {
         return $this->price;
     }
     
-    function getQuantity()
-    {
+    function getQuantity() {
         return $this->quantity;
     }
     
-    function getTimestamp()
-    {
+    function getTimestamp() {
         return $this->TS;
     }
     
-    function getBuyFee()
-    {
+    function getBuyFee() {
         return $this->buyFee;
     }
     
-    function getSellFee()
-    {
+    function getSellFee() {
         return $this->sellFee;
     }
     
-    function getSide()
-    {
+    function getSide() {
         return $this->side;
     }
     
-    function getOwner()
-    {
+    function getOwner() {
         return $this->owner;
     }
     
-    function getActingTraderID()
-    {
+    function getActingTraderID() {
         return $this->actingTrader;
     }
     
-    function getSymbol()
-    {
+    function getSymbol() {
         return $this->symbol;
     }
     
-    function getRightTotal()
-    {
+    function getRightTotal() {
         return $this->rightTotal;
     }
     
-    function getLeftTotal()
-    {
+    function getLeftTotal() {
         return $this->leftTotal;
     }
     
-    function getType()
-    {
+    function getType() {
         return $this->type;
     }
     
     //Check if orders are equal
-    function compareTo($thisOrder)
-    {
+    function compareTo($thisOrder) {
         //used to calculate if two orders are equal
         $requiredAccuracy = 0.00000001;
         
-        if(abs($thisOrder->getPrice() - $this->price) < $requiredAccuracy) 
-        {   
+        if(abs($thisOrder->getPrice() - $this->price) < $requiredAccuracy) {
             //orders are equal so return 0
             return 0;
-        }
-        else if($thisOrder->getPrice() > $this->price)
-        {
+        } else if($thisOrder->getPrice() > $this->price) {
             //return one if the order being compared is greater than this order
             return 1;
-        }
-        else if($thisOrder->getPrice() < $this->price)
-        {
+        } else if($thisOrder->getPrice() < $this->price) {
             //return negative one if the order being checked is less than this one
             return -1;
         }

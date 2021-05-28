@@ -5,18 +5,16 @@
  * Open Trade Engine
  */
 //require('engine/symbolManager.php');
-class Register
-{
-    private function encrypt($password)
-    {
+class Register {
+    private function encrypt($password) {
         $options = array('cost' => 12);
         return password_hash($password, PASSWORD_BCRYPT, $options);
     }
 
     //adds the new member to the database
-    public function insertMember($userName, $firstName, $lastName, $birthDate, $phoneNumber, $securityQuestion,
-                                 $securityAnswer, $pin, $email, $password, $referrer)
-    {
+    public function insertMember($userName, $firstName, $lastName, 
+    $birthDate, $phoneNumber, $securityQuestion, $securityAnswer, 
+    $pin, $email, $password, $referrer) {
         //$connection = ConnectionFactory::getConnection();
         global $wpdb;
         $connection = $wpdb;
@@ -29,7 +27,7 @@ class Register
         $passHash = $this->encrypt($password);
 
         $statement = $wpdb->insert(
-            '{$wpdb->base_prefix}Traders',
+            $wpdb->base_prefix.'Traders',
             array(
                 'UserName'          => $userName,
                 'FirstName'         => $firstName,

@@ -17,8 +17,7 @@ class Trader {
     }
 
     //fetch trader by ID, for internal use only (not parameterized)
-    public function setupTrader($ID)
-    {
+    public function setupTrader($ID) {
         //set ID of trader
         $this->ID = $ID;
 
@@ -28,10 +27,11 @@ class Trader {
         $connection = $wpdb;
 
         //retrieve balances
+/*        
         $result = $connection->query("SELECT `{$wpdb->base_prefix}Currencies`.`Symbol` AS 'symbol', `{$wpdb->base_prefix}TraderCurrencies`.`Balance` AS 'balance',".
             " `{$wpdb->base_prefix}TraderCurrencies`.`HeldBalance` AS 'heldBalance', `{$wpdb->base_prefix}TraderCurrencies`.`PendingBalance` AS 'pendingBalance' FROM".
             " `{$wpdb->base_prefix}TraderCurrencies` LEFT JOIN `{$wpdb->base_prefix}Currencies` ON `{$wpdb->base_prefix}TraderCurrencies`.`Currency` = `{$wpdb->base_prefix}Currencies`.`ID` WHERE `{$wpdb->base_prefix}TraderCurrencies`.`Trader` = $ID");
-/*
+
         if(!$result)
         {
             throw new Exception("Could not fetch trader currencies.".$connection->error);
@@ -58,8 +58,9 @@ class Trader {
         }
 
         //get referral information
+/*        
         $referralResult = $connection->query("Select `Referrer`, `Points` FROM `{$wpdb->base_prefix}Traders` WHERE `ID` = $ID");
-/*
+
         if($row = $referralResult->fetch_assoc()) {
             $this->referrer = $row['Referrer'];
             $this->points = $row['Points'];
@@ -72,36 +73,30 @@ class Trader {
 
     }
     
-    public function getPoints()
-    {
+    public function getPoints() {
         return $this->points;
     }
     
-    public function getReferrer()
-    {
+    public function getReferrer() {
         return $this->referrer;
     }
     
-    public function getID()
-    {
+    public function getID() {
         return $this->ID;
     }
     
     //get balance based on symbol
-    public function getBalance($symbol)
-    {    
+    public function getBalance($symbol) {
         return $this->balances[$symbol]['balance'];
     }
     
     //get balance based on symbol
-    public function getHeldBalance($symbol)
-    {    
+    public function getHeldBalance($symbol) {
         return $this->heldBalances[$symbol]['heldBalance'];
     }
     
     //get the user's pending deposit balance
-    public function getPendingBalance($symbol, $side)
-    {    
+    public function getPendingBalance($symbol, $side){
         return $this->pendingBalances[$symbol]['pendingBalance'];
     }
 }
