@@ -21,7 +21,7 @@ class Register
         global $wpdb;
         $connection = $wpdb;
 /*
-        $statement = $connection->prepare("INSERT INTO `Traders`(`UserName`, `FirstName`, `LastName`,"
+        $statement = $connection->prepare("INSERT INTO `{$wpdb->base_prefix}Traders`(`UserName`, `FirstName`, `LastName`,"
         ."`BirthDate`, `PhoneNumber`, `SecurityQuestion`, `SecurityAnswer`, `PIN`, `Email`, `PasswordHash`, `Referrer`)"
         ." VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 */
@@ -29,7 +29,7 @@ class Register
         $passHash = $this->encrypt($password);
 
         $statement = $wpdb->insert(
-            'Traders',
+            '{$wpdb->base_prefix}Traders',
             array(
                 'UserName'          => $userName,
                 'FirstName'         => $firstName,
@@ -71,7 +71,7 @@ class Register
         $helper = new Helper();
         $currencies = $helper->getCurrencies();
 
-        $query = "INSERT INTO `TraderCurrencies`(`Currency`, `Trader`) VALUES ";
+        $query = "INSERT INTO `{$wpdb->base_prefix}TraderCurrencies`(`Currency`, `Trader`) VALUES ";
         foreach($currencies as $symbol=>$currency) {
             $currencyID = $currency['ID'];
             $query .= " ($currencyID, $ID),";

@@ -5,7 +5,7 @@
  * Open Trade Engine
  */
 
-//TO DO: UPDATE TraderCurrencies table in queries
+//TO DO: UPDATE {$wpdb->base_prefix}TraderCurrencies table in queries
 class OrderBookSell extends OrderBookBase {
     private $makerFee;
     private $currencyLeft;
@@ -30,7 +30,7 @@ class OrderBookSell extends OrderBookBase {
             
             //execute delete, subtract from held balance, and add back to the right side available balance
             $delete = $connection->query("DELETE FROM `".$this->symbol."Sells` WHERE `ID`=".$order->getID()." AND `owner`=".$order->getOwner());
-            $update = $connection->query("UPDATE `TraderCurrencies`  SET `HeldBalance`=(`HeldBalance`-$orderAmount), `Balance`=(`Balance`+$orderAmount)"
+            $update = $connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies`  SET `HeldBalance`=(`HeldBalance`-$orderAmount), `Balance`=(`Balance`+$orderAmount)"
                 ."  WHERE `Trader`=".$order->getOwner()." AND `Currency`=".$this->currencyLeft);
             $countUpdate = $connection->affected_rows;
 
@@ -67,7 +67,7 @@ class OrderBookSell extends OrderBookBase {
               VALUES($price, $quantity, '$type', '$owner', '".$this->symbol."')");
 
         //hold the buyer's right balance
-        $update = $connection->query("UPDATE `TraderCurrencies` SET `HeldBalance`=(`HeldBalance`+$leftTotal), `Balance`=(`Balance`-$leftTotal) WHERE `Trader`=".$order->getOwner()
+        $update = $connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `HeldBalance`=(`HeldBalance`+$leftTotal), `Balance`=(`Balance`-$leftTotal) WHERE `Trader`=".$order->getOwner()
             ." AND `Currency`= ".$this->currencyLeft." AND `Balance` >= $leftTotal");
         $countUpdate = $connection->affected_rows;
 

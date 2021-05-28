@@ -53,17 +53,8 @@ class dgc_Wallet_Install {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
         dbDelta( self::get_schema() );
+        dbDelta( self::open_trade_engine_schema() );
 
-        /**
-         * dgc_API_create_table 
-         */        
-        global $wpdb;
-		//$wpdb->prefix = get_option('prefix_field_option');
-        //if  ( null !== get_option('prefix_field_option') ) {
-		//	$wpdb->prefix = get_option('prefix_field_option');
-		//} else {
-		//	dgc_API_prefix();
-        //}
     }
 
     /**
@@ -103,6 +94,104 @@ class dgc_Wallet_Install {
         ) $collate;";
         return $tables;
     }
+
+    /**
+     * Plugin table schema
+     * @global object $wpdb
+     * @return string
+     */
+    private static function open_trade_engine_schema() {
+        global $wpdb;
+        $collate = '';
+
+        if ( $wpdb->has_cap( 'collation' ) ) {
+            $collate = $wpdb->get_charset_collate();
+        }
+                                                                      
+        $tables = "CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}Traders (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `TS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `UserName` varchar(30) NOT NULL,
+            `FirstName` varchar(50) NOT NULL,
+            `LastName` varchar(50) NOT NULL,
+            `PasswordHash` char(60) NOT NULL,
+            `BirthDate` date NOT NULL DEFAULT '0000-00-00',
+            `PhoneNumber` varchar(22) NOT NULL,
+            `SecurityQuestion` varchar(300) NOT NULL,
+            `SecurityAnswer` varchar(255) NOT NULL,
+            `PIN` char(4) NOT NULL,
+            `Email` varchar(255) NOT NULL,
+            `AddressLineOne` varchar(255) NOT NULL,
+            `AddressLineTwo` varchar(255) NOT NULL,
+            `PostCode` varchar(10) NOT NULL,
+            `City` varchar(50) NOT NULL,
+            `RegisterIP` varchar(45) NOT NULL,
+            `Referrer` int(11) NOT NULL,
+            `Activated` tinyint(1) unsigned NOT NULL DEFAULT '0',
+            `AccountNumber` varchar(255) NOT NULL,
+            `Points` decimal(16,8) unsigned NOT NULL DEFAULT '0.00000000',
+            `PointsEarned` decimal(16,8) unsigned NOT NULL DEFAULT '0.00000000',
+            `PinCount` tinyint(2) unsigned NOT NULL DEFAULT '0',
+            `PassCount` tinyint(2) unsigned NOT NULL DEFAULT '0',
+            `RecoverCount` tinyint(2) unsigned NOT NULL DEFAULT '0',
+            `TransactionCount` int(10) unsigned NOT NULL DEFAULT '0',
+            PRIMARY KEY (`ID`),
+            UNIQUE KEY `UserName` (`UserName`),
+            KEY `Traders_Traders_ID_fk` (`Referrer`),
+            CONSTRAINT `Traders_Traders_ID_fk` FOREIGN KEY (`Referrer`) REFERENCES `{$wpdb->base_prefix}Traders` (`ID`)
+        ) $collate;
+        CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}TraderCurrencies (
+            `Currency` int(11) NOT NULL,
+            `Balance` decimal(16,8) NOT NULL DEFAULT '0.00000000',
+            `Trader` int(11) NOT NULL,
+            `HeldBalance` decimal(16,8) NOT NULL DEFAULT '0.00000000',
+            `PendingBalance` decimal(16,8) NOT NULL DEFAULT '0.00000000',
+            `Completed` decimal(16,8) NOT NULL DEFAULT '0.00000000',
+            UNIQUE KEY `TraderCurrencies_Currency_Trader_pk` (`Currency`,`Trader`),
+            KEY `TraderCurrencies_Traders__fk` (`Trader`),
+            CONSTRAINT `TraderCurrencies_Currencies.ID__fk` FOREIGN KEY (`Currency`) REFERENCES `Currencies` (`ID`),
+            CONSTRAINT `TraderCurrencies_Traders__fk` FOREIGN KEY (`Trader`) REFERENCES `{$wpdb->base_prefix}Traders` (`ID`)
+        ) $collate;
+        CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}Symbols (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Symbol` char(20) NOT NULL,
+            `LeftCurrency` int(11) NOT NULL,
+            `RightCurrency` int(11) NOT NULL,
+            `MakerFee` decimal(16,8) NOT NULL DEFAULT '0.00000000',
+            `TakerFee` decimal(16,8) NOT NULL DEFAULT '0.00000000',
+            PRIMARY KEY (`ID`),
+            UNIQUE KEY `Symbols_ID_uindex` (`ID`),
+            UNIQUE KEY `Symbols_code_uindex` (`Symbol`),
+            KEY `Symbols_Currencies_ID_fk` (`LeftCurrency`),
+            KEY `Symbols_Currencies2_ID_fk` (`RightCurrency`),
+            CONSTRAINT `Symbols_Currencies2_ID_fk` FOREIGN KEY (`rightCurrency`) REFERENCES `Currencies` (`ID`),
+            CONSTRAINT `Symbols_Currencies_ID_fk` FOREIGN KEY (`leftCurrency`) REFERENCES `Currencies` (`ID`)
+        ) $collate;
+        CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}OrderErrors (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `TS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `Error` varchar(255) NOT NULL,
+            PRIMARY KEY (`ID`)
+        ) $collate;
+        CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}FeeTotals (
+            Currency int(11) NOT NULL,
+            Total decimal(32,8) NOT NULL DEFAULT '0.00000000',
+            PRIMARY KEY (Currency),
+            UNIQUE KEY FeeTotals_Currency_uindex (Currency),
+            CONSTRAINT FeeTotals_Currencies_ID_fk FOREIGN KEY (Currency) REFERENCES Currencies (ID)
+        ) $collate;
+        CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}Currencies (
+            ID BIGINT UNSIGNED NOT NULL auto_increment,
+            Symbol char(10) NOT NULL,
+            Name varchar(255) NOT NULL,
+            PRIMARY KEY (ID),
+            UNIQUE KEY Currencies_ID_uindex (ID),
+            UNIQUE KEY Currencies_Symbol_uindex (Symbol),
+            UNIQUE KEY Currencies_Name_uindex (Name)
+        ) $collate;";
+        return $tables;
+    }
+    
     /**
      * Create rechargeable product if not exist
      */

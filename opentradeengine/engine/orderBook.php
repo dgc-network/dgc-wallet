@@ -134,7 +134,7 @@ class orderBook {
             }
         } catch (Exception $e) {
             $this->connection->query("ROLLBACK");
-            $this->connection->query("INSERT INTO `OrderErrors`(`Error`) VALUES('$e') ");
+            $this->connection->query("INSERT INTO `{$wpdb->base_prefix}OrderErrors`(`Error`) VALUES('$e') ");
             //THROW NEW Exception("Could not execute order. Error: $e");
             //throw new Exception( "Could not execute order." );
         }   
@@ -328,20 +328,20 @@ class orderBook {
         //if this transaction will not result in any negative balances
         if($buyerBalanceLeft >= 0 && $buyerBalanceRight >= 0 && $sellerBalanceRight >= 0 && $tradeAmount >= 0) {
             //update buyer by lowering his balance directly
-            $updateBuyerRightBalance = $this->connection->query("UPDATE `TraderCurrencies` SET `Balance` = (`Balance`-$rightSideBuyerTotal)"
+            $updateBuyerRightBalance = $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Balance` = (`Balance`-$rightSideBuyerTotal)"
                 ." WHERE `Trader` = ".$buyer->getID()." AND `Currency` = ".$this->currencyRight." AND `Balance` >= $rightSideBuyerTotal");
             $countQuery1 = $this->connection->affected_rows;
 
-            $updateBuyerLeftBalance = $this->connection->query("UPDATE `TraderCurrencies` SET `Balance` = (`Balance`+ $quantity)"
+            $updateBuyerLeftBalance = $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Balance` = (`Balance`+ $quantity)"
                 ." WHERE `Trader` = ".$buyer->getID()." AND `Currency` = ".$this->currencyLeft);
             $countQuery2 = $this->connection->affected_rows;
 
             //update seller by lowering his held balance of left side, and increasing actual balance of right
-            $updateSellerHeldBalance = $this->connection->query("UPDATE `TraderCurrencies` SET `Held` = (`Held`-$tradeAmount)"
+            $updateSellerHeldBalance = $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Held` = (`Held`-$tradeAmount)"
                 ." WHERE `Trader` = ".$seller->getID()." AND `Currency` = ".$this->currencyRight." AND `Held` >= $tradeAmount");
             $countQuery3 = $this->connection->affected_rows;
 
-            $updateSellerRightBalance = $this->connection->query("UPDATE `TraderCurrencies` SET `Balance` = (`Balance`+$rightSideBuyerCost)"
+            $updateSellerRightBalance = $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Balance` = (`Balance`+$rightSideBuyerCost)"
                 ." WHERE `Trader` = ".$seller->getID()." AND `Currency` = ".$this->currencyRight);
             $countQuery4 = $this->connection->affected_rows;
 
@@ -354,8 +354,8 @@ class orderBook {
             }
 
             //update fee totals for fees charged on right and left
-            $this->connection->query("UPDATE `FeeTotals` SET `Total` = `Total` + $leftSideFee WHERE `Currency` = ".$this->currencyLeft);
-            $this->connection->query("UPDATE `FeeTotals` SET `Total` = `Total` + $rightSideFee WHERE `Currency` = ".$this->currencyRight);
+            $this->connection->query("UPDATE `{$wpdb->base_prefix}FeeTotals` SET `Total` = `Total` + $leftSideFee WHERE `Currency` = ".$this->currencyLeft);
+            $this->connection->query("UPDATE `{$wpdb->base_prefix}FeeTotals` SET `Total` = `Total` + $rightSideFee WHERE `Currency` = ".$this->currencyRight);
 
             //update buyer's and seller's completed trades in the currency
             $this->updateCompleted($buyer, $seller, $quantity);
@@ -409,20 +409,20 @@ class orderBook {
         //if this transaction will not result in any negative balances
         if($buyerBalanceLeft >= 0 && $sellerBalanceLeft >= 0 && $sellerBalanceRight >= 0 && $tradeAmount >= 0) {
             //update buyer by subtracting from held balance of right side and adding to their left side balance the sold amount
-            $updateBuyerHeldBalance = $this->connection->query("UPDATE `TraderCurrencies` SET `Held` = (`Held`-$tradeAmount)"
+            $updateBuyerHeldBalance = $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Held` = (`Held`-$tradeAmount)"
                 ." WHERE `Trader` = ".$buyer->getID()." AND `Currency` = ".$this->currencyRight." AND `Held` >= $tradeAmount");
             $countQuery1 = $this->connection->affected_rows;
 
-            $updateBuyerLeftBalance = $this->connection->query("UPDATE `TraderCurrencies` SET `Balance` = (`Balance` + $quantity)"
+            $updateBuyerLeftBalance = $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Balance` = (`Balance` + $quantity)"
                 ." WHERE `Trader` = ".$buyer->getID()." AND `Currency` = ".$this->currencyLeft);
             $countQuery2 = $this->connection->affected_rows;
 
             //update seller lowering left side and adding to right side
-            $updateSellerLeftBalance = $this->connection->query("UPDATE `TraderCurrencies` SET `Balance` = (`Balance`-$sellerAdjustment)"
+            $updateSellerLeftBalance = $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Balance` = (`Balance`-$sellerAdjustment)"
                 ." WHERE `Trader` = ".$seller->getID()." AND `Currency` = ".$this->currencyLeft." AND `Balance` >= $sellerAdjustment");
             $countQuery3 = $this->connection->affected_rows;
 
-            $updateSellerRightBalance = $this->connection->query("UPDATE `TraderCurrencies` SET `Balance` = (`Balance`+$rightSideCost)"
+            $updateSellerRightBalance = $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Balance` = (`Balance`+$rightSideCost)"
                 ." WHERE `Trader` = ".$seller->getID()." AND `Currency` = ".$this->currencyRight);
             $countQuery4 = $this->connection->affected_rows;
 
@@ -436,8 +436,8 @@ class orderBook {
             }
 
             //update fee totals for fees charged on right and left
-            $this->connection->query("UPDATE `FeeTotals` SET `Total` = `Total` + $leftSideFee WHERE `Currency` = ".$this->currencyLeft);
-            $this->connection->query("UPDATE `FeeTotals` SET `Total` = `Total` + $rightSideFee WHERE `Currency` = ".$this->currencyRight);
+            $this->connection->query("UPDATE `{$wpdb->base_prefix}FeeTotals` SET `Total` = `Total` + $leftSideFee WHERE `Currency` = ".$this->currencyLeft);
+            $this->connection->query("UPDATE `{$wpdb->base_prefix}FeeTotals` SET `Total` = `Total` + $rightSideFee WHERE `Currency` = ".$this->currencyRight);
 
             //update buyer's and seller's completed trades in the currency
             $this->updateCompleted($buyer, $seller, $quantity);
@@ -449,7 +449,7 @@ class orderBook {
     }
 
     private function updateCompleted($buyer, $seller, $quantity) {
-        $this->connection->query("UPDATE `TraderCurrencies` SET `Complete` = `Complete` + $quantity"
+        $this->connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `Complete` = `Complete` + $quantity"
             ." WHERE `Trader`=" .$buyer->getID()." AND `Trader`=" .$seller->getID()." AND `Currency`=".$this->currencyLeft);
     }
 
@@ -457,17 +457,17 @@ class orderBook {
         //give the buyer and his referrer points if the currency bought with is equal to USD or BTC
         $points = $fee * 10;
 
-        $this->connection->query("UPDATE `Traders` SET `Points` = `Points`+$points WHERE `ID` = ".$buyer->getID());
+        $this->connection->query("UPDATE `{$wpdb->base_prefix}Traders` SET `Points` = `Points`+$points WHERE `ID` = ".$buyer->getID());
 
         //also add points to the earned points column: to keep track of what was earned by user from referrals in normal balance
-        $this->connection->query("UPDATE `Traders` SET `PointsEarned` = `PointsEarned` + $points WHERE `ID` = ".$buyer->getID());
+        $this->connection->query("UPDATE `{$wpdb->base_prefix}Traders` SET `PointsEarned` = `PointsEarned` + $points WHERE `ID` = ".$buyer->getID());
 
         //get referrer and give them points if they exist
         $referrer = $buyer->getReferrer();
         $referrerPoints = $points / 100;
 
         if($referrer != "None") {
-            $this->connection->query("UPDATE `Traders` SET `Points` = `Points` + $referrerPoints WHERE `ID` = $referrer");
+            $this->connection->query("UPDATE `{$wpdb->base_prefix}Traders` SET `Points` = `Points` + $referrerPoints WHERE `ID` = $referrer");
         }
     }
     
@@ -743,7 +743,7 @@ class orderBook {
     //get the trader's point balance
     function getPoints($traderID){
         //get the balance
-        $result = mysqli_query($this->connection, "SELECT `Points` FROM `Traders` WHERE `ID`=$traderID LIMIT 1"); 
+        $result = mysqli_query($this->connection, "SELECT `Points` FROM `{$wpdb->base_prefix}Traders` WHERE `ID`=$traderID LIMIT 1"); 
     
         if ($row = $result->fetch_assoc()) {
             $points = $row['Points'];
@@ -757,7 +757,7 @@ class orderBook {
     //checks if a username by that name already exists
     function checkTrader($userName){
         //fetch trader by ID
-        $result = $this->connection->query("SELECT `UserName` FROM `Traders` WHERE `UserName` = '$userName'");
+        $result = $this->connection->query("SELECT `UserName` FROM `{$wpdb->base_prefix}Traders` WHERE `UserName` = '$userName'");
         
         if (mysqli_num_rows($result) >= 1) {
             return TRUE;
@@ -768,7 +768,7 @@ class orderBook {
     
     function checkEmail($email){
         //fetch trader by ID
-        $result = $this->connection->query("SELECT `Email` FROM `Traders` WHERE `Email` = ".$email);
+        $result = $this->connection->query("SELECT `Email` FROM `{$wpdb->base_prefix}Traders` WHERE `Email` = ".$email);
         
         if ($result) {
             return TRUE;
@@ -778,7 +778,7 @@ class orderBook {
     }
     
     function getReferrals($username){
-      $result = $this->connection->query("SELECT `ts`, `AccountNumber`, `PointsEarned` FROM `Traders` WHERE `Referrer` = '$username'");
+      $result = $this->connection->query("SELECT `ts`, `AccountNumber`, `PointsEarned` FROM `{$wpdb->base_prefix}Traders` WHERE `Referrer` = '$username'");
 
        $referrals = array();      
        while($row = $result->fetch_assoc()) {

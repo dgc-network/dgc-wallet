@@ -28,7 +28,7 @@ class OrderBookBuy extends OrderBookBase {
             
             //execute delete, subtract from held balance, and add back to the right side available balance
             $delete = $connection->query("DELETE FROM `".$this->symbol."Buys` WHERE `ID`=".$order->getID()." AND `Owner`=".$order->getOwner());
-            $update = $connection->query("UPDATE `TraderCurrencies`  SET `HeldBalance`=(`HeldBalance`-$orderAmount), `Balance`=(`Balance`+$orderAmount)"
+            $update = $connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies`  SET `HeldBalance`=(`HeldBalance`-$orderAmount), `Balance`=(`Balance`+$orderAmount)"
                 ."  WHERE `Trader`=".$order->getOwner()." AND `Currency`=".$this->currencyRight);
             $countUpdate = $connection->affected_rows;
             
@@ -61,7 +61,7 @@ class OrderBookBuy extends OrderBookBase {
               VALUES($price, $quantity, '$type', '$owner', '".$this->symbol."')");
 
          //hold the buyer's right balance
-        $update = $connection->query("UPDATE `TraderCurrencies` SET `HeldBalance`=(`HeldBalance`+$rightTotal),"
+        $update = $connection->query("UPDATE `{$wpdb->base_prefix}TraderCurrencies` SET `HeldBalance`=(`HeldBalance`+$rightTotal),"
             ." `Balance`=(`Balance`-$rightTotal) WHERE `Trader`=".$order->getOwner() ." AND `Currency`= ".$this->currencyRight." AND `Balance` >= $rightTotal");
         $countUpdate = $connection->affected_rows;
 

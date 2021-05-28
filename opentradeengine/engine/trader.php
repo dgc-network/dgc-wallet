@@ -28,9 +28,9 @@ class Trader {
         $connection = $wpdb;
 
         //retrieve balances
-        $result = $connection->query("SELECT `Currencies`.`Symbol` AS 'symbol', `TraderCurrencies`.`Balance` AS 'balance',".
-            " `TraderCurrencies`.`HeldBalance` AS 'heldBalance', `TraderCurrencies`.`PendingBalance` AS 'pendingBalance' FROM".
-            " `TraderCurrencies` LEFT JOIN `Currencies` ON `TraderCurrencies`.`Currency` = `Currencies`.`ID` WHERE `TraderCurrencies`.`Trader` = $ID");
+        $result = $connection->query("SELECT `{$wpdb->base_prefix}Currencies`.`Symbol` AS 'symbol', `{$wpdb->base_prefix}TraderCurrencies`.`Balance` AS 'balance',".
+            " `{$wpdb->base_prefix}TraderCurrencies`.`HeldBalance` AS 'heldBalance', `{$wpdb->base_prefix}TraderCurrencies`.`PendingBalance` AS 'pendingBalance' FROM".
+            " `{$wpdb->base_prefix}TraderCurrencies` LEFT JOIN `{$wpdb->base_prefix}Currencies` ON `{$wpdb->base_prefix}TraderCurrencies`.`Currency` = `{$wpdb->base_prefix}Currencies`.`ID` WHERE `{$wpdb->base_prefix}TraderCurrencies`.`Trader` = $ID");
 /*
         if(!$result)
         {
@@ -45,9 +45,9 @@ class Trader {
         }
         $result->close();
 */
-        $result = $wpdb->get_results("SELECT `Currencies`.`Symbol` AS 'symbol', `TraderCurrencies`.`Balance` AS 'balance',".
-            " `TraderCurrencies`.`HeldBalance` AS 'heldBalance', `TraderCurrencies`.`PendingBalance` AS 'pendingBalance' FROM".
-            " `TraderCurrencies` LEFT JOIN `Currencies` ON `TraderCurrencies`.`Currency` = `Currencies`.`ID` WHERE `TraderCurrencies`.`Trader` = $ID", ARRAY_A);
+        $result = $wpdb->get_results("SELECT `{$wpdb->base_prefix}Currencies`.`Symbol` AS 'symbol', `{$wpdb->base_prefix}TraderCurrencies`.`Balance` AS 'balance',".
+            " `{$wpdb->base_prefix}TraderCurrencies`.`HeldBalance` AS 'heldBalance', `{$wpdb->base_prefix}TraderCurrencies`.`PendingBalance` AS 'pendingBalance' FROM".
+            " `{$wpdb->base_prefix}TraderCurrencies` LEFT JOIN `{$wpdb->base_prefix}Currencies` ON `{$wpdb->base_prefix}TraderCurrencies`.`Currency` = `{$wpdb->base_prefix}Currencies`.`ID` WHERE `{$wpdb->base_prefix}TraderCurrencies`.`Trader` = $ID", ARRAY_A);
         
         foreach ($result as $row) {
             $this->balances[$row['symbol']] = [
@@ -58,7 +58,7 @@ class Trader {
         }
 
         //get referral information
-        $referralResult = $connection->query("Select `Referrer`, `Points` FROM `Traders` WHERE `ID` = $ID");
+        $referralResult = $connection->query("Select `Referrer`, `Points` FROM `{$wpdb->base_prefix}Traders` WHERE `ID` = $ID");
 /*
         if($row = $referralResult->fetch_assoc()) {
             $this->referrer = $row['Referrer'];
@@ -66,7 +66,7 @@ class Trader {
         }
 */
 
-        $row = $wpdb->get_row("Select `Referrer`, `Points` FROM `Traders` WHERE `ID` = $ID", ARRAY_A);
+        $row = $wpdb->get_row("Select `Referrer`, `Points` FROM `{$wpdb->base_prefix}Traders` WHERE `ID` = $ID", ARRAY_A);
         $this->referrer = $row['Referrer'];
         $this->points = $row['Points'];
 
