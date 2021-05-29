@@ -48,7 +48,7 @@ function display() {
                 'symbol'  => $symbol,
             )
         );
-        echo $symbol.': '.$current_user.'<br>';
+        echo $symbol.': '.$deposit_address.'<br>';
     }
 
 ?>
