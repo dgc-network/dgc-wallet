@@ -7,6 +7,8 @@
 include('engine/engine.php');
 include('register.php');
 
+$rate = 0;
+
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
     $wp_user = wp_get_current_user();
@@ -37,8 +39,6 @@ function display() {
         echo $symbol.': '.$deposit_address.'<br>';
     }
 
-    $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( 'DGC', 'BTC' );
-    echo 'Rate: '.$rate;
 
 ?>
 
@@ -52,7 +52,7 @@ function display() {
     <table>
         <tr>
             <td>
-            <select name="wpbw_send_address" >
+            <select name="from_symbol" >
             <?php 
             foreach($symbols as $symbol) {
                 echo '<option value="'.$symbol.'">'.$symbol.'</option>';
@@ -63,7 +63,7 @@ function display() {
             <td>
             </td>
             <td>
-            <select name="wpbw_send_address" >
+            <select name="to_symbol" >
             <?php 
             foreach($symbols as $symbol) {
                 echo '<option value="'.$symbol.'">'.$symbol.'</option>';
@@ -73,11 +73,11 @@ function display() {
             </td>
         </tr>
         <tr>
-            <td><input name="wpbw_send_numcoins" type="text" />
+            <td><input name="from_numcoins" type="text" />
             </td>
             <td><input name="wpbw_widget_send" type="submit" value="Trade" />
             </td>
-            <td><input name="wpbw_send_numcoins" type="text" />
+            <td><input name="to_numcoins" type="text" value=<?php $rate ?>/>
             </td>
         </tr>
     </table>
@@ -91,6 +91,9 @@ function handle_post() {
     if(isset($_REQUEST['wpbw_widget_send'])) {
         check_admin_referer('wpbw_widget_nonce');
 
+        $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $_REQUEST['from_symbol'], $_REQUEST['from_symbol'] );
+        //echo 'Rate: '.$rate;
+    
 //add traders to database, usually after receiving a post request from a registration form
 /*
 $register = new Register();
@@ -129,8 +132,8 @@ $buyer->setupTrader(4);
 $seller = new Trader();
 $seller->setupTrader(5);
 
-echo "Buyer ID: ".$buyer->getID()." Buyer Balance: ".$buyer->getBalance("USD");
-echo "Seller ID: ".$seller->getID()." Seller Balance: ".$seller->getBalance("USD");
+//echo "Buyer ID: ".$buyer->getID()." Buyer Balance: ".$buyer->getBalance("USD");
+//echo "Seller ID: ".$seller->getID()." Seller Balance: ".$seller->getBalance("USD");
 
 
 
