@@ -7,8 +7,6 @@
 include('engine/engine.php');
 include('register.php');
 
-$rate = 0;
-
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
     $wp_user = wp_get_current_user();
@@ -24,6 +22,13 @@ function dgc_wp_dashboard_setup() {
 function display() {
     handle_post();
 
+    $symbols = array();
+    $current_user = wp_get_current_user();
+    $adapters = apply_filters( 'wallets_api_adapters', array() );
+    foreach ( $adapters as $adapter ) {
+        $symbol = $adapter->get_symbol();
+        $symbols[] = $symbol;
+    }
     ?>
     <br />
     <br />
