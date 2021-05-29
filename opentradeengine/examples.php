@@ -43,9 +43,9 @@ function display() {
             <select name="from_symbol" >
             <?php 
             foreach($symbols as $symbol) {
-                echo '<option value="'.$symbol.' ';
+                echo '<option value="'.$symbol.'" ';
                 if($symbol=="BTC") echo 'selected';
-                echo '">'.$symbol.'</option>';
+                echo '>'.$symbol.'</option>';
             } 
             ?>
             </select>
@@ -86,7 +86,7 @@ function handle_post() {
         $from_numcoins = (float)$_REQUEST['from_numcoins'];
         $to_numcoins = (float)$_REQUEST['to_numcoins'];
         $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $to_symbol, $from_symbol );
-        $market_numcoins = $rate * $from_numcoins;
+        $market_numcoins = (float)$rate * $from_numcoins;
         echo '<p>'.$from_numcoins.' '.$from_symbol.'= '.$market_numcoins.' '.$to_symbol.'</p>';
     
         //add traders to database, usually after receiving a post request from a registration form
