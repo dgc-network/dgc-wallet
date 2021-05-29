@@ -38,10 +38,17 @@ function display() {
     }
 
     /** new try */
+    $current_user_id = get_current_user_id();
     $adapters = apply_filters( 'wallets_api_adapters', array() );
     foreach ( $adapters as $adapter ) {
         $symbol = $adapter->get_symbol();
-        echo $symbol;
+        $deposit_address = apply_filters(
+            'wallets_api_deposit_address', '', array(
+                'user_id' => $current_user->ID,
+                'symbol'  => $symbol,
+            )
+        );
+        echo $symbol.': '.$current_user.'<br>';
     }
 
 ?>
