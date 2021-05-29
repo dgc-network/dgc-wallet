@@ -22,8 +22,8 @@ function dgc_wp_dashboard_setup() {
 function display() {
     handle_post();
     $symbols = array();
-
     $current_user = wp_get_current_user();
+/*    
     $email_address = $current_user->user_email;
     $export_value = apply_filters( 'wallets_address_exporter', $email_address);
     foreach ($export_value['data'] as $array_value) {
@@ -36,12 +36,13 @@ function display() {
             }
         }
     }
-
+*/
     /** new try */
-    $current_user_id = get_current_user_id();
+    //$current_user_id = get_current_user_id();
     $adapters = apply_filters( 'wallets_api_adapters', array() );
     foreach ( $adapters as $adapter ) {
         $symbol = $adapter->get_symbol();
+        $symbols[] = $symbol;
         $deposit_address = apply_filters(
             'wallets_api_deposit_address', '', array(
                 'user_id' => $current_user->ID,
@@ -126,7 +127,7 @@ echo "Seller ID: ".$seller->getID()." Seller Balance: ".$seller->getBalance("USD
 
     }
 }
-
+/*
 function tab_deposits_cb() {
     global $wpdb;
 
@@ -339,3 +340,4 @@ function transaction_exporter( $email_address, $page = 1 ) {
         'done' => $count != count( $export_items ),
     );
 } // end function transaction_exporter
+*/
