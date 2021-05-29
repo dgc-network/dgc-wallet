@@ -31,7 +31,7 @@ function display() {
     }
     ?>
     <br />
-    <br />
+    <br /><?php echo $_REQUEST['to_numcoins'];?>
     <strong>Trade Coins:</strong>
     <br />
     <br />
@@ -63,11 +63,11 @@ function display() {
             </td>
         </tr>
         <tr>
-            <td><input name="from_numcoins" type="text" />
+            <td><input name="from_numcoins" type="text" value="1" />
             </td>
             <td><input name="wpbw_widget_send" type="submit" value="Trade" />
             </td>
-            <td><input name="to_numcoins" type="text" value="<?php echo $_REQUEST['to_numcoins'];?>" />
+            <td><input name="to_numcoins" type="text" value="" />
             </td>
         </tr>
     </table>
