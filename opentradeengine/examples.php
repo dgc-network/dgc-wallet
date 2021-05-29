@@ -37,7 +37,7 @@ function display() {
         echo $symbol.': '.$deposit_address.'<br>';
     }
 
-    $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $symbol[0], $symbol[1] );
+    $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( 'DGC', 'BTC' );
     echo 'Rate: '.$rate;
 
 ?>
