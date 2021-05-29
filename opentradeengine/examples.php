@@ -37,9 +37,14 @@ function display() {
         echo $symbol.': '.$deposit_address.'<br>';
     }
 
+    $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $symbol[0], $symbol[1] );
+    echo 'Rate: '.$rate;
+
 ?>
 
-    <strong>Buy Coins:</strong>
+    <br />
+    <br />
+    <strong>Trade Coins:</strong>
     <br />
     <br />
     <form action="" method="post">
