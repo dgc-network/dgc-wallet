@@ -49,19 +49,38 @@ function display() {
     <br />
     <form action="" method="post">
     <?php wp_nonce_field('wpbw_widget_nonce'); ?>
-    <label>Number of coins:</label>
-    <input name="wpbw_send_numcoins" type="text" size="10" />
-    <br />
-    <label>Coin Type:</label>
-    <select name="wpbw_send_address" >
-        <?php 
-        foreach($symbols as $symbol) {
-            echo '<option value="'.$symbol.'">'.$symbol.'</option>';
-        } 
-        ?>
-    </select>
-    <br />
-    <input name="wpbw_widget_send" type="submit" value="Send" />
+    <table>
+        <tr>
+            <td>
+            <select name="wpbw_send_address" >
+            <?php 
+            foreach($symbols as $symbol) {
+                echo '<option value="'.$symbol.'">'.$symbol.'</option>';
+            } 
+            ?>
+            </select>
+            </td>
+            <td>
+            </td>
+            <td>
+            <select name="wpbw_send_address" >
+            <?php 
+            foreach($symbols as $symbol) {
+                echo '<option value="'.$symbol.'">'.$symbol.'</option>';
+            } 
+            ?>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input name="wpbw_send_numcoins" type="text" />
+            </td>
+            <td><input name="wpbw_widget_send" type="submit" value="Trade" />
+            </td>
+            <td><input name="wpbw_send_numcoins" type="text" />
+            </td>
+        </tr>
+    </table>
     </form>
     <br />
     <?php
