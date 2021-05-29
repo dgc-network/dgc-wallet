@@ -16,6 +16,10 @@ class SymbolManager {
     }
 
     function getCurrencies() {
+
+        $adapters = apply_filters( 'wallets_api_adapters', array() );
+        return $adapters;
+/*
         $result = $this->connection->query("SELECT `ID`, `Symbol`, `Name` FROM `{$wpdb->base_prefix}Currencies`");
 
         if(!$result) {
@@ -29,12 +33,13 @@ class SymbolManager {
 
         $result->close();
         return $currencies;
+*/        
     }
 
     function getSymbolConfig($symbolID) {
         //$connection = connectionFactory::getConnection();
         global $wpdb;
-        $connection = $wpdb;
+        //$connection = $wpdb;
 /*
         $statement = $connection->prepare("SELECT `Symbol`, `LeftCurrency`, `RightCurrency`, `MakerFee`,"
             ." `TakerFee` FROM `{$wpdb->base_prefix}Symbols` WHERE `SymbolID` = ?");

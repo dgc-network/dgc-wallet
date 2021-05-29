@@ -28,6 +28,13 @@ if ( defined( 'WALLET_REMOVE_ALL_DATA' ) && true === WALLET_REMOVE_ALL_DATA ) {
     $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}dgc_wallet_transactions" );
     $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}dgc_wallet_transaction_meta" );
 
+    $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}Currencies" );
+    $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}FeeTotals" );
+    $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}OrderErrors" );
+    $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}Symbols" );
+    $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}TraderCurrencies" );
+    $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}Traders" );
+
     // Delete options.
     $wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_payment\_%';" );
     $wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_dgc_wallet\_%';" );

@@ -15,8 +15,10 @@ class Engine {
     private $orderBook;
     
     //create orderbook using provided symbols
-    public function __construct($symbolID) {
-        $this->orderBook = new orderBook($symbolID);
+    //public function __construct($symbolID) {
+    public function __construct($from_symbol, $to_symbol) {
+        //$this->orderBook = new orderBook($symbolID);
+        $this->orderBook = new orderBook($from_symbol, $to_symbol);
     }
 
     //adds an order

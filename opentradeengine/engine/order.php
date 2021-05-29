@@ -16,16 +16,29 @@ class Order {
     private $symbol;
     private $tempQuantity;
     private $feePercent;
+    private $from_symbol;
+    private $from_numcoins;
+    private $to_symbol;
+    private $to_numcoins;
     
     //Constructor
-    function __construct($setPrice, $setQuantity, $setType, $setSide, $setOwner, $setSymbol, $setFeePercent=0) {
-       $this->price = $setPrice;
-       $this->quantity = $setQuantity;
-       $this->type = $setType;
-       $this->side = $setSide;
-       $this->owner = $setOwner;
-       $this->symbol = $setSymbol;
-       $this->feePercent= $setFeePercent;
+    //function __construct($setPrice, $setQuantity, $setType, $setSide, $setOwner, $setSymbol, $setFeePercent=0) {
+    function __construct($from_symbol, $from_numcoins, $setType, $setSide, $to_symbol, $to_numcoins, $setFeePercent=0) {
+/*
+        $this->price = $setPrice;
+        $this->quantity = $setQuantity;
+*/        
+        $this->type = $setType;
+        $this->side = $setSide;
+/*        
+        $this->owner = $setOwner;
+        $this->symbol = $setSymbol;
+*/
+        $this->from_symbol= $from_symbol;
+        $this->from_numcoins= $from_numcoins;
+        $this->to_symbol= $to_symbol;
+        $this->to_numcoins= $to_numcoins;
+        $this->feePercent= $setFeePercent;
     }
     
     //getters 

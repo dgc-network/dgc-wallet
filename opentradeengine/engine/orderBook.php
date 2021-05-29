@@ -28,7 +28,17 @@ class orderBook {
     private $volume;
     private $connection;
 
-    function __construct($setSymbolID) {
+    //function __construct($setSymbolID) {
+    function __construct($from_symbol, $to_symbol) {
+        
+        $this->currencyLeft = $from_symbol;
+        $this->currencyRight = $to_symbol;
+        $this->makerFee = 0.01000000;
+        $this->takerFee = 0.00000000;
+        //setup both sides of the order book
+        $this->buys = new OrderBookBuy($this->currencyLeft, "Buy", $this->currencyRight, $this->makerFee);
+        $this->sells = new OrderBookSell($this->currencyRight, "Sell", $this->currencyLeft, $this->makerFee);
+/*
         $this->symbolID = $setSymbolID;
 
         //initialize from symbol configuration
@@ -43,7 +53,7 @@ class orderBook {
         //setup both sides of the order book
         $this->buys = new OrderBookBuy($this->symbol, "Buy", $this->currencyRight, $this->makerFee);
         $this->sells = new OrderBookSell($this->symbol, "Sell", $this->currencyLeft, $this->makerFee);
-
+*/
         $this->volume = $this->setVolume();
 
         //$this->connection = connectionFactory::getConnection();
@@ -55,7 +65,9 @@ class orderBook {
     //orders currently in the order book. Any uncompleted quantity is added 
     //to the appropriate order book
     function executeOrder($newOrder) {
-        $this->connection->query("START TRANSACTION");
+        //$this->connection->query("START TRANSACTION");
+        global $wpdb;
+        $wpdb->query("START TRANSACTION");
         try {
             //variable declarations and initialization
             $topBuy = $this->buys->getTop();
@@ -270,7 +282,9 @@ class orderBook {
               $newTrade->getType()."','".$newTrade->getSide()."','".$newTrade->getOwner()."','$otherSideTraderID',
               ".$newTrade->getQuantity().", $this->lastBuyFee, $this->lastSellFee, $totalRight, $totalLeft)";
           
-        $result = $this->connection->query($query);
+        //$result = $this->connection->query($query);
+        global $wpdb;
+        $result = $wpdb->query($query);
 
         if(!$result) {
             throw new Exception("Could not add trade to database.");
@@ -288,7 +302,9 @@ class orderBook {
     
     //updates account balances, helper function of executeBuy
     function updateBalancesBuy($buyOrder, $sellOrder, $quantity) {
-        $this->connection->query("START TRANSACTION");
+        //$this->connection->query("START TRANSACTION");
+        global $wpdb;
+        $wpdb->query("START TRANSACTION");
 
         //******UPDATE ACCOUNT BALANCES*****
         //Get the traders who made the orders
