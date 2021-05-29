@@ -91,8 +91,8 @@ function handle_post() {
     if(isset($_REQUEST['wpbw_widget_send'])) {
         check_admin_referer('wpbw_widget_nonce');
 
-        $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $_REQUEST['from_symbol'], $_REQUEST['from_symbol'] );
-        echo $_REQUEST['to_symbol'].'= '.$rate.' '.$_REQUEST['from_symbol'];
+        $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $_REQUEST['from_symbol'], $_REQUEST['to_symbol'] );
+        echo '<p>'.$_REQUEST['to_symbol'].'= '.$rate.' '.$_REQUEST['from_symbol'].'</p>';
     
 //add traders to database, usually after receiving a post request from a registration form
 /*
