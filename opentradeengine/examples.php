@@ -77,7 +77,7 @@ function display() {
             </td>
             <td><input name="wpbw_widget_send" type="submit" value="Trade" />
             </td>
-            <td><input name="to_numcoins" type="text" value=<?php $rate ?>/>
+            <td><input name="to_numcoins" type="text" />
             </td>
         </tr>
     </table>
@@ -92,7 +92,7 @@ function handle_post() {
         check_admin_referer('wpbw_widget_nonce');
 
         $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $_REQUEST['from_symbol'], $_REQUEST['from_symbol'] );
-        //echo 'Rate: '.$rate;
+        echo $_REQUEST['to_symbol'].'= '.$rate.' '.$_REQUEST['from_symbol'];
     
 //add traders to database, usually after receiving a post request from a registration form
 /*
