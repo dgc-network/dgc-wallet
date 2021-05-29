@@ -37,6 +37,13 @@ function display() {
         }
     }
 
+    /** new try */
+    $adapters = apply_filters( 'wallets_api_adapters', array() );
+    foreach ( $adapters as $adapter ) {
+        $symbol = $adapter->get_symbol();
+        echo $symbol;
+    }
+
 ?>
 
     <strong>Buy Coins:</strong>
@@ -245,3 +252,83 @@ function address_exporter_callback( $email_address, $page = 1 ) {
     );
 } // end function address_exporter
 add_filter( 'wallets_address_exporter', 'address_exporter_callback');
+
+function transaction_exporter( $email_address, $page = 1 ) {
+    $user = get_user_by( 'email', $email_address );
+
+    global $wpdb;
+    //$table_name_txs = Dashed_Slug_Wallets::$table_name_txs;
+    $prefix = is_multisite() ? $wpdb->base_prefix : $wpdb->prefix;
+    $table_name_txs  = "{$prefix}wallets_txs";
+    $table_name_adds = "{$prefix}wallets_adds";
+
+    $export_items = array();
+    $count        = 500;
+
+    if ( $user ) {
+        $from = ( $page - 1 ) * $count;
+
+        $txs = $wpdb->get_results(
+            $wpdb->prepare(
+                "
+                SELECT
+                    id,
+                    symbol,
+                    address,
+                    extra,
+                    txid
+                FROM
+                    {$table_name_txs}
+                WHERE
+                    account = %d
+                    AND category IN ( 'deposit', 'withdraw' )
+                LIMIT
+                    %d, %d
+                ",
+                $user->ID,
+                $from,
+                $count
+            )
+        );
+
+        if ( $txs ) {
+            foreach ( $txs as $tx ) {
+                $data = array(
+                    array(
+                        'name'  => __( 'Coin symbol', 'wallets' ),
+                        'value' => $tx->symbol,
+                    ),
+                    array(
+                        'name'  => __( 'Blockchain address', 'wallets' ),
+                        'value' => $tx->address,
+                    ),
+                );
+
+                if ( $tx->extra ) {
+                    $data[] = array(
+                        'name'  => __( 'Address extra field', 'wallets' ),
+                        'value' => $tx->extra,
+                    );
+                }
+
+                $data[] = array(
+                    'name'  => __( 'Blockchain TXID', 'wallets' ),
+                    'value' => $tx->txid,
+                );
+
+                $export_items[] = array(
+                    'item_id'     => "wallets-tx-{$tx->id}",
+                    'group_id'    => 'wallets-txs',
+                    'group_label' => __( 'Bitcoin and Altcoin Wallets blockchain transactions', 'wallets' ),
+                    'data'        => $data,
+                );
+
+            } // end foreach txs
+        } // end if txs
+    } // end if user
+
+    return array(
+        'data' => $export_items,
+        'done' => $count != count( $export_items ),
+    );
+} // end function transaction_exporter
