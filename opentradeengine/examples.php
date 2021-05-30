@@ -7,6 +7,8 @@
 include('engine/engine.php');
 include('register.php');
 $t='1';
+$type = 1; 
+$side = 'Buy'; 
 
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
@@ -51,8 +53,9 @@ function display() {
             ?>
             </select>
             </td>
-            <td>
-            </td>
+            <td><?php
+            echo '<input name="wpbw_widget_send" type="submit" value="'.$side.'" />';
+            ?></td>
             <td>
             <select name="to_symbol" >
             <?php 
@@ -131,8 +134,6 @@ function handle_post() {
         
         $price = 0.05;
         $quantity = 1000; 
-        $type = 1; 
-        $side = 'Buy'; 
         $traderID = 4; 
         $symbol = 'DGC';
         $placeOrder = new Order($from_symbol, $from_numcoins, $type, $side, $to_symbol, $to_numcoins);
