@@ -6,6 +6,7 @@
  */
 include('engine/engine.php');
 include('register.php');
+$t='1';
 
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
@@ -31,7 +32,7 @@ function display() {
     }
     ?>
     <br />
-    <br /><?php echo $_REQUEST['to_numcoins'];?>
+    <br />
     <strong>Trade Coins:</strong>
     <br />
     <br />
@@ -65,9 +66,9 @@ function display() {
         <tr>
             <td><input name="from_numcoins" type="text" value="1" />
             </td>
-            <td><input name="wpbw_widget_send" type="submit" value="Trade" />
+            <td><input name="wpbw_widget_send" type="submit" value="Buy" />
             </td>
-            <td><input name="to_numcoins" type="text" value="" />
+            <td><input name="to_numcoins" type="text" value="<?php echo $t;?>" />
             </td>
         </tr>
     </table>
@@ -85,6 +86,7 @@ function handle_post() {
         $to_symbol = $_REQUEST['to_symbol'];
         $from_numcoins = (float)$_REQUEST['from_numcoins'];
         $to_numcoins = (float)$_REQUEST['to_numcoins'];
+        $t = $_REQUEST['to_numcoins'];
         $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $to_symbol, $from_symbol );
         $market_numcoins = (float)$rate * $from_numcoins;
         echo '<p>'.$from_numcoins.' '.$from_symbol.'= '.$market_numcoins.' '.$to_symbol.'</p>';
