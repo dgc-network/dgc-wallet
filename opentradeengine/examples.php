@@ -69,7 +69,7 @@ function display() {
             <td><input name="wpbw_widget_send" type="submit" value="Buy" />
             </td>
             <td><?php
-            echo '<input name="to_numcoins" type="text" value="'.$t.'" />';
+            echo '<input name="to_numcoins" type="text" value="'.$_REQUEST["to_numcoins"].'" />';
             ?></td>
         </tr>
     </table>
