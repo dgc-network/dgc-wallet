@@ -6,9 +6,6 @@
  */
 include('engine/engine.php');
 include('register.php');
-var $t='1';
-$type = 1; 
-var $side = 'Buy'; 
 
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
@@ -25,6 +22,10 @@ function dgc_wp_dashboard_setup() {
 function display() {
     handle_post();
 
+    $t='1';
+    $type = 1; 
+    $side = 'Buy'; 
+    
     $symbols = array();
     $current_user = wp_get_current_user();
     $adapters = apply_filters( 'wallets_api_adapters', array() );
