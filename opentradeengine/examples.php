@@ -6,9 +6,9 @@
  */
 include('engine/engine.php');
 include('register.php');
-$t='1';
+private $t='1';
 $type = 1; 
-$side = 'Buy'; 
+public $side = 'Buy'; 
 
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
