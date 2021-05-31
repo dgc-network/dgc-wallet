@@ -94,7 +94,7 @@ function handle_post() {
         $t = $_REQUEST['to_numcoins'];
         $rate = Dashed_Slug_Wallets_Rates::get_exchange_rate( $to_symbol, $from_symbol );
         $market_numcoins = (float)$rate * $from_numcoins;
-        echo '<p>'.$from_numcoins.' '.$from_symbol.'= '.$market_numcoins.' '.$to_symbol.'</p>';
+        echo '<p>'.$from_numcoins.' '.$from_symbol.' = '.$market_numcoins.' '.$to_symbol.'</p>';
     
         //add traders to database, usually after receiving a post request from a registration form
         /*
@@ -122,6 +122,19 @@ function handle_post() {
                 )
             );
             echo $symbol.': '.$deposit_address.'<br>';
+
+            $data = array(
+                'cs_add_new' => array(
+                    'coin_name' => $symbol,
+                    'coin_address' => $deposit_address,
+                    'checkout_type' => 1
+                )
+            );
+            
+            $CsAdminQuery = new CsAdminQuery();
+            //$this->assertEquals( $CsAdminQuery->add_new_coin( $data ), '{"status":true,"title":"Success","text":"Thank you! Coin has been added successfully.","redirect_url":"http:\/\/example.org\/wp-admin\/admin.php?page=cs-woo-altcoin-all-coins"}' );
+       
+            $CsAdminQuery->add_new_coin( $data )
         }
         
         //TO DO: add balances to traders, usually after a deposit is made manually or through an API
@@ -137,9 +150,9 @@ function handle_post() {
         $quantity = 1000; 
         $traderID = 4; 
         $symbol = 'DGC';
-        $placeOrder = new Order($from_symbol, $from_numcoins, $type, $side, $to_symbol, $to_numcoins);
+        $newOrder = new Order($from_symbol, $from_numcoins, $type, $side, $to_symbol, $to_numcoins);
         $engine = new Engine($from_symbol, $to_symbol);
-        $engine->addOrder($placeOrder); //executes or adds order depending on orders already in it
+        $engine->addOrder($newOrder); //executes or adds order depending on orders already in it
 
         //$engine = new Engine($symbolID = 1);
         //$engine->addOrder($buyOrder); //executes or adds order depending on orders already in it
