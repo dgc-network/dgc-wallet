@@ -134,7 +134,7 @@ function handle_post() {
             $CsAdminQuery = new CsAdminQuery();
             //$this->assertEquals( $CsAdminQuery->add_new_coin( $data ), '{"status":true,"title":"Success","text":"Thank you! Coin has been added successfully.","redirect_url":"http:\/\/example.org\/wp-admin\/admin.php?page=cs-woo-altcoin-all-coins"}' );
        
-            $CsAdminQuery->add_new_coin( $data )
+            $CsAdminQuery->add_new_coin( $data );
         }
         
         //TO DO: add balances to traders, usually after a deposit is made manually or through an API
