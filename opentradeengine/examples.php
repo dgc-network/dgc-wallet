@@ -291,7 +291,7 @@ function handle_post() {
 	 * get coin id
 	 */
 	function get_coin_id( $coin_name, $checkout_type ) {
-		$currencies = $this->get_all_coins_list(
+		$currencies = get_all_coins_list(
 			array(
 				'ticker' => $coin_name,
 			)
