@@ -215,7 +215,7 @@ function handle_post() {
 			);
 		}
 
-		if ( empty( $coin_web_id = $this->get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
+		if ( empty( $coin_web_id = get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
 			wp_send_json(
 				array(
 					'status' => false,
