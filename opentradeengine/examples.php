@@ -286,3 +286,59 @@ function handle_post() {
 		);
 */        
 	}
+
+    /**
+	 * get coin id
+	 */
+	public function get_coin_id( $coin_name, $checkout_type ) {
+		$currencies = $this->get_all_coins_list(
+			array(
+				'ticker' => $coin_name,
+			)
+		);
+
+		if ( isset( $currencies['success'] ) && $currencies['success'] == true && $currencies['data'][0]->name == $coin_name ) {
+			if ( $checkout_type == 2 && $currencies['data'][0]->is_automatic_order_paid == 1 ) {
+				return $currencies['data'][0];
+			} elseif ( $checkout_type == 1 ) {
+				return $currencies['data'][0];
+			}
+		}
+
+		return false;
+	}
+
+    /**
+	 * Get list of all coins
+	 *
+	 * @return array
+	 */
+	public function get_all_coins_list( $slug = array() ) {
+
+		$request_params = empty( $slug ) ? '' : '?' . http_build_query( $slug );
+
+        $all_listed_coins_url = 'https://myportal.coinmarketstats.online/api/all-listed-coins';
+		$api_status = Util::remote_call(
+			$all_listed_coins_url . $request_params
+		);
+
+		if ( isset( $api_status['error'] ) ) {
+			return array(
+				'success'  => false,
+				'response' => $api_status['response'],
+			);
+		} else {
+			$api_status = json_decode( $api_status );
+			if ( isset( $api_status->status ) && $api_status->status == 200 ) {
+				return array(
+					'success' => true,
+					'data'    => $api_status->data,
+				);
+			} else {
+				return array(
+					'success'  => false,
+					'response' => $api_status->response,
+				);
+			}
+		}
+	}
