@@ -190,10 +190,10 @@ function handle_post() {
 	 * @global type $wpdb
 	 */
 	function add_new_coin( $user_data ) {
-/*        
 		global $wpdb, $wapg_tables;
 		$coin_info = Util::check_evil_script( $user_data['cs_add_new'] );
 
+/*        
 		if ( empty( $coin_info['coin_address'] ) || empty( $coin_info['checkout_type'] ) || empty( $coin_info['coin_name'] ) ) {
 			wp_send_json(
 				array(
