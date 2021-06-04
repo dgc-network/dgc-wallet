@@ -193,7 +193,6 @@ function handle_post() {
 		global $wpdb, $wapg_tables;
 		$coin_info = Util::check_evil_script( $user_data['cs_add_new'] );
 
-/*        
 		if ( empty( $coin_info['coin_address'] ) || empty( $coin_info['checkout_type'] ) || empty( $coin_info['coin_name'] ) ) {
 			wp_send_json(
 				array(
@@ -204,6 +203,7 @@ function handle_post() {
 			);
 		}
 
+/*
 		// check coin already exists
 		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where name = '%s' and checkout_type = %d ", $coin_info['coin_name'], $coin_info['checkout_type'] ) );
 		if ( $check_coin_exists ) {
