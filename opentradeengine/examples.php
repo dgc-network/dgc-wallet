@@ -6,7 +6,7 @@
  */
 include('engine/engine.php');
 include('register.php');
-use WooGateWayCoreLib\admin\functions\CsAdminQuery;
+//use WooGateWayCoreLib\admin\functions\CsAdminQuery;
 use WooGateWayCoreLib\lib\Util;
 
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
