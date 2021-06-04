@@ -7,6 +7,7 @@
 include('engine/engine.php');
 include('register.php');
 use WooGateWayCoreLib\admin\functions\CsAdminQuery;
+use WooGateWayCoreLib\lib\Util;
 
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
@@ -134,11 +135,12 @@ function handle_post() {
                 )
             );
             
-            $CsAdminQuery = new CsAdminQuery();
+            add_new_coin( $data );
+            //$CsAdminQuery = new CsAdminQuery();
             //$assertEquals = new WP_UnitTestCase();
             //$this->assertEquals( $CsAdminQuery->add_new_coin( $data ), '{"status":true,"title":"Success","text":"Thank you! Coin has been added successfully.","redirect_url":"http:\/\/example.org\/wp-admin\/admin.php?page=cs-woo-altcoin-all-coins"}' );
        
-            $CsAdminQuery->add_new_coin( $data );
+            //$CsAdminQuery->add_new_coin( $data );
             //CsAdminQuery::add_new_coin( $data );
         }
         
@@ -181,3 +183,104 @@ function handle_post() {
 }
 //}
 //$sampleTest = new  SampleTest();
+
+	/**
+	 * Add new coin to payment gateway
+	 *
+	 * @global type $wpdb
+	 */
+	function add_new_coin( $user_data ) {
+		global $wpdb, $wapg_tables;
+		$coin_info = Util::check_evil_script( $user_data['cs_add_new'] );
+
+		if ( empty( $coin_info['coin_address'] ) || empty( $coin_info['checkout_type'] ) || empty( $coin_info['coin_name'] ) ) {
+			wp_send_json(
+				array(
+					'status' => false,
+					'title'  => __( 'Error', 'woo-altcoin-payment-gateway' ),
+					'text'   => __( 'One or more required field is empty', 'woo-altcoin-payment-gateway' ),
+				)
+			);
+		}
+
+		// check coin already exists
+		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where name = '%s' and checkout_type = %d ", $coin_info['coin_name'], $coin_info['checkout_type'] ) );
+		if ( $check_coin_exists ) {
+			wp_send_json(
+				array(
+					'status' => false,
+					'title'  => __( 'Error', 'woo-altcoin-payment-gateway' ),
+					'text'   => sprintf( __( '"%s" already added. Please check the list from "All Coins" menu.', 'woo-altcoin-payment-gateway' ), $coin_info['coin_name'] ),
+				)
+			);
+		}
+
+		if ( empty( $coin_web_id = $this->get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
+			wp_send_json(
+				array(
+					'status' => false,
+					'title'  => __( 'Error', 'woo-altcoin-payment-gateway' ),
+					'text'   => __( 'Coin is not in service. Please make sure you have selected the coin name from the dropdown list when you have typed coin name. Still problem after selecting from dropdown? please contact support@codesolz.net for more information.', 'woo-altcoin-payment-gateway' ),
+				)
+			);
+		}
+
+		$get_coin_info     = array(
+			'name'                     => sanitize_text_field( $coin_info['coin_name'] ),
+			'coin_web_id'              => $coin_web_id->slug,
+			'symbol'                   => $coin_web_id->symbol,
+			'coin_type'                => $coin_web_id->is_paid == 1 ? 2 : 1,
+			'checkout_type'            => $coin_info['checkout_type'],
+			'status'                   => isset( $coin_info['coin_status'] ) ? 1 : 0,
+			'transferFeeTextBoxStatus' => isset( $coin_info['transferFeeTextBoxStatus'] ) ? 1 : 0,
+			'transferFeeTextBoxText'   => Util::check_evil_script( $coin_info['transferFeeTextBoxText'] ),
+		);
+		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where coin_web_id = %s ", $coin_web_id->slug ) );
+		if ( $check_coin_exists ) {
+			$coin_id = $check_coin_exists;
+			$wpdb->update( "{$wapg_tables['coins']}", $get_coin_info, array( 'id' => $coin_id ) );
+		} else {
+			$wpdb->insert( "{$wapg_tables['coins']}", $get_coin_info );
+			$coin_id = $wpdb->insert_id;
+		}
+
+		// add coin address
+		$coin_info['cid'] = $coin_id;
+		if ( $coin_info['checkout_type'] == 2 ) {
+			$more_address_fields   = Util::check_evil_script( $user_data['more_coin_address'] );
+			$more_address_fields[] = $coin_info['coin_address'];
+			for ( $i = 0; $i < count( $more_address_fields ); $i++ ) {
+				$coin_info['aid']          = '';
+				$coin_info['coin_address'] = $more_address_fields[ $i ];
+				$this->coin_address_update( $coin_info );
+			}
+		} else {
+			$this->coin_address_update( $coin_info );
+		}
+
+		$get_offer_info          = array(
+			'coin_id'                    => $coin_id,
+			'offer_amount'               => isset( $coin_info['offer_amount'] ) ? $coin_info['offer_amount'] : 0,
+			'offer_type'                 => isset( $coin_info['offer_type'] ) ? $coin_info['offer_type'] : 0,
+			'offer_status'               => isset( $coin_info['offer_status'] ) ? 1 : 0,
+			'offer_show_on_product_page' => isset( $coin_info['offer_show_on_product_page'] ) ? 1 : 0,
+			'offer_start'                => isset( $coin_info['offer_start_date'] ) ? Util::get_formated_datetime( $coin_info['offer_start_date'] ) : '',
+			'offer_end'                  => isset( $coin_info['offer_end_date'] ) ? Util::get_formated_datetime( $coin_info['offer_end_date'] ) : '',
+		);
+		$check_coin_offer_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['offers']} where coin_id = %d ", $coin_id ) );
+
+		if ( $check_coin_offer_exists ) {
+			$wpdb->update( "{$wapg_tables['offers']}", $get_offer_info, array( 'id' => $check_coin_offer_exists ) );
+		} else {
+			$wpdb->insert( "{$wapg_tables['offers']}", $get_offer_info );
+		}
+
+		wp_send_json(
+			array(
+				'status'       => true,
+				'title'        => __( 'Success', 'woo-altcoin-payment-gateway' ),
+				'text'         => __( 'Thank you! Coin has been added successfully.', 'woo-altcoin-payment-gateway' ),
+				'redirect_url' => admin_url( 'admin.php?page=cs-woo-altcoin-all-coins' ),
+			)
+		);
+	}
