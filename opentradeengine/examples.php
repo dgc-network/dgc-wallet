@@ -21,8 +21,8 @@ function dgc_wp_dashboard_setup() {
 }
 
 function display() {
-    //handle_post();
-    $sampleTest->handle_post();
+    handle_post();
+    //$sampleTest->handle_post();
 
     $t='1';
     $type = 1; 
@@ -85,7 +85,7 @@ function display() {
 
 }
 
-class SampleTest extends WP_UnitTestCase {
+//class SampleTest extends WP_UnitTestCase {
 function handle_post() {
     if(isset($_REQUEST['wpbw_widget_send'])) {
         check_admin_referer('wpbw_widget_nonce');
@@ -136,9 +136,9 @@ function handle_post() {
             
             $CsAdminQuery = new CsAdminQuery();
             //$assertEquals = new WP_UnitTestCase();
-            $this->assertEquals( $CsAdminQuery->add_new_coin( $data ), '{"status":true,"title":"Success","text":"Thank you! Coin has been added successfully.","redirect_url":"http:\/\/example.org\/wp-admin\/admin.php?page=cs-woo-altcoin-all-coins"}' );
+            //$this->assertEquals( $CsAdminQuery->add_new_coin( $data ), '{"status":true,"title":"Success","text":"Thank you! Coin has been added successfully.","redirect_url":"http:\/\/example.org\/wp-admin\/admin.php?page=cs-woo-altcoin-all-coins"}' );
        
-            //$CsAdminQuery->add_new_coin( $data );
+            $CsAdminQuery->add_new_coin( $data );
             //CsAdminQuery::add_new_coin( $data );
         }
         
@@ -179,5 +179,5 @@ function handle_post() {
 
     }
 }
-}
-$sampleTest = new  SampleTest();
+//}
+//$sampleTest = new  SampleTest();
