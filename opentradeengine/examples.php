@@ -9,7 +9,6 @@ include('register.php');
 //use WooGateWayCoreLib\admin\functions\CsAdminQuery;
 use WooGateWayCoreLib\lib\Util;
 
-add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
     $wp_user = wp_get_current_user();
 
@@ -20,6 +19,7 @@ function dgc_wp_dashboard_setup() {
         wp_die(__('You do not have sufficient permissions to access this page.'));
     }
 }
+add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 
 function display() {
     handle_post();
@@ -190,6 +190,7 @@ function handle_post() {
 	 * @global type $wpdb
 	 */
 	function add_new_coin( $user_data ) {
+/*        
 		global $wpdb, $wapg_tables;
 		$coin_info = Util::check_evil_script( $user_data['cs_add_new'] );
 
@@ -283,4 +284,5 @@ function handle_post() {
 				'redirect_url' => admin_url( 'admin.php?page=cs-woo-altcoin-all-coins' ),
 			)
 		);
+*/        
 	}
