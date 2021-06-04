@@ -6,6 +6,7 @@
  */
 include('engine/engine.php');
 include('register.php');
+use WooGateWayCoreLib\admin\functions\CsAdminQuery;
 
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function dgc_wp_dashboard_setup() {
@@ -131,7 +132,7 @@ function handle_post() {
                 )
             );
             
-            //$CsAdminQuery = new CsAdminQuery();
+            $CsAdminQuery = new CsAdminQuery();
             //$this->assertEquals( $CsAdminQuery->add_new_coin( $data ), '{"status":true,"title":"Success","text":"Thank you! Coin has been added successfully.","redirect_url":"http:\/\/example.org\/wp-admin\/admin.php?page=cs-woo-altcoin-all-coins"}' );
        
             CsAdminQuery::add_new_coin( $data );
