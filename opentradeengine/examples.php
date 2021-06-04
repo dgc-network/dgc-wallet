@@ -290,7 +290,7 @@ function handle_post() {
     /**
 	 * get coin id
 	 */
-	public function get_coin_id( $coin_name, $checkout_type ) {
+	function get_coin_id( $coin_name, $checkout_type ) {
 		$currencies = $this->get_all_coins_list(
 			array(
 				'ticker' => $coin_name,
@@ -313,7 +313,7 @@ function handle_post() {
 	 *
 	 * @return array
 	 */
-	public function get_all_coins_list( $slug = array() ) {
+	function get_all_coins_list( $slug = array() ) {
 
 		$request_params = empty( $slug ) ? '' : '?' . http_build_query( $slug );
 
