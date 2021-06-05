@@ -244,7 +244,7 @@ function handle_post() {
 			$wpdb->insert( "{$wapg_tables['coins']}", $get_coin_info );
 			$coin_id = $wpdb->insert_id;
 		}
-*/
+
 		// add coin address
 		$coin_info['cid'] = $coin_id;
 		if ( $coin_info['checkout_type'] == 2 ) {
@@ -258,7 +258,7 @@ function handle_post() {
 		} else {
 			coin_address_update( $coin_info );
 		}
-
+*/
 		$get_offer_info          = array(
 			'coin_id'                    => $coin_id,
 			'offer_amount'               => isset( $coin_info['offer_amount'] ) ? $coin_info['offer_amount'] : 0,
