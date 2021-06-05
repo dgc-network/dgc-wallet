@@ -310,6 +310,7 @@ function handle_post() {
 	 * get coin id
 	 */
 	function get_coin_id( $coin_name, $checkout_type ) {
+        return echo $coin_name;
 		$currencies = get_all_coins_list(
 			array(
 				'ticker' => $coin_name,
