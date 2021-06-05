@@ -214,7 +214,7 @@ function handle_post() {
 				)
 			);
 		}
-
+/*
 		if ( empty( $coin_web_id = get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
 			wp_send_json(
 				array(
@@ -224,7 +224,7 @@ function handle_post() {
 				)
 			);
 		}
-/*
+*/
 		$get_coin_info     = array(
 			'name'                     => sanitize_text_field( $coin_info['coin_name'] ),
 			'coin_web_id'              => $coin_web_id->slug,
@@ -235,6 +235,7 @@ function handle_post() {
 			'transferFeeTextBoxStatus' => isset( $coin_info['transferFeeTextBoxStatus'] ) ? 1 : 0,
 			'transferFeeTextBoxText'   => Util::check_evil_script( $coin_info['transferFeeTextBoxText'] ),
 		);
+
 		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where coin_web_id = %s ", $coin_web_id->slug ) );
 		if ( $check_coin_exists ) {
 			$coin_id = $check_coin_exists;
@@ -283,7 +284,7 @@ function handle_post() {
 				'redirect_url' => admin_url( 'admin.php?page=cs-woo-altcoin-all-coins' ),
 			)
 		);
-*/        
+
 	}
 
     /**
@@ -310,11 +311,10 @@ function handle_post() {
 	 * get coin id
 	 */
 	function get_coin_id( $coin_name, $checkout_type ) {
-        return 1;
+        
 		$currencies = get_all_coins_list(
 			array(
-				//'ticker' => $coin_name,
-				'name' => $coin_name,
+				'ticker' => $coin_name,
 			)
 		);
 
