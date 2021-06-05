@@ -117,6 +117,7 @@ function handle_post() {
         $current_user = wp_get_current_user();
         $adapters = apply_filters( 'wallets_api_adapters', array() );
         foreach ( $adapters as $adapter ) {
+            $name = $adapter->get_name();
             $symbol = $adapter->get_symbol();
             $symbols[] = $symbol;
             $deposit_address = apply_filters(
@@ -129,7 +130,8 @@ function handle_post() {
 
             $data = array(
                 'cs_add_new' => array(
-                    'coin_name' => $symbol,
+                    //'coin_name' => $symbol,
+                    'coin_name' => $name,
                     'coin_address' => $deposit_address,
                     'checkout_type' => 1
                 )
