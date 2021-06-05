@@ -214,7 +214,7 @@ function handle_post() {
 				)
 			);
 		}
-
+/*
 		if ( empty( $coin_web_id = get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
 			wp_send_json(
 				array(
@@ -283,7 +283,7 @@ function handle_post() {
 				'redirect_url' => admin_url( 'admin.php?page=cs-woo-altcoin-all-coins' ),
 			)
 		);
-        
+*/        
 	}
 
     /**
@@ -310,8 +310,6 @@ function handle_post() {
 	 * get coin id
 	 */
 	function get_coin_id( $coin_name, $checkout_type ) {
-        echo $coin_name;
-        return;
         
 		$currencies = get_all_coins_list(
 			array(
