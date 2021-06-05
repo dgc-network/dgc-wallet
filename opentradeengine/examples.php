@@ -202,7 +202,7 @@ function handle_post() {
 				)
 			);
 		}
-/*
+
 		// check coin already exists
 		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where name = '%s' and checkout_type = %d ", $coin_info['coin_name'], $coin_info['checkout_type'] ) );
 		if ( $check_coin_exists ) {
@@ -214,7 +214,7 @@ function handle_post() {
 				)
 			);
 		}
-
+/*
 		if ( empty( $coin_web_id = get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
 			wp_send_json(
 				array(
