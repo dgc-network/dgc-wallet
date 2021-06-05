@@ -235,7 +235,7 @@ function handle_post() {
 			'transferFeeTextBoxStatus' => isset( $coin_info['transferFeeTextBoxStatus'] ) ? 1 : 0,
 			'transferFeeTextBoxText'   => Util::check_evil_script( $coin_info['transferFeeTextBoxText'] ),
 		);
-*/
+
 		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where coin_web_id = %s ", $coin_web_id->slug ) );
 		if ( $check_coin_exists ) {
 			$coin_id = $check_coin_exists;
@@ -244,7 +244,7 @@ function handle_post() {
 			$wpdb->insert( "{$wapg_tables['coins']}", $get_coin_info );
 			$coin_id = $wpdb->insert_id;
 		}
-
+*/
 		// add coin address
 		$coin_info['cid'] = $coin_id;
 		if ( $coin_info['checkout_type'] == 2 ) {
