@@ -207,7 +207,7 @@ function handle_post() {
 		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where name = '%s' and checkout_type = %d ", $coin_info['coin_name'], $coin_info['checkout_type'] ) );
 
         if ( $check_coin_exists ) {
-            show_message('Error');
+            show_message('Error :'.$coin_info['coin_name'].'already added. Please check the list from "All Coins" menu.');
             /*
 			wp_send_json(
 				array(
@@ -218,15 +218,18 @@ function handle_post() {
 			);
             */
 		}
-/*
+
 		if ( empty( $coin_web_id = get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
-			wp_send_json(
+            show_message('Error :'.'Coin is not in service. Please make sure you have selected the coin name from the dropdown list when you have typed coin name. Still problem after selecting from dropdown? please contact support@codesolz.net for more information.');
+/*
+            wp_send_json(
 				array(
 					'status' => false,
 					'title'  => __( 'Error', 'woo-altcoin-payment-gateway' ),
 					'text'   => __( 'Coin is not in service. Please make sure you have selected the coin name from the dropdown list when you have typed coin name. Still problem after selecting from dropdown? please contact support@codesolz.net for more information.', 'woo-altcoin-payment-gateway' ),
 				)
 			);
+*/            
 		}
 
 		$get_coin_info     = array(
@@ -280,7 +283,9 @@ function handle_post() {
 			$wpdb->insert( "{$wapg_tables['offers']}", $get_offer_info );
 		}
 
-		wp_send_json(
+        show_message('Success :'.'Thank you! Coin has been added successfully.');
+/*
+        wp_send_json(
 			array(
 				'status'       => true,
 				'title'        => __( 'Success', 'woo-altcoin-payment-gateway' ),
