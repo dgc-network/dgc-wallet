@@ -275,7 +275,7 @@ function handle_post() {
 		} else {
 			$wpdb->insert( "{$wapg_tables['offers']}", $get_offer_info );
 		}
-*/
+
 		wp_send_json(
 			array(
 				'status'       => true,
@@ -284,7 +284,7 @@ function handle_post() {
 				'redirect_url' => admin_url( 'admin.php?page=cs-woo-altcoin-all-coins' ),
 			)
 		);
-
+*/
 	}
 
     /**
