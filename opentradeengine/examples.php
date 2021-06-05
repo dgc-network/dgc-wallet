@@ -268,14 +268,14 @@ function handle_post() {
 			'offer_start'                => isset( $coin_info['offer_start_date'] ) ? Util::get_formated_datetime( $coin_info['offer_start_date'] ) : '',
 			'offer_end'                  => isset( $coin_info['offer_end_date'] ) ? Util::get_formated_datetime( $coin_info['offer_end_date'] ) : '',
 		);
-*/
+
 		$check_coin_offer_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['offers']} where coin_id = %d ", $coin_id ) );
 		if ( $check_coin_offer_exists ) {
 			$wpdb->update( "{$wapg_tables['offers']}", $get_offer_info, array( 'id' => $check_coin_offer_exists ) );
 		} else {
 			$wpdb->insert( "{$wapg_tables['offers']}", $get_offer_info );
 		}
-
+*/
 		wp_send_json(
 			array(
 				'status'       => true,
