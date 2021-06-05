@@ -313,7 +313,8 @@ function handle_post() {
         
 		$currencies = get_all_coins_list(
 			array(
-				'ticker' => $coin_name,
+				//'ticker' => $coin_name,
+				'name' => $coin_name,
 			)
 		);
 
