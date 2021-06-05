@@ -5,6 +5,28 @@ defined( 'ABSPATH' ) || die( '-1' );
 if ( class_exists( 'Dashed_Slug_Wallets_Coin_Adapter_RPC' ) && ! class_exists( 'Dashed_Slug_Wallets_Litecoin_RPC_Adapter' ) ) {
 
 	final class Dashed_Slug_Wallets_Litecoin_RPC_Adapter extends Dashed_Slug_Wallets_Coin_Adapter_RPC {
+		public function get_adapter_name() {
+			return 'Litecoin core node';
+		}
+
+		public function get_name() {
+			return 'Litecoin';
+		}
+
+		public function get_sprintf() {
+			return mb_convert_encoding('&#x0141;', 'UTF-8', 'HTML-ENTITIES') . '%01.8f';
+		}
+
+		public function get_symbol() {
+			return 'LTC';
+		}
+
+		public function get_icon_url() {
+			return plugins_url( '../assets/litecoin.png', __FILE__ );
+		}
+	}
+
+	final class Dashed_Slug_Wallets_Digitalcoin_RPC_Adapter extends Dashed_Slug_Wallets_Coin_Adapter_RPC {
 
 		// helpers
 
