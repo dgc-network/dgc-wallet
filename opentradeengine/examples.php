@@ -207,7 +207,8 @@ function handle_post() {
 		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where name = '%s' and checkout_type = %d ", $coin_info['coin_name'], $coin_info['checkout_type'] ) );
 
         if ( $check_coin_exists ) {
-            show_message('Error :'.$coin_info['coin_name'].'already added. Please check the list from "All Coins" menu.');
+            show_message('Error : '.$coin_info['coin_name'].' already added. Please check the list from "All Coins" menu.');
+            return;
             /*
 			wp_send_json(
 				array(
@@ -220,7 +221,8 @@ function handle_post() {
 		}
 
 		if ( empty( $coin_web_id = get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
-            show_message('Error :'.'Coin is not in service. Please make sure you have selected the coin name from the dropdown list when you have typed coin name. Still problem after selecting from dropdown? please contact support@codesolz.net for more information.');
+            show_message('Error : '.'Coin is not in service. Please make sure you have selected the coin name from the dropdown list when you have typed coin name. Still problem after selecting from dropdown? please contact support@codesolz.net for more information.');
+            return;
 /*
             wp_send_json(
 				array(
@@ -283,7 +285,8 @@ function handle_post() {
 			$wpdb->insert( "{$wapg_tables['offers']}", $get_offer_info );
 		}
 
-        show_message('Success :'.'Thank you! Coin has been added successfully.');
+        show_message('Success : '.'Thank you! Coin has been added successfully.');
+        return;
 /*
         wp_send_json(
 			array(
