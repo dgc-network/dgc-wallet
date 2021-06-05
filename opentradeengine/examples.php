@@ -207,6 +207,8 @@ function handle_post() {
 		$check_coin_exists = $wpdb->get_var( $wpdb->prepare( " select id from {$wapg_tables['coins']} where name = '%s' and checkout_type = %d ", $coin_info['coin_name'], $coin_info['checkout_type'] ) );
 
         if ( $check_coin_exists ) {
+            show_message('Error');
+            /*
 			wp_send_json(
 				array(
 					'status' => false,
@@ -214,6 +216,7 @@ function handle_post() {
 					'text'   => sprintf( __( '"%s" already added. Please check the list from "All Coins" menu.', 'woo-altcoin-payment-gateway' ), $coin_info['coin_name'] ),
 				)
 			);
+            */
 		}
 /*
 		if ( empty( $coin_web_id = get_coin_id( $coin_info['coin_name'], $coin_info['checkout_type'] ) ) ) {
