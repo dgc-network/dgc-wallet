@@ -225,7 +225,6 @@ function handle_post() {
 			);
 		}
 
-/*
 		$get_coin_info     = array(
 			'name'                     => sanitize_text_field( $coin_info['coin_name'] ),
 			'coin_web_id'              => $coin_web_id->slug,
@@ -253,10 +252,10 @@ function handle_post() {
 			for ( $i = 0; $i < count( $more_address_fields ); $i++ ) {
 				$coin_info['aid']          = '';
 				$coin_info['coin_address'] = $more_address_fields[ $i ];
-				$this->coin_address_update( $coin_info );
+				coin_address_update( $coin_info );
 			}
 		} else {
-			$this->coin_address_update( $coin_info );
+			coin_address_update( $coin_info );
 		}
 
 		$get_offer_info          = array(
@@ -284,9 +283,29 @@ function handle_post() {
 				'redirect_url' => admin_url( 'admin.php?page=cs-woo-altcoin-all-coins' ),
 			)
 		);
-*/        
+        
 	}
 
+    /**
+	 * coin address update
+	 */
+	function coin_address_update( $coin_info ) {
+		global $wpdb, $wapg_tables;
+		$get_address_info = array(
+			'coin_id'     => isset( $coin_info['cid'] ) ? $coin_info['cid'] : '',
+			'address'     => isset( $coin_info['coin_address'] ) ? $coin_info['coin_address'] : '',
+			'lock_status' => 0,
+		);
+
+		if ( isset( $coin_info['aid'] ) && ! empty( $coin_info['aid'] ) ) {
+			$wpdb->update( "{$wapg_tables['addresses']}", $get_address_info, array( 'id' => $coin_info['aid'] ) );
+		} else {
+			$wpdb->insert( "{$wapg_tables['addresses']}", $get_address_info );
+		}
+
+		return true;
+	}
+    
     /**
 	 * get coin id
 	 */
