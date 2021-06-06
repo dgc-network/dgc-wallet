@@ -22,6 +22,10 @@ function dgc_wp_dashboard_setup() {
 add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 
 function display() {
+
+    $exists_value = get_option( 'wallets_rates_cryptos' );
+    var_dump( $exists_value );
+
     global $submenu;
     error_log(print_r($submenu, true));
     foreach ($submenu as $key=>$value){
