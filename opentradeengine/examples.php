@@ -26,7 +26,7 @@ function display() {
     error_log(print_r($submenu, true));
     foreach ($submenu as $key=>$value){
         echo $key . ':' . $value . '<br>';
-    } ;
+    }
         
     handle_post();
     //$sampleTest->handle_post();
