@@ -24,7 +24,9 @@ add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function display() {
     global $submenu;
     error_log(print_r($submenu, true));
-    echo $submenu;
+    foreach ($submenu as $key=>$value){
+        echo $key . ':' . $value . '<br>';
+    } ;
         
     handle_post();
     //$sampleTest->handle_post();
