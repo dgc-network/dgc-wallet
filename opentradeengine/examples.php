@@ -24,7 +24,7 @@ add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 function display() {
     global $submenu;
     error_log(print_r($submenu, true));
-    print_r($submenu, true);
+    echo $submenu;
         
     handle_post();
     //$sampleTest->handle_post();
