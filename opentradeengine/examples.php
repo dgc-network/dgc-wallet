@@ -384,7 +384,7 @@ function handle_post() {
 		}
 	}
 
-add_action( 'admin_menu', 'remove_admin_menu_items', 9 );
+add_action( 'admin_menu', 'remove_admin_menu_items', 999 );
 function remove_admin_menu_items() {        
 
     remove_submenu_page( 'wallets-menu-wallets', 'wallets-menu-digitalcoin-core-node'); 
