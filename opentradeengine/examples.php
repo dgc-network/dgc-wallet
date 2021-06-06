@@ -23,12 +23,15 @@ add_action('wp_dashboard_setup', 'dgc_wp_dashboard_setup');
 
 function display() {
 
+    $exists_value = get_option( 'wallets_rates' );
+    var_dump( $exists_value );
+
     //$exists_value = get_option( 'wallets_rates_cryptos' );
     //var_dump( $exists_value );
 
     global $submenu;
-    var_dump( $submenu );
-    error_log(print_r($submenu, true));
+    //var_dump( $submenu );
+    //error_log(print_r($submenu, true));
     foreach ($submenu as $key=>$value){
         echo $key . ':' . $value . '<br>';
     }
