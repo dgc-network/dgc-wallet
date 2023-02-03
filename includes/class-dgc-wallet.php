@@ -78,7 +78,6 @@ final class dgc_Wallet {
     }
 
     /**
-     * 
      * @param string $name
      * @param mixed $value
      */
@@ -250,6 +249,7 @@ final class dgc_Wallet {
         $rest_controller = new WP_REST_dgc_Wallet_Controller();
         $rest_controller->register_routes();
     }
+
     /**
      * Add settings link to plugin list.
      * @param array $links
@@ -309,6 +309,7 @@ final class dgc_Wallet {
         }
         return $query;
     }
+
     /**
      * Load marketplace supported file.
      */
@@ -324,6 +325,7 @@ final class dgc_Wallet {
             include_once( DGC_WALLET_ABSPATH . 'includes/marketplace/wcfmmp/class-dgc-wallet-wcfmmp.php' );
         }
     }
+    
     /**
      * Store fee key to order item meta.
      * @param Int $item_id

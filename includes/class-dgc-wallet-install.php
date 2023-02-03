@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class dgc_Wallet_Install {
 
     private static $db_updates = array(
-        '1.0.0' => array(
-            'dgc_wallet_update_100_db_column'
-        ),
+        //'1.0.0' => array(
+        //    'dgc_wallet_update_100_db_column'
+        //),
         '1.0.8' => array(
             'dgc_wallet_update_108_db_column'
         ),

@@ -8,9 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
-if ( ! class_exists( 'dgc_Blockchain_API' ) ) {
+if ( ! class_exists( 'dgc_REST_API' ) ) {
 
-    class dgc_Blockchain_API {
+    class dgc_REST_API {
 
 
         public function __construct() {
