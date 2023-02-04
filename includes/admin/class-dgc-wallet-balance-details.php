@@ -65,11 +65,11 @@ class dgc_Wallet_Balance_Details extends WP_List_Table {
         if (isset($args['orderby'])) {
             if ('balance' === $args['orderby']) {
                 $args = array_merge(
-                        $args, array(
-                            // phpcs:ignore WordPress.VIP.SlowDBQuery.slow_db_query_meta_key
-                            'meta_key' => '_current_dgc_wallet_balance',
-                            'orderby' => 'meta_value_num',
-                        )
+                    $args, array(
+                        // phpcs:ignore WordPress.VIP.SlowDBQuery.slow_db_query_meta_key
+                        'meta_key' => '_current_dgc_wallet_balance',
+                        'orderby' => 'meta_value_num',
+                    )
                 );
             }
         }
