@@ -4,9 +4,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-if (!class_exists('WCFMmp_Gateway_Woo_payment') && class_exists('WCFMmp_Abstract_Gateway')) {
+if (!class_exists('dgc_WCFMmp_Payment_Gateway') && class_exists('WCFMmp_Abstract_Gateway')) {
 
-    class WCFMmp_Gateway_Woo_payment extends WCFMmp_Abstract_Gateway {
+    class dgc_WCFMmp_Payment_Gateway extends WCFMmp_Abstract_Gateway {
 
         public $id;
         public $message = array();

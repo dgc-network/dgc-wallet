@@ -13,6 +13,7 @@ class dgc_Wallet_Gateway extends WC_Payment_Gateway{
 		$this->has_fields = true;
 		$this->init_form_fields();
 		$this->init_settings();
+
 		$this->enabled = $this->get_option('enabled');
 		$this->title = $this->get_option('title');
 		$this->description = $this->get_option('description');
@@ -85,91 +86,87 @@ class dgc_Wallet_Gateway extends WC_Payment_Gateway{
 	public function admin_options_backup() {
 		?>
 		<h3><?php _e( 'dgcWallet Settings', 'text-domain' ); ?></h3>
-			<div id="poststuff">
-				<div id="post-body" class="metabox-holder columns-2">
-					<div id="post-body-content">
-						<table class="form-table">
-							<?php $this->generate_settings_html();?>
-						</table><!--/.form-table-->
-					</div>
-					<div id="postbox-container-1" class="postbox-container">
-	                        <div id="side-sortables" class="meta-box-sortables ui-sortable"> 
-	                           
-     							<div class="postbox ">
-	                                <div class="handlediv" title="Click to toggle"><br></div>
-	                                <h3 class="hndle"><span><i class="dashicons dashicons-update"></i>&nbsp;&nbsp;Upgrade to Pro</span></h3>
-	                                <div class="inside">
-	                                    <div class="support-widget">
-	                                        <ul>
-	                                            <li>» Full Form Builder</li>
-	                                            <li>» Custom Gateway Icon</li>
-	                                            <li>» Order Status After Checkout</li>
-	                                            <li>» Custom API Requests</li>
-	                                            <li>» Debugging Mode</li>
-	                                            <li>» Auto Hassle-Free Updates</li>
-	                                            <li>» High Priority Customer Support</li>
-	                                        </ul>
-											<a href="https://dgc.network/plugin/text-domain-pro/" class="button dgc_button" target="_blank"><span class="dashicons dashicons-star-filled"></span> Upgrade Now</a> 
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="postbox ">
-	                                <div class="handlediv" title="Click to toggle"><br></div>
-	                                <h3 class="hndle"><span><i class="dashicons dashicons-editor-help"></i>&nbsp;&nbsp;Plugin Support</span></h3>
-	                                <div class="inside">
-	                                    <div class="support-widget">
-	                                        <p>
-	                                        <img style="width: 70%;margin: 0 auto;position: relative;display: inherit;" src="https://dgc.network/wp-content/uploads/2016/03/dgc_logo_with_ruby_color-300x88.png">
-	                                        <br/>
-	                                        Got a Question, Idea, Problem or Praise?</p>
-	                                        <ul>
-												<li>» Please leave us a <a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/text-domain?filter=5#postform">★★★★★</a> rating.</li>
-	                                            <li>» <a href="https://dgc.network/submit-ticket/" target="_blank">Support Request</a></li>
-	                                            <li>» <a href="https://dgc.network/knowledgebase_category/text-domain-pro/" target="_blank">Documentation and Common issues.</a></li>
-	                                            <li>» <a href="https://dgc.network/plugins/" target="_blank">Our Plugins Shop</a></li>
-	                                        </ul>
-
-	                                    </div>
-	                                </div>
-	                            </div>
-	                       
-	                            <div class="postbox rss-postbox">
-	    							<div class="handlediv" title="Click to toggle"><br></div>
-	    								<h3 class="hndle"><span><i class="fa fa-wordpress"></i>&nbsp;&nbsp;dgc Blog</span></h3>
-	    								<div class="inside">
-											<div class="rss-widget">
-												<?php
-	    											wp_widget_rss_output(array(
-	    													'url' => 'https://dgc.network/feed/',
-	    													'title' => 'dgc Blog',
-	    													'items' => 3,
-	    													'show_summary' => 0,
-	    													'show_author' => 0,
-	    													'show_date' => 1,
-	    											));
-	    										?>
-	    									</div>
-	    								</div>
-	    						</div>
-
-	                        </div>
-	                    </div>
-                    </div>
+		<div id="poststuff">
+			<div id="post-body" class="metabox-holder columns-2">
+				<div id="post-body-content">
+					<table class="form-table">
+						<?php $this->generate_settings_html();?>
+					</table><!--/.form-table-->
 				</div>
-				<div class="clear"></div>
-				<style type="text/css">
-				.dgc_button{
-					background-color:#4CAF50 !important;
-					border-color:#4CAF50 !important;
-					color:#ffffff !important;
-					width:100%;
-					padding:5px !important;
-					text-align:center;
-					height:35px !important;
-					font-size:12pt !important;
-				}
-				</style>
-				<?php
+				<div id="postbox-container-1" class="postbox-container">
+					<div id="side-sortables" class="meta-box-sortables ui-sortable"> 	                           
+     					<div class="postbox ">
+	                    	<div class="handlediv" title="Click to toggle"><br></div>
+	                    	<h3 class="hndle"><span><i class="dashicons dashicons-update"></i>&nbsp;&nbsp;Upgrade to Pro</span></h3>
+	                    	<div class="inside">
+	                        	<div class="support-widget">
+	                            	<ul>
+	                                	<li>» Full Form Builder</li>
+	                                	<li>» Custom Gateway Icon</li>
+	                                	<li>» Order Status After Checkout</li>
+	                                	<li>» Custom API Requests</li>
+	                                	<li>» Debugging Mode</li>
+	                                	<li>» Auto Hassle-Free Updates</li>
+	                                	<li>» High Priority Customer Support</li>
+	                            	</ul>
+									<a href="https://dgc.network/plugin/text-domain-pro/" class="button dgc_button" target="_blank"><span class="dashicons dashicons-star-filled"></span> Upgrade Now</a> 
+	                        	</div>
+	                    	</div>
+	                	</div>
+	                	<div class="postbox ">
+	                    	<div class="handlediv" title="Click to toggle"><br></div>
+	                    	<h3 class="hndle"><span><i class="dashicons dashicons-editor-help"></i>&nbsp;&nbsp;Plugin Support</span></h3>
+	                    	<div class="inside">
+	                        	<div class="support-widget">
+	                            	<p>
+	                            	<img style="width: 70%;margin: 0 auto;position: relative;display: inherit;" src="https://dgc.network/wp-content/uploads/2016/03/dgc_logo_with_ruby_color-300x88.png">
+	                            	<br/>
+	                            	Got a Question, Idea, Problem or Praise?</p>
+	                            	<ul>
+										<li>» Please leave us a <a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/text-domain?filter=5#postform">★★★★★</a> rating.</li>
+	                                	<li>» <a href="https://dgc.network/submit-ticket/" target="_blank">Support Request</a></li>
+	                                	<li>» <a href="https://dgc.network/knowledgebase_category/text-domain-pro/" target="_blank">Documentation and Common issues.</a></li>
+	                                	<li>» <a href="https://dgc.network/plugins/" target="_blank">Our Plugins Shop</a></li>
+	                            	</ul>
+	                        	</div>
+	                    	</div>
+	                	</div>	                       
+	                	<div class="postbox rss-postbox">
+	    					<div class="handlediv" title="Click to toggle"><br></div>
+	    					<h3 class="hndle"><span><i class="fa fa-wordpress"></i>&nbsp;&nbsp;dgc Blog</span></h3>
+	    					<div class="inside">
+								<div class="rss-widget">
+									<?php
+	    								wp_widget_rss_output(array(
+	    									'url' => 'https://dgc.network/feed/',
+	    									'title' => 'dgc Blog',
+	    									'items' => 3,
+	    									'show_summary' => 0,
+	    									'show_author' => 0,
+	    									'show_date' => 1,
+	    								));
+	    							?>
+	    						</div>
+	    					</div>
+						</div>
+	    			</div>
+	            </div>
+	        </div>
+        </div>
+		<div class="clear"></div>
+		<style type="text/css">
+			.dgc_button{
+				background-color:#4CAF50 !important;
+				border-color:#4CAF50 !important;
+				color:#ffffff !important;
+				width:100%;
+				padding:5px !important;
+				text-align:center;
+				height:35px !important;
+				font-size:12pt !important;
+			}
+		</style>
+		<?php
 	}
 
 	public function process_payment( $order_id ) {

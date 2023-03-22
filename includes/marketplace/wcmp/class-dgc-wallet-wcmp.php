@@ -44,7 +44,7 @@ if ( ! class_exists( 'dgc_Wallet_WCMp' ) ) {
         }
 
         public function add_wcmp_payment_payment_gateway( $load_gateways ) {
-            $load_gateways[] = 'WCMp_Gateway_Payment';
+            $load_gateways[] = 'dgc_WCMp_Payment_Gateway';
             return $load_gateways;
         }
 

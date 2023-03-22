@@ -4,9 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gateway' ) ) {
+if ( ! class_exists( 'dgc_WCMp_Payment_Gateway' ) && class_exists( 'WCMp_Payment_Gateway' ) ) {
 
-    class WCMp_Gateway_Payment extends WCMp_Payment_Gateway {
+    class dgc_WCMp_Payment_Gateway extends WCMp_Payment_Gateway {
 
         public $id;
         public $message = array();
@@ -26,7 +26,11 @@ if ( ! class_exists( 'WCMp_Gateway_Payment' ) && class_exists( 'WCMp_Payment_Gat
                 if ( $this->process_wallet_payment() ) {
                     $this->record_transaction();
                     if ( $this->transaction_id ) {
-                        return array( 'message' => __( 'New transaction has been initiated', 'text-domain' ), 'type' => 'success', 'transaction_id' => $this->transaction_id );
+                        return array( 
+                            'message' => __( 'New transaction has been initiated', 'text-domain' ), 
+                            'type' => 'success', 
+                            'transaction_id' => $this->transaction_id 
+                        );
                     }
                 } else {
                     return $this->message;
