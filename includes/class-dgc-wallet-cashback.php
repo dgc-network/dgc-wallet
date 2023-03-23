@@ -4,9 +4,9 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-if (!class_exists('dgc_Wallet_Cashback')) {
+if (!class_exists('dgc_wallet_Cashback')) {
 
-    class dgc_Wallet_Cashback {
+    class dgc_wallet_Cashback {
 
         /**
          * Cashback rule (cart wise, product wise, product category wise)
@@ -278,5 +278,5 @@ if (!class_exists('dgc_Wallet_Cashback')) {
         }
 
     }
-    //new dgc_Wallet_Cashback();
+    //new dgc_wallet_Cashback();
 }

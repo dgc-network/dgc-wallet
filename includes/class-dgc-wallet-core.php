@@ -4,9 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
+if ( ! class_exists( 'dgc_wallet_Core' ) ) {
 
-    class dgc_Wallet_Core {
+    class dgc_wallet_Core {
 
         private $json_rpc;
 
@@ -273,7 +273,7 @@ if ( ! class_exists( 'dgc_Wallet_Core' ) ) {
                 update_user_meta($this->user_id, $this->meta_key, $balance);
                 clear_dgc_wallet_cache( $this->user_id );
                 do_action( 'dgc_wallet_transaction_recorded', $transaction_id, $this->user_id, $amount, $type);
-                $email_admin = WC()->mailer()->emails['dgc_Wallet_Email_New_Transaction'];
+                $email_admin = WC()->mailer()->emails['dgc_wallet_Email_New_Transaction'];
                 $email_admin->trigger( $transaction_id );
                 return $transaction_id;
             }

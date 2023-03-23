@@ -2,14 +2,14 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
-if (!class_exists('dgc_Wallet_Frontend')) {
+if (!class_exists('dgc_wallet_Frontend')) {
 
-    class dgc_Wallet_Frontend {
+    class dgc_wallet_Frontend {
 
         /**
          * The single instance of the class.
          *
-         * @var dgc_Wallet_Frontend
+         * @var dgc_wallet_Frontend
          * @since 1.1.10
          */
         protected static $_instance = null;
@@ -652,7 +652,7 @@ if (!class_exists('dgc_Wallet_Frontend')) {
          * @return string
          */
         public static function dgc_wallet_shortcode_callback($atts) {
-            return self::shortcode_wrapper(array('dgc_Wallet_Frontend', 'dgc_wallet_shortcode_output'), $atts);
+            return self::shortcode_wrapper(array('dgc_wallet_Frontend', 'dgc_wallet_shortcode_output'), $atts);
         }
 
         /**
@@ -704,4 +704,4 @@ if (!class_exists('dgc_Wallet_Frontend')) {
     }
 
 }
-dgc_Wallet_Frontend::instance();
+dgc_wallet_Frontend::instance();

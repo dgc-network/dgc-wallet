@@ -1,10 +1,10 @@
 <?php
 
 /**
- * dgc_Wallet top-up widget
+ * dgc_wallet top-up widget
  * @since 1.3.0
  */
-class dgc_Wallet_Topup extends WP_Widget {
+class dgc_wallet_Topup extends WP_Widget {
 
     /**
      * Sets up a new top-up widget instance.

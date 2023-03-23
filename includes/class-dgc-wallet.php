@@ -4,42 +4,42 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-final class dgc_Wallet {
+final class dgc_wallet {
     /**
      * The single instance of the class.
      *
-     * @var dgc_Wallet
+     * @var dgc_wallet
      * @since 1.0.0
      */
     protected static $_instance = null;
 
     /**
      * Setting API instance
-     * @var dgc_Wallet_Settings_API 
+     * @var dgc_wallet_Settings_API 
      */
     public $settings_api = null;
 
     /**
      * Wallet instance.
-     * @var dgc_Wallet_Core 
+     * @var dgc_wallet_Core 
      */
     public $wallet_core = null;
 
     /**
      * Wallet instance.
-     * @var dgc_Wallet_Admin
+     * @var dgc_wallet_Admin
      */
     public $wallet_admin = null;
 
     /**
      * Cashback instance.
-     * @var dgc_Wallet_Cashback 
+     * @var dgc_wallet_Cashback 
      */
     public $cashback = null;
 
     /**
      * REST API
-     * @var dgc_Wallet_API 
+     * @var dgc_wallet_API 
      */
     public $rest_api = null;
 
@@ -58,7 +58,7 @@ final class dgc_Wallet {
      * Class constructor
      */
     public function __construct() {
-        if ( dgc_Wallet_Dependencies::is_woocommerce_active() ) {
+        if ( dgc_wallet_Dependencies::is_woocommerce_active() ) {
             $this->define_constants();
             $this->includes();
             $this->init_hooks();
@@ -116,13 +116,13 @@ final class dgc_Wallet {
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-install.php' );
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-settings-api.php' );
-        $this->settings_api = new dgc_Wallet_Settings_API();
+        $this->settings_api = new dgc_wallet_Settings_API();
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-core.php' );
-        $this->wallet_core = new dgc_Wallet_Core();
+        $this->wallet_core = new dgc_wallet_Core();
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-cashback.php' );
-        $this->cashback = new dgc_Wallet_Cashback();
+        $this->cashback = new dgc_wallet_Cashback();
         
         include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-widgets.php' );
         
@@ -130,7 +130,7 @@ final class dgc_Wallet {
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-settings.php' );
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-extensions.php' );
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-admin.php' );
-            //$this->wallet_admin = new dgc_Wallet_Admin();
+            //$this->wallet_admin = new dgc_wallet_Admin();
         }
         if ( $this->is_request( 'frontend' ) ) {
             include_once( DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-frontend.php' );
@@ -152,7 +152,7 @@ final class dgc_Wallet {
      * Plugin init
      */
     private function init_hooks() {
-        register_activation_hook(DGC_WALLET_PLUGIN_FILE, array( 'dgc_Wallet_Install', 'install' ) );
+        register_activation_hook(DGC_WALLET_PLUGIN_FILE, array( 'dgc_wallet_Install', 'install' ) );
         add_filter( 'plugin_action_links_' . plugin_basename(DGC_WALLET_PLUGIN_FILE), array( $this, 'plugin_action_links' ) );
         add_action( 'init', array( $this, 'init' ), 5);
         add_action( 'widgets_init', array($this, 'dgc_wallet_widget_init') );
@@ -225,10 +225,10 @@ final class dgc_Wallet {
     }
 
     /**
-     * dgc_Wallet init widget
+     * dgc_wallet init widget
      */
     public function dgc_wallet_widget_init(){
-        register_widget('dgc_Wallet_Topup');
+        register_widget('dgc_wallet_Topup');
     }
 
     /**
@@ -238,7 +238,7 @@ final class dgc_Wallet {
         include_once DGC_WALLET_ABSPATH . 'includes/abstracts/abstract-dgc-wallet-actions.php';
         require_once DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-actions.php';
         include_once DGC_WALLET_ABSPATH . 'includes/class-dgc-wallet-api.php';
-        $this->rest_api = new dgc_Wallet_API();
+        $this->rest_api = new dgc_wallet_API();
     }
 
     /**
@@ -246,7 +246,7 @@ final class dgc_Wallet {
      */
     public function rest_api_init() {
         include_once( DGC_WALLET_ABSPATH . 'includes/api/class-wp-rest-dgc-wallet-controller.php' );
-        $rest_controller = new WP_REST_dgc_Wallet_Controller();
+        $rest_controller = new WP_REST_dgc_wallet_Controller();
         $rest_controller->register_routes();
     }
 
@@ -281,8 +281,8 @@ final class dgc_Wallet {
      * @return array
      */
     public function load_gateway( $load_gateways ) {
-        $load_gateways[] = 'dgc_Wallet_Method';
-        //$load_gateways[] = 'dgc_Wallet_Gateway';
+        $load_gateways[] = 'dgc_wallet_Payment_Method';
+        //$load_gateways[] = 'dgc_wallet_Payment_Gateway';
         return $load_gateways;
     }
 
@@ -292,7 +292,7 @@ final class dgc_Wallet {
      * @return array
      */
     public function woocommerce_email_classes( $emails ) {
-        $emails['dgc_Wallet_Email_New_Transaction'] = include DGC_WALLET_ABSPATH . 'includes/emails/class-dgc-wallet-email-new-transaction.php';
+        $emails['dgc_wallet_Email_New_Transaction'] = include DGC_WALLET_ABSPATH . 'includes/emails/class-dgc-wallet-email-new-transaction.php';
         return $emails;
     }
 

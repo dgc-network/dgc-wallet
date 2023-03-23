@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
 "Last-Translator: dgc.network<admin@dgc.network>\n"
-"Language-Team: dgc_Wallet <admin@dgc.network>\n"
+"Language-Team: dgc_wallet <admin@dgc.network>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: includes/abstracts/abstract-dgc-wallet-actions.php:68

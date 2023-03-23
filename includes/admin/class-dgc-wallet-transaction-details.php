@@ -4,7 +4,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-class dgc_Wallet_Transaction_Details extends WP_List_Table {
+class dgc_wallet_Transaction_Details extends WP_List_Table {
 
     /**
      * Total number of found users for the current query

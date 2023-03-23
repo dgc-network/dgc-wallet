@@ -4,7 +4,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-class dgc_Wallet_Balance_Details extends WP_List_Table {
+class dgc_wallet_Balance_Details extends WP_List_Table {
 
     public function __construct() {
         parent::__construct( array(

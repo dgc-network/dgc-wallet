@@ -20,7 +20,7 @@ if (!class_exists('dgc_WCFMmp_Payment_Gateway') && class_exists('WCFMmp_Abstract
         private $reciver_email;
 
         public function __construct() {
-            $this->id = dgc_Wallet_WCFMMP::$gateway_slug;
+            $this->id = dgc_wallet_WCFMMP::$gateway_slug;
             $this->gateway_title = __('Payment', 'text-domain');
             $this->payment_gateway = $this->id;
         }

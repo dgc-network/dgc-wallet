@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-abstract class dgc_Wallet_Action extends WC_Settings_API {
+abstract class dgc_wallet_Action extends WC_Settings_API {
 
     /**
      * Yes or no based on whether the method is enabled.

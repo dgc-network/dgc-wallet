@@ -3,9 +3,9 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
-if (!class_exists('dgc_Wallet_Dependencies')) {
+if (!class_exists('dgc_wallet_Dependencies')) {
 
-    class dgc_Wallet_Dependencies {
+    class dgc_wallet_Dependencies {
 
         private static $active_plugins;
 

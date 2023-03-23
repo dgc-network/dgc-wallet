@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-class Action_Daily_Visits extends dgc_Wallet_Action {
+class Action_Daily_Visits extends dgc_wallet_Action {
 
     public function __construct() {
         $this->id = 'daily_visits';

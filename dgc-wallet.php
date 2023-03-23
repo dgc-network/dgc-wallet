@@ -47,19 +47,19 @@ function action_wallets_declare_adapters() {
 /*
  * Include dependencies file.
  */
-if ( ! class_exists( 'dgc_Wallet_Dependencies' ) ){
+if ( ! class_exists( 'dgc_wallet_Dependencies' ) ){
     include_once dirname( __FILE__ ) . '/includes/class-dgc-wallet-dependencies.php';
 }
 
 /*
  * Include the main class.
  */
-if ( ! class_exists( 'dgc_Wallet' ) ) {
+if ( ! class_exists( 'dgc_wallet' ) ) {
     include_once dirname( __FILE__ ) . '/includes/class-dgc-wallet.php';
 }
 
 function dgc_wallet(){
-    return dgc_Wallet::instance();
+    return dgc_wallet::instance();
 }
 
 $GLOBALS['dgc-wallet'] = dgc_wallet();

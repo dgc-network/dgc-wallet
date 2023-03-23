@@ -5,9 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * dgc_Wallet_Install Class
+ * dgc_wallet_Install Class
  */
-class dgc_Wallet_Install {
+class dgc_wallet_Install {
 
     private static $db_updates = array(
         //'1.0.0' => array(
@@ -288,4 +288,4 @@ class dgc_Wallet_Install {
 
 }
 
-new dgc_Wallet_Install();
+new dgc_wallet_Install();

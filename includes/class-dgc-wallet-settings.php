@@ -5,9 +5,9 @@
  *
  * @author dgc.network
  */
-if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
+if ( ! class_exists( 'dgc_wallet_Settings' ) ):
 
-    class dgc_Wallet_Settings {
+    class dgc_wallet_Settings {
         /* setting api object */
 
         private $settings_api;
@@ -522,4 +522,4 @@ if ( ! class_exists( 'dgc_Wallet_Settings' ) ):
 
 endif;
 
-new dgc_Wallet_Settings(dgc_wallet()->settings_api);
+new dgc_wallet_Settings(dgc_wallet()->settings_api);

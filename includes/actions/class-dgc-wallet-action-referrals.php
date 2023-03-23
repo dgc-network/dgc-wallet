@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-class Action_Referrals extends dgc_Wallet_Action {
+class Action_Referrals extends dgc_wallet_Action {
 
     /**
      * Referral base.

@@ -3,14 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-if ( ! class_exists( 'dgc_Wallet_Dokan' ) ) {
+if ( ! class_exists( 'dgc_wallet_Dokan' ) ) {
 
-    class dgc_Wallet_Dokan {
+    class dgc_wallet_Dokan {
 
         /**
          * The single instance of the class.
          *
-         * @var dgc_Wallet_Dokan
+         * @var dgc_wallet_Dokan
          * @since 1.1.10
          */
         protected static $_instance = null;
@@ -274,4 +274,4 @@ if ( ! class_exists( 'dgc_Wallet_Dokan' ) ) {
     }
 
 }
-dgc_Wallet_Dokan::instance();
+dgc_wallet_Dokan::instance();

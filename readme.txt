@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 A powerful, extendable dgcWallet for WooCommerce system which support payment, partial payment, cashback reward program as well as refund for your WooCommerce store.
 
 == Description ==
-> We are pleased to inform you that we have changed the plugin name, dgc_Wallet is now dgcWallet.
+> We are pleased to inform you that we have changed the plugin name, dgc_wallet is now dgcWallet.
 
 dgcWallet allows customers to store their money in a digital payment. The customers can use the payment money for purchasing products from the store. The customers can add money to their payment using various payment methods set by the admin. The admin can set cashback rules according to cart price or product. The customers will receive their cashback amount in their payment account. The admin can process refund to customer payment.
 
@@ -46,7 +46,7 @@ With this extension, the customers won't have to fill in the payment details eve
 
 = Workflow of dgcWallet =
 After the plugin installation, the admin needs to do the payment method configuration. Set the title and select allowed payments for adding money.
-Now for enable cashback rules, navigate to dgc_Wallet > Settings >  Credit. Now setup cashback rule according to your requirement. If cashback rule set to product wise then admin will have an option to add cashback rule for each product.
+Now for enable cashback rules, navigate to dgc_wallet > Settings >  Credit. Now setup cashback rule according to your requirement. If cashback rule set to product wise then admin will have an option to add cashback rule for each product.
 On the front-end, the customers can log in to the store and go to payment page from My Account. Enter the amount to add and then complete the checkout process just like any other product purchase.
 
 = Premium extensions =

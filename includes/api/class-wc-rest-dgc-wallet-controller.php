@@ -1,7 +1,7 @@
 <?php
 
 /**
- * REST API dgc_Wallet controller
+ * REST API dgc_wallet controller
  *
  * Handles requests to the /payment endpoint.
  *
@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * REST API dgc_Wallet controller class.
+ * REST API dgc_wallet controller class.
  *
  * @extends WC_REST_Controller
  */
-class WC_REST_dgc_Wallet_Controller extends WC_REST_Controller {
+class WC_REST_dgc_wallet_Controller extends WC_REST_Controller {
 
     /**
      * Endpoint namespace.

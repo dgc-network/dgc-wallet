@@ -4,9 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-if ( ! class_exists( 'dgc_Wallet_Email_New_Transaction' ) ) {
+if ( ! class_exists( 'dgc_wallet_Email_New_Transaction' ) ) {
 
-    class dgc_Wallet_Email_New_Transaction extends WC_Email {
+    class dgc_wallet_Email_New_Transaction extends WC_Email {
         public $transaction_id;
         public $type;
         public $amount = 0;
@@ -161,4 +161,4 @@ if ( ! class_exists( 'dgc_Wallet_Email_New_Transaction' ) ) {
 
 }
 
-return new dgc_Wallet_Email_New_Transaction();
+return new dgc_wallet_Email_New_Transaction();

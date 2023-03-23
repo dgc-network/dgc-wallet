@@ -195,7 +195,7 @@ if ( ! function_exists( 'get_rechargeable_product' ) ) {
      * @return WC_Product object
      */
     function get_rechargeable_product() {
-        dgc_Wallet_Install::cteate_product_if_not_exist();
+        dgc_wallet_Install::cteate_product_if_not_exist();
         return wc_get_product(apply_filters( 'dgc_wallet_rechargeable_product_id', get_option( '_dgc_wallet_recharge_product' ) ) );
     }
 
@@ -518,7 +518,7 @@ if ( ! function_exists( 'get_total_order_cashback_amount' ) ) {
 
 if (!function_exists('dgc_wallet_persistent_cart_update')) {
     /**
-     * Update dgc_Wallet persistent cart to restore cart after recharge payment.
+     * Update dgc_wallet persistent cart to restore cart after recharge payment.
      */
     function dgc_wallet_persistent_cart_update() {
         if (get_current_user_id() && apply_filters('dgc_wallet_persistent_cart_enabled', true)) {
@@ -533,7 +533,7 @@ if (!function_exists('dgc_wallet_persistent_cart_update')) {
 
 if (!function_exists('dgc_wallet_persistent_cart_destroy')) {
     /**
-     * Delete dgc_Wallet persistent cart after restoring WooCommerce cart.
+     * Delete dgc_wallet persistent cart after restoring WooCommerce cart.
      */
     function dgc_wallet_persistent_cart_destroy() {
         if (get_current_user_id()) {
@@ -545,7 +545,7 @@ if (!function_exists('dgc_wallet_persistent_cart_destroy')) {
 
 if (!function_exists('dgc_wallet_get_saved_cart')) {
     /**
-     * Get saved dgc_Wallet cart items.
+     * Get saved dgc_wallet cart items.
      * @return array
      */
     function dgc_wallet_get_saved_cart() {

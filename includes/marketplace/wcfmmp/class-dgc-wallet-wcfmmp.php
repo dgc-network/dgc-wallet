@@ -4,14 +4,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-if (!class_exists('dgc_Wallet_WCFMMP')) {
+if (!class_exists('dgc_wallet_WCFMMP')) {
 
-    class dgc_Wallet_WCFMMP {
+    class dgc_wallet_WCFMMP {
 
         /**
          * The single instance of the class.
          *
-         * @var dgc_Wallet_WCFMMP
+         * @var dgc_wallet_WCFMMP
          * @since 1.2.9
          */
         protected static $_instance = null;
@@ -62,5 +62,5 @@ if (!class_exists('dgc_Wallet_WCFMMP')) {
 
 }
 
-dgc_Wallet_WCFMMP::instance();
+dgc_wallet_WCFMMP::instance();
 

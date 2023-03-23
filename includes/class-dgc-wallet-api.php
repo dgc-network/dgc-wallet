@@ -1,6 +1,6 @@
 <?php
 /**
- * dgc_Wallet REST API
+ * dgc_wallet REST API
  * 
  * @author dgc.network <admin@dgc.network>
  * @since 1.2.5
@@ -8,9 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
-if ( ! class_exists( 'dgc_Wallet_API' ) ) {
+if ( ! class_exists( 'dgc_wallet_API' ) ) {
 
-    class dgc_Wallet_API {
+    class dgc_wallet_API {
 
         public function __construct() {
             // WP REST API.
@@ -50,7 +50,7 @@ if ( ! class_exists( 'dgc_Wallet_API' ) ) {
             $this->rest_api_includes();
             $controllers = array(
                 // v2 controllers.
-                'WC_REST_dgc_Wallet_Controller'
+                'WC_REST_dgc_wallet_Controller'
             );
             foreach ( $controllers as $controller) {
                 $dgc_wallet_api = new $controller();

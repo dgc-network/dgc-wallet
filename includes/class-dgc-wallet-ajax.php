@@ -3,14 +3,14 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
-if ( ! class_exists( 'dgc_Wallet_Ajax' ) ) {
+if ( ! class_exists( 'dgc_wallet_Ajax' ) ) {
 
-    class dgc_Wallet_Ajax {
+    class dgc_wallet_Ajax {
 
         /**
          * The single instance of the class.
          *
-         * @var dgc_Wallet_Ajax
+         * @var dgc_wallet_Ajax
          * @since 1.1.10
          */
         protected static $_instance = null;
@@ -210,4 +210,4 @@ if ( ! class_exists( 'dgc_Wallet_Ajax' ) ) {
     }
 
 }
-dgc_Wallet_Ajax::instance();
+dgc_wallet_Ajax::instance();

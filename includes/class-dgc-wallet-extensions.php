@@ -5,9 +5,9 @@
  *
  * @author dgc.network
  */
-if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
+if ( ! class_exists( 'dgc_wallet_Extensions_Settings' ) ):
 
-    class dgc_Wallet_Extensions_Settings {
+    class dgc_wallet_Extensions_Settings {
         /* setting api object */
 
         private $settings_api;
@@ -128,7 +128,7 @@ if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
                     <div class="addons-banner-block-items">
                         <div class="addons-banner-block-item">
                             <div class="addons-banner-block-item-icon">
-                                <img class="addons-img" src="https://res.cloudinary.com/subrata91/image/upload/v1554208810/dgc_Wallet%20Extensions/Payment-Withdrawl_01.jpg">
+                                <img class="addons-img" src="https://res.cloudinary.com/subrata91/image/upload/v1554208810/dgc_wallet%20Extensions/Payment-Withdrawl_01.jpg">
                             </div>
                             <div class="addons-banner-block-item-content">
                                 <h3>Payment Withdrawal</h3>
@@ -139,7 +139,7 @@ if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
                         </div>
                         <div class="addons-banner-block-item">
                             <div class="addons-banner-block-item-icon">
-                                <img class="addons-img" src="https://res.cloudinary.com/subrata91/image/upload/v1554208810/dgc_Wallet%20Extensions/Payment-Importer_01.jpg">
+                                <img class="addons-img" src="https://res.cloudinary.com/subrata91/image/upload/v1554208810/dgc_wallet%20Extensions/Payment-Importer_01.jpg">
                             </div>
                             <div class="addons-banner-block-item-content">
                                 <h3>Payment Importer</h3>
@@ -150,7 +150,7 @@ if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
                         </div>
                         <div class="addons-banner-block-item">
                             <div class="addons-banner-block-item-icon">
-                                <img class="addons-img" src="https://res.cloudinary.com/subrata91/image/upload/v1554208812/dgc_Wallet%20Extensions/dgc_wallet-coupons.png">
+                                <img class="addons-img" src="https://res.cloudinary.com/subrata91/image/upload/v1554208812/dgc_wallet%20Extensions/dgc_wallet-coupons.png">
                             </div>
                             <div class="addons-banner-block-item-content">
                                 <h3>Payment Coupons</h3>
@@ -167,7 +167,7 @@ if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
                             <h1>Integrate with third party add-ons.</h1>
                             <div class="addons-column-block-item">
                                 <div class="addons-column-block-item-icon">
-                                    <img class="addons-img" src="https://res.cloudinary.com/subrata91/image/upload/v1554208814/dgc_Wallet%20Extensions/affiliatewp-dgc-wallet.png">
+                                    <img class="addons-img" src="https://res.cloudinary.com/subrata91/image/upload/v1554208814/dgc_wallet%20Extensions/affiliatewp-dgc-wallet.png">
                                 </div>
                                 <div class="addons-column-block-item-content">
                                     <h3>Payment AffiliateWP</h3>
@@ -189,4 +189,4 @@ if ( ! class_exists( 'dgc_Wallet_Extensions_Settings' ) ):
 
 endif;
 
-new dgc_Wallet_Extensions_Settings(dgc_wallet()->settings_api);
+new dgc_wallet_Extensions_Settings(dgc_wallet()->settings_api);

@@ -2,28 +2,28 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
-if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
+if ( ! class_exists( 'dgc_wallet_Admin' ) ) {
 
-    class dgc_Wallet_Admin {
+    class dgc_wallet_Admin {
 
         /**
          * The single instance of the class.
          *
-         * @var dgc_Wallet_Admin
+         * @var dgc_wallet_Admin
          * @since 1.1.10
          */
         protected static $_instance = null;
         public $qrcode_address;
 
         /**
-         * dgc_Wallet_Transaction_Details Class Object
-         * @var dgc_Wallet_Transaction_Details 
+         * dgc_wallet_Transaction_Details Class Object
+         * @var dgc_wallet_Transaction_Details 
          */
         public $transaction_details_table = NULL;
 
         /**
-         * dgc_Wallet_Balance_Details Class Object
-         * @var dgc_Wallet_Balance_Details 
+         * dgc_wallet_Balance_Details Class Object
+         * @var dgc_wallet_Balance_Details 
          */
         public $balance_details_table = NULL;
 
@@ -116,7 +116,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          */
         public function plugin_actions_page() {
             $screen = get_current_screen();
-            $wallet_actions = new dgc_Wallet_Actions();
+            $wallet_actions = new dgc_wallet_Actions();
             //if ( in_array($screen->id, array('dgc_wallet_page_dgc-wallet-actions', 'dgc_wallet_page_dgc-wallet-actions')) && isset( $_GET['action'] ) && isset( $wallet_actions->actions[$_GET['action']] ) ) {
             if ( in_array($screen->id, array('dgc_wallet_page_dgc-wallet-actions')) && isset( $_GET['action'] ) && isset( $wallet_actions->actions[$_GET['action']] ) ) {
                 $this->display_action_settings();
@@ -129,7 +129,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * Plugin action setting init
          */
         public function display_action_settings() {
-            $wallet_actions = dgc_Wallet_Actions::instance();
+            $wallet_actions = dgc_wallet_Actions::instance();
             ?>
             <div class="wrap woocommerce">
                 <form method="post">
@@ -147,7 +147,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
          * Plugin action setting table
          */
         public function display_actions_table() {
-            $wallet_actions = dgc_Wallet_Actions::instance();
+            $wallet_actions = dgc_wallet_Actions::instance();
             echo '<div class="wrap">';
             echo '<h2>' . __( 'Wallet actions', 'text-domain' ) . '</h2>';
             settings_errors();
@@ -362,7 +362,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             );
             add_screen_option( $option, $args );
             include_once( DGC_WALLET_ABSPATH . 'includes/admin/class-dgc-wallet-balance-details.php' );
-            $this->balance_details_table = new dgc_Wallet_Balance_Details();
+            $this->balance_details_table = new dgc_wallet_Balance_Details();
             $this->balance_details_table->prepare_items();
         }
 
@@ -412,7 +412,7 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
             );
             add_screen_option( $option, $args );
             include_once( DGC_WALLET_ABSPATH . 'includes/admin/class-dgc-wallet-transaction-details.php' );
-            $this->transaction_details_table = new dgc_Wallet_Transaction_Details();
+            $this->transaction_details_table = new dgc_wallet_Transaction_Details();
             $this->transaction_details_table->prepare_items();
         }
 
@@ -919,4 +919,4 @@ if ( ! class_exists( 'dgc_Wallet_Admin' ) ) {
     }
 
 }
-dgc_Wallet_Admin::instance();
+dgc_wallet_Admin::instance();

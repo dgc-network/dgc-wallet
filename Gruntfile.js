@@ -136,7 +136,7 @@ module.exports = function (grunt) {
                 domainPath: 'languages',
                 potHeaders: {
                     'report-msgid-bugs-to': 'https://github.com/dgc-network/dgc-wallet/issues',
-                    'language-team': 'dgc_Wallet <admin@dgc.network>',
+                    'language-team': 'dgc_wallet <admin@dgc.network>',
                     'last-translator': 'dgc.network<admin@dgc.network>'
                 }
             },

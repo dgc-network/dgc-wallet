@@ -179,7 +179,7 @@ if ( ! class_exists( 'dgc_REST_API' ) ) {
             $this->rest_api_includes();
             $controllers = array(
                 // v2 controllers.
-                'WC_REST_dgc_Wallet_Controller'
+                'WC_REST_dgc_wallet_Controller'
             );
             foreach ( $controllers as $controller) {
                 $dgc_wallet_api = new $controller();

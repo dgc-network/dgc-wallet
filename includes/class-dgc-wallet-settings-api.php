@@ -6,9 +6,9 @@
  *
  * @author dgc.network
  */
-if ( ! class_exists( 'dgc_Wallet_Settings_API' ) ):
+if ( ! class_exists( 'dgc_wallet_Settings_API' ) ):
 
-    class dgc_Wallet_Settings_API {
+    class dgc_wallet_Settings_API {
 
         /**
          * settings sections array
